@@ -10,7 +10,7 @@
 | D4 | Alerting & Incident Severity Policy | Enterprise policy for severities, routing, escalation, action model |
 | D5 | Grafana Platform Standard & Visualization Playbook | Dashboard, visualization, and Grafana operating standards |
 | D6 | AIOps Guardrails & Implementation Playbook | AI-driven RCA/ticketing guardrails, interpretation, operations workflow |
-| D7 | IaC for Observability Standard (OpenTelemetry + Pulumi) | IaC patterns, controls, deployment model, and platform KPIs |
+| D7 | IaC for Observability Standard (PowerShell + Docker Compose) | IaC patterns, controls, deployment model, and platform KPIs |
 | D8 | Observability Data Governance & Retention Policy | Data lifecycle, retention tiers, governance controls, ownership |
 | D9 | Observability FinOps Standard | Cost lifecycle, optimization model, value tracking |
 | D10 | Compliance & Audit Control Matrix | SOC2/ISO/GDPR mapped controls and evidence requirements |

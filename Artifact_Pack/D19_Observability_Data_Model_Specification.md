@@ -26,7 +26,7 @@ Together these form **full-stack observability**.
 | Entity | Description | Key Attributes |
 |---|---|---|
 | Service | A deployable unit emitting telemetry | `service.name`, `service.version`, `env`, `cloud`, `region` |
-| Instance | Running replica of a service | `instance.id`, `host`, `pod`, `node`, `zone` |
+| Instance | Running container of a service | `instance.id`, `host`, `container.id`, `container.name` |
 | Dependency | External or internal target a service calls | `dependency.name`, `dependency.kind` (db / cache / http / queue) |
 | User Session | Authenticated user session (tokenised) | `user.session.id` (hashed), `tenant_class` |
 | Transaction | End-to-end user action (root span) | `transaction.name`, `journey.name`, `correlation.id` |

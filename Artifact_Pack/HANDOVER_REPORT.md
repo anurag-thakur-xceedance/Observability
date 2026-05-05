@@ -76,7 +76,7 @@ The following items are **content depth follow-ups** rather than missing extract
 
 | # | Decision | Owner | Notes |
 |---|---|---|---|
-| 1 | Ratify ADRs for OpenTelemetry, Grafana, Prometheus/Loki/Tempo, Pulumi, multi-cloud, retention tiers, AIOps guardrails | Governance Body / ARB | Strategy uses these as implicit choices ("Pulumi *might* be the language of choice"). D16 §2 lists seven candidates. |
+| 1 | Ratify ADRs for OpenTelemetry, Grafana, Prometheus/Loki/Tempo, **PowerShell + Docker Compose (replaces Pulumi/K8s)**, **host-portable deployment (replaces multi-cloud AKS/EKS/GKE)**, retention tiers, AIOps guardrails | Governance Body / ARB | D16 §2 lists seven candidates; ADR-004 and ADR-005 revised to reflect the Compose + PowerShell direction. |
 | 2 | Architecture Governance review status — currently **Not Seen** for ARB / Exception Panel / SDG / Change Board | Governance Body | Schedule reviews; capture decisions in D16. |
 | 3 | Source `Decision Log` table is empty — confirm no decisions exist yet, or supply backlog | Document author (A. Thakur) | Affects D16 baseline. |
 | 4 | D10 control framework selection (SOC2 vs ISO 27001 vs both) and mandatory regulations (GDPR scope, financial-services rules) | Compliance / Legal | Drives D10 evidence requirements. |

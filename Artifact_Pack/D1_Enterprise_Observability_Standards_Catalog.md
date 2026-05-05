@@ -34,9 +34,9 @@ Telemetry is standardised so that systems generate consistent information, enabl
 | Memory Pressure | % | < 40% | 40–75% | > 85% sustained | Sustained high usage may cause OOM kills |
 | Disk I/O Latency | ms | < 5 ms | 5–15 ms | > 20 ms, stalls | Keep < 10 ms for production |
 | Container Restart Count | count/hour | 0 | 0–1 occasional | > 2/hour or repeating | > 2/hour suggests memory leak/config |
-| Node Failures | count/week | 0 | 0–1 transient | > 1/day | Monitor MTBF |
-| Cluster Scaling Events | count/day | 0–1 | 1–5 | > 10/day | Frequent flapping → review thresholds |
-| Pod Scheduling Delay | seconds | < 1 s | 1–5 s | > 10 s | Long delays indicate resource scarcity |
+| Host Failures | count/week | 0 | 0–1 transient | > 1/day | Monitor host MTBF |
+| Service Restart Events (Compose) | count/day | 0–1 | 1–5 | > 10/day | Frequent restarts → review healthchecks / config |
+| Container Start Time | seconds | < 5 s | 5–15 s | > 30 s | Long start times slow recovery and updates |
 
 ## 5. Application Telemetry Standards (Pre-Login)
 
@@ -73,7 +73,7 @@ Telemetry is standardised so that systems generate consistent information, enabl
 | Packet Drops | < 0.1% | 0.1–0.5% ≥ 5 min | > 0.5% ≥ 2 min or spikes > 1% | Investigate route saturation |
 | Cross-Service Latency (P95) | < 50 ms | 50–100 ms ≥ 5 min | > 100 ms sustained or > 200 ms spike | Intra-region < 100 ms; cross-region < 200 ms |
 | DNS Failures | < 0.1% | 0.1–0.5% ≥ 5 min | > 1% ≥ 2 min or resolver outage | Caching/propagation/resolver health |
-| Service Mesh Errors | < 0.2% | 0.2–1% ≥ 5 min | > 1% ≥ 2 min or control-plane outage | App + mesh layer reliability |
+| Inter-Service Errors | < 0.2% | 0.2–1% ≥ 5 min | > 1% ≥ 2 min or backend outage | App-layer 4xx/5xx between services. Keep < 0.2%; review retries if climbing. |
 | TCP Retransmissions | < 0.5% | 0.5–1% ≥ 5 min | > 1% ≥ 2 min or > 2% spike | Congestion / packet loss |
 
 ## 9. Scaling & Performance Telemetry Standards
@@ -83,15 +83,15 @@ Telemetry is standardised so that systems generate consistent information, enabl
 | Queue Length | Scaling trigger | < 50 items avg | 50–200 ≥ 5 min | > 200 ≥ 2 min or rapid growth |
 | Request Latency | SLA monitoring | P95 < 300 ms | P95 300–800 ms ≥ 5 min | P95 > 800 ms or P99 > 1 s sustained |
 | Error Rate | Service health | < 0.1% | 0.1–1% ≥ 5 min | > 1% ≥ 2 min or > 5% spike |
-| Pod Startup Time | Scaling efficiency | < 10 s | 10–30 s | > 30 s sustained or repeated start failure |
+| Container Startup Time | Recovery efficiency | < 10 s | 10–30 s | > 30 s sustained or repeated start failure |
 | Cold Start Latency | Autoscaling tuning | < 300 ms FaaS / < 2 s container | 300–800 ms / 2–5 s | > 800 ms / > 5 s sustained |
 
 ## 10. Grafana Visualization Layer Standards
 
 | Layer | Metric | Healthy | Warning | Critical |
 |---|---|---|---|---|
-| Infra | Cluster Health | 100% Ready | < 99% > 5 min | < 97% or multi-pod loss |
-| Infra | VM Utilization | 40–70% | > 75% > 5 min | > 90% sustained / OOM |
+| Infra | Host Health (services Up) | 100% Up | < 99% > 5 min | < 97% or multi-service loss |
+| Infra | Host Utilization | 40–70% | > 75% > 5 min | > 90% sustained / OOM |
 | Infra | Network Saturation | < 60% | 60–80% > 5 min | > 80% > 2 min or drops > 0.5% |
 | Application | API Latency | < 300 ms | 300–800 ms sustained | > 800 ms > 2 min |
 | Application | Error Rates | < 0.2% | 0.2–1% > 5 min | > 1% > 2 min or > 3% spike |

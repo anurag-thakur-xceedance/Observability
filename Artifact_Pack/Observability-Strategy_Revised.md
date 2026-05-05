@@ -70,7 +70,7 @@ The strategy is regularly reassessed as the landscape evolves: data quality, ale
 [ Agentic AI ]  ← anomaly detection, RCA, enriched ticketing
 ```
 
-> **Detailed architecture, multi-cloud design, collection layers, stack components → see `D2 — Observability Reference Architecture`.**
+> **Detailed architecture, host-portable deployment design, collection layers, stack components → see `D2 — Observability Reference Architecture`.**
 
 ## 8. Domain Coverage (Pointers)
 - **Infrastructure** observability — runbook in `D3 §2`, standards in `D1 §4`.
@@ -82,8 +82,8 @@ The strategy is regularly reassessed as the landscape evolves: data quality, ale
 - **AI-driven layer** — `D6`.
 - **IaC for OpenTelemetry deployment** — `D7`.
 
-## 9. Multi-Cloud Posture (Strategy Stance)
-The same architecture deploys across **AKS / EKS / GKE** with centralized dashboards, unified telemetry schema, and cross-cloud incident visibility.
+## 9. Deployment Portability Posture (Strategy Stance)
+The same Docker Compose stack, orchestrated by PowerShell, deploys to **on-prem hosts, customer sites, and cloud VMs** with centralized dashboards, unified telemetry schema, and a single host-portable architecture.
 > **Design detail → `D2 §6`. IaC patterns → `D7`.**
 
 ## 10. Governance & Data Strategy (Intent)
@@ -107,11 +107,11 @@ Telemetry → detection → triage → diagnosis → remediation → PIR → fee
 
 ## 13. Final Architecture Summary
 
-**Observability pillars** ⊕ **OpenTelemetry as universal telemetry layer** ⊕ **Grafana ecosystem for visualization** ⊕ **Prometheus / Loki / Tempo for storage** ⊕ **Pulumi for deployment automation** ⊕ **Agentic AI for intelligent incident response**
+**Observability pillars** ⊕ **OpenTelemetry as universal telemetry layer** ⊕ **Grafana ecosystem for visualization** ⊕ **Prometheus / Loki / Tempo for storage** ⊕ **PowerShell + Docker Compose for deployment automation** ⊕ **Agentic AI for intelligent incident response**
 
 **Resulting in:**
 - Vendor-neutral observability.
-- Multi-cloud portability.
+- Host-portable deployment (on-prem / customer site / cloud VM).
 - AI-assisted incident management.
 - Full-stack telemetry coverage.
 

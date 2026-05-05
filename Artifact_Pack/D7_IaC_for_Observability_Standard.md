@@ -1,71 +1,127 @@
-# D7 — IaC for Observability Standard (OpenTelemetry + Pulumi)
+# D7 — IaC for Observability Standard (Docker Compose + PowerShell)
 
-> **Purpose:** IaC patterns, controls, deployment model, and platform KPIs for OpenTelemetry-based observability stack.
+> **Purpose:** Deployment patterns, controls, lifecycle model, and platform KPIs for the OpenTelemetry-based observability stack delivered via Docker Compose orchestrated by PowerShell scripts.
 > **Source Strategy Sections:** Infrastructure as a Code Role in OpenTelemetry Deployment; Key Metrics for Infrastructure-as-Code Role in OpenTelemetry Deployments; Implementation & Visualization Tips (IaC).
-> **Status:** Skeleton populated from Observability-Strategy.docx v0.1.
+> **Status:** Updated — replaces earlier Pulumi / Kubernetes-based standard.
 
 ---
 
 ## 1. Strategic Policy Position
-Observability deployment must be reproducible, multi-cloud portable, and measurable. **Pulumi** is the language of choice enabling Infrastructure as Code across AKS / EKS / GKE.
+Observability deployment must be **reproducible, version-controlled, host-portable, and measurable**. The selected delivery model is:
+
+- **Docker Compose** — declarative definition of the observability stack (Collector, Prometheus, Loki, Tempo, Grafana, exporters).
+- **PowerShell** — primary automation and IaC scripting layer: provisions hosts, renders configuration, brings the stack up/down, validates health, manages secrets, and emits deployment telemetry.
+
+All Compose files, PowerShell scripts, exporter configs, dashboards, alert rules, and SLO definitions are **version-controlled in Git** (GitOps-style change control).
 
 ## 2. Scope
-- Deployment of OpenTelemetry Collectors.
-- Configuration of exporters, pipelines, sampling.
-- Deployment of full observability stack (Prometheus, Grafana, Tempo, Loki).
-- Service-mesh telemetry enablement.
-- Sidecar / log-pipeline injection automation.
+- Deployment of the **OpenTelemetry Collector** as a Compose service.
+- Configuration of **exporters, pipelines, sampling, processors**.
+- Deployment of the full observability stack: **Prometheus, Loki, Tempo, Grafana** as Compose services.
+- Per-host **node / container exporters** (Node Exporter, cAdvisor, Postgres / MySQL exporters, etc.).
+- Application-side **OpenTelemetry SDK** wiring in services running on the same host or reachable over the network.
+- PowerShell-driven **provisioning, lifecycle, validation, and reporting**.
 
-## 3. IaC Implementation Patterns
-- **Same codebase across providers.** Cross-cloud config parity ≥ 95% drift target.
-- **Collector / exporter version alignment** maintained at 100% across clusters.
-- **Sidecar injection** via mutating webhooks or service-mesh integration; targeted workload coverage 95–100%.
-- **Post-deployment validation** (`helm test`, `kubectl rollout status`, Pulumi outputs) feeds success / failure counts directly into OpenTelemetry metrics exporters.
-- **GitOps-driven** changes for alert rules, dashboards, SLO definitions.
+## 3. Implementation Patterns
 
-## 4. Platform KPIs (IaC Deployment)
+### 3.1 Repository Layout (Recommended)
+```
+observability-platform/
+├─ compose/
+│  ├─ docker-compose.yml              # base stack (otelcol, prometheus, loki, tempo, grafana)
+│  ├─ docker-compose.exporters.yml    # node/cadvisor/db exporters overlay
+│  └─ env/<environment>.env           # per-env variables (no secrets)
+├─ config/
+│  ├─ otelcol/config.yaml
+│  ├─ prometheus/prometheus.yml
+│  ├─ loki/loki-config.yaml
+│  ├─ tempo/tempo.yaml
+│  └─ grafana/{provisioning,dashboards}/
+├─ scripts/
+│  ├─ Deploy-Stack.ps1
+│  ├─ Stop-Stack.ps1
+│  ├─ Test-StackHealth.ps1
+│  ├─ Update-Stack.ps1
+│  ├─ Rotate-Secrets.ps1
+│  └─ Export-DeploymentTelemetry.ps1
+└─ tests/
+   └─ Pester/                         # PowerShell Pester tests
+```
+
+### 3.2 PowerShell Responsibilities
+- **Provisioning** — install/verify Docker Engine + Compose plugin, prepare data directories, file permissions.
+- **Configuration rendering** — substitute env-specific values into Compose / config templates.
+- **Lifecycle** — `docker compose up -d`, `docker compose pull`, `docker compose down`, rolling updates per service.
+- **Validation** — health checks against each exposed endpoint (Prometheus `/-/ready`, Loki `/ready`, Tempo `/ready`, Grafana `/api/health`, OTel Collector `:13133/`).
+- **Secrets** — pull from approved secret store; never persisted in repo or Compose files; injected as environment variables or Docker secrets.
+- **Telemetry export** — emit deploy success / failure / duration counters to the Collector for Grafana visualisation.
+- **Idempotency** — scripts safe to re-run; converge to declared state.
+
+### 3.3 Docker Compose Conventions
+- One compose project per environment; environment selected via `COMPOSE_PROJECT_NAME` and `--env-file`.
+- All services define **`healthcheck`** stanzas; PowerShell waits on `Healthy` before continuing.
+- All services define **`restart: unless-stopped`** (or stricter in production).
+- Persistent state on **named volumes** with documented backup strategy.
+- Internal-only services bound to a **dedicated Docker network**; only Grafana is exposed externally.
+- Image versions are **pinned by digest or immutable tag** — no `:latest` in production.
+
+### 3.4 Host & Workload Telemetry
+- **Host metrics:** Node Exporter on every host; scraped by Prometheus.
+- **Container metrics:** cAdvisor (or equivalent) for container CPU / memory / I/O.
+- **Database telemetry:** Postgres / MySQL exporter Compose services pointed at managed DBs.
+- **Application telemetry:** OpenTelemetry SDK in each service exporting OTLP to the Collector endpoint.
+
+## 4. Platform KPIs (Deployment via PowerShell + Docker Compose)
 
 | Category | Metric | Healthy | Warning | Critical | Notes |
 |---|---|---|---|---|---|
-| Telemetry Infra | Deploy OpenTelemetry Collectors | 100% success | < 99% one env | < 95% / repeated failures | Failures imply IaC drift or config errors. |
-| Telemetry Infra | Configure Exporters | ≥ 99% valid | 97–99% sustained | < 97% / repeated misconfig | Misconfigured exporters cause data gaps. |
-| Telemetry Infra | Deploy Observability Stack | ≤ 15 min | 15–25 min | > 25 min or errors > 1 | Long deployment indicates IaC inefficiency. |
-| Auto-Instrumentation | Inject OpenTelemetry Sidecars | 95–100% | 85–95% sustained | < 85% / errors | Below 90% means inconsistent monitoring coverage. |
-| Auto-Instrumentation | Service Mesh Telemetry | ≥ 98% emitting | 95–98% | < 95% / missing spans | Aim for full coverage. |
-| Auto-Instrumentation | Log Pipelines | 100% success | 99% / minor retry | < 98% / repeated parse errors | Test each collector path post-deploy. |
-| Cloud Portability | Pulumi Stack Provision Time | ≤ 10 min/cluster | 10–20 min | > 20 min / failed > 1% | IaC efficiency baseline. |
-| Cloud Portability | Cross-Cloud Config Parity | 95–100% | 90–95% | < 90% mismatch | < 5% drift target. |
-| Cloud Portability | Collector / Exporter Version Alignment | 100% | 95–99% | < 95% mismatch | Ensures consistent telemetry schema. |
+| Stack Deployment | Deploy OpenTelemetry Collector | 100% success | < 99% one env | < 95% / repeated failures | Failures imply config drift or PowerShell error. |
+| Stack Deployment | Configure Exporters | ≥ 99% valid | 97–99% sustained | < 97% / repeated misconfig | Misconfigured exporters cause data gaps. |
+| Stack Deployment | Stack Provision Time (cold start) | ≤ 5 min per host | 5–10 min | > 10 min or errors > 1 | Measured from `Deploy-Stack.ps1` invocation to all services `Healthy`. |
+| Stack Deployment | Stack Update Time (image pull + restart) | ≤ 2 min per service | 2–5 min | > 5 min or failure | Rolling-update target. |
+| Auto-Instrumentation | Service Coverage (OTel SDK) | 95–100% | 85–95% sustained | < 85% / errors | % of targeted services emitting telemetry. |
+| Auto-Instrumentation | Exporter Health (Node / cAdvisor / DB) | ≥ 98% scrape success | 95–98% | < 95% / scrape failures | Prometheus `up{}` per exporter. |
+| Auto-Instrumentation | Log Pipelines | 100% success | 99% / minor retry | < 98% / repeated parse errors | Test each Loki ingest path post-deploy. |
+| Host Portability | Compose Validation (`docker compose config`) | 100% pass | 99% | Any failure on main branch | CI gate. |
+| Host Portability | Cross-Host Config Parity | 95–100% | 90–95% | < 90% mismatch / drift | < 5% drift target across host fleet. |
+| Host Portability | Image / Compose Version Alignment | 100% | 95–99% | < 95% mismatch | Same digests across hosts of the same tier. |
+| Validation | Health-Check Pass Rate | 100% | < 99% one service | Any service `Unhealthy` > 5 min | PowerShell `Test-StackHealth.ps1`. |
 
-## 5. Severity Policy (IaC Specific)
+## 5. Severity Policy (Deployment-Specific)
 Owned by **D4 §4.7**. Summary:
 
 | Severity | Trigger | Action |
 |---|---|---|
 | Info / Normal | Healthy / normal | CI-CD trend analytics; no action. |
-| Warning | Sustained breach ≥ 5 min or 1 IaC run | Review pipeline / IaC scripts; correct configuration drift. |
-| Critical | Critical breach or repeated IaC failures within 3 runs | Trigger incident or rollback; high chance of data loss / missing telemetry. |
+| Warning | Sustained breach ≥ 5 min, or 1 deployment failure | Review PowerShell logs, Compose definitions, exporter configs; correct drift. |
+| Critical | Critical breach, or repeated deployment failures within 3 runs | Trigger incident or rollback; high chance of data loss / missing telemetry. |
 
 ## 6. Implementation & Visualization
+
 **In Grafana (see also D5):**
-- **Infrastructure dashboards** → deployment status and versions.
-- **Coverage dashboards** → public (AKS / EKS / GKE) collector deployments vs successful telemetry exports.
-- **Performance dashboards** → stack provisioning time trends.
+- **Deployment dashboards** → status of each Compose service per host (image tag, uptime, healthcheck state).
+- **Coverage dashboards** → per-host exporter scrape success and OTel service emission coverage.
+- **Performance dashboards** → stack provision time and update time trends, sourced from PowerShell-emitted metrics.
 
 **SLI examples:**
-- **Collector Deployment Success Rate** = (Deployed Collectors ÷ Intended Collectors) × 100.
-- **Sidecar Injection Coverage** = (Workloads with sidecar ÷ Targeted workloads) × 100.
+- **Collector Deployment Success Rate** = (Hosts with healthy Collector ÷ Intended hosts) × 100.
+- **Exporter Coverage** = (Exporters returning `up=1` ÷ Configured exporters) × 100.
+- **Service Telemetry Coverage** = (Services emitting OTel signals ÷ Targeted services) × 100.
 
-**IaC Validation:** `helm test`, `kubectl rollout status`, Pulumi outputs feed success/failure counters into OpenTelemetry metrics.
+**Validation tooling:**
+- `docker compose config` — schema/syntax validation in CI.
+- `docker compose ps --format json` — health-state inspection by PowerShell.
+- Pester tests covering Compose file rendering, PowerShell cmdlets, and post-deploy probes.
+- Each PowerShell deployment writes a structured success/failure record (JSON) consumed by an OTel exporter and surfaced in Grafana.
 
 ## 7. Calibration
 After a few cycles, refine thresholds:
-- **Critical** = "any misconfiguration that causes collector telemetry gaps."
-- **Warning** = "deployment slower than SLA window."
+- **Critical** = "any misconfiguration that causes Collector telemetry gaps, or any deployment failure that leaves a service `Unhealthy`."
+- **Warning** = "deployment slower than the per-host SLA window, or single-run failure recoverable by re-run."
 
 ## 8. Cross-References
-- **D2** — reference architecture this IaC deploys.
-- **D4** — IaC severity policy entry.
-- **D11** — IaC platform KPI roll-up to executive scorecard.
-- **D15** — change control / ARB approvals for IaC changes.
-- **D16** — ADR for choice of Pulumi.
+- **D2** — reference architecture deployed by these scripts.
+- **D4** — deployment severity policy entry.
+- **D11** — platform KPI roll-up to executive scorecard.
+- **D15** — change control / ARB approvals for stack changes.
+- **D16** — ADR for choice of Docker Compose + PowerShell.

@@ -40,11 +40,13 @@ This scorecard is the canonical place to track outcome KPIs for the observabilit
 - Reduction in storage cost per service over time while maintaining required visibility.
 - Demonstrable reuse of RCA summaries in post-incident reviews and risk assessments.
 
-## 5. IaC Platform KPIs Roll-Up (from D7)
+## 5. Platform KPIs Roll-Up (from D7 — Docker Compose + PowerShell)
 - Collector Deployment Success Rate ≥ 99%.
-- Sidecar Injection Coverage ≥ 95%.
-- Cross-Cloud Config Parity ≥ 95%.
-- Pulumi Stack Provision Time ≤ 10 min/cluster.
+- Service Telemetry Coverage (OTel SDK) ≥ 95%.
+- Cross-Host Config Parity ≥ 95%.
+- Stack Provision Time (cold start) ≤ 5 min per host.
+- Stack Update Time (image pull + restart) ≤ 2 min per service.
+- Health-Check Pass Rate post-deployment = 100%.
 
 ## 6. Maturity Phase Targets (from D14 / Roadmap)
 

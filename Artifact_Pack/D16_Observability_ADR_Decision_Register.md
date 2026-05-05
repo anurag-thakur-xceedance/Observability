@@ -16,8 +16,8 @@ Formal Architecture Decision Records (ADRs) for significant observability decisi
 | ADR-001 | Adopt OpenTelemetry as universal telemetry standard | Implicit (in strategy) → ratify | Strategy §"Build the Technical Foundation" |
 | ADR-002 | Select Grafana as primary visualization & alerting tool | Implicit → ratify | Strategy §"Build the Technical Foundation" |
 | ADR-003 | Use Prometheus / Loki / Tempo as backends | Implicit → ratify | Strategy §"High-Level Architecture" |
-| ADR-004 | Adopt Pulumi for IaC (over Terraform alternatives) | Proposed (strategy says "might be the language of choice") | Strategy §"IaC Role in OpenTelemetry Deployment" |
-| ADR-005 | Multi-cloud portability across AKS / EKS / GKE | Implicit → ratify | Strategy §"Multi-Cloud Observability Design" |
+| ADR-004 | Adopt PowerShell + Docker Compose for IaC and orchestration (supersedes earlier Pulumi/Kubernetes direction) | Accepted (revised) | D7; Strategy §"IaC Role in OpenTelemetry Deployment" |
+| ADR-005 | Host-portable deployment (on-prem / customer site / cloud VM) via the same Compose stack — supersedes earlier multi-cloud K8s posture | Accepted (revised) | D2 §6; D7 |
 | ADR-006 | Tiered retention (hot / warm / cold) with metrics 30–90d, logs 7–30d, traces 7d, RCA 1y | Implicit → ratify | Strategy §"Telemetry retention tiers" |
 | ADR-007 | AIOps guardrails: FP < 5%, detection latency < 2 min | Implicit → ratify | Strategy §"AI-Driven Observability — Success criteria" |
 

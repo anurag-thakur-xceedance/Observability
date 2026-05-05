@@ -12,7 +12,7 @@ This policy defines what telemetry is collected, how long each data type is reta
 ## 2. Scope
 - Metrics, logs, traces, RCA records.
 - All environments (production / non-production).
-- All clouds (AKS / EKS / GKE) and on-prem hosting.
+- All hosting locations covered by the Compose-based stack (on-prem, customer site, cloud VM).
 
 ## 3. Telemetry Retention Tiers
 A tiered retention model balances cost, performance, and investigatory needs. Retention can be refined per environment, per service criticality, and per regulatory requirement.

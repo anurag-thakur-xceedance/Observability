@@ -16,7 +16,7 @@ Grafana provides visualization and alerting by connecting to Prometheus (metrics
 
 | Layer | Scope | Audience |
 |---|---|---|
-| **Infrastructure** | System reliability overview — cluster health, VMs, network | SRE / Platform Ops |
+| **Infrastructure** | System reliability overview — host health, container health, network | SRE / Platform Ops |
 | **Application** | Service health and trace-driven metrics — latency, errors, throughput | App engineering, on-call |
 | **Business** | Customer-impact KPIs — login/payment success rates, conversion latencies | Product, Operations leadership |
 
@@ -25,8 +25,8 @@ Full thresholds in **D1 §10**. Summary:
 
 | Layer | Metric | Healthy | Warning | Critical |
 |---|---|---|---|---|
-| Infra | Cluster Health | 100% Ready | < 99% > 5 min | < 97% / multi-pod loss |
-| Infra | VM Utilization | 40–70% | > 75% > 5 min | > 90% / OOM |
+| Infra | Host Health (services Up) | 100% Up | < 99% > 5 min | < 97% / multi-service loss |
+| Infra | Host Utilization | 40–70% | > 75% > 5 min | > 90% / OOM |
 | Infra | Network Saturation | < 60% | 60–80% > 5 min | > 80% > 2 min or drops > 0.5% |
 | App | API Latency (P95/P99) | < 300 ms | 300–800 ms sustained | > 800 ms > 2 min |
 | App | Error Rates | < 0.2% | 0.2–1% > 5 min | > 1% > 2 min or > 3% spike |

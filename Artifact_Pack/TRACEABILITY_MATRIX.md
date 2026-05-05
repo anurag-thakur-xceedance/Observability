@@ -49,7 +49,7 @@
 | 37 | Key Metrics for IaC Role in OTel Deployments | EXTRACT | D7, D11 | Platform KPIs in D7 §4; roll-up in D11 §5. |
 | 38 | Severity Policy (IaC) | EXTRACT | D4 | D4 §4.7. |
 | 39 | Implementation & Visualization Tips (IaC) | EXTRACT | D7 | D7 §6. |
-| 40 | Multi-Cloud Observability Design | MIXED | D2 | Principles kept; design detail → D2 §6. |
+| 40 | Multi-Cloud Observability Design | MIXED | D2 | Superseded by host-portable Compose model in D2 §6; multi-cloud K8s posture retired. |
 | 41 | Observability Data Model | EXTRACT | D19 | Data model spec in D19. |
 | 42 | Governance and Data Strategy | MIXED | D8, D15 | Narrative kept; data controls → D8; governance model → D15. |
 | 43 | Telemetry retention tiers | EXTRACT | D8 | D8 §3. |
@@ -81,7 +81,7 @@
 | **D4** | Alerting & Incident Severity Policy | 14, 17, 20, 24, 28, 34, 38 |
 | **D5** | Grafana Platform Standard & Visualization Playbook | 26, 27, 28, 29, 58 |
 | **D6** | AIOps Guardrails & Implementation Playbook | 30, 31, 32, 33, 34, 35, 58 |
-| **D7** | IaC for Observability Standard (OpenTelemetry + Pulumi) | 36, 37, 39 |
+| **D7** | IaC for Observability Standard (PowerShell + Docker Compose) | 36, 37, 39 |
 | **D8** | Observability Data Governance & Retention Policy | 42, 43, 44, 58 |
 | **D9** | Observability FinOps Standard | 46 |
 | **D10** | Compliance & Audit Control Matrix | 47 |

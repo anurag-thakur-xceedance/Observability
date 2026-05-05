@@ -1,8 +1,8 @@
 # D2 — Observability Reference Architecture
 
-> **Purpose:** Target architecture, component roles, telemetry collection layers, multi-cloud design.
-> **Source Strategy Sections:** Build the Technical Foundation; Observability Strategy – High Level Architecture; Core Open-Source Observability Stack; Telemetry Collection Layers; Multi-Cloud Observability Design.
-> **Status:** Skeleton populated from Observability-Strategy.docx v0.1.
+> **Purpose:** Target architecture, component roles, telemetry collection layers, host-portable deployment design.
+> **Source Strategy Sections:** Build the Technical Foundation; Observability Strategy – High Level Architecture; Core Open-Source Observability Stack; Telemetry Collection Layers; Multi-Cloud Observability Design (now superseded by host-portable Compose model).
+> **Status:** Updated — Kubernetes / multi-cloud (AKS/EKS/GKE) and sidecar / service-mesh patterns removed. Stack is delivered via Docker Compose orchestrated by PowerShell.
 
 ---
 
@@ -10,38 +10,43 @@
 - **Centralised Data Collection.** All telemetry consolidated in a unified platform to break down silos and enable cross-pillar correlation.
 - **Open Standards.** Vendor-neutral instrumentation (OpenTelemetry) to avoid lock-in and simplify integration.
 - **Tool Selection.** Grafana selected as primary visualization and alerting tool based on scalability, ease of use, and cost.
-- **Multi-Cloud Portability.** Same instrumentation, schema, and pipelines across AKS / EKS / GKE.
+- **Host-Portable Delivery.** Same Docker Compose definition runs on any Linux/Windows host with Docker Engine — on-prem, customer site, or cloud VM.
 - **Single Pane of Glass.** Unified view across infra, application, and business layers.
+- **Reproducible Deployment.** PowerShell-driven IaC with version-controlled Compose files, configs, dashboards, and alert rules.
 
 ## 2. High-Level Architecture (Logical View)
 
 ```
-[ Services / Apps / Infra ]
-        │ (OTel SDK / agents / sidecars / exporters)
+[ Services / Apps / Hosts / Containers ]
+        │ (OpenTelemetry SDK / Node Exporter / cAdvisor / DB exporters)
         ▼
-[ OpenTelemetry Collector ]  ← universal telemetry gateway (receive, process, enrich, export)
+[ OpenTelemetry Collector ]   ← universal telemetry gateway (receive, process, enrich, export)
         │
         ├──► Prometheus  (Metrics)
         ├──► Loki        (Logs)
         ├──► Tempo       (Traces)
         │
         ▼
-[ Grafana ]  ← dashboards, exploration, alerting (single pane of glass)
+[ Grafana ]                   ← dashboards, exploration, alerting (single pane of glass)
         │
         ▼
-[ Agentic AI Layer ]  ← consumes telemetry APIs for RCA, anomaly detection, ticketing
+[ Agentic AI Layer ]          ← consumes telemetry APIs for RCA, anomaly detection, ticketing
 ```
+
+The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is defined as a **Docker Compose** project and provisioned / managed by **PowerShell** scripts. See **D7** for the IaC standard.
 
 ## 3. Core Concepts
 
 | Component | Role |
 |---|---|
-| OpenTelemetry Collector | Universal telemetry gateway: receives metrics/logs/traces from instrumented services, performs processing/enrichment, forwards to backends. Standardises ingestion and simplifies pipeline management. |
+| OpenTelemetry Collector | Universal telemetry gateway: receives metrics/logs/traces from instrumented services and exporters, performs processing/enrichment, forwards to backends. Standardises ingestion and simplifies pipeline management. |
 | Prometheus | Stores and queries metrics for performance, capacity, and health monitoring. |
 | Loki | Stores structured logs; enables efficient querying and correlation with metrics/traces. |
 | Tempo | Stores distributed traces; provides end-to-end visibility into request flows and dependencies. |
 | Grafana | Dashboards, exploration views, and visual analytics across metrics, logs, and traces. |
 | Agentic AI Layer | Consumes telemetry via APIs from Prometheus/Loki/Tempo to perform automated RCA, anomaly detection, and enriched incident-ticket generation. |
+| Docker Compose | Declarative deployment unit for the observability stack — one Compose project per environment. |
+| PowerShell | Orchestrator and IaC layer: provisions hosts, renders configs, runs `docker compose` lifecycle, validates health, emits deployment telemetry. |
 
 ## 4. Core Open-Source Stack
 
@@ -53,45 +58,49 @@
 | Logs Storage | Loki | Structured logs |
 | Traces Storage | Tempo | Distributed traces |
 | Visualization | Grafana | Dashboards, exploration, analytics |
-| Infra Observability | Node Exporter | OS-level metrics (CPU/mem/disk/net) |
-| Kubernetes Observability | kube-state-metrics | K8s object state |
-| Network Monitoring | eBPF / Cilium / Pixie | Network traffic and flow analysis |
+| Host Observability | Node Exporter | OS-level metrics (CPU/mem/disk/net) on every host |
+| Container Observability | cAdvisor | Per-container CPU/memory/I/O metrics |
+| Network Monitoring | Host-level network metrics via Node Exporter; network probes / synthetic checks via Blackbox Exporter | Network reachability, latency, packet loss |
 | DB Observability | Postgres / MySQL exporter | DB query/latency/connection/error metrics |
 | Alerting | Grafana Alerting / Alertmanager | Alert rules, routing, notifications |
+| Deployment Unit | Docker Compose | Declarative stack definition |
+| Automation / IaC | PowerShell | Provisioning, lifecycle, validation, telemetry export |
 
-All components are open-source and OpenTelemetry compatible.
+All components are open-source and OpenTelemetry-compatible.
 
 ## 5. Telemetry Collection Layers
 Telemetry is captured across four major layers:
 
-1. **Infrastructure** — host/node, container, Kubernetes objects, network fabric.
-2. **Application** — pre-login (auth/MFA/API gateway) and post-login (transactions, dependencies, journeys). See **D17** for application telemetry standards.
-3. **Database** — query, lock, connection, replication telemetry.
-4. **Network & Latency** — packet drops, retransmissions, mesh errors, DNS, cross-service latency.
+1. **Infrastructure (Host + Container).** Host-level metrics via Node Exporter; container-level metrics via cAdvisor. Logs collected by the OpenTelemetry Collector or a log-shipping agent (e.g. Promtail).
+2. **Application.** Pre-login (auth/MFA/API gateway) and post-login (transactions, dependencies, journeys). OpenTelemetry SDK in each service exports OTLP to the Collector. See **D17** for application telemetry standards.
+3. **Database.** Query, lock, connection, and replication telemetry via dedicated exporters as Compose services.
+4. **Network & Latency.** Host-level network counters (packet drops, retransmits) plus active probes (Blackbox Exporter) for cross-service latency, DNS, and reachability.
 
 A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is treated as a near-term extension. See **D1** for the formal pillar definition.
 
-## 6. Multi-Cloud Observability Design
-Same architecture deployed across Azure AKS, AWS EKS, and Google GKE.
+## 6. Host-Portable Deployment Design
+The same Docker Compose definition is deployed across all target environments (development, test, staging, production; on-prem, customer-hosted, or cloud VM). The deployment model intentionally avoids any one cloud's container-orchestration platform.
 
 **Advantages:**
-- **Centralized Dashboards.** A unified Grafana view across cloud providers.
+- **Centralized Dashboards.** Unified Grafana view regardless of where the stack runs.
 - **Unified Telemetry Schema.** Same metric names, labels, log fields, trace attributes everywhere.
-- **Cross-Cloud Incident Visibility.** Incidents that span clouds remain visible in a single context.
+- **Cross-Host Incident Visibility.** Incidents that span hosts / sites remain visible in a single context.
+- **Low Operational Surface.** No control plane to operate beyond Docker Engine itself.
 
-**Design constraints:**
-- Cross-cloud config parity ≥ 95% (see **D7** KPIs).
-- Collector/exporter version alignment 100% across clusters.
-- Codebase reused across providers via IaC (Pulumi). See **D7**.
+**Design constraints (see D7 for KPIs):**
+- **Cross-host config parity ≥ 95%** between hosts of the same tier.
+- **Image / Compose version alignment 100%** within a tier.
+- **Health-check pass rate 100%** post-deployment.
+- All deployment is reproducible from Git via PowerShell scripts.
 
 ## 7. Pipeline Processing
 - Enrichment, masking/redaction of sensitive data, and label normalisation occur in the OpenTelemetry Collector.
-- Sampling strategy (head vs tail) is configured at the collector layer for traces.
+- Sampling strategy (head vs tail) is configured at the Collector layer for traces.
 - Schema validation and cardinality controls are enforced at ingest.
 
 ## 8. Cross-References
 - **D1** — telemetry standards consumed by this architecture.
 - **D5** — Grafana platform standards and dashboard playbook.
-- **D7** — IaC for OpenTelemetry deployment.
+- **D7** — Docker Compose + PowerShell deployment standard.
 - **D8** — data lifecycle and retention applied to backends.
 - **D19** — formal data model for entities/relationships across pillars.
