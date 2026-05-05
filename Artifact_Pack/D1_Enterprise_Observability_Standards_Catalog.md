@@ -1,0 +1,129 @@
+# D1 — Enterprise Observability Standards Catalog
+
+> **Purpose:** Canonical standards for telemetry, metric definitions, naming, labels, thresholds.
+> **Source Strategy Sections:** Standardise Telemetry Data — The 5 Pillars; Database Observability Metrics and Ranges; Network & Latency Observability Metrics; Scaling and Performance Observability Metrics; Grafana Key Metrics and Suggested Ranges; AI-Driven Observability Metrics; Appendix tables.
+> **Status:** Skeleton populated from Observability-Strategy.docx v0.1 (27 April 2026).
+
+---
+
+## 1. Scope and Intent
+This catalog is the single source of truth for telemetry standards across Xceedance. It defines what is measured, how it is named, how it is labelled, and what thresholds constitute healthy / warning / critical states. All other artifacts (runbooks, alerting policy, dashboards, AIOps) reference this catalog rather than redefining values locally.
+
+## 2. The Five Pillars of Telemetry
+Telemetry is standardised so that systems generate consistent information, enabling a holistic view of the stack.
+
+| Pillar | Definition | Primary Use |
+|---|---|---|
+| Metrics | Numerical measurements (e.g. CPU usage, error rates) | Quantitative health checks |
+| Logs | Detailed records of discrete events (e.g. error messages) | Narrative context for events |
+| Traces | End-to-end journey maps of requests across distributed services | Pinpoint bottlenecks |
+| Changes | Configuration / infrastructure changes tracked across services (e.g. Azure Change Analysis) | Correlate modifications with system behaviour |
+| Profiles | Stack-trace–based code profiling (emerging "fifth pillar", e.g. Pyroscope) | Code-level performance issues |
+
+## 3. Naming and Labelling Standards
+- A standard telemetry schema is maintained (naming conventions for metrics, labels, log fields, and trace attributes).
+- Data quality checks (missing labels, malformed logs, excessive cardinality) are implemented in the telemetry pipeline.
+- Services must meet minimum instrumentation standards before production promotion.
+- High-cardinality labels are removed or bucketed after defined retention windows.
+
+## 4. Infrastructure Telemetry Standards
+
+| Metric | Unit | Healthy | Acceptable | Concerning | Notes |
+|---|---|---|---|---|---|
+| CPU Usage | % | < 20% (under-utilized) | 40–70% | > 80% sustained > 5 min | Trigger scale-up at sustained > 80% |
+| Memory Pressure | % | < 40% | 40–75% | > 85% sustained | Sustained high usage may cause OOM kills |
+| Disk I/O Latency | ms | < 5 ms | 5–15 ms | > 20 ms, stalls | Keep < 10 ms for production |
+| Container Restart Count | count/hour | 0 | 0–1 occasional | > 2/hour or repeating | > 2/hour suggests memory leak/config |
+| Node Failures | count/week | 0 | 0–1 transient | > 1/day | Monitor MTBF |
+| Cluster Scaling Events | count/day | 0–1 | 1–5 | > 10/day | Frequent flapping → review thresholds |
+| Pod Scheduling Delay | seconds | < 1 s | 1–5 s | > 10 s | Long delays indicate resource scarcity |
+
+## 5. Application Telemetry Standards (Pre-Login)
+
+| Metric | Healthy | Warning | Critical | Notes |
+|---|---|---|---|---|
+| Authentication Latency | < 300 ms | 500–800 ms ≥ 5 min | > 1000 ms sustained | Keep P95 < 800 ms |
+| Login Failures | < 1% | 1–3% sustained 5 min | > 3% sustained or > 5% spike | Validate at step-up auth |
+| MFA Failures | < 0.5% | 0.5–2% sustained | > 2% sustained or MFA outage | Often third-party dependency |
+| API Gateway Response Time | P95 < 500 ms | P95 > 800 ms ≥ 5 min | P95 > 1200 ms sustained | Includes upstream services |
+
+## 6. Application Telemetry Standards (Post-Login)
+
+| Metric | Healthy | Warning | Critical | Notes |
+|---|---|---|---|---|
+| Transaction Latency | < 500 ms P95 | P95 > 800 ms ≥ 5 min | P95 > 1200 ms sustained | Reflects full user transaction |
+| Service-Call Failures | < 0.2% | 0.5–1% sustained | > 1% sustained or > 3% spike | Includes timeouts, 5xx, retries |
+| Dependency Latency | < 200 ms | 200–400 ms sustained | > 400 ms sustained or timeouts | DB/cache/API dependencies |
+| User-Journey Trace Success Rate | ≥ 98% | 95–98% | < 95% | Track per major journey |
+
+## 7. Database Telemetry Standards
+
+| Metric | Healthy | Warning | Critical | Notes |
+|---|---|---|---|---|
+| Slow Queries | < 1% | 1–3% sustained 5 min | > 3% sustained or > 5% spike | Track P95/P99 query duration |
+| Lock Contention | < 50 ms avg wait | 50–100 ms sustained / > 1% waiting | > 100 ms sustained / > 5% waiting | Concurrency design issue |
+| Connection Pool Usage | 40–70% | > 80% > 5 min | > 90% > 2 min or exhaustion | Steady < 75% |
+| Replication Lag | < 1 s | 2–5 s sustained | > 10 s sustained or rising | Critical for fresh-read deps |
+| Query Latency (Overall) | P95 < 100 ms | 100–200 ms sustained | > 200 ms sustained or > 300 ms jump | Keep P95 ≤ 100 ms |
+
+## 8. Network & Latency Telemetry Standards
+
+| Metric | Healthy | Warning | Critical | Notes |
+|---|---|---|---|---|
+| Packet Drops | < 0.1% | 0.1–0.5% ≥ 5 min | > 0.5% ≥ 2 min or spikes > 1% | Investigate route saturation |
+| Cross-Service Latency (P95) | < 50 ms | 50–100 ms ≥ 5 min | > 100 ms sustained or > 200 ms spike | Intra-region < 100 ms; cross-region < 200 ms |
+| DNS Failures | < 0.1% | 0.1–0.5% ≥ 5 min | > 1% ≥ 2 min or resolver outage | Caching/propagation/resolver health |
+| Service Mesh Errors | < 0.2% | 0.2–1% ≥ 5 min | > 1% ≥ 2 min or control-plane outage | App + mesh layer reliability |
+| TCP Retransmissions | < 0.5% | 0.5–1% ≥ 5 min | > 1% ≥ 2 min or > 2% spike | Congestion / packet loss |
+
+## 9. Scaling & Performance Telemetry Standards
+
+| Metric | Purpose | Healthy | Warning | Critical |
+|---|---|---|---|---|
+| Queue Length | Scaling trigger | < 50 items avg | 50–200 ≥ 5 min | > 200 ≥ 2 min or rapid growth |
+| Request Latency | SLA monitoring | P95 < 300 ms | P95 300–800 ms ≥ 5 min | P95 > 800 ms or P99 > 1 s sustained |
+| Error Rate | Service health | < 0.1% | 0.1–1% ≥ 5 min | > 1% ≥ 2 min or > 5% spike |
+| Pod Startup Time | Scaling efficiency | < 10 s | 10–30 s | > 30 s sustained or repeated start failure |
+| Cold Start Latency | Autoscaling tuning | < 300 ms FaaS / < 2 s container | 300–800 ms / 2–5 s | > 800 ms / > 5 s sustained |
+
+## 10. Grafana Visualization Layer Standards
+
+| Layer | Metric | Healthy | Warning | Critical |
+|---|---|---|---|---|
+| Infra | Cluster Health | 100% Ready | < 99% > 5 min | < 97% or multi-pod loss |
+| Infra | VM Utilization | 40–70% | > 75% > 5 min | > 90% sustained / OOM |
+| Infra | Network Saturation | < 60% | 60–80% > 5 min | > 80% > 2 min or drops > 0.5% |
+| Application | API Latency | < 300 ms | 300–800 ms sustained | > 800 ms > 2 min |
+| Application | Error Rates | < 0.2% | 0.2–1% > 5 min | > 1% > 2 min or > 3% spike |
+| Application | Request Throughput | Baseline trend | ±10% deviation | ±20% sustained 10 min |
+| Business | Login Success Rate | ≥ 99% | 98–99% sustained | < 98% or failures > 3% |
+| Business | Payment Success Rate | ≥ 98% | 96–98% sustained | < 96% > 2 min |
+| Business | Checkout Latency | P95 < 2 s | 2–3 s sustained | > 3 s > 2 min |
+
+## 11. AI-Driven Telemetry Standards
+
+| Category | Metric | Healthy | Warning | Critical |
+|---|---|---|---|---|
+| Anomaly Detection | Abnormal Latency Spikes | ±10% baseline | 10–25% deviation > 5 min | > 25% deviation > 2 min |
+| Anomaly Detection | Unusual Traffic Patterns | ±15% | 15–30% > 5 min | > 30% > 2 min or confidence > 95% |
+| Correlation | Deployment vs Error Spike | r < 0.3 | r 0.3–0.6 | r > 0.6 |
+| Correlation | Scaling vs DB Saturation | r < 0.4 | r 0.4–0.7 | r > 0.7 |
+
+Targets: false-positive rate < 5%, detection latency < 2 min from anomaly onset, anomaly precision ≥ 90%, recall ≥ 85%.
+
+## 12. Calibration Guidance
+These ranges are safe baselines. After several weeks of telemetry, thresholds should be calibrated so that **Warning ≈ 95th percentile of normal behaviour** and **Critical ≈ conditions with actual user impact or SLA breach**.
+
+## 13. Glossary (Light References from Strategy Appendix)
+- **MTTD**: Mean Time to Detect.
+- **MTTR**: Mean Time to Resolution.
+- **SLO / SLA**: Service Level Objective / Agreement.
+- **RPO / RTO**: Recovery Point / Time Objective.
+- **CSAT**: Customer Satisfaction.
+
+## 14. Cross-References
+- **D3**: How these standards are operationally applied (runbooks).
+- **D4**: How thresholds map to severities and actions.
+- **D5**: How standards render in Grafana dashboards.
+- **D6**: AIOps interpretation of these metrics.
+- **D11**: Outcome KPI scorecard tied to these measurements.
