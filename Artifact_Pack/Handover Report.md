@@ -17,32 +17,32 @@
 ### Artifact Pack — markdown documents populated from source content
 | # | File |
 |---|---|
-| 1 | [1. Enterprise Observability Standards Catalog](1.%20Enterprise%20Observability%20Standards%20Catalog.md) |
-| 2 | [2. Observability Reference Architecture](2.%20Observability%20Reference%20Architecture.md) |
-| 3 | [3. Domain Observability Runbooks Pack](3.%20Domain%20Observability%20Runbooks%20Pack.md) |
-| 4 | [4. Alerting and Incident Severity Policy](4.%20Alerting%20and%20Incident%20Severity%20Policy.md) |
-| 5 | [5. Grafana Platform Standard and Visualization Playbook](5.%20Grafana%20Platform%20Standard%20and%20Visualization%20Playbook.md) |
-| 6 | [6. AIOps Guardrails and Implementation Playbook](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md) |
-| 7 | [7. IaC for Observability Standard](7.%20IaC%20for%20Observability%20Standard.md) |
-| 8 | [8. Observability Data Governance and Retention Policy](8.%20Observability%20Data%20Governance%20and%20Retention%20Policy.md) |
-| 9 | [9. Observability FinOps Standard](9.%20Observability%20FinOps%20Standard.md) |
-| 10 | [10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) |
-| 11 | [11. Observability KPI Scorecard](11.%20Observability%20KPI%20Scorecard.md) |
-| 12 | [12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md) |
-| 13 | [13. Observability Roadmap Delivery Plan](13.%20Observability%20Roadmap%20Delivery%20Plan.md) |
-| 14 | [14. Observability Capability Assessment Framework](14.%20Observability%20Capability%20Assessment%20Framework.md) |
-| 15 | [15. Observability Governance Charter and ARB Pack](15.%20Observability%20Governance%20Charter%20and%20ARB%20Pack.md) |
-| 16 | [16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) |
-| 17 | [17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) |
-| 18 | [18. Observability Operating Model and Adoption Plan](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md) |
-| 19 | [19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) |
+| 1 | [Chapter 1. Enterprise Observability Standards Catalog](1.%20Enterprise%20Observability%20Standards%20Catalog.md) |
+| 2 | [Chapter 2. Observability Reference Architecture](2.%20Observability%20Reference%20Architecture.md) |
+| 3 | [Chapter 3. Domain Observability Runbooks Pack](3.%20Domain%20Observability%20Runbooks%20Pack.md) |
+| 4 | [Chapter 4. Alerting and Incident Severity Policy](4.%20Alerting%20and%20Incident%20Severity%20Policy.md) |
+| 5 | [Chapter 5. Grafana Platform Standard and Visualization Playbook](5.%20Grafana%20Platform%20Standard%20and%20Visualization%20Playbook.md) |
+| 6 | [Chapter 6. AIOps Guardrails and Implementation Playbook](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md) |
+| 7 | [Chapter 7. IaC for Observability Standard](7.%20IaC%20for%20Observability%20Standard.md) |
+| 8 | [Chapter 8. Observability Data Governance and Retention Policy](8.%20Observability%20Data%20Governance%20and%20Retention%20Policy.md) |
+| 9 | [Chapter 9. Observability FinOps Standard](9.%20Observability%20FinOps%20Standard.md) |
+| 10 | [Chapter 10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) |
+| 11 | [Chapter 11. Observability KPI Scorecard](11.%20Observability%20KPI%20Scorecard.md) |
+| 12 | [Chapter 12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md) |
+| 13 | [Chapter 13. Observability Roadmap Delivery Plan](13.%20Observability%20Roadmap%20Delivery%20Plan.md) |
+| 14 | [Chapter 14. Observability Capability Assessment Framework](14.%20Observability%20Capability%20Assessment%20Framework.md) |
+| 15 | [Chapter 15. Observability Governance Charter and ARB Pack](15.%20Observability%20Governance%20Charter%20and%20ARB%20Pack.md) |
+| 16 | [Chapter 16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) |
+| 17 | [Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) |
+| 18 | [Chapter 18. Observability Operating Model and Adoption Plan](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md) |
+| 19 | [Chapter 19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) |
 
 ### Supporting Files
 | File | Purpose |
 |---|---|
 | [TOC](TOC.md) | Pack index with all titles, sections, and subsections (hyperlinked). |
 | [Traceability Matrix](Traceability%20Matrix.md) | Bidirectional mapping (Source → Target & Target → Source). |
-| [0. Observability Strategy (Revised)](0.%20Observability%20Strategy%20%28Revised%29.md) | Concise executive strategy with pointers (markdown form). |
+| [Chapter 0. Observability Strategy (Revised)](0.%20Observability%20Strategy%20%28Revised%29.md) | Concise executive strategy with pointers (markdown form). |
 | `Handover Report.md` | This report. |
 
 ---
@@ -65,11 +65,11 @@ None for **structural extraction**. All sections have a destination and content 
 
 The following items are **content depth follow-ups** rather than missing extraction:
 
-- **[10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) Control Matrix** — concrete framework mapping (specific SOC2 CC IDs, ISO 27001 Annex A clauses, GDPR Articles) needs domain SME pass.
-- **[12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md) Incident Response** — embedded sequence diagram from the source doc (image) was not OCR'd; logical flow captured textually.
-- **[16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) ADRs** — full ADRs not yet authored; index of seven inferred decisions has been recorded for ratification.
-- **[19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) Data Model** — JSON schemas, ERD diagram, and tool-native mappings remain to be authored.
-- **[17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md)** — placeholder named user-journey list (`policy-quote`) needs product confirmation.
+- **[Chapter 10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) Control Matrix** — concrete framework mapping (specific SOC2 CC IDs, ISO 27001 Annex A clauses, GDPR Articles) needs domain SME pass.
+- **[Chapter 12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md) Incident Response** — embedded sequence diagram from the source doc (image) was not OCR'd; logical flow captured textually.
+- **[Chapter 16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) ADRs** — full ADRs not yet authored; index of seven inferred decisions has been recorded for ratification.
+- **[Chapter 19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) Data Model** — JSON schemas, ERD diagram, and tool-native mappings remain to be authored.
+- **[Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md)** — placeholder named user-journey list (`policy-quote`) needs product confirmation.
 
 ---
 
@@ -77,16 +77,16 @@ The following items are **content depth follow-ups** rather than missing extract
 
 | # | Decision | Owner | Notes |
 |---|---|---|---|
-| 1 | Ratify ADRs for OpenTelemetry, Grafana, Prometheus/Loki/Tempo, **PowerShell + Docker Compose (replaces Pulumi/K8s)**, **host-portable deployment (replaces multi-cloud AKS/EKS/GKE)**, retention tiers, AIOps guardrails | Governance Body / ARB | [16. Observability ADR Decision Register § 2. ADR Index (Initial)](16.%20Observability%20ADR%20Decision%20Register.md#2-adr-index-initial) lists seven candidates; ADR-004 and ADR-005 revised to reflect the Compose + PowerShell direction. |
-| 2 | Architecture Governance review status — currently **Not Seen** for ARB / Exception Panel / SDG / Change Board | Governance Body | Schedule reviews; capture decisions in [16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md). |
-| 3 | Source `Decision Log` table is empty — confirm no decisions exist yet, or supply backlog | Document author (A. Thakur) | Affects [16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) baseline. |
-| 4 | [10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) control framework selection (SOC2 vs ISO 27001 vs both) and mandatory regulations (GDPR scope, financial-services rules) | Compliance / Legal | Drives [10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) evidence requirements. |
-| 5 | [17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) named user journeys — confirm `login`, `checkout`, `report-gen`, `policy-quote` (placeholder) | Product | Defines required span coverage. |
-| 6 | Tenant identification approach — `tenant_class` proposed in [17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) / [19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) — confirm acceptable for multi-tenant labels (no PII risk) | Data Governance | |
-| 7 | Phase-gate weighting in [14. Observability Capability Assessment Framework](14.%20Observability%20Capability%20Assessment%20Framework.md) maturity scoring | Governance Body | |
+| 1 | Ratify ADRs for OpenTelemetry, Grafana, Prometheus/Loki/Tempo, **PowerShell + Docker Compose (replaces Pulumi/K8s)**, **host-portable deployment (replaces multi-cloud AKS/EKS/GKE)**, retention tiers, AIOps guardrails | Governance Body / ARB | [Chapter 16. Observability ADR Decision Register -> Section 2. ADR Index (Initial)](16.%20Observability%20ADR%20Decision%20Register.md#2-adr-index-initial) lists seven candidates; ADR-004 and ADR-005 revised to reflect the Compose + PowerShell direction. |
+| 2 | Architecture Governance review status — currently **Not Seen** for ARB / Exception Panel / SDG / Change Board | Governance Body | Schedule reviews; capture decisions in [Chapter 16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md). |
+| 3 | Source `Decision Log` table is empty — confirm no decisions exist yet, or supply backlog | Document author (A. Thakur) | Affects [Chapter 16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) baseline. |
+| 4 | [Chapter 10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) control framework selection (SOC2 vs ISO 27001 vs both) and mandatory regulations (GDPR scope, financial-services rules) | Compliance / Legal | Drives [Chapter 10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) evidence requirements. |
+| 5 | [Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) named user journeys — confirm `login`, `checkout`, `report-gen`, `policy-quote` (placeholder) | Product | Defines required span coverage. |
+| 6 | Tenant identification approach — `tenant_class` proposed in [Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) / [Chapter 19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) — confirm acceptable for multi-tenant labels (no PII risk) | Data Governance | |
+| 7 | Phase-gate weighting in [Chapter 14. Observability Capability Assessment Framework](14.%20Observability%20Capability%20Assessment%20Framework.md) maturity scoring | Governance Body | |
 | 8 | Should the **revised strategy** be republished as a `.docx` to replace the existing one, or kept as `.md` companion? | Document owner | Markdown chosen for now; conversion straightforward via Pandoc if `.docx` needed. |
 | 9 | Confirm Pyroscope (Profiles) is in-scope for Phase 2 or Phase 3 | Architecture | Strategy refers to Profiles as "emerging fifth pillar" only. |
-| 10 | Image-based content (incident sequence diagram, any architecture images) — re-author or include as exported assets in `Artifact_Pack/assets/`? | Document owner | Currently captured as logical text flow in [12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md). |
+| 10 | Image-based content (incident sequence diagram, any architecture images) — re-author or include as exported assets in `Artifact_Pack/assets/`? | Document owner | Currently captured as logical text flow in [Chapter 12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md). |
 
 ---
 
@@ -94,11 +94,11 @@ The following items are **content depth follow-ups** rather than missing extract
 
 1. **Convert revised strategy to `.docx`** if business stakeholders require Word format (Pandoc one-liner).
 2. **ARB / Governance review** of the artifact pack (resolves Decisions #1, #2, #3).
-3. **Compliance SME pass** on [10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) to populate concrete control-framework mappings (Decision #4).
-4. **Author full ADRs** for [16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) ADR-001 through ADR-007 to ratify implicit decisions, and migrate any backlog from the empty source decision-log.
-5. **Schema / ERD authoring** for [19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) (JSON schemas per signal type, span hierarchy spec) so [17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) can reference concrete schemas.
-6. **Editorial consistency pass** — re-read [1. Enterprise Observability Standards Catalog](1.%20Enterprise%20Observability%20Standards%20Catalog.md) ↔ [3. Domain Observability Runbooks Pack](3.%20Domain%20Observability%20Runbooks%20Pack.md) ↔ [5. Grafana Platform Standard and Visualization Playbook](5.%20Grafana%20Platform%20Standard%20and%20Visualization%20Playbook.md) to ensure no threshold drift between catalog, runbook, and visualization artifacts.
-7. **Repository setup** — recommend committing `Artifact_Pack/` to a Git repo (GitOps prerequisite for [4. Alerting and Incident Severity Policy § 5. Alert Routing & Escalation](4.%20Alerting%20and%20Incident%20Severity%20Policy.md#5-alert-routing--escalation) alert-rule version control and [8. Observability Data Governance and Retention Policy](8.%20Observability%20Data%20Governance%20and%20Retention%20Policy.md) audit trail).
+3. **Compliance SME pass** on [Chapter 10. Compliance and Audit Control Matrix](10.%20Compliance%20and%20Audit%20Control%20Matrix.md) to populate concrete control-framework mappings (Decision #4).
+4. **Author full ADRs** for [Chapter 16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) ADR-001 through ADR-007 to ratify implicit decisions, and migrate any backlog from the empty source decision-log.
+5. **Schema / ERD authoring** for [Chapter 19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) (JSON schemas per signal type, span hierarchy spec) so [Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) can reference concrete schemas.
+6. **Editorial consistency pass** — re-read [Chapter 1. Enterprise Observability Standards Catalog](1.%20Enterprise%20Observability%20Standards%20Catalog.md) ↔ [Chapter 3. Domain Observability Runbooks Pack](3.%20Domain%20Observability%20Runbooks%20Pack.md) ↔ [Chapter 5. Grafana Platform Standard and Visualization Playbook](5.%20Grafana%20Platform%20Standard%20and%20Visualization%20Playbook.md) to ensure no threshold drift between catalog, runbook, and visualization artifacts.
+7. **Repository setup** — recommend committing `Artifact_Pack/` to a Git repo (GitOps prerequisite for [Chapter 4. Alerting and Incident Severity Policy -> Section 5. Alert Routing & Escalation](4.%20Alerting%20and%20Incident%20Severity%20Policy.md#5-alert-routing--escalation) alert-rule version control and [Chapter 8. Observability Data Governance and Retention Policy](8.%20Observability%20Data%20Governance%20and%20Retention%20Policy.md) audit trail).
 
 ---
 
