@@ -7,7 +7,7 @@ Hi [Name],
 I have prepared a complete handover pack for the observability strategy extraction work.
 
 Pack location:
-`/Users/simonarmstrong/Desktop/Chaff/Observability_Agent_Handover_Pack`
+`Observability_Agent_Handover_Pack`
 
 Please start with:
 1. `HANDOVER_START_HERE.md`

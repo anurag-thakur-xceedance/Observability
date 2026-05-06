@@ -1,12 +1,14 @@
 # Handover Report — Observability Strategy Decomposition
 
-**Date:** 2026-05-05
+**Date:** 2026-05-06
 **Source artefacts consumed:**
-- `Observability-Strategy.docx` (v0.1, 27 April 2026)
+- `Observability-Strategy.docx` (v0.3, 4 May 2026 — Pulumi removed; Appendix 2 placeholder added; deployment-model-awareness note added)
 - `Observability-Strategy_Annotated_v2.docx`
 - `Observability_Extraction_Plan.xlsx` (sheets: `New Documents`, `Section Mapping`)
 - `Observability_Handover_Context.md`
 - `Observability_Extraction_Table.md`
+
+**Reviewers recorded in source:** Simon Armstrong (initial review, 27 April 2026 — comments to be reviewed and acted upon).
 
 **Output location:** `Observability_Agent_Handover_Pack/Artifact_Pack/`
 
@@ -87,6 +89,8 @@ The following items are **content depth follow-ups** rather than missing extract
 | 8 | Should the **revised strategy** be republished as a `.docx` to replace the existing one, or kept as `.md` companion? | Document owner | Markdown chosen for now; conversion straightforward via Pandoc if `.docx` needed. |
 | 9 | Confirm Pyroscope (Profiles) is in-scope for Phase 2 or Phase 3 | Architecture | Strategy refers to Profiles as "emerging fifth pillar" only. |
 | 10 | Image-based content (incident sequence diagram, any architecture images) — re-author or include as exported assets in `Artifact_Pack/assets/`? | Document owner | Currently captured as logical text flow in [Chapter 12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md). |
+| 11 | Source v0.3 introduces **Appendix 2** as a placeholder ("Deployment-model awareness — universal observability across runtimes") with no body — supply content or confirm coverage by [Chapter 2. Observability Reference Architecture -> Section 1. Architectural Principles](2.%20Observability%20Reference%20Architecture.md#1-architectural-principles) (now extended with the deployment-model-awareness principle and Azure-native infra context). | Document author (A. Thakur) | Decision gates whether Appendix 2 needs a dedicated artifact or is satisfied by the Reference Architecture extension. |
+| 12 | Source v0.3 release notes claim Pulumi removed, yet Final Architecture Summary and Table 20 (IaC role) still reference Pulumi and AKS/EKS/GKE — pack already aligned to the **author-stated intent** (Pulumi replaced by PowerShell + Docker Compose; cloud portability reframed as host-portable). Confirm intent vs residual source text. | Document author (A. Thakur) | Mismatch noted in source `.docx`; pack treats the v0.3 release-note as authoritative. |
 
 ---
 

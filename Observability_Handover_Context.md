@@ -4,9 +4,9 @@
 This package captures the current state of the observability strategy extraction work so another team member/agent can continue without re-discovery.
 
 ## Source and Outputs
-- Source document: `/Users/simonarmstrong/Desktop/Chaff/Observability-Strategy.docx`
-- Annotated document (latest): `/Users/simonarmstrong/Desktop/Chaff/Observability-Strategy_Annotated_v2.docx`
-- Extraction plan workbook: `/Users/simonarmstrong/Desktop/Chaff/Observability_Extraction_Plan.xlsx`
+- Source document: `Observability-Strategy.docx`
+- Annotated document (latest): `Observability-Strategy_Annotated_v2.docx`
+- Extraction plan workbook: `Observability_Extraction_Plan.xlsx`
 
 ## What Has Been Completed
 - Section headers in the Word doc have been annotated with:

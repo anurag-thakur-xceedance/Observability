@@ -6,9 +6,9 @@ Use this prompt as-is with the next team member's coding/automation agent.
 You are taking over an observability document decomposition task. Continue from existing outputs; do not restart discovery.
 
 ### Context Files (read first)
-- `/Users/simonarmstrong/Desktop/Chaff/Observability_Handover_Context.md`
-- `/Users/simonarmstrong/Desktop/Chaff/Observability-Strategy_Annotated_v2.docx`
-- `/Users/simonarmstrong/Desktop/Chaff/Observability_Extraction_Plan.xlsx`
+- `Observability_Handover_Context.md`
+- `Observability-Strategy_Annotated_v2.docx`
+- `Observability_Extraction_Plan.xlsx`
 
 ### Objective
 Operationalize the extraction plan by creating destination artifacts and moving content from the strategy doc into the correct target documents, preserving a concise executive strategy in the source.
