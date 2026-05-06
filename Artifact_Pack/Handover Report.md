@@ -1,5 +1,8 @@
 # Handover Report — Observability Strategy Decomposition
 
+[↑ Back to TOC](TOC.md)
+
+
 **Date:** 2026-05-06
 **Source artefacts consumed:**
 - `Observability-Strategy.docx` (v0.3, 4 May 2026 — Pulumi removed; Appendix 2 placeholder added; deployment-model-awareness note added)
@@ -115,3 +118,7 @@ The following items are **content depth follow-ups** rather than missing extract
 | Executive strategy readable (short narrative + architecture + roadmap + governance intent) | ✅ ~14 short sections + pointer index |
 | Implementation detail in standards / playbooks / policies | ✅ All EXTRACT content migrated to numbered artifacts |
 | Bidirectional traceability provided | ✅ [Traceability Matrix](Traceability%20Matrix.md) |
+
+---
+
+[↑ Back to TOC](TOC.md)

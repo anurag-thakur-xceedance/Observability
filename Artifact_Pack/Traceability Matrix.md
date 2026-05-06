@@ -1,5 +1,8 @@
 # Traceability Matrix — Source Sections ↔ Target Artifacts
 
+[↑ Back to TOC](TOC.md)
+
+
 > Generated as part of the observability strategy decomposition.
 > **Source:** `Observability-Strategy.docx` v0.1 (27 April 2026), annotations from `Observability-Strategy_Annotated_v2.docx`.
 > **Mapping basis:** `Observability_Extraction_Plan.xlsx` (`Section Mapping` sheet) and `Observability_Extraction_Table.md`.
@@ -96,3 +99,7 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 17 | [Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) | 11, 12, 13 |
 | 18 | [Observability Operating Model and Adoption Plan](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md) | 5, 6 |
 | 19 | [Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) | 41 |
+
+---
+
+[↑ Back to TOC](TOC.md)

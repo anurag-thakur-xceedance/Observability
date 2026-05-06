@@ -1,5 +1,8 @@
 # Annexure A — Acronyms & Definitions
 
+[↑ Back to TOC](TOC.md)
+
+
 > Glossary of acronyms used across the Observability Artifact Pack.
 > Cross-reference: full glossary of strategy terms in [Chapter 1. Enterprise Observability Standards Catalog -> Section 13. Glossary (Light References from Strategy Appendix)](1.%20Enterprise%20Observability%20Standards%20Catalog.md#13-glossary-light-references-from-strategy-appendix).
 
@@ -72,3 +75,7 @@
 | URL | Uniform Resource Locator | Web address. |
 | UX | User Experience | User-perceived quality dimension. |
 | VM | Virtual Machine | Compute host (replaces "node" in the host-portable model). |
+
+---
+
+[↑ Back to TOC](TOC.md)
