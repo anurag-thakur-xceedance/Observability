@@ -8,7 +8,7 @@
 
 ## A. Source Section → Target Artifact(s)
 
-In the table below, the **Target Artifact(s)** column uses short numeric labels (1–19) for compactness; each label resolves to the artifact in [Section B](#b-target-artifact--source-sections) below, where every artifact title is hyperlinked.
+In the table below, the **Target Artifact(s)** column uses short numeric labels (1–19) for compactness; each label resolves to the artifact in [Section B](#b-target-artifact-source-sections) below, where every artifact title is hyperlinked.
 
 | # | Source Section | Disposition | Target Artifact(s) | Notes |
 |---:|---|---|---|---|

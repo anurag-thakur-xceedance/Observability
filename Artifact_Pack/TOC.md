@@ -1,10 +1,10 @@
-﻿# Observability Artifact Pack — Table of Contents
+# Observability Artifact Pack — Table of Contents
 
-> Index of all documents in this pack with two levels of structure (document title + sections). Click any heading to navigate.
+> Index of all documents in this pack with two levels of structure (chapter title + sections). Click any heading to navigate.
 
 ---
 
-## [Xceedance Observability Strategy (Decomposed Edition)](0.%20Observability%20Strategy%20%28Revised%29.md)
+## [Xceedance Observability Strategy](0.%20Observability%20Strategy%20%28Revised%29.md)
 
 - [Section 1. Executive Summary](0.%20Observability%20Strategy%20%28Revised%29.md#1-executive-summary)
 - [Section 2. Business Objectives & KPIs (Narrative)](0.%20Observability%20Strategy%20%28Revised%29.md#2-business-objectives-kpis-narrative)
@@ -143,8 +143,8 @@
 - [Section 2. Core Outcome KPIs](11.%20Observability%20KPI%20Scorecard.md#2-core-outcome-kpis)
 - [Section 3. Resilience & Coverage KPIs](11.%20Observability%20KPI%20Scorecard.md#3-resilience-coverage-kpis)
 - [Section 4. Governance Success KPIs (from Governance & Data Strategy)](11.%20Observability%20KPI%20Scorecard.md#4-governance-success-kpis-from-governance-data-strategy)
-- [Chapter 5. Platform KPIs Roll-Up (from [7. IaC for Observability Standard](7.%20IaC%20for%20Observability%20Standard.md) — Docker Compose + PowerShell)](11.%20Observability%20KPI%20Scorecard.md#5-platform-kpis-roll-up-from-7-iac-for-observability-standard720iac20for20observability20standardmd-docker-compose-powershell)
-- [Chapter 6. Maturity Phase Targets (from [14. Observability Capability Assessment Framework](14.%20Observability%20Capability%20Assessment%20Framework.md) / Roadmap)](11.%20Observability%20KPI%20Scorecard.md#6-maturity-phase-targets-from-14-observability-capability-assessment-framework1420observability20capability20assessment20frameworkmd-roadmap)
+- [Section 5. Platform KPIs Roll-Up (from IaC Standard — Docker Compose + PowerShell)](11.%20Observability%20KPI%20Scorecard.md#5-platform-kpis-roll-up-from-iac-standard-docker-compose-powershell)
+- [Section 6. Maturity Phase Targets (from Capability Assessment / Roadmap)](11.%20Observability%20KPI%20Scorecard.md#6-maturity-phase-targets-from-capability-assessment-roadmap)
 - [Section 7. Reporting Cadence](11.%20Observability%20KPI%20Scorecard.md#7-reporting-cadence)
 - [Section 8. Cross-References](11.%20Observability%20KPI%20Scorecard.md#8-cross-references)
 
@@ -213,7 +213,7 @@
 - [Section 1. Purpose](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#1-purpose)
 - [Section 2. Cultural Principles](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#2-cultural-principles)
 - [Section 3. Roles & Responsibilities](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#3-roles-responsibilities)
-- [Chapter 4. Adoption Plan (Aligned to Roadmap [13. Observability Roadmap Delivery Plan](13.%20Observability%20Roadmap%20Delivery%20Plan.md))](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#4-adoption-plan-aligned-to-roadmap-13-observability-roadmap-delivery-plan1320observability20roadmap20delivery20planmd)
+- [Section 4. Adoption Plan (Aligned to Roadmap)](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#4-adoption-plan-aligned-to-roadmap)
 - [Section 5. Continuous Improvement Process](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#5-continuous-improvement-process)
 - [Section 6. Training Curriculum (Initial)](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#6-training-curriculum-initial)
 - [Section 7. Success Indicators](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#7-success-indicators)
@@ -235,6 +235,9 @@
 
 - [A. Source Section → Target Artifact(s)](Traceability%20Matrix.md#a-source-section-target-artifacts)
 - [B. Target Artifact → Source Section(s)](Traceability%20Matrix.md#b-target-artifact-source-sections)
+
+## [Annexure A — Acronyms & Definitions](Annexure%20A%20-%20Acronyms.md)
+
 
 ## [Handover Report — Observability Strategy Decomposition](Handover%20Report.md)
 
