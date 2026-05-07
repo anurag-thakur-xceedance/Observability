@@ -2,7 +2,6 @@
 
 [↑ Back to TOC](TOC.md)
 
-
 > Generated as part of the observability strategy decomposition.
 > **Source:** `Observability-Strategy.docx` v0.1 (27 April 2026), annotations from `Observability-Strategy_Annotated_v2.docx`.
 > **Mapping basis:** `Observability_Extraction_Plan.xlsx` (`Section Mapping` sheet) and `Observability_Extraction_Table.md`.
@@ -99,6 +98,31 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 17 | [Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) | 11, 12, 13 |
 | 18 | [Observability Operating Model and Adoption Plan](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md) | 5, 6 |
 | 19 | [Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) | 41 |
+| 20 | [Business Capability and Value-Stream Mapping](20.%20Business%20Capability%20and%20Value-Stream%20Mapping.md) | New (gap-fill) — not sourced from v0.1; aligns with Section 1, Section 2, and outcome KPIs in Section 11. |
+| 21 | [Observability Platform HA and DR Design](21.%20Observability%20Platform%20HA%20and%20DR%20Design.md) | New (gap-fill) — extends Section 7, Section 40 with explicit HA / DR mechanics. |
+| 22 | [Capacity and Scale Model](22.%20Capacity%20and%20Scale%20Model.md) | New (gap-fill) — supports Section 37 platform KPIs with sizing model. |
+| 23 | [Observability Platform Security Architecture](23.%20Observability%20Platform%20Security%20Architecture.md) | New (gap-fill) — extends Section 42, Section 47 with STRIDE, mTLS, supply-chain controls. |
+| 24 | [SLO and Error-Budget Framework](24.%20SLO%20and%20Error-Budget%20Framework.md) | New (gap-fill) — extracts from Section 2 and standardises burn-rate alerting referenced in Section 14. |
+| 25 | [Service Onboarding and Instrumentation Kits](25.%20Service%20Onboarding%20and%20Instrumentation%20Kits.md) | New (gap-fill) — operationalises Section 11–Section 13 with PRR gate. |
+| 26 | [Multi-Tenant and Customer-Site Deployment Model](26.%20Multi-Tenant%20and%20Customer-Site%20Deployment%20Model.md) | New (gap-fill) — extends Section 40 host-portable Compose model to multi-tenant context. |
+
+---
+
+## C. Gap-Fill Artifacts → Source Strategy Sections (Implicit)
+
+Artifacts 20–26 and Annexure B / README do not map 1:1 to v0.1 sections — they fill identified gaps surfaced during the gap analysis pass. Their **logical** source linkage is recorded below.
+
+| New Artifact | Logical Source / Trigger | Cross-References |
+|---|---|---|
+| 20 — Business Capability & Value-Stream | KEEP-section 1 narrative; outcome KPIs (Section 2) | Outcome ↔ KPI ↔ SLO chain consumed by 11, 24 |
+| 21 — HA & DR Design | High-Level Architecture (Section 7); Multi-Cloud (Section 40, retired) | Self-monitoring SLIs feed 11 §6.1 |
+| 22 — Capacity & Scale | IaC platform KPIs (Section 37); Stack Provision Time | Cardinality budget shared with 1 §3.1 |
+| 23 — Security Architecture | Governance & Data Strategy (Section 42); Compliance (Section 47) | Controls evidenced in 10 §5–§6 |
+| 24 — SLO & Error-Budget | Business Objectives (Section 2); Continuous Improvement (Section 6) | Burn-rate alerts referenced by 4, 5, 11 |
+| 25 — Service Onboarding & Kits | Pre/Post-Login Telemetry (Sections 11–13); Telemetry Standards (Section 3) | PRR gate enforced by 15 §3 |
+| 26 — Multi-Tenant Model | Multi-Cloud Observability (Section 40, retired) — repurposed for tenant context | Tenant isolation evidenced in 10 OBS-C-12 |
+| Annexure B — Concepts Glossary | Appendix glossary (Section 58) | Augments Annexure A acronyms |
+| README | New onboarding aid | Persona-based entry to all artifacts |
 
 ---
 

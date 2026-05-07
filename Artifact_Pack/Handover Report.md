@@ -2,8 +2,7 @@
 
 [↑ Back to TOC](TOC.md)
 
-
-**Date:** 2026-05-06
+**Date:** 2026-05-07 (enterprise-hardening pass)
 **Source artefacts consumed:**
 - `Observability-Strategy.docx` (v0.3, 4 May 2026 — Pulumi removed; Appendix 2 placeholder added; deployment-model-awareness note added)
 - `Observability-Strategy_Annotated_v2.docx`
@@ -19,9 +18,10 @@
 
 ## 1. Created Files
 
-### Artifact Pack — markdown documents populated from source content
+### Artifact Pack — markdown documents (22 numbered chapters + 7 gap-fill chapters + Annexures + supporting)
 | # | File |
 |---|---|
+| 0 | [Chapter 0. Observability Strategy (Revised)](0.%20Observability%20Strategy%20%28Revised%29.md) |
 | 1 | [Chapter 1. Enterprise Observability Standards Catalog](1.%20Enterprise%20Observability%20Standards%20Catalog.md) |
 | 2 | [Chapter 2. Observability Reference Architecture](2.%20Observability%20Reference%20Architecture.md) |
 | 3 | [Chapter 3. Domain Observability Runbooks Pack](3.%20Domain%20Observability%20Runbooks%20Pack.md) |
@@ -41,13 +41,22 @@
 | 17 | [Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) |
 | 18 | [Chapter 18. Observability Operating Model and Adoption Plan](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md) |
 | 19 | [Chapter 19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) |
+| 20 | [Chapter 20. Business Capability and Value-Stream Mapping](20.%20Business%20Capability%20and%20Value-Stream%20Mapping.md) — **new** |
+| 21 | [Chapter 21. Observability Platform HA and DR Design](21.%20Observability%20Platform%20HA%20and%20DR%20Design.md) — **new** |
+| 22 | [Chapter 22. Capacity and Scale Model](22.%20Capacity%20and%20Scale%20Model.md) — **new** |
+| 23 | [Chapter 23. Observability Platform Security Architecture](23.%20Observability%20Platform%20Security%20Architecture.md) — **new** |
+| 24 | [Chapter 24. SLO and Error-Budget Framework](24.%20SLO%20and%20Error-Budget%20Framework.md) — **new** |
+| 25 | [Chapter 25. Service Onboarding and Instrumentation Kits](25.%20Service%20Onboarding%20and%20Instrumentation%20Kits.md) — **new** |
+| 26 | [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26.%20Multi-Tenant%20and%20Customer-Site%20Deployment%20Model.md) — **new** |
 
 ### Supporting Files
 | File | Purpose |
 |---|---|
 | [TOC](TOC.md) | Pack index with all titles, sections, and subsections (hyperlinked). |
-| [Traceability Matrix](Traceability%20Matrix.md) | Bidirectional mapping (Source → Target & Target → Source). |
-| [Chapter 0. Observability Strategy (Revised)](0.%20Observability%20Strategy%20%28Revised%29.md) | Concise executive strategy with pointers (markdown form). |
+| [Traceability Matrix](Traceability%20Matrix.md) | Bidirectional mapping (Source → Target & Target → Source); Section C lists gap-fill artifacts. |
+| [Annexure A — Acronyms](Annexure%20A%20-%20Acronyms.md) | Acronyms used across the pack. |
+| [Annexure B — Concepts Glossary](Annexure%20B%20-%20Concepts%20Glossary.md) | Concepts: SLI/SLO/KPI, RED/USE, sampling, exemplars, etc. |
+| [README](README.md) | Persona-based quickstart for the pack. |
 | `Handover Report.md` | This report. |
 
 ---
@@ -61,6 +70,33 @@ All 58 source sections from the `Section Mapping` sheet have been processed:
 - **EXTRACT (42):** Substantive content moved to destination artifact(s); pointers placed in revised strategy.
 
 Section coverage is reflected in the [Traceability Matrix](Traceability%20Matrix.md) (sections 1–58).
+
+---
+
+## 2.1. Enterprise Hardening Pass (2026-05-07)
+
+A second pass was executed to close 47 gaps surfaced by gap analysis (11 Critical, 21 High, 13 Medium, 2 Low) across 12 domains. Outputs:
+
+- **7 new chapters** authored (20–26) covering business-capability mapping, HA/DR, capacity, security, SLO framework, service onboarding/PRR, and multi-tenant deployment.
+- **Annexure B (Concepts Glossary)** and **README (persona quickstart)** authored.
+- **Chapter 0** extended with Vision/Mission and 10 Guiding Principles.
+- **Chapter 1** extended with §3.1–§3.3 standards, **§3.1 Cardinality Governance**, **§4.1 Service Tiering Model T1–T4**.
+- **Chapter 2** extended with new §4.1 (eBPF), §5.1 (Sampling Strategy), §6.1 (Network Topology and Trust Boundaries), §7.1–§7.5 (Pipeline Processing with edge/gateway OTel YAML).
+- **Chapter 5** extended with **§7.1 Dashboards-as-Code** (repository layout, toolchain, PR workflow, drift detection).
+- **Chapter 6** extended with **§7 MLOps Lifecycle** (11 stages, model card template) and **§8 AI Safety, Explainability, and LLM Data Leakage**.
+- **Chapter 7** extended with **§7.1 Change Management** (change classes, wave gates, rollback, calendar/freezes).
+- **Chapter 8** extended with **§9.1 Day-2 Operations** (calendar, procedures, toil targets).
+- **Chapter 9** extended with **§6.1 Unit Economics**, **§6.2 Optimisation Playbook**, **§6.3 Forecast and Budget Model**.
+- **Chapter 10** extended with new controls **OBS-C-09 through OBS-C-17**, full **§6 Framework Mapping** (SOC2 / ISO 27001 / GDPR / NIST CSF), and **§7 Audit Lifecycle**.
+- **Chapter 11** extended with **§6.1 Telemetry Data Quality SLIs** (ingest, storage, query, freshness; platform error budget).
+- **Chapter 15** extended with **§4.1 RACI Matrix**, **§4.2 Governance Risk Register**, **§4.3 Framework Selection and Mapping**.
+- **Chapter 16 ADR Register** extended with **ADR-000 through ADR-016** and an enriched template.
+- **Chapter 18** extended with **§4.1 Community of Practice** and **§7.1 Adoption KPIs**.
+- **Annexure A** extended with new acronyms (CoP, eBPF, HA/DR, LLM, MLOps, mTLS, PRR, RACI, RUM, SBOM, STRIDE, TSC, USE, etc.).
+- **Traceability Matrix** extended with rows 20–26 and a new **Section C** for gap-fill artifacts.
+- **Bidirectional TOC navigation** (top + bottom back-links) injected across all chapters.
+
+The pack now contains **30 markdown files** (22 numbered chapters + 7 new chapters + TOC + Traceability + Handover Report + Annexure A + Annexure B + README + Chapter 0 strategy).
 
 ---
 

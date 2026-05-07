@@ -2,13 +2,13 @@
 
 [↑ Back to TOC](TOC.md)
 
-
 > Glossary of acronyms used across the Observability Artifact Pack.
 > Cross-reference: full glossary of strategy terms in [Chapter 1. Enterprise Observability Standards Catalog -> Section 13. Glossary (Light References from Strategy Appendix)](1.%20Enterprise%20Observability%20Standards%20Catalog.md#13-glossary-light-references-from-strategy-appendix).
 
 | Acronym | Expansion | Definition / Context |
 |---|---|---|
 | ADR | Architecture Decision Record | Short document capturing one architecture decision, its context, and consequences. Index in [Chapter 16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md). |
+| ABAC | Attribute-Based Access Control | Access control using attributes (tenant, tier, classification) — see [Chapter 23](23.%20Observability%20Platform%20Security%20Architecture.md). |
 | AI | Artificial Intelligence | Used here in the AIOps sense — anomaly detection, RCA suggestion, enriched alerting. |
 | AIOps | AI for IT Operations | Application of AI/ML to observability data for detection, correlation, and remediation. See [Chapter 6. AIOps Guardrails and Implementation Playbook](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md). |
 | AKS | Azure Kubernetes Service | Microsoft's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
@@ -75,6 +75,31 @@
 | URL | Uniform Resource Locator | Web address. |
 | UX | User Experience | User-perceived quality dimension. |
 | VM | Virtual Machine | Compute host (replaces "node" in the host-portable model). |
+| CoP | Community of Practice | Working-level forum that operationalises observability standards. See [Chapter 18 §4.1](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#41-community-of-practice). |
+| CSF | Cybersecurity Framework | NIST framework used to structure governance risk register. |
+| DORA | Digital Operational Resilience Act | EU financial-sector regulation; emerging compliance driver. |
+| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 2 §4.1](2.%20Observability%20Reference%20Architecture.md#41-auto-instrumentation-via-ebpf). |
+| HA | High Availability | Architecture pattern; covered in [Chapter 21](21.%20Observability%20Platform%20HA%20and%20DR%20Design.md). |
+| DR | Disaster Recovery | Architecture pattern; covered in [Chapter 21](21.%20Observability%20Platform%20HA%20and%20DR%20Design.md). |
+| HIPAA | Health Insurance Portability and Accountability Act | US healthcare regulation; out of scope today. |
+| LLM | Large Language Model | Generative AI model class. AI safety controls in [Chapter 6 §8](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md#8-ai-safety-explainability-and-llm-data-leakage). |
+| MLOps | Machine Learning Operations | Lifecycle for ML models. AIOps lifecycle in [Chapter 6 §7](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md#7-mlops-lifecycle-for-aiops-models). |
+| mTLS | mutual TLS | Two-way TLS authentication between services. Required between collectors and backends. |
+| NIS2 | Network and Information Systems Directive 2 | EU cyber-resilience directive. |
+| NPS | Net Promoter Score | Adoption KPI for engineer satisfaction with the platform. |
+| PCI DSS | Payment Card Industry Data Security Standard | Card-data protection standard. Conditional scope. |
+| PRR | Production Readiness Review | Gate that a service must pass before going to production. See [Chapter 25](25.%20Service%20Onboarding%20and%20Instrumentation%20Kits.md). |
+| RACI | Responsible / Accountable / Consulted / Informed | Decision-rights matrix model. See [Chapter 15 §4.1](15.%20Observability%20Governance%20Charter%20and%20ARB%20Pack.md#41-raci-matrix). |
+| RAG | Retrieval-Augmented Generation | LLM technique citing retrieved sources rather than free generation. |
+| RED | Rate, Errors, Duration | Service-monitoring method (Tom Wilkie). |
+| RFC | Request for Comments | CoP-level proposal stage that may become an ADR. |
+| RUM | Real User Monitoring | Browser-side telemetry capturing real user experience. |
+| SBOM | Software Bill of Materials | Inventory of components/dependencies; supply-chain control. |
+| SHAP | SHapley Additive exPlanations | Feature-attribution technique used for AI explainability. |
+| SOC | Security Operations Centre | Security team consuming security-relevant telemetry. |
+| STRIDE | Spoofing, Tampering, Repudiation, Info disclosure, DoS, Elevation of privilege | Threat-modelling taxonomy. |
+| TSC | Trust Services Criteria | SOC 2 criteria categories (Security, Availability, etc.). |
+| USE | Utilization, Saturation, Errors | Resource-monitoring method (Brendan Gregg). |
 
 ---
 
