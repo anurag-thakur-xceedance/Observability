@@ -75,21 +75,21 @@
 | URL | Uniform Resource Locator | Web address. |
 | UX | User Experience | User-perceived quality dimension. |
 | VM | Virtual Machine | Compute host (replaces "node" in the host-portable model). |
-| CoP | Community of Practice | Working-level forum that operationalises observability standards. See [Chapter 18 §4.1](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#41-community-of-practice). |
+| CoP | Community of Practice | Working-level forum that operationalises observability standards. See [Chapter 18. Observability Operating Model and Adoption Plan -> Section 4.1. Community of Practice](18.%20Observability%20Operating%20Model%20and%20Adoption%20Plan.md#41-community-of-practice). |
 | CSF | Cybersecurity Framework | NIST framework used to structure governance risk register. |
 | DORA | Digital Operational Resilience Act | EU financial-sector regulation; emerging compliance driver. |
-| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 2 §4.1](2.%20Observability%20Reference%20Architecture.md#41-auto-instrumentation-via-ebpf). |
+| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 2. Observability Reference Architecture -> Section 4.1. Auto-Instrumentation via eBPF](2.%20Observability%20Reference%20Architecture.md#41-auto-instrumentation-via-ebpf). |
 | HA | High Availability | Architecture pattern; covered in [Chapter 21](21.%20Observability%20Platform%20HA%20and%20DR%20Design.md). |
 | DR | Disaster Recovery | Architecture pattern; covered in [Chapter 21](21.%20Observability%20Platform%20HA%20and%20DR%20Design.md). |
 | HIPAA | Health Insurance Portability and Accountability Act | US healthcare regulation; out of scope today. |
-| LLM | Large Language Model | Generative AI model class. AI safety controls in [Chapter 6 §8](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md#8-ai-safety-explainability-and-llm-data-leakage). |
-| MLOps | Machine Learning Operations | Lifecycle for ML models. AIOps lifecycle in [Chapter 6 §7](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md#7-mlops-lifecycle-for-aiops-models). |
+| LLM | Large Language Model | Generative AI model class. AI safety controls in [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 8. AI Safety, Explainability, and LLM Data Leakage](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md#8-ai-safety-explainability-and-llm-data-leakage). |
+| MLOps | Machine Learning Operations | Lifecycle for ML models. AIOps lifecycle in [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 7. MLOps Lifecycle for AIOps Models](6.%20AIOps%20Guardrails%20and%20Implementation%20Playbook.md#7-mlops-lifecycle-for-aiops-models). |
 | mTLS | mutual TLS | Two-way TLS authentication between services. Required between collectors and backends. |
 | NIS2 | Network and Information Systems Directive 2 | EU cyber-resilience directive. |
 | NPS | Net Promoter Score | Adoption KPI for engineer satisfaction with the platform. |
 | PCI DSS | Payment Card Industry Data Security Standard | Card-data protection standard. Conditional scope. |
 | PRR | Production Readiness Review | Gate that a service must pass before going to production. See [Chapter 25](25.%20Service%20Onboarding%20and%20Instrumentation%20Kits.md). |
-| RACI | Responsible / Accountable / Consulted / Informed | Decision-rights matrix model. See [Chapter 15 §4.1](15.%20Observability%20Governance%20Charter%20and%20ARB%20Pack.md#41-raci-matrix). |
+| RACI | Responsible / Accountable / Consulted / Informed | Decision-rights matrix model. See [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.1. RACI Matrix](15.%20Observability%20Governance%20Charter%20and%20ARB%20Pack.md#41-raci-matrix). |
 | RAG | Retrieval-Augmented Generation | LLM technique citing retrieved sources rather than free generation. |
 | RED | Rate, Errors, Duration | Service-monitoring method (Tom Wilkie). |
 | RFC | Request for Comments | CoP-level proposal stage that may become an ADR. |

@@ -80,18 +80,18 @@ A second pass was executed to close 47 gaps surfaced by gap analysis (11 Critica
 - **7 new chapters** authored (20–26) covering business-capability mapping, HA/DR, capacity, security, SLO framework, service onboarding/PRR, and multi-tenant deployment.
 - **Annexure B (Concepts Glossary)** and **README (persona quickstart)** authored.
 - **Chapter 0** extended with Vision/Mission and 10 Guiding Principles.
-- **Chapter 1** extended with §3.1–§3.3 standards, **§3.1 Cardinality Governance**, **§4.1 Service Tiering Model T1–T4**.
-- **Chapter 2** extended with new §4.1 (eBPF), §5.1 (Sampling Strategy), §6.1 (Network Topology and Trust Boundaries), §7.1–§7.5 (Pipeline Processing with edge/gateway OTel YAML).
-- **Chapter 5** extended with **§7.1 Dashboards-as-Code** (repository layout, toolchain, PR workflow, drift detection).
-- **Chapter 6** extended with **§7 MLOps Lifecycle** (11 stages, model card template) and **§8 AI Safety, Explainability, and LLM Data Leakage**.
-- **Chapter 7** extended with **§7.1 Change Management** (change classes, wave gates, rollback, calendar/freezes).
-- **Chapter 8** extended with **§9.1 Day-2 Operations** (calendar, procedures, toil targets).
-- **Chapter 9** extended with **§6.1 Unit Economics**, **§6.2 Optimisation Playbook**, **§6.3 Forecast and Budget Model**.
-- **Chapter 10** extended with new controls **OBS-C-09 through OBS-C-17**, full **§6 Framework Mapping** (SOC2 / ISO 27001 / GDPR / NIST CSF), and **§7 Audit Lifecycle**.
-- **Chapter 11** extended with **§6.1 Telemetry Data Quality SLIs** (ingest, storage, query, freshness; platform error budget).
-- **Chapter 15** extended with **§4.1 RACI Matrix**, **§4.2 Governance Risk Register**, **§4.3 Framework Selection and Mapping**.
+- **Chapter 1** extended with Section 3.1–3.3 standards, **Section 3.1 Cardinality Governance**, **Section 4.1 Service Tiering Model T1–T4**.
+- **Chapter 2** extended with new Section 4.1 (eBPF), Section 5.1 (Sampling Strategy), Section 6.1 (Network Topology and Trust Boundaries), Section 7.1–7.5 (Pipeline Processing with edge/gateway OTel YAML).
+- **Chapter 5** extended with **Section 7.1 Dashboards-as-Code** (repository layout, toolchain, PR workflow, drift detection).
+- **Chapter 6** extended with **Section 7 MLOps Lifecycle** (11 stages, model card template) and **Section 8 AI Safety, Explainability, and LLM Data Leakage**.
+- **Chapter 7** extended with **Section 7.1 Change Management** (change classes, wave gates, rollback, calendar/freezes).
+- **Chapter 8** extended with **Section 9.1 Day-2 Operations** (calendar, procedures, toil targets).
+- **Chapter 9** extended with **Section 6.1 Unit Economics**, **Section 6.2 Optimisation Playbook**, **Section 6.3 Forecast and Budget Model**.
+- **Chapter 10** extended with new controls **OBS-C-09 through OBS-C-17**, full **Section 6 Framework Mapping** (SOC2 / ISO 27001 / GDPR / NIST CSF), and **Section 7 Audit Lifecycle**.
+- **Chapter 11** extended with **Section 6.1 Telemetry Data Quality SLIs** (ingest, storage, query, freshness; platform error budget).
+- **Chapter 15** extended with **Section 4.1 RACI Matrix**, **Section 4.2 Governance Risk Register**, **Section 4.3 Framework Selection and Mapping**.
 - **Chapter 16 ADR Register** extended with **ADR-000 through ADR-016** and an enriched template.
-- **Chapter 18** extended with **§4.1 Community of Practice** and **§7.1 Adoption KPIs**.
+- **Chapter 18** extended with **Section 4.1 Community of Practice** and **Section 7.1 Adoption KPIs**.
 - **Annexure A** extended with new acronyms (CoP, eBPF, HA/DR, LLM, MLOps, mTLS, PRR, RACI, RUM, SBOM, STRIDE, TSC, USE, etc.).
 - **Traceability Matrix** extended with rows 20–26 and a new **Section C** for gap-fill artifacts.
 - **Bidirectional TOC navigation** (top + bottom back-links) injected across all chapters.
@@ -110,7 +110,7 @@ The following items are **content depth follow-ups** rather than missing extract
 - **[Chapter 12. Incident Response Playbook](12.%20Incident%20Response%20Playbook.md) Incident Response** — embedded sequence diagram from the source doc (image) was not OCR'd; logical flow captured textually.
 - **[Chapter 16. Observability ADR Decision Register](16.%20Observability%20ADR%20Decision%20Register.md) ADRs** — full ADRs not yet authored; index of seven inferred decisions has been recorded for ratification.
 - **[Chapter 19. Observability Data Model Specification](19.%20Observability%20Data%20Model%20Specification.md) Data Model** — JSON schemas, ERD diagram, and tool-native mappings remain to be authored.
-- **[Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md)** — placeholder named user-journey list (`policy-quote`) needs product confirmation.
+- [Chapter 17. Application Telemetry Standard](17.%20Application%20Telemetry%20Standard.md) — placeholder named user-journey list (`policy-quote`) needs product confirmation.
 
 ---
 

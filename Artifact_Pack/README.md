@@ -1,4 +1,4 @@
-﻿# README — Observability Artifact Pack
+# README — Observability Artifact Pack
 
 [↑ Back to TOC](TOC.md)
 
@@ -24,7 +24,7 @@ The pack covers the full lifecycle of observability as a capability:
 
 ## How to Read This Pack
 
-The full table of contents — every chapter, every section, with deep links — lives in **[TOC.md](TOC.md)**. Start there to navigate.
+The full table of contents — every chapter, every section, with deep links — lives in [TOC.md](TOC.md). Start there to navigate.
 
 A short reading order by audience:
 

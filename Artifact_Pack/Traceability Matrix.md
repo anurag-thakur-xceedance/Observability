@@ -115,11 +115,11 @@ Artifacts 20–26 and Annexure B / README do not map 1:1 to v0.1 sections — th
 | New Artifact | Logical Source / Trigger | Cross-References |
 |---|---|---|
 | 20 — Business Capability & Value-Stream | KEEP-section 1 narrative; outcome KPIs (Section 2) | Outcome ↔ KPI ↔ SLO chain consumed by 11, 24 |
-| 21 — HA & DR Design | High-Level Architecture (Section 7); Multi-Cloud (Section 40, retired) | Self-monitoring SLIs feed 11 §6.1 |
-| 22 — Capacity & Scale | IaC platform KPIs (Section 37); Stack Provision Time | Cardinality budget shared with 1 §3.1 |
-| 23 — Security Architecture | Governance & Data Strategy (Section 42); Compliance (Section 47) | Controls evidenced in 10 §5–§6 |
+| 21 — HA & DR Design | High-Level Architecture (Section 7); Multi-Cloud (Section 40, retired) | Self-monitoring SLIs feed Chapter 11 Section 6.1 |
+| 22 — Capacity & Scale | IaC platform KPIs (Section 37); Stack Provision Time | Cardinality budget shared with Chapter 1 Section 3.1 |
+| 23 — Security Architecture | Governance & Data Strategy (Section 42); Compliance (Section 47) | Controls evidenced in Chapter 10 Sections 5–6 |
 | 24 — SLO & Error-Budget | Business Objectives (Section 2); Continuous Improvement (Section 6) | Burn-rate alerts referenced by 4, 5, 11 |
-| 25 — Service Onboarding & Kits | Pre/Post-Login Telemetry (Sections 11–13); Telemetry Standards (Section 3) | PRR gate enforced by 15 §3 |
+| 25 — Service Onboarding & Kits | Pre/Post-Login Telemetry (Sections 11–13); Telemetry Standards (Section 3) | PRR gate enforced by Chapter 15 Section 3 |
 | 26 — Multi-Tenant Model | Multi-Cloud Observability (Section 40, retired) — repurposed for tenant context | Tenant isolation evidenced in 10 OBS-C-12 |
 | Annexure B — Concepts Glossary | Appendix glossary (Section 58) | Augments Annexure A acronyms |
 | README | New onboarding aid | Persona-based entry to all artifacts |
