@@ -107,7 +107,7 @@ A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling)
 | Signal | Approach | Rate (default) | Rationale |
 |---|---|---|---|
 | Metrics | No sampling — full fidelity at scrape interval | 100% | Aggregated by definition; sampling defeats the purpose |
-| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 1 Section 4a](1-enterprise-observability-standards-catalog.md#41-service-tiering-model)) |
+| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](1-enterprise-observability-standards-catalog.md#41-service-tiering-model)) |
 | Traces (head-based, baseline) | `parentbased_traceidratio` at SDK | T1 10%, T2 5%, T3 1%, T4 0.1% | Decision propagates with `traceparent`; lightweight |
 | Traces (tail-based, gateway) | Tail sampling at gateway Collector | 100% of errors + 100% of slow (> P95) + N% of normal | Captures the interesting traces; downsamples the rest |
 
@@ -268,7 +268,7 @@ receivers:
 extensions:
   bearertokenauth/ingest: { tokens_file: /etc/otel/tenants.tokens.yml }
 processors:
-  tail_sampling: { ... see Section 5a ... }
+  tail_sampling: { ... see Section 5.1. Sampling Strategy ... }
   attributes/tenant:
     actions:
       - { key: tenant_id, action: upsert, from_attribute: auth.tenant }
@@ -293,7 +293,7 @@ service:
 - **`otelcol_processor_dropped_spans`** is a meta-monitor alert (see [Chapter 21 Section 7. Self-Monitoring](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor)).
 
 ### 7.5 Schema Validation and Cardinality Controls
-- Cardinality enforcement per [Chapter 1 Section 3a](1-enterprise-observability-standards-catalog.md#31-cardinality-governance).
+- Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance).
 - Required-attribute enforcement: `attributes/required` processor pattern rejects telemetry missing any of `service.name`, `tier`, `tenant_id`.
 - Recording rules in Prometheus / Mimir track per-service active-series count.
 

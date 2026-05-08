@@ -2,6 +2,8 @@
 
 [↑ Back to TOC](toc.md)
 
+> **TEMP TEST LINK:** [Jump to Chapter 22 Section 7 — Cardinality Budget](22-capacity-and-scale-model.md#7-cardinality-budget)
+
 ---
 
 ## 1. Scope and Intent
