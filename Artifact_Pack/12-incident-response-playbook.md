@@ -24,40 +24,78 @@ How a telemetry anomaly becomes a diagnosed, communicated, remediated incident. 
 
 ## 2. End-to-End Incident Sequence (Logical Flow)
 
-```
-[1] Telemetry Emission              → metrics / logs / traces from instrumented services (D2)
-        │
-[2] Pipeline & Storage             → OpenTelemetry Collector → Prometheus / Loki / Tempo (D2)
-        │
-[3] Detection                      → threshold-based alerts (D4) + AI anomaly detection (D6)
-        │
-[4] Triage                         → severity classification, acknowledgement, on-call routing (D4)
-        │
-[5] Diagnosis                      → domain runbooks (D3), correlation in Grafana (D5),
-                                       AI RCA suggestions (D6)
-        │
-[6] Mitigation / Remediation       → manual or pre-approved automated runbook
-        │
-[7] Communication                  → stakeholder updates, business-impact context (D11)
-        │
-[8] Resolution & Verification      → metrics return to healthy ranges; alerts auto-resolve
-        │
-[9] Post-Incident Review (PIR)     → structured RCA record (retained 1yr, see D8)
-        │
-[10] Feedback                      → ADR (D16) for repeat issues, model retraining (D6),
-                                       roadmap adjustments (D13), KPI updates (D11)
+### 2.1. Lifecycle Flow (Mermaid Flowchart)
+
+```mermaid
+flowchart TD
+    A["1\. Telemetry Emission<br/>metrics / logs / traces<br/><i>Ch 2</i>"] --> B["2\. Pipeline & Storage<br/>OTel Collector → Prom/Loki/Tempo<br/><i>Ch 2</i>"]
+    B --> C{"3\. Detection"}
+    C -->|"threshold alert"| D["4\. Triage<br/>severity + on-call routing<br/><i>Ch 4</i>"]
+    C -->|"AI anomaly"| D
+    D --> E["5\. Diagnosis<br/>runbooks + Grafana + AI RCA<br/><i>Ch 3 / Ch 5 / Ch 6</i>"]
+    E --> F["6\. Mitigation / Remediation<br/>manual or automated runbook"]
+    F --> G["7\. Communication<br/>stakeholder updates<br/><i>Ch 11</i>"]
+    G --> H{"8\. Resolved?"}
+    H -->|"no"| E
+    H -->|"yes"| I["9\. Post-Incident Review (PIR)<br/>RCA record retained ≥12mo<br/><i>Ch 8</i>"]
+    I --> J["10\. Feedback Loop<br/>ADR / model retrain / roadmap / KPI<br/><i>Ch 6 / Ch 13 / Ch 16</i>"]
+    J -.-> A
+
+    classDef detect fill:#fff4cc,stroke:#a07700;
+    classDef act fill:#cce6ff,stroke:#004a99;
+    classDef review fill:#e0d4ff,stroke:#5226a0;
+    class C,H detect;
+    class D,E,F,G act;
+    class I,J review;
 ```
 
-**Legend (artifact references in the diagram):**
-- **D2** → [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md)
-- **D3** → [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md)
-- **D4** → [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md)
-- **D5** → [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md)
-- **D6** → [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md)
-- **D8** → [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md)
-- **D11** → [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)
-- **D13** → [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md)
-- **D16** → [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md)
+### 2.2. Actor Sequence (Mermaid Sequence Diagram)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Svc as Instrumented Service
+    participant Pipe as OTel Collector + Storage
+    participant Det as Detection (Alertmanager / AIOps)
+    participant OnCall as On-Call Engineer
+    participant IC as Incident Commander
+    participant SO as Service Owner
+    participant Comms as Stakeholders
+    participant KB as PIR / Knowledge Base
+
+    Svc->>Pipe: emit metrics / logs / traces
+    Pipe->>Det: stream signals
+    Det->>OnCall: page (Sev-1) or ticket (Sev-2/3)
+    OnCall->>OnCall: acknowledge, open incident
+    alt severity = Critical
+        OnCall->>IC: engage incident commander
+        IC->>Comms: open comms cadence (Ch 4 §5)
+    end
+    OnCall->>SO: consult runbook + service owner
+    SO-->>OnCall: rollback / config / traffic-shift decision
+    OnCall->>Pipe: verify mitigation via dashboards (Ch 5)
+    Pipe-->>OnCall: signals returning to healthy ranges
+    OnCall->>Comms: resolution announcement
+    OnCall->>KB: open PIR draft within 24h
+    KB->>KB: structured RCA record (Ch 8 retention)
+    KB-->>IC: PIR reviewed; corrective actions assigned
+    IC-->>SO: track never-repeat items (Ch 16 ADR if systemic)
+```
+
+### 2.3. Step-by-Step Description
+
+| # | Step | Owner | Cross-Reference |
+|---|---|---|---|
+| 1 | Telemetry emission from instrumented services | Service Owner | [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) |
+| 2 | Pipeline & storage (OTel Collector → Prom/Loki/Tempo) | Platform | [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) |
+| 3 | Detection (threshold or AI anomaly) | Platform | [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md), [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) |
+| 4 | Triage — severity, ack, routing | On-Call | [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) |
+| 5 | Diagnosis via runbooks + Grafana + AI RCA | On-Call + Service Owner | [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md), [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md), [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) |
+| 6 | Mitigation / remediation | Service Owner | [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) |
+| 7 | Communication to stakeholders | Incident Commander | [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) |
+| 8 | Resolution & verification (metrics healthy, alerts auto-resolve) | On-Call | [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) |
+| 9 | Post-Incident Review (PIR) — structured RCA record | Incident Commander | [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) |
+| 10 | Feedback — ADR, model retraining, roadmap, KPI updates | Governance Body | [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md), [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md), [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) |
 
 ## 3. Roles
 | Role | Responsibility |
