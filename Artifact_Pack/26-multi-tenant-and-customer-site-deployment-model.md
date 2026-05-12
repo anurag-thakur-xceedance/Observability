@@ -157,7 +157,7 @@ Rules:
 | **Cross-region within residency** | Regulated tenants requiring HA | ≤ 30 min | ≤ 5 min |
 | **Forward-only to Xceedance central** | Loss-tolerant tenants | ≤ 24 h (rebuild from last forward) | varies |
 
-DR runbook per customer site is templated and parameterised in [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md).
+DR runbook per customer site is templated and parameterised in [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md).
 
 ## 8. Operational Boundaries (Who Operates What)
 | Component | Customer site | Xceedance shared |
@@ -182,7 +182,7 @@ DR runbook per customer site is templated and parameterised in [Chapter 7. IaC f
 | Tenant-scoped dashboard reviewed with customer | Customer Operations + Customer |
 
 ## 10. Cross-References
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) — base topology.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — base topology.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — required tenant attributes on telemetry.
 - [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — `tenant_class`, `tenant_id` namespace.
 - [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — DR patterns, including customer-site DR.

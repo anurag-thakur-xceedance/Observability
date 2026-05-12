@@ -409,9 +409,9 @@ Verdict: Large profile fits the customer with headroom on metrics and logs, but 
 | Orchestrator | Compose, single host | Compose, 3 hosts | AKS, 8 nodes |
 | Cost / month (Azure WE) | ~$310 | ~$1,280 | ~$6,440 |
 | Cost per active series (per month) | $0.0025 | $0.00088 | $0.00069 |
-| Cost per span stored (per month, 7–14 d ret) | n/a | n/a | n/a — see [Chapter 9](9-observability-finops-standard.md) |
+| Cost per span stored (per month, 7–14 d ret) | n/a | n/a | n/a — see [Chapter 9](09-observability-finops-standard.md) |
 
-The unit economic of cost-per-active-series falls ~3.6× from Small to Large; this is the primary FinOps argument for consolidating multiple small estates onto a shared Large platform once the operational complexity is justified (see [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md)).
+The unit economic of cost-per-active-series falls ~3.6× from Small to Large; this is the primary FinOps argument for consolidating multiple small estates onto a shared Large platform once the operational complexity is justified (see [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)).
 
 ## 4. Scale-Out Triggers
 | Indicator | Threshold | Action |
@@ -465,7 +465,7 @@ GB/day ≈ stored_spans/day × ~700 bytes/span (post-sampling)
 | Medium (3 host HA) | ~$1,200 | ~$300 | ~$150 | ~$1,650 |
 | Large (distributed) | ~$5,000+ | ~$1,500+ | ~$300 | ~$7,000+ |
 
-(Numbers are illustrative; actual figures must be modelled in [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md).)
+(Numbers are illustrative; actual figures must be modelled in [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md).)
 
 ## 7. Performance SLOs for the Platform Itself
 | Platform SLI | Target |
@@ -486,12 +486,12 @@ Cardinality is a budget. Per-service quotas:
 | T3 | 10,000 | 200 |
 | T4 | 5,000 | 100 |
 
-Enforcement is described in [Chapter 1 Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance).
+Enforcement is described in [Chapter 1 Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance).
 
 ## 9. Cross-References
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md)
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — Compose configurations sized to these reference deployments.
-- [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md) — cost modelling and unit economics.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md)
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — Compose configurations sized to these reference deployments.
+- [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — cost modelling and unit economics.
 - [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — HA topology overlaid on these sizes.
 
 ---

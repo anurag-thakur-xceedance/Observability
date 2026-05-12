@@ -43,12 +43,12 @@ The full table of contents — every chapter, every section, with deep links —
 
 A short reading order by audience:
 
-- **Executives / Directors** → start with [Chapter 0. Xceedance Observability Strategy](0-observability-strategy-revised.md), then [Chapter 11. KPI Scorecard](11-observability-kpi-scorecard.md) and [Chapter 13. Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md).
-- **Architects** → [Chapter 2. Reference Architecture](2-observability-reference-architecture.md), [Chapter 16. ADR Register](16-observability-adr-decision-register.md), and [Chapter 21. HA and DR](21-observability-platform-ha-and-dr-design.md).
-- **SRE / Platform** → [Chapter 7. IaC Standard](7-iac-for-observability-standard.md), [Chapter 24. SLO Framework](24-slo-and-error-budget-framework.md), and [Chapter 12. Incident Response](12-incident-response-playbook.md).
+- **Executives / Directors** → start with [Chapter 0. Xceedance Observability Strategy](00-observability-strategy-revised.md), then [Chapter 11. KPI Scorecard](11-observability-kpi-scorecard.md) and [Chapter 13. Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md).
+- **Architects** → [Chapter 2. Reference Architecture](02-observability-reference-architecture.md), [Chapter 16. ADR Register](16-observability-adr-decision-register.md), and [Chapter 21. HA and DR](21-observability-platform-ha-and-dr-design.md).
+- **SRE / Platform** → [Chapter 7. IaC Standard](07-iac-for-observability-standard.md), [Chapter 24. SLO Framework](24-slo-and-error-budget-framework.md), and [Chapter 12. Incident Response](12-incident-response-playbook.md).
 - **Service Developers** → [Chapter 25. Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md) and [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md).
 - **Security / Compliance** → [Chapter 23. Security Architecture](23-observability-platform-security-architecture.md), [Chapter 23 Appendix A. Threat Model (STRIDE)](23-appendix-a-threat-model.md), [Chapter 10. Compliance Control Matrix](10-compliance-and-audit-control-matrix.md), and [Chapter 28. Long-Term Archival Policy](28-observability-long-term-archival-policy.md).
-- **FinOps** → [Chapter 9. FinOps Standard](9-observability-finops-standard.md) and [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md).
+- **FinOps** → [Chapter 9. FinOps Standard](09-observability-finops-standard.md) and [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md).
 - **Auditors** → [Handover Report](handover-report.md), [Traceability Matrix](traceability-matrix.md), [Chapter 16. ADR Register](16-observability-adr-decision-register.md), [Chapter 27. Non-Functional Requirements Register](27-observability-non-functional-requirements.md).
 
 ## Pack Structure at a Glance
@@ -60,7 +60,7 @@ A short reading order by audience:
 ## Conventions
 
 - **Headings:** `# Chapter Title` (H1) and `## N. Section Title` (H2). Anchors are GitHub-style auto-generated slugs (lowercase, hyphenated, punctuation stripped).
-- **Cross-references:** chapter links use URL-encoded filenames (e.g. `1-enterprise-observability-standards-catalog.md`); section links append `#anchor`.
+- **Cross-references:** chapter links use URL-encoded filenames (e.g. `01-enterprise-observability-standards-catalog.md`); section links append `#anchor`.
 - **Back-to-TOC:** every chapter carries `[↑ Back to TOC](toc.md)` at the top and bottom.
 - **Header block:** every chapter declares its source strategy section(s) and current status.
 

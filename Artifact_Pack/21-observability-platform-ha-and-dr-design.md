@@ -94,7 +94,7 @@ The platform itself is **Tier 1**. Recovery objectives:
 
 ### 5.2 Pattern B — Cold-Backup
 - Object-storage replication cross-region (Azure GRS / S3 cross-region replication).
-- DR site provisioned on demand from PowerShell IaC scripts in [Chapter 7](7-iac-for-observability-standard.md).
+- DR site provisioned on demand from PowerShell IaC scripts in [Chapter 7](07-iac-for-observability-standard.md).
 - **RTO ≤ 4 h, RPO ≤ 1 h.** Acceptable for non-customer-facing observability tiers only.
 
 ### 5.3 Pattern C — Customer-Site Local DR
@@ -107,7 +107,7 @@ The platform itself is **Tier 1**. Recovery objectives:
 | Single host loss | LB health check; meta-monitor alert | Other Compose host serves traffic; restore failed host from IaC | Platform Engineering |
 | Prometheus crash / OOM | Meta-monitor `up` check on Prometheus; Alertmanager-1 fires | Pair instance continues; restart via Compose `restart: always` | Platform Engineering |
 | Object-storage outage | Loki/Tempo write errors; meta-monitor | Local buffer in OTel Collector + Prometheus remote-write retry; degrade to short-term query only | Platform Engineering |
-| Alert storm (>100 alerts/min) | Alertmanager rate; meta-monitor | Inhibition rules; severity downgrade; emergency silence policy in [Chapter 4](4-alerting-and-incident-severity-policy.md) | On-call |
+| Alert storm (>100 alerts/min) | Alertmanager rate; meta-monitor | Inhibition rules; severity downgrade; emergency silence policy in [Chapter 4](04-alerting-and-incident-severity-policy.md) | On-call |
 | Cardinality explosion | Series-count rule on Prometheus; meta-monitor | Auto-drop labels via `metric_relabel_configs`; emergency block list | Platform Engineering |
 | Grafana DB corruption | Liveness probe failure | Restore from Postgres backup; provision dashboards from Git | Platform Engineering |
 | Region outage | Health-check failure across all primary endpoints | DNS / LB cutover to DR region (Pattern A) | Platform Engineering + Network |
@@ -131,8 +131,8 @@ A separate, deliberately small Prometheus + Alertmanager pair runs on a differen
 | Cold-backup spin-up (Pattern B) | Annually | Stack reachable ≤ 4 h |
 
 ## 9. Cross-References
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) — base architecture.
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — PowerShell + Compose provisioning.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — base architecture.
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — PowerShell + Compose provisioning.
 - [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) — when to migrate from Compose to distributed.
 - [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — auth & encryption between HA peers.
 - [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — customer-site DR patterns.

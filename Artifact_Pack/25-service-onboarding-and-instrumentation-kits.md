@@ -113,7 +113,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 ### 3.8 Legacy / Unmodifiable Service (eBPF Kit)
 - **Beyla** (or equivalent eBPF auto-instrumentation) for HTTP/gRPC visibility without code changes.
 - Useful for vendor-supplied or legacy components where SDK adoption isn't possible.
-- See [Chapter 2 Section 4.1. Auto-Instrumentation via eBPF](2-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf).
+- See [Chapter 2 Section 4.1. Auto-Instrumentation via eBPF](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf).
 
 ## 4. Role-Based Training
 
@@ -154,7 +154,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 | % PRRs passing first review | ≥ 70% |
 
 ## 7. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — pre/post-login standards.
 - [Chapter 18. Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md) — adoption governance.
 - [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) — cardinality budget.

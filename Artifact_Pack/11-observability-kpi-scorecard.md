@@ -74,7 +74,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 
 ## 6.1. Telemetry Data Quality SLIs
 
-The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance), [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md), and [Chapter 21. Observability Platform HA and DR Design -> Section 7. Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor).
+The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance), [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), and [Chapter 21. Observability Platform HA and DR Design -> Section 7. Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor).
 
 ### 6.1.1 Ingest Quality SLIs
 
@@ -117,7 +117,7 @@ The observability platform is itself a tier-1 service whose **inputs** (the tele
 ### 6.1.5 Error Budget for Telemetry Quality
 
 The platform itself runs SLOs against Section 6.1.1–6.1.4 SLIs, with a **30-day error budget**, modelled per [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md). When the platform's own error budget burns:
-- **50% burn**: Platform Ops freezes all Normal-class changes ([Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](7-iac-for-observability-standard.md#71-change-management)).
+- **50% burn**: Platform Ops freezes all Normal-class changes ([Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](07-iac-for-observability-standard.md#71-change-management)).
 - **75% burn**: ARB notified; emergency review.
 - **100% burn**: All non-Emergency changes paused until budget recovers.
 
@@ -133,9 +133,9 @@ Section 6.1 SLIs appear on the **Platform Health** dashboard, viewable to all en
 - Incident-driven adjustments raised through [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) (ADRs).
 
 ## 8. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance) — feeds Section 6.1.2 cardinality SLI.
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) / [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md) / [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.
+- [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance) — feeds Section 6.1.2 cardinality SLI.
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) / [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) / [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.
 - [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md) — roadmap phase plan that drives phase targets.
 - [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md) — capability assessment framework feeding maturity scoring.
 - [Chapter 18. Observability Operating Model and Adoption Plan -> Section 7.1. Adoption KPIs](18-observability-operating-model-and-adoption-plan.md#71-adoption-kpis) — adoption KPIs sourced into this scorecard.

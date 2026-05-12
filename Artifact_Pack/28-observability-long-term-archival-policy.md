@@ -21,13 +21,13 @@ status: Draft
 
 ## 1. Purpose
 
-This policy governs the **long-term archival** (greater than 1 year) of observability telemetry — distinct from the operational retention tiers (hot / warm / cold) defined in [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md). It defines what is archived, in what form, for how long, where, who can access it, and how it is eventually destroyed.
+This policy governs the **long-term archival** (greater than 1 year) of observability telemetry — distinct from the operational retention tiers (hot / warm / cold) defined in [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md). It defines what is archived, in what form, for how long, where, who can access it, and how it is eventually destroyed.
 
 ## 2. Scope
 
 - All telemetry classes (metrics, logs, traces, events, profiles) that have a regulatory, contractual, legal, or forensic retention obligation extending beyond the operational cold tier.
 - Audit logs and security telemetry that must satisfy SOC 2, ISO 27001, GDPR, and sector-specific obligations (HIPAA, PCI DSS, NIS2, DORA, where applicable).
-- AI/ML training data and AI decision logs (per [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md)).
+- AI/ML training data and AI decision logs (per [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)).
 
 Out-of-scope: short-term operational retention (covered by Chapter 8) and live backup/replication for HA/DR (covered by [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md)).
 
@@ -54,7 +54,7 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 | AI inference logs | 1 year | 4 years | 5 years | Cryptographic erasure |
 | Customer-site telemetry | per customer contract | per customer contract | per customer contract | Customer-specified |
 
-> Worked example continues from [Chapter 8. Observability Data Governance and Retention Policy -> Section 4. Worked Example: Applying Retention Policy](8-observability-data-governance-and-retention-policy.md#4-worked-example-applying-retention-policy).
+> Worked example continues from [Chapter 8. Observability Data Governance and Retention Policy -> Section 4. Worked Example: Applying Retention Policy](08-observability-data-governance-and-retention-policy.md#4-worked-example-applying-retention-policy).
 
 ## 5. Storage Architecture
 
@@ -167,7 +167,7 @@ For records tagged Forensic or Legal Hold:
 
 ## 12. Cost Model
 
-Archival cost is tracked separately from operational FinOps (see [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md)).
+Archival cost is tracked separately from operational FinOps (see [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)).
 
 | Metric | Target |
 |---|---|
@@ -209,8 +209,8 @@ Full RACI in [Chapter 15. Observability Governance Charter and ARB Pack -> Secti
 
 ## 16. Cross-References
 
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — operational retention (precedes archive).
-- [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md) — cost-management context.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — operational retention (precedes archive).
+- [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — cost-management context.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — control evidence mapping.
 - [Chapter 17. Application Telemetry Standard -> Section 6. PII & Data Classification](17-application-telemetry-standard.md#6-pii-data-classification) — PII classification used for privacy treatment.
 - [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — distinction from backup/DR.

@@ -30,7 +30,7 @@ Observability data is governed to meet regulatory and internal compliance. This 
 ## 3. Regulatory Alignment
 - Retention durations and storage locations aligned with corporate policies and relevant regulations (e.g. financial services, data-protection rules).
 - **Periodic audits verify that telemetry does not contain prohibited data types** (such as unmasked PII).
-- Where applicable, GDPR-aligned deletion timelines are enforced via automated retention rules in storage backends (see [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md), [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md)).
+- Where applicable, GDPR-aligned deletion timelines are enforced via automated retention rules in storage backends (see [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)).
 
 ## 4. Reporting
 Compliance and governance reports are generated on a regular schedule and shared with appropriate stakeholders. Examples:
@@ -52,11 +52,11 @@ Compliance and governance reports are generated on a regular schedule and shared
 | OBS-C-07 | Compliance reports issued on schedule | Internal | Report distribution list and timestamps | Governance Body |
 | OBS-C-08 | Deletion / compaction jobs monitored for compliance | GDPR | Job success metrics, alert evidence | Platform Ops |
 | OBS-C-09 | Service telemetry conformance ≥ 90% (PRR gate, [Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) | Internal | PRR scorecard, conformance dashboard | Service Owner |
-| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
+| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
 | OBS-C-11 | mTLS between collectors and backends ([Chapter 23](23-observability-platform-security-architecture.md)) | SOC2 / ISO | Cert inventory; expiry alerts | Platform Ops |
 | OBS-C-12 | Tenant isolation verified for multi-tenant deployments ([Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md)) | Internal / customer contract | Tenant-label policy report; cross-tenant query test | Platform Ops |
 | OBS-C-13 | DR drill executed at planned cadence ([Chapter 21](21-observability-platform-ha-and-dr-design.md)) | SOC2 (Availability) | Drill report, RTO/RPO measurements | SRE |
-| OBS-C-14 | AIOps model approval and shadow-mode evidence before production ([Chapter 6](6-aiops-guardrails-and-implementation-playbook.md)) | Internal / model risk | Model card; shadow-mode metrics | AIOps Lead |
+| OBS-C-14 | AIOps model approval and shadow-mode evidence before production ([Chapter 6](06-aiops-guardrails-and-implementation-playbook.md)) | Internal / model risk | Model card; shadow-mode metrics | AIOps Lead |
 | OBS-C-15 | SBOM produced and signed for platform components ([Chapter 23](23-observability-platform-security-architecture.md)) | Supply chain | SBOM artefacts; cosign attestations | Platform Ops |
 | OBS-C-16 | Container images scanned and signed before deployment | Supply chain / SOC2 | Scan reports; admission-controller logs | Platform Ops |
 | OBS-C-17 | Backup integrity verified for stateful telemetry stores | SOC2 (Availability) | Restore-test reports | Platform Ops |
@@ -106,8 +106,8 @@ The framework set is selected and governed by [Chapter 15. Observability Governa
 The **next-section number reservation** for sub-controls (e.g. OBS-C-01.1) is documented per audit cycle in the evidence repository.
 
 ## 8. Cross-References
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — retention rules audited here.
-- [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md) — deletion / compaction mechanics evidenced here.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — retention rules audited here.
+- [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — deletion / compaction mechanics evidenced here.
 - [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.3. Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#43-framework-selection-and-mapping) — selects the frameworks mapped in Section 6.
 - [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) — ADRs documenting compliance-driven decisions.
 - [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — technical controls behind OBS-C-11, -15, -16.

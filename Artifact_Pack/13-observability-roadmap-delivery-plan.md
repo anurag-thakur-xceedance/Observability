@@ -74,21 +74,21 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 - MTTD < 1 min, MTTR in minutes, services instrumented 100%, alert noise low (< 10% FP), manual RCA < 20%, automated tickets > 90%.
 
 ## 5. Dependencies (Cross-Phase)
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — required to instrument services consistently across phases.
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — required before significant telemetry volume in Phase 2.
-- [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) — pre-condition for Phase 3 automation.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — required before significant telemetry volume in Phase 2.
+- [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) — pre-condition for Phase 3 automation.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — change control for each phase gate.
 
 ## 6. Risks (Initial)
 - Tool consolidation may surface migration debt.
-- AI false-positive rate may exceed 5% during Phase 3 ramp-up; mitigated by feedback-loop discipline ([Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md)).
-- Cardinality / cost overruns mid-Phase 2 if [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md)/[Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md) controls are not yet operational.
+- AI false-positive rate may exceed 5% during Phase 3 ramp-up; mitigated by feedback-loop discipline ([Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)).
+- Cardinality / cost overruns mid-Phase 2 if [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)/[Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) controls are not yet operational.
 
 ## 7. Cross-References
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — KPI scorecard with phase targets.
 - [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md) — capability assessment framework.
-- [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) / [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) / [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) / [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — dependent standards / policies.
+- [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) / [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) / [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) / [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — dependent standards / policies.
 
 ---
 

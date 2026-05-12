@@ -30,13 +30,13 @@ Defines who governs observability standards, retention, access, and architecture
 
 | Domain | Decision Right |
 |---|---|
-| Telemetry standards ([Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md), [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md), [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md)) | Governance body approves; standards owners draft. |
-| Retention policy ([Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md)) | Governance body approves; data governance lead drafts. |
-| Access control ([Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) RBAC) | Identity / Security with governance body endorsement. |
-| Cost / FinOps levers ([Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md)) | Platform Ops with governance body sign-off above threshold. |
-| Alerting & severity ([Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md)) | SRE / Incident Mgmt with governance body endorsement. |
-| AIOps guardrails ([Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md)) | AI lead + governance body co-approval. |
-| IaC standard ([Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md)) | Platform Ops; ARB endorsement for cross-cloud changes. |
+| Telemetry standards ([Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md), [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md), [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md)) | Governance body approves; standards owners draft. |
+| Retention policy ([Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)) | Governance body approves; data governance lead drafts. |
+| Access control ([Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) RBAC) | Identity / Security with governance body endorsement. |
+| Cost / FinOps levers ([Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)) | Platform Ops with governance body sign-off above threshold. |
+| Alerting & severity ([Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md)) | SRE / Incident Mgmt with governance body endorsement. |
+| AIOps guardrails ([Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)) | AI lead + governance body co-approval. |
+| IaC standard ([Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md)) | Platform Ops; ARB endorsement for cross-cloud changes. |
 | Roadmap phase gates ([Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md)) | Governance body / ARB. |
 
 ## 4. Architecture Review Board (ARB) Pack
@@ -59,14 +59,14 @@ The decision-rights table (Section 3) names the **A**ccountable role only. The f
 | Activity | Service Owner | SRE / Platform Ops | Data Governance | AIOps Lead | Identity / Security | Governance Body / ARB | FinOps |
 |---|---|---|---|---|---|---|---|
 | Define service SLO ([Chapter 24](24-slo-and-error-budget-framework.md)) | A,R | C | I | I | I | C | I |
-| Approve new telemetry standard ([Chapter 1](1-enterprise-observability-standards-catalog.md)) | C | R | C | I | C | A | I |
-| Approve cardinality-budget exception ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | R | C | I | I | I | A | C |
+| Approve new telemetry standard ([Chapter 1](01-enterprise-observability-standards-catalog.md)) | C | R | C | I | C | A | I |
+| Approve cardinality-budget exception ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | R | C | I | I | I | A | C |
 | Onboard new service (PRR gate, [Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) | A,R | R | C | I | C | I | I |
-| Change retention policy ([Chapter 8](8-observability-data-governance-and-retention-policy.md)) | I | R | A,R | I | C | C | C |
-| Promote AIOps model to production ([Chapter 6](6-aiops-guardrails-and-implementation-playbook.md)) | C | R | C | A,R | I | C | I |
-| Approve cross-cloud platform change ([Chapter 7](7-iac-for-observability-standard.md)) | I | R | I | I | C | A | C |
+| Change retention policy ([Chapter 8](08-observability-data-governance-and-retention-policy.md)) | I | R | A,R | I | C | C | C |
+| Promote AIOps model to production ([Chapter 6](06-aiops-guardrails-and-implementation-playbook.md)) | C | R | C | A,R | I | C | I |
+| Approve cross-cloud platform change ([Chapter 7](07-iac-for-observability-standard.md)) | I | R | I | I | C | A | C |
 | Update RBAC role definitions | I | R | C | I | A,R | C | I |
-| Approve cost-optimisation lever above threshold ([Chapter 9](9-observability-finops-standard.md)) | C | R | I | I | I | A | R |
+| Approve cost-optimisation lever above threshold ([Chapter 9](09-observability-finops-standard.md)) | C | R | I | I | I | A | R |
 | Ratify ADR ([Chapter 16](16-observability-adr-decision-register.md)) | C | C | C | C | C | A,R | C |
 | Quarterly governance review (Section 5) | I | C | C | C | C | A,R | C |
 | Post-incident governance review ([Chapter 12](12-incident-response-playbook.md)) | R | R | C | C | C | A | I |
@@ -85,13 +85,13 @@ Tracked risks to the **governance** function itself (separate from operational p
 | Risk ID | Risk | Likelihood | Impact | Owner | Mitigation | Trigger / KRI |
 |---|---|---|---|---|---|---|
 | GOV-R-01 | Standards drift: services bypass `1.` standards under delivery pressure | Med | High | Governance Body | PRR gate ([Chapter 25](25-service-onboarding-and-instrumentation-kits.md)); compliance scan ([Chapter 10](10-compliance-and-audit-control-matrix.md) OBS-C-09) | Conformance score < 90% (KPI in [Chapter 11](11-observability-kpi-scorecard.md)) |
-| GOV-R-02 | Cardinality breach destabilises platform | Med | High | Platform Ops | Budget enforcement at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance)); reject-on-breach policy | Active series > 90% of budget |
+| GOV-R-02 | Cardinality breach destabilises platform | Med | High | Platform Ops | Budget enforcement at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)); reject-on-breach policy | Active series > 90% of budget |
 | GOV-R-03 | Retention misconfiguration causes GDPR breach | Low | Critical | Data Governance | Automated retention checks (OBS-C-04); quarterly audit | Retention drift detected by job |
 | GOV-R-04 | RBAC role explosion / least-privilege erosion | High | Med | Identity | Quarterly access review (Section 6); role-template enforcement | Roles per user > 5; unreviewed roles > 30 days |
 | GOV-R-05 | ADR backlog: decisions made informally, not recorded | High | Med | ARB | ADR-required gate at ARB; ADR log review at every cadence | ADRs created per quarter < changes per quarter |
-| GOV-R-06 | AIOps model drift / silent failure | Med | High | AIOps Lead | Model lifecycle controls ([Chapter 6](6-aiops-guardrails-and-implementation-playbook.md)); shadow-mode validation | Precision drop > 10% week-on-week |
+| GOV-R-06 | AIOps model drift / silent failure | Med | High | AIOps Lead | Model lifecycle controls ([Chapter 6](06-aiops-guardrails-and-implementation-playbook.md)); shadow-mode validation | Precision drop > 10% week-on-week |
 | GOV-R-07 | Vendor lock-in to a single backend | Med | Med | ARB | OTel-only ingestion ([ADR-001](16-observability-adr-decision-register.md)); annual portability test | Vendor-specific code in services |
-| GOV-R-08 | Telemetry cost overruns above approved envelope | Med | Med | FinOps | Unit-economics dashboards ([Chapter 9](9-observability-finops-standard.md)); tier-based sampling | Cost per service > 110% of plan |
+| GOV-R-08 | Telemetry cost overruns above approved envelope | Med | Med | FinOps | Unit-economics dashboards ([Chapter 9](09-observability-finops-standard.md)); tier-based sampling | Cost per service > 110% of plan |
 | GOV-R-09 | Governance body decisions delayed beyond cadence | Med | Med | Governance Body | Async ADR review; emergency ARB convening rule (within 5 business days) | Open ADRs aged > 30 days |
 | GOV-R-10 | Loss of platform skills / single-point-of-knowledge | Med | High | Platform Ops | CoP rotation ([Chapter 18. Observability Operating Model and Adoption Plan -> Section 4.1. Community of Practice](18-observability-operating-model-and-adoption-plan.md#41-community-of-practice)); runbook coverage ≥ 95% | Bus factor < 2 for any critical component |
 
@@ -133,7 +133,7 @@ The framework selection is reviewed annually. New frameworks may be added by ADR
 Coordinates with [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) for audit evidence and [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) for governance KPIs (retention adherence, audit pass rate).
 
 ## 8. Cross-References
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — data governance policy enforced under this charter.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — data governance policy enforced under this charter.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — compliance evidence; framework mapping (Section 4.3) consumed there.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — governance success KPIs.
 - [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) — ADRs ratified by this body.

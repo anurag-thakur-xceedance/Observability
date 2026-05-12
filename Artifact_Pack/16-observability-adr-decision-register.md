@@ -26,23 +26,23 @@ Formal Architecture Decision Records (ADRs) for significant observability decisi
 
 | ID | Title | Status | Source |
 |---|---|---|---|
-| ADR-000 | Observability Strategy Principles (10 principles) | Accepted | [Chapter 0 Section 1.1. Vision, Mission, and Guiding Principles](0-observability-strategy-revised.md#11-vision-mission-and-guiding-principles) |
+| ADR-000 | Observability Strategy Principles (10 principles) | Accepted | [Chapter 0 Section 1.1. Vision, Mission, and Guiding Principles](00-observability-strategy-revised.md#11-vision-mission-and-guiding-principles) |
 | ADR-001 | Adopt OpenTelemetry as universal telemetry standard | Implicit (in strategy) → ratify | Strategy section "Build the Technical Foundation" |
 | ADR-002 | Select Grafana as primary visualization & alerting tool | Implicit → ratify | Strategy section "Build the Technical Foundation" |
 | ADR-003 | Use Prometheus / Loki / Tempo as backends | Implicit → ratify | Strategy section "High-Level Architecture" |
-| ADR-004 | Adopt PowerShell + Docker Compose for IaC and orchestration (supersedes earlier Pulumi/Kubernetes direction) | Accepted (revised) | [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md); Strategy section "IaC Role in OpenTelemetry Deployment" |
-| ADR-005 | Host-portable deployment (on-prem / customer site / cloud VM) via the same Compose stack — supersedes earlier multi-cloud K8s posture | Accepted (revised) | [Chapter 2. Observability Reference Architecture -> Section 6. Host-Portable Deployment Design](2-observability-reference-architecture.md#6-host-portable-deployment-design); [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) |
+| ADR-004 | Adopt PowerShell + Docker Compose for IaC and orchestration (supersedes earlier Pulumi/Kubernetes direction) | Accepted (revised) | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md); Strategy section "IaC Role in OpenTelemetry Deployment" |
+| ADR-005 | Host-portable deployment (on-prem / customer site / cloud VM) via the same Compose stack — supersedes earlier multi-cloud K8s posture | Accepted (revised) | [Chapter 2. Observability Reference Architecture -> Section 6. Host-Portable Deployment Design](02-observability-reference-architecture.md#6-host-portable-deployment-design); [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) |
 | ADR-006 | Tiered retention (hot / warm / cold) with metrics 30–90d, logs 7–30d, traces 7d, RCA 1y | Implicit → ratify | Strategy section "Telemetry retention tiers" |
 | ADR-007 | AIOps guardrails: FP < 5%, detection latency < 2 min | Implicit → ratify | Strategy section "AI-Driven Observability — Success criteria" |
 | ADR-008 | Adopt Sloth as SLO-rule generator | Proposed | [Chapter 24 Section 8. Tooling Decision](24-slo-and-error-budget-framework.md#8-tooling-decision) |
-| ADR-009 | Service Tiering Model (T1–T4) with per-tier policy deltas | Proposed | [Chapter 1 Section 4.1. Service Tiering Model](1-enterprise-observability-standards-catalog.md#41-service-tiering-model) |
-| ADR-010 | Cardinality Budget (per-service, enforced at SDK + collector + backend) | Proposed | [Chapter 1 Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance) |
+| ADR-009 | Service Tiering Model (T1–T4) with per-tier policy deltas | Proposed | [Chapter 1 Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model) |
+| ADR-010 | Cardinality Budget (per-service, enforced at SDK + collector + backend) | Proposed | [Chapter 1 Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance) |
 | ADR-011 | Multi-tenant data-isolation model with gateway-injected `tenant_id` | Proposed | [Chapter 26 Section 3. Tenant Labelling Enforcement](26-multi-tenant-and-customer-site-deployment-model.md#3-tenant-labelling-enforcement) |
-| ADR-012 | Auto-instrumentation via eBPF (Beyla) for legacy / unmodifiable services | Proposed | [Chapter 2 Section 4.1. Auto-Instrumentation via eBPF](2-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf) |
-| ADR-013 | Tail-based sampling at gateway with 100%-error retention | Proposed | [Chapter 2 Section 5.1. Sampling Strategy](2-observability-reference-architecture.md#51-sampling-strategy) |
+| ADR-012 | Auto-instrumentation via eBPF (Beyla) for legacy / unmodifiable services | Proposed | [Chapter 2 Section 4.1. Auto-Instrumentation via eBPF](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf) |
+| ADR-013 | Tail-based sampling at gateway with 100%-error retention | Proposed | [Chapter 2 Section 5.1. Sampling Strategy](02-observability-reference-architecture.md#51-sampling-strategy) |
 | ADR-014 | HA topology: Prometheus pair, Alertmanager 3-cluster, Loki/Tempo + object storage, Grafana × 2 with external Postgres | Proposed | [Chapter 21 Section 3. Reference HA Topology](21-observability-platform-ha-and-dr-design.md#3-reference-ha-topology-compose-single-region) |
 | ADR-015 | Compliance framework adoption: SOC 2 Type II + ISO 27001 + GDPR baseline (DORA where applicable) | Proposed | [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) |
-| ADR-016 | LLM telemetry-data handling: redact-before-prompt; on-prem / Azure OpenAI tenancy only; no third-party LLM access to raw telemetry | Proposed | [Chapter 6 Section 8. AI Safety, Explainability, and LLM Data Leakage](6-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage) |
+| ADR-016 | LLM telemetry-data handling: redact-before-prompt; on-prem / Azure OpenAI tenancy only; no third-party LLM access to raw telemetry | Proposed | [Chapter 6 Section 8. AI Safety, Explainability, and LLM Data Leakage](06-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage) |
 
 > Source decision-log table in the strategy is currently empty (only headings — `Id | Review Group | Decision`). Existing decisions need to be ratified; that is flagged as a **decision required** in the handover report.
 
@@ -98,7 +98,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB
 - **Supersedes**: —
-- **Related**: [Chapter 0 -> Section 1.1](0-observability-strategy-revised.md#11-vision-mission-and-guiding-principles)
+- **Related**: [Chapter 0 -> Section 1.1](00-observability-strategy-revised.md#11-vision-mission-and-guiding-principles)
 
 **Context.** Without explicit guiding principles, downstream decisions diverge across teams and customer sites. We need an enduring north star to evaluate every architectural and operational decision against.
 
@@ -126,7 +126,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, SRE Director
 - **Supersedes**: —
-- **Related**: [Chapter 2](2-observability-reference-architecture.md), [Chapter 17](17-application-telemetry-standard.md), [Chapter 19](19-observability-data-model-specification.md)
+- **Related**: [Chapter 2](02-observability-reference-architecture.md), [Chapter 17](17-application-telemetry-standard.md), [Chapter 19](19-observability-data-model-specification.md)
 
 **Context.** Xceedance operates across heterogeneous languages (.NET, Java, Node.js, Python, Go), cloud and on-premise hosts, and multiple customer sites. A common telemetry standard is required to avoid vendor lock-in, fragmentation, and per-stack tooling sprawl.
 
@@ -154,7 +154,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB
 - **Supersedes**: —
-- **Related**: [Chapter 5](5-grafana-platform-standard-and-visualization-playbook.md)
+- **Related**: [Chapter 5](05-grafana-platform-standard-and-visualization-playbook.md)
 
 **Context.** Visualisation and alerting are the human surface of observability. We need one consistent UI across metrics/logs/traces, with strong correlation, RBAC, multi-tenancy, and dashboards-as-code support.
 
@@ -182,7 +182,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB
 - **Supersedes**: —
-- **Related**: [Chapter 2](2-observability-reference-architecture.md), [Chapter 8](8-observability-data-governance-and-retention-policy.md)
+- **Related**: [Chapter 2](02-observability-reference-architecture.md), [Chapter 8](08-observability-data-governance-and-retention-policy.md)
 
 **Context.** Once OpenTelemetry is the wire format (ADR-001), backends must be chosen for each signal type. Options range from single-vendor to mixed open-source.
 
@@ -210,7 +210,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, SRE Director
 - **Supersedes**: Earlier Pulumi/Kubernetes direction in source `v0.1` strategy.
-- **Related**: [Chapter 7](7-iac-for-observability-standard.md), ADR-005
+- **Related**: [Chapter 7](07-iac-for-observability-standard.md), ADR-005
 
 **Context.** The original strategy assumed Kubernetes (AKS/EKS/GKE) with Pulumi IaC. Two issues surfaced: (1) customer-site deployments cannot mandate Kubernetes (many run Windows or single-host Linux); (2) Pulumi is overkill for the deployment scale we actually need (10s of hosts, not 100s of clusters).
 
@@ -239,7 +239,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB
 - **Supersedes**: Earlier multi-cloud AKS/EKS/GKE posture.
-- **Related**: [Chapter 2 -> Section 6](2-observability-reference-architecture.md#6-host-portable-deployment-design), [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md), ADR-004
+- **Related**: [Chapter 2 -> Section 6](02-observability-reference-architecture.md#6-host-portable-deployment-design), [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md), ADR-004
 
 **Context.** Xceedance customer base spans cloud-only, hybrid, on-prem-only, and air-gapped customer sites. A multi-cloud K8s posture fits cloud-only customers but excludes the rest.
 
@@ -267,7 +267,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, Data Governance, Compliance
 - **Supersedes**: —
-- **Related**: [Chapter 8](8-observability-data-governance-and-retention-policy.md), [Chapter 28](28-observability-long-term-archival-policy.md)
+- **Related**: [Chapter 8](08-observability-data-governance-and-retention-policy.md), [Chapter 28](28-observability-long-term-archival-policy.md)
 
 **Context.** Telemetry volumes grow without bound; retention policy must balance forensic value, regulatory obligation, and cost.
 
@@ -295,7 +295,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, AIOps Lead
 - **Supersedes**: —
-- **Related**: [Chapter 6](6-aiops-guardrails-and-implementation-playbook.md)
+- **Related**: [Chapter 6](06-aiops-guardrails-and-implementation-playbook.md)
 
 **Context.** AI-driven alerting without measurable guardrails risks alert fatigue and erosion of on-call trust.
 
@@ -352,7 +352,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, Service Owners
 - **Supersedes**: —
-- **Related**: [Chapter 1 -> Section 4.1](1-enterprise-observability-standards-catalog.md#41-service-tiering-model)
+- **Related**: [Chapter 1 -> Section 4.1](01-enterprise-observability-standards-catalog.md#41-service-tiering-model)
 
 **Context.** Uniform observability standards across all services is wasteful (low-tier services don't need 99.99% SLOs) and dangerous (Tier-1 services need stricter policies than the average).
 
@@ -380,7 +380,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, Platform Lead
 - **Supersedes**: —
-- **Related**: [Chapter 1 -> Section 3.1](1-enterprise-observability-standards-catalog.md#31-cardinality-governance), [Chapter 22 -> Section 8](22-capacity-and-scale-model.md#8-cardinality-budget)
+- **Related**: [Chapter 1 -> Section 3.1](01-enterprise-observability-standards-catalog.md#31-cardinality-governance), [Chapter 22 -> Section 8](22-capacity-and-scale-model.md#8-cardinality-budget)
 
 **Context.** Uncontrolled label cardinality is the #1 cause of Prometheus outages and cost overruns.
 
@@ -436,7 +436,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: Platform Lead
 - **Supersedes**: —
-- **Related**: [Chapter 2 -> Section 4.1](2-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf)
+- **Related**: [Chapter 2 -> Section 4.1](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf)
 
 **Context.** Some services cannot be re-instrumented (vendor-supplied, frozen-binary, regulatory-frozen). Without telemetry they remain dark.
 
@@ -463,7 +463,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: Platform Lead, FinOps
 - **Supersedes**: —
-- **Related**: [Chapter 2 -> Section 5.1](2-observability-reference-architecture.md#51-sampling-strategy)
+- **Related**: [Chapter 2 -> Section 5.1](02-observability-reference-architecture.md#51-sampling-strategy)
 
 **Context.** Full-trace ingestion is cost-prohibitive at scale; naive head-sampling discards error traces probabilistically — exactly the ones we need.
 
@@ -547,7 +547,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: Security, Compliance, Data Governance, ARB
 - **Supersedes**: —
-- **Related**: [Chapter 6 -> Section 8](6-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage), Chapter 23 Appendix A residual risk **C7-I**
+- **Related**: [Chapter 6 -> Section 8](06-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage), Chapter 23 Appendix A residual risk **C7-I**
 
 **Context.** AIOps RCA and summarisation use LLMs. Telemetry can contain PII, customer-confidential data, and regulated data classes. STRIDE threat model (Ch 23 Appendix A) flagged **C7-I LLM prompt leakage** as a residual High risk.
 
@@ -570,7 +570,7 @@ Selected option and the rationale that distinguishes it.
 ---
 
 ## 5. Cross-References
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) / [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) / [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — architectural decisions implemented.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) / [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) / [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — architectural decisions implemented.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — governance body that ratifies ADRs.
 
 ---

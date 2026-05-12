@@ -50,7 +50,7 @@ Assesses observability maturity against the phase plan in [Chapter 13. Observabi
 ## 5. Inputs
 - KPI scorecard ([Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)).
 - Incident review records ([Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)).
-- IaC platform metrics ([Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md)).
+- IaC platform metrics ([Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md)).
 - Compliance / audit reports ([Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md)).
 
 ## 6. Outputs

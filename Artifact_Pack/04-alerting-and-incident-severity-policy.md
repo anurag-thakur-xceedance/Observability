@@ -76,7 +76,7 @@ A single, enterprise-wide severity model and action expectation for alerts from 
 ## 5. Alert Routing & Escalation
 - Alert rules and dashboards are version-controlled (GitOps). See [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md).
 - Severity-based routing is configured in Grafana Alerting / Alertmanager.
-- Each alert is associated with a runbook reference (see [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) and [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)).
+- Each alert is associated with a runbook reference (see [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) and [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)).
 - Quiet hours, deduplication, and grouping are tuned to maintain signal-to-noise ratio ≥ 80% (see [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)).
 
 ## 6. Calibration Guidance
@@ -85,10 +85,10 @@ After a few weeks of live data, calibrate thresholds so:
 - **Critical** ≈ conditions where user impact or SLA breach begins.
 
 ## 7. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — threshold definitions feeding alert rules.
-- [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) — runbooks invoked by alerts.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) — Grafana implementation of alerting.
-- [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) — AI-specific alerting tuning.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — threshold definitions feeding alert rules.
+- [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) — runbooks invoked by alerts.
+- [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana implementation of alerting.
+- [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) — AI-specific alerting tuning.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — alert quality KPIs (signal-to-noise ratio).
 - [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — incident response workflow once alert fires.
 

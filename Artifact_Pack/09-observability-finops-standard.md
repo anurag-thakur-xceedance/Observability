@@ -20,7 +20,7 @@ status: Draft
 ---
 
 ## 1. Purpose
-Lifecycle policies manage cost and performance of observability platforms. This standard defines the cost-management mechanics that operationalise the retention authorisations in [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md).
+Lifecycle policies manage cost and performance of observability platforms. This standard defines the cost-management mechanics that operationalise the retention authorisations in [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md).
 
 ## 2. Storage Tier Model
 
@@ -75,7 +75,7 @@ C_signal = C_ingest + C_storage_hot + C_storage_warm + C_storage_cold + C_query
 
 | Unit | Definition | Reporting Cadence | Used By |
 |---|---|---|---|
-| **$/active series/month** | Prometheus active series cost ÷ active series count | Monthly | Cardinality reviews ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance)) |
+| **$/active series/month** | Prometheus active series cost ÷ active series count | Monthly | Cardinality reviews ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) |
 | **$/GB-day metrics (hot)** | Hot metrics storage cost ÷ GB-days | Monthly | Tier-window calibration |
 | **$/GB ingested logs** | Loki ingest cost ÷ GB ingested | Monthly | Log-volume conversations with service teams |
 | **$/GB-day logs (hot)** | Hot logs storage cost ÷ GB-days | Monthly | Tier-window calibration |
@@ -105,7 +105,7 @@ The figures below are **indicative starting points** for an enterprise stack at 
 
 Every cost is attributable to a `service.name` and `tenant.id`:
 - **Metrics:** active series labelled with `service` map cleanly; recording rules and federation must preserve service label.
-- **Logs:** `service` is a required Loki stream label per [Chapter 1](1-enterprise-observability-standards-catalog.md).
+- **Logs:** `service` is a required Loki stream label per [Chapter 1](01-enterprise-observability-standards-catalog.md).
 - **Traces:** `service.name` is mandatory per OTel semantic conventions; tail-sampler preserves it.
 - **Compute:** Collector compute is shared; allocated by ingest volume share per service.
 
@@ -151,7 +151,7 @@ Monthly review:
 - **Cutting retention without consulting incident response.** Long incidents need long telemetry windows; rule of thumb: retain hot ≥ p95 incident duration + 50%.
 - **Aggressive head-sampling in T1.** Misses rare-but-important patterns; prefer tail-sampling that preserves errors and slow traces.
 - **Removing labels without measuring.** Always model cardinality reduction before applying — some labels look high-cardinality but contribute little to cost (sparse).
-- **Optimising during incident.** Freeze optimisation activity during active incidents and during the change-freeze windows in [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](7-iac-for-observability-standard.md#71-change-management).
+- **Optimising during incident.** Freeze optimisation activity during active incidents and during the change-freeze windows in [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](07-iac-for-observability-standard.md#71-change-management).
 - **One-off "spring cleaning"**. Optimisation must be cyclical (Section 6.2.2) — single events drift back within a quarter.
 
 ## 6.3. Forecast and Budget Model
@@ -163,8 +163,8 @@ Inputs and outputs of the FinOps planning cycle.
 | Input | Source | Update Cadence |
 |---|---|---|
 | Service onboarding pipeline | [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) | Monthly |
-| Service tier distribution | [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](1-enterprise-observability-standards-catalog.md#41-service-tiering-model) | Quarterly |
-| Cardinality budget headroom | [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance) | Monthly |
+| Service tier distribution | [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model) | Quarterly |
+| Cardinality budget headroom | [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance) | Monthly |
 | Capacity sizing model | [Chapter 22](22-capacity-and-scale-model.md) | Quarterly |
 | Tenant onboarding pipeline | [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md) | Monthly |
 | Vendor unit-rate changes | Contracts | As-changed |
@@ -305,11 +305,11 @@ The model's largest risk is **deferring the optimisation cadence**: a single ski
 The reconciliation surfaces the **Mimir migration trigger** earlier than calendar-driven planning would, justifying the FinOps + Capacity joint review cadence specified in Section 6.3.1.
 
 ## 7. Deletion & Compaction Monitoring
-Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 8. Observability Data Governance and Retention Policy -> Section 7. Deletion and Retention Enforcement](8-observability-data-governance-and-retention-policy.md#7-deletion-and-retention-enforcement), [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md).
+Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 8. Observability Data Governance and Retention Policy -> Section 7. Deletion and Retention Enforcement](08-observability-data-governance-and-retention-policy.md#7-deletion-and-retention-enforcement), [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md).
 
 ## 8. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — cardinality budgets and tier model that drive cost (Section 6.1, Section 6.2).
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — retention policy this standard implements cost-side.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — cardinality budgets and tier model that drive cost (Section 6.1, Section 6.2).
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — retention policy this standard implements cost-side.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — compliance constraints on what can be deleted / archived.
 - [Chapter 11. Observability KPI Scorecard -> Section 6.1. Telemetry Data Quality SLIs](11-observability-kpi-scorecard.md#61-telemetry-data-quality-slis) — quality SLIs that bound cost cuts.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — governance approval for tiering and chargeback changes.

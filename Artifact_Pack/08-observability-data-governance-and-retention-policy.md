@@ -66,7 +66,7 @@ A tiered retention model balances cost, performance, and investigatory needs —
 - Classification determines storage location, encryption requirements, and access levels.
 
 ## 6. Data Quality and Standards
-- A standard telemetry schema (naming conventions for metrics, labels, log fields, trace attributes) is maintained; see [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) and [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md).
+- A standard telemetry schema (naming conventions for metrics, labels, log fields, trace attributes) is maintained; see [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) and [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md).
 - Data quality checks (missing labels, malformed logs, excessive cardinality) implemented in the telemetry pipeline.
 - Services are required to meet minimum instrumentation standards before production promotion.
 
@@ -75,7 +75,7 @@ A tiered retention model balances cost, performance, and investigatory needs —
 - Deletion jobs and compaction processes monitored to ensure compliance with policy and regulations (e.g. GDPR-aligned deletion timelines when applicable).
 
 ## 8. Lifecycle Mechanics (linked to FinOps)
-Cost-related lifecycle mechanics (hot / warm / cold storage, downsampling) are owned by [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md). This policy authorises those mechanics; cost detail lives in [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md).
+Cost-related lifecycle mechanics (hot / warm / cold storage, downsampling) are owned by [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md). This policy authorises those mechanics; cost detail lives in [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md).
 
 ## 9. Success Criteria
 - **100%** of production services emit telemetry that conforms to the approved schema.
@@ -96,7 +96,7 @@ The retention and governance policy creates a continuous **Day-2 operational** l
 | Storage capacity review (per backend) | Weekly | Platform Ops | Capacity dashboard ([Chapter 22](22-capacity-and-scale-model.md)) |
 | Retention-job success rate review | Weekly | Platform Ops | Job success metric; alert log |
 | Compaction lag check (Loki, Tempo) | Daily | Platform Ops | Compaction lag metric |
-| Cardinality drift review ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | Weekly | Platform Ops | Active-series report |
+| Cardinality drift review ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | Weekly | Platform Ops | Active-series report |
 | Schema-conformance scan | Weekly | Data Governance | Conformance dashboard |
 | PII redaction validation (sample audit) | Monthly | Data Governance | Audit report |
 | Backup-restore drill (per stateful backend) | Quarterly | Platform Ops | Drill report; RTO measured |
@@ -112,7 +112,7 @@ The retention and governance policy creates a continuous **Day-2 operational** l
 
 **Adding a new log source.** Service team submits parser config + sample lines → Platform Ops verifies parsing in non-prod → runs schema scan → promotes to prod → records ingest baseline.
 
-**Retention change.** Data Governance proposes change → Platform Ops models cost and capacity impact ([Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md)) → governance body approves → Platform Ops applies via IaC ([Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md)) → post-change validation per [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](7-iac-for-observability-standard.md#71-change-management).
+**Retention change.** Data Governance proposes change → Platform Ops models cost and capacity impact ([Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md)) → governance body approves → Platform Ops applies via IaC ([Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md)) → post-change validation per [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](07-iac-for-observability-standard.md#71-change-management).
 
 **Tenant offboarding ([Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md)).** Data Governance issues deletion ticket → Platform Ops runs scoped deletion against each backend (Prometheus tenant labels, Loki tenant streams, Tempo tenant blocks) → object-storage tenant prefix marked for deletion (lifecycle rule honours legal hold) → certificate of deletion produced for the tenant.
 
@@ -132,15 +132,15 @@ Toil above target is escalated to the CoP for engineering investment.
 ### 9.1.4 Knowledge Continuity
 
 To mitigate **GOV-R-10** (single-point-of-knowledge), every Day-2 procedure has:
-- A runbook in [Chapter 3](3-domain-observability-runbooks-pack.md) or in the platform's internal runbook library.
+- A runbook in [Chapter 3](03-domain-observability-runbooks-pack.md) or in the platform's internal runbook library.
 - At least **two named owners** trained and certified (PRR-style internal cert).
 - Quarterly rotation through the procedure during normal operation (not only during incident).
 
 ## 10. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) / [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
-- [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) — runbooks for Section 9.1 Day-2 procedures.
-- [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](7-iac-for-observability-standard.md#71-change-management) — change workflow used for Section 9.1 retention changes.
-- [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md) — cost-driven lifecycle mechanics.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) / [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
+- [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) — runbooks for Section 9.1 Day-2 procedures.
+- [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](07-iac-for-observability-standard.md#71-change-management) — change workflow used for Section 9.1 retention changes.
+- [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — cost-driven lifecycle mechanics.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — compliance and audit control matrix; OBS-C-04, OBS-C-08 sourced from Section 9.1.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — KPI scorecard for governance success.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — governance charter ownership.

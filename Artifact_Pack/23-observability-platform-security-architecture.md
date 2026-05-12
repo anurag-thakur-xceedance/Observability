@@ -191,9 +191,9 @@ Compose files reference secrets by `${VAR}` resolved at deploy by PowerShell IaC
 - Host-level: minimal base OS, automated patching, host-based IDS.
 
 ## 10. Cross-References
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) — pipeline detail.
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — Compose hardening configs.
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — data classification.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — pipeline detail.
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — Compose hardening configs.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — data classification.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — SOC 2 / ISO 27001 mapping.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — what services must (not) emit.
 - [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — per-tenant boundaries.

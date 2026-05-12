@@ -18,14 +18,14 @@ status: Draft
 | 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > Glossary of acronyms used across the Observability Artifact Pack.
-> Cross-reference: full glossary of strategy terms in [Chapter 1. Enterprise Observability Standards Catalog -> Section 13. Glossary (Light References from Strategy Appendix)](1-enterprise-observability-standards-catalog.md#13-glossary-light-references-from-strategy-appendix).
+> Cross-reference: full glossary of strategy terms in [Chapter 1. Enterprise Observability Standards Catalog -> Section 13. Glossary (Light References from Strategy Appendix)](01-enterprise-observability-standards-catalog.md#13-glossary-light-references-from-strategy-appendix).
 
 | Acronym | Expansion | Definition / Context |
 |---|---|---|
 | ABAC | Attribute-Based Access Control | Access control using attributes (tenant, tier, classification) — see [Chapter 23](23-observability-platform-security-architecture.md). |
 | ADR | Architecture Decision Record | Short document capturing one architecture decision, its context, and consequences. Index in [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md). |
 | AI | Artificial Intelligence | Used here in the AIOps sense — anomaly detection, RCA suggestion, enriched alerting. |
-| AIOps | AI for IT Operations | Application of AI/ML to observability data for detection, correlation, and remediation. See [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md). |
+| AIOps | AI for IT Operations | Application of AI/ML to observability data for detection, correlation, and remediation. See [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md). |
 | AKS | Azure Kubernetes Service | Microsoft's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
 | API | Application Programming Interface | Network-callable service interface; instrumented via OpenTelemetry. |
 | ARB | Architecture Review Board | Governance body that reviews architecture decisions and ratifies ADRs. See [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md). |
@@ -37,34 +37,34 @@ status: Draft
 | CSAT | Customer Satisfaction | Business KPI used to validate observability outcomes. |
 | CSF | Cybersecurity Framework | NIST framework used to structure governance risk register. |
 | CX | Customer Experience | User-facing quality metric. |
-| DB | Database | Generic term for data store; see [Chapter 1 Section 7. Database Telemetry Standards](1-enterprise-observability-standards-catalog.md#7-database-telemetry-standards). |
+| DB | Database | Generic term for data store; see [Chapter 1 Section 7. Database Telemetry Standards](01-enterprise-observability-standards-catalog.md#7-database-telemetry-standards). |
 | DDoS | Distributed Denial of Service | Network-saturation attack; relevant to packet-drop and latency telemetry. |
 | DevOps | Development + Operations | Cultural/operational model that observability supports. |
 | DNS | Domain Name System | Name-resolution service; failure rate is a network telemetry signal. |
 | DORA | Digital Operational Resilience Act | EU financial-sector regulation; emerging compliance driver. |
 | DR | Disaster Recovery | Architecture pattern; covered in [Chapter 21](21-observability-platform-ha-and-dr-design.md). |
-| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 2. Observability Reference Architecture -> Section 4.1. Auto-Instrumentation via eBPF](2-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf). |
+| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 2. Observability Reference Architecture -> Section 4.1. Auto-Instrumentation via eBPF](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf). |
 | EKS | Elastic Kubernetes Service | AWS's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
 | ERD | Entity-Relationship Diagram | Data-model diagram pending in [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md). |
 | FaaS | Function as a Service | Serverless runtime; cold-start latency target < 300 ms. |
-| FinOps | Financial Operations | Discipline for managing cloud/observability cost. See [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md). |
+| FinOps | Financial Operations | Discipline for managing cloud/observability cost. See [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md). |
 | FP | False Positive | AIOps quality metric; guardrail target < 5%. |
 | GDPR | General Data Protection Regulation | EU data-protection law; drives PII handling and retention rules. |
 | GitOps | Git-based Operations | Operational model where Git is the source of truth for configuration and alert rules. |
 | GKE | Google Kubernetes Engine | Google Cloud's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
 | HA | High Availability | Architecture pattern; covered in [Chapter 21](21-observability-platform-ha-and-dr-design.md). |
 | HIPAA | Health Insurance Portability and Accountability Act | US healthcare regulation; out of scope today. |
-| IaC | Infrastructure as Code | Code-defined infrastructure provisioning. See [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md). |
+| IaC | Infrastructure as Code | Code-defined infrastructure provisioning. See [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md). |
 | ID | Identifier | Generic identifier (e.g. trace ID, span ID, control ID). |
 | IdP | Identity Provider | Authentication system used in pre-login telemetry (e.g. Okta, Azure AD). |
 | IO | Input/Output | Disk or network throughput dimension. |
 | ISO | International Organization for Standardization | Standards body; ISO 27001 referenced for compliance mapping. |
 | JSON | JavaScript Object Notation | Schema/serialization format used in telemetry export and data-model spec. |
 | KPI | Key Performance Indicator | Measurable success metric. See [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md). |
-| LLM | Large Language Model | Generative AI model class. AI safety controls in [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 8. AI Safety, Explainability, and LLM Data Leakage](6-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage). |
+| LLM | Large Language Model | Generative AI model class. AI safety controls in [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 8. AI Safety, Explainability, and LLM Data Leakage](06-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage). |
 | MFA | Multi-Factor Authentication | Pre-login telemetry signal — failure rate and latency tracked. |
 | ML | Machine Learning | Underlies AIOps anomaly detection and forecasting. |
-| MLOps | Machine Learning Operations | Lifecycle for ML models. AIOps lifecycle in [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 7. MLOps Lifecycle for AIOps Models](6-aiops-guardrails-and-implementation-playbook.md#7-mlops-lifecycle-for-aiops-models). |
+| MLOps | Machine Learning Operations | Lifecycle for ML models. AIOps lifecycle in [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 7. MLOps Lifecycle for AIOps Models](06-aiops-guardrails-and-implementation-playbook.md#7-mlops-lifecycle-for-aiops-models). |
 | MTBF | Mean Time Between Failures | Reliability metric for hosts/services. |
 | mTLS | mutual TLS | Two-way TLS authentication between services. Required between collectors and backends. |
 | MTTD | Mean Time To Detect | KPI: how quickly an incident is detected from telemetry. |

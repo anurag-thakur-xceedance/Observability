@@ -62,11 +62,11 @@ Together these form **full-stack observability**.
 ## 6. Schema Conventions
 - Follow **OpenTelemetry semantic conventions** where available.
 - Custom attributes prefixed with `xc.` (Xceedance) namespace to avoid collision.
-- Metric names: `<domain>.<entity>.<measure>.<unit>` (see [Chapter 17. Application Telemetry Standard -> Section 5. Naming Conventions](17-application-telemetry-standard.md#5-naming-conventions), [Chapter 1. Enterprise Observability Standards Catalog -> Section 3. Naming and Labelling Standards](1-enterprise-observability-standards-catalog.md#3-naming-and-labelling-standards)).
-- Labels: bounded cardinality; high-cardinality labels removed/bucketed after retention window (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 6. Data Quality and Standards](8-observability-data-governance-and-retention-policy.md#6-data-quality-and-standards), [Chapter 9. Observability FinOps Standard -> Section 3. Down-Sampling and Aggregation](9-observability-finops-standard.md#3-down-sampling-and-aggregation)).
+- Metric names: `<domain>.<entity>.<measure>.<unit>` (see [Chapter 17. Application Telemetry Standard -> Section 5. Naming Conventions](17-application-telemetry-standard.md#5-naming-conventions), [Chapter 1. Enterprise Observability Standards Catalog -> Section 3. Naming and Labelling Standards](01-enterprise-observability-standards-catalog.md#3-naming-and-labelling-standards)).
+- Labels: bounded cardinality; high-cardinality labels removed/bucketed after retention window (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 6. Data Quality and Standards](08-observability-data-governance-and-retention-policy.md#6-data-quality-and-standards), [Chapter 9. Observability FinOps Standard -> Section 3. Down-Sampling and Aggregation](09-observability-finops-standard.md#3-down-sampling-and-aggregation)).
 
 ## 7. PII & Sensitive Data
-PII is prohibited in logs and traces wherever possible. Masking, tokenisation, or redaction enforced at source or in the pipeline (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 5. Data Classification](8-observability-data-governance-and-retention-policy.md#5-data-classification)).
+PII is prohibited in logs and traces wherever possible. Masking, tokenisation, or redaction enforced at source or in the pipeline (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 5. Data Classification](08-observability-data-governance-and-retention-policy.md#5-data-classification)).
 
 ## 8. To Be Authored (Follow-Up)
 - JSON schema for required log fields per service tier.
@@ -75,9 +75,9 @@ PII is prohibited in logs and traces wherever possible. Masking, tokenisation, o
 - Mapping from this model to Prometheus / Loki / Tempo native data formats.
 
 ## 9. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — naming and labelling standards.
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) — pipeline storing this data.
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — governance and classification.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — naming and labelling standards.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — pipeline storing this data.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — governance and classification.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — application-level field requirements.
 
 ---

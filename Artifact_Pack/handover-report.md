@@ -36,16 +36,16 @@ status: Draft
 ### Artifact Pack — markdown documents (22 numbered chapters + 7 gap-fill chapters + Annexures + supporting)
 | # | File |
 |---|---|
-| 0 | [Chapter 0. Observability Strategy (Revised)](0-observability-strategy-revised.md) |
-| 1 | [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) |
-| 2 | [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) |
-| 3 | [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) |
-| 4 | [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) |
-| 5 | [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) |
-| 6 | [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) |
-| 7 | [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) |
-| 8 | [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) |
-| 9 | [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md) |
+| 0 | [Chapter 0. Observability Strategy (Revised)](00-observability-strategy-revised.md) |
+| 1 | [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) |
+| 2 | [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) |
+| 3 | [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) |
+| 4 | [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) |
+| 5 | [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) |
+| 6 | [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) |
+| 7 | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) |
+| 8 | [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) |
+| 9 | [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) |
 | 10 | [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) |
 | 11 | [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) |
 | 12 | [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) |
@@ -159,7 +159,7 @@ The following items are **content depth follow-ups** rather than missing extract
 | 8 | Should the **revised strategy** be republished as a `.docx` to replace the existing one, or kept as `.md` companion? | Document owner | Markdown chosen for now; conversion straightforward via Pandoc if `.docx` needed. |
 | 9 | Confirm Pyroscope (Profiles) is in-scope for Phase 2 or Phase 3 | Architecture | Strategy refers to Profiles as "emerging fifth pillar" only. |
 | 10 | Image-based content (incident sequence diagram, any architecture images) — re-author or include as exported assets in `Artifact_Pack/assets/`? | Document owner | Currently captured as logical text flow in [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md). |
-| 11 | Source v0.3 introduces **Appendix 2** as a placeholder ("Deployment-model awareness — universal observability across runtimes") with no body — supply content or confirm coverage by [Chapter 2. Observability Reference Architecture -> Section 1. Architectural Principles](2-observability-reference-architecture.md#1-architectural-principles) (now extended with the deployment-model-awareness principle and Azure-native infra context). | Document author (A. Thakur) | Decision gates whether Appendix 2 needs a dedicated artifact or is satisfied by the Reference Architecture extension. |
+| 11 | Source v0.3 introduces **Appendix 2** as a placeholder ("Deployment-model awareness — universal observability across runtimes") with no body — supply content or confirm coverage by [Chapter 2. Observability Reference Architecture -> Section 1. Architectural Principles](02-observability-reference-architecture.md#1-architectural-principles) (now extended with the deployment-model-awareness principle and Azure-native infra context). | Document author (A. Thakur) | Decision gates whether Appendix 2 needs a dedicated artifact or is satisfied by the Reference Architecture extension. |
 | 12 | Source v0.3 release notes claim Pulumi removed, yet Final Architecture Summary and Table 20 (IaC role) still reference Pulumi and AKS/EKS/GKE — pack already aligned to the **author-stated intent** (Pulumi replaced by PowerShell + Docker Compose; cloud portability reframed as host-portable). Confirm intent vs residual source text. | Document author (A. Thakur) | Mismatch noted in source `.docx`; pack treats the v0.3 release-note as authoritative. |
 
 ---
@@ -171,8 +171,8 @@ The following items are **content depth follow-ups** rather than missing extract
 3. **Compliance SME pass** on [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) to populate concrete control-framework mappings (Decision #4).
 4. **Author full ADRs** for [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) ADR-001 through ADR-007 to ratify implicit decisions, and migrate any backlog from the empty source decision-log.
 5. **Schema / ERD authoring** for [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) (JSON schemas per signal type, span hierarchy spec) so [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) can reference concrete schemas.
-6. **Editorial consistency pass** — re-read [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) ↔ [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) ↔ [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) to ensure no threshold drift between catalog, runbook, and visualization artifacts.
-7. **Repository setup** — recommend committing `Artifact_Pack/` to a Git repo (GitOps prerequisite for [Chapter 4. Alerting and Incident Severity Policy -> Section 5. Alert Routing & Escalation](4-alerting-and-incident-severity-policy.md#5-alert-routing-escalation) alert-rule version control and [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) audit trail).
+6. **Editorial consistency pass** — re-read [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) ↔ [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) ↔ [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) to ensure no threshold drift between catalog, runbook, and visualization artifacts.
+7. **Repository setup** — recommend committing `Artifact_Pack/` to a Git repo (GitOps prerequisite for [Chapter 4. Alerting and Incident Severity Policy -> Section 5. Alert Routing & Escalation](04-alerting-and-incident-severity-policy.md#5-alert-routing-escalation) alert-rule version control and [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) audit trail).
 
 ---
 

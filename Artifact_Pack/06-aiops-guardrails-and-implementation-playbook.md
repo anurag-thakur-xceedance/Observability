@@ -47,7 +47,7 @@ The Agentic AI layer turns observability from reactive to proactive — automate
 | **Correlation Coefficient (r)** | Quantifies relationship between two event series (−1 to +1) | Use absolute value of r; higher means stronger correlation. Derive thresholds from historical data. |
 
 ## 4. Severity Policy for AI-Detected Events
-Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4. Domain-Specific Triggers (Reference) (subsection 4.6)](4-alerting-and-incident-severity-policy.md#4-domain-specific-triggers-reference). Summary:
+Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4. Domain-Specific Triggers (Reference) (subsection 4.6)](04-alerting-and-incident-severity-policy.md#4-domain-specific-triggers-reference). Summary:
 
 | Severity | Trigger | Action |
 |---|---|---|
@@ -68,7 +68,7 @@ Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4. Domain-
 - Selection criteria: explainability, retraining cost, false-positive control.
 
 ### 5.3 Visualization
-- Predicted-vs-actual curves overlaid in Grafana (see [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md)).
+- Predicted-vs-actual curves overlaid in Grafana (see [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)).
 - Anomaly deviation percentages and model confidence values shown on dashboards.
 
 ### 5.4 Success Criteria
@@ -200,7 +200,7 @@ Telemetry sent to **any** LLM (hosted or self-hosted) must pass through the same
 2. **Redaction before prompt assembly.** PII patterns (email, phone, government IDs, account numbers, customer names) are stripped or tokenised at the **prompt-builder** layer, not at the model layer.
 3. **Trace IDs, not user IDs.** Operators interact with trace IDs and service identifiers; no end-user PII is ever in scope.
 4. **Egress monitoring.** All outbound traffic to LLM providers is monitored; payload-size anomalies trigger investigation.
-5. **Audit log of all prompts.** Every prompt and response is logged with the operator's identity, retained per [Chapter 8](8-observability-data-governance-and-retention-policy.md), and subject to the same RBAC as other telemetry.
+5. **Audit log of all prompts.** Every prompt and response is logged with the operator's identity, retained per [Chapter 8](08-observability-data-governance-and-retention-policy.md), and subject to the same RBAC as other telemetry.
 
 ### 8.5 AI Safety KPIs
 
@@ -217,10 +217,10 @@ Reported on the scorecard in [Chapter 11](11-observability-kpi-scorecard.md) and
 | Model precision regression (week-on-week, > 10% drop) | 0 active | Model-health monitor |
 
 ## 9. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
-- [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) — enterprise severity policy.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of AI overlays.
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — retention rules for prompt audit logs.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
+- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — enterprise severity policy.
+- [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of AI overlays.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — retention rules for prompt audit logs.
 - [Chapter 10. Compliance and Audit Control Matrix -> Section 5. Control Matrix (Initial)](10-compliance-and-audit-control-matrix.md#5-control-matrix-initial) — OBS-C-14 audits the lifecycle in Section 7.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — Phase 3 KPI targets (MTTD < 1 min, automated tickets > 90%); AI safety KPIs from Section 8.5.
 - [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — incident playbook integration with AI-generated tickets.

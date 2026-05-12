@@ -20,14 +20,14 @@ status: Draft
 ---
 
 ## 1. Purpose
-Operational runbooks that translate the standards in [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md). The deployment platform is described in [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) (Docker Compose + PowerShell).
+Operational runbooks that translate the standards in [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md). The deployment platform is described in [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) (Docker Compose + PowerShell).
 
 ---
 
 ## 2. Infrastructure Observability Runbook
 
 ### 2.1 Signals
-CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time. Metric thresholds: see [Chapter 1. Enterprise Observability Standards Catalog -> Section 4. Infrastructure Telemetry Standards](1-enterprise-observability-standards-catalog.md#4-infrastructure-telemetry-standards).
+CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time. Metric thresholds: see [Chapter 1. Enterprise Observability Standards Catalog -> Section 4. Infrastructure Telemetry Standards](01-enterprise-observability-standards-catalog.md#4-infrastructure-telemetry-standards).
 
 ### 2.2 Triage Flow
 1. Confirm scope: per host, per Compose service, per container.
@@ -67,7 +67,7 @@ Stacked-area charts and heat maps for trend visibility. Combine gauges (current 
 ## 4. Database Observability Runbook
 
 ### 4.1 Signals
-Slow queries, lock contention, connection-pool usage, replication lag, query latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 7. Database Telemetry Standards](1-enterprise-observability-standards-catalog.md#7-database-telemetry-standards).
+Slow queries, lock contention, connection-pool usage, replication lag, query latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 7. Database Telemetry Standards](01-enterprise-observability-standards-catalog.md#7-database-telemetry-standards).
 
 ### 4.2 Triage Flow
 1. **Slow queries > 1%** → review query plan, indexes, recent schema changes.
@@ -85,7 +85,7 @@ Slow queries, lock contention, connection-pool usage, replication lag, query lat
 ## 5. Network & Latency Observability Runbook
 
 ### 5.1 Signals
-Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 8. Network & Latency Telemetry Standards](1-enterprise-observability-standards-catalog.md#8-network-latency-telemetry-standards).
+Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 8. Network & Latency Telemetry Standards](01-enterprise-observability-standards-catalog.md#8-network-latency-telemetry-standards).
 
 ### 5.2 Triage Flow
 1. **Packet drops > 0.5%** sustained → investigate host NIC, route saturation, or link errors.
@@ -107,7 +107,7 @@ Packet drops, cross-service latency, DNS failures, inter-service errors, TCP ret
 ## 6. Scaling & Performance Runbook
 
 ### 6.1 Signals
-Queue length, request latency, error rate, container startup time, cold-start latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 9. Scaling & Performance Telemetry Standards](1-enterprise-observability-standards-catalog.md#9-scaling-performance-telemetry-standards).
+Queue length, request latency, error rate, container startup time, cold-start latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 9. Scaling & Performance Telemetry Standards](01-enterprise-observability-standards-catalog.md#9-scaling-performance-telemetry-standards).
 
 ### 6.2 Outcome Posture
 Scaling observability validates that capacity changes deliver the user-visible performance the strategy commits to. Posture: scaling must be **predictable, observable, and tied to user impact**, not internal metrics alone.
@@ -277,10 +277,10 @@ flowchart LR
 After a few weeks of production data, narrow each range so **Warning ≈ 95th percentile of normal** and **Critical ≈ approaching SLA breach**.
 
 ## 9. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalog.
-- [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) — Grafana dashboard structure.
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — Docker Compose + PowerShell deployment standard.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalog.
+- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
+- [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana dashboard structure.
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — Docker Compose + PowerShell deployment standard.
 - [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — incident response playbook for end-to-end resolution.
 
 ---

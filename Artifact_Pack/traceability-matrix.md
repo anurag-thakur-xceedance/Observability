@@ -94,15 +94,15 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 
 | # | Artifact | Source Sections (by # above) |
 |---:|---|---|
-| 1 | [Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) | 3 (5 Pillars), 16, 19, 23, 27 (also referenced in 31), 58 (Appendix tables) |
-| 2 | [Observability Reference Architecture](2-observability-reference-architecture.md) | 4, 7, 8, 9, 40 |
-| 3 | [Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) | 10, 12, 13, 15, 16, 18, 19, 21, 22, 23, 25, 58 |
-| 4 | [Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) | 14, 17, 20, 24, 28, 34, 38 |
-| 5 | [Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) | 26, 27, 28, 29, 58 |
-| 6 | [AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) | 30, 31, 32, 33, 34, 35, 58 |
-| 7 | [IaC for Observability Standard (Docker Compose + PowerShell)](7-iac-for-observability-standard.md) | 36, 37, 39 |
-| 8 | [Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) | 42, 43, 44, 58 |
-| 9 | [Observability FinOps Standard](9-observability-finops-standard.md) | 46 |
+| 1 | [Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) | 3 (5 Pillars), 16, 19, 23, 27 (also referenced in 31), 58 (Appendix tables) |
+| 2 | [Observability Reference Architecture](02-observability-reference-architecture.md) | 4, 7, 8, 9, 40 |
+| 3 | [Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) | 10, 12, 13, 15, 16, 18, 19, 21, 22, 23, 25, 58 |
+| 4 | [Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) | 14, 17, 20, 24, 28, 34, 38 |
+| 5 | [Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) | 26, 27, 28, 29, 58 |
+| 6 | [AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) | 30, 31, 32, 33, 34, 35, 58 |
+| 7 | [IaC for Observability Standard (Docker Compose + PowerShell)](07-iac-for-observability-standard.md) | 36, 37, 39 |
+| 8 | [Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) | 42, 43, 44, 58 |
+| 9 | [Observability FinOps Standard](09-observability-finops-standard.md) | 46 |
 | 10 | [Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) | 47 |
 | 11 | [Observability KPI Scorecard](11-observability-kpi-scorecard.md) | 2, 6, 37, 48, 54 |
 | 12 | [Incident Response Playbook](12-incident-response-playbook.md) | 49 |

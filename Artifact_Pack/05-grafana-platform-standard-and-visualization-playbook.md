@@ -34,7 +34,7 @@ Grafana visualizes and alerts against Prometheus (metrics), Loki (logs), and Tem
 | **Business** | Customer-impact KPIs — login/payment success rates, conversion latencies | Product, Operations leadership |
 
 ## 4. Key Metrics & Suggested Ranges (Visualization)
-Full thresholds in [Chapter 1. Enterprise Observability Standards Catalog -> Section 10. Grafana Visualization Layer Standards](1-enterprise-observability-standards-catalog.md#10-grafana-visualization-layer-standards). Summary:
+Full thresholds in [Chapter 1. Enterprise Observability Standards Catalog -> Section 10. Grafana Visualization Layer Standards](01-enterprise-observability-standards-catalog.md#10-grafana-visualization-layer-standards). Summary:
 
 | Layer | Metric | Healthy | Warning | Critical |
 |---|---|---|---|---|
@@ -49,12 +49,12 @@ Full thresholds in [Chapter 1. Enterprise Observability Standards Catalog -> Sec
 | Business | Checkout Latency (P95) | < 2 s | 2–3 s sustained | > 3 s > 2 min |
 
 ## 5. Recommended Alerting Policy (Grafana Implementation)
-Severity model is owned by [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md). Grafana implementation specifics:
+Severity model is owned by [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md). Grafana implementation specifics:
 
 - Alert rules are defined as code (GitOps) and version-controlled.
 - Severity-based routing via contact points & notification policies.
 - Group, dedupe, and silence rules tuned to preserve signal-to-noise ≥ 80%.
-- Each alert references a runbook URL (linking to [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md) / [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)).
+- Each alert references a runbook URL (linking to [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) / [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)).
 
 | Severity | Trigger Definition | Response Expectation |
 |---|---|---|
@@ -67,7 +67,7 @@ Severity model is owned by [Chapter 4. Alerting and Incident Severity Policy](4-
 - **Percentile-based latency.** Always track **P95 and P99**, never rely solely on averages.
 - **Correlate metrics.** High API latency + elevated error rates typically indicates backend/DB issue. High API latency + healthy DB latency typically indicates app-side or runtime contention.
 - **Use panels.** Combine **gauges** (current state) with **time-series** panels (trend).
-- **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md)).
+- **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)).
 - **Standardise dashboard library.** Per-domain template dashboards (Infra/App/DB/Network/Scaling/AI) cloned per service rather than hand-built.
 
 ## 7. Calibration
@@ -173,11 +173,11 @@ A scheduled job exports the live Grafana state and `diff`s it against the reposi
 Drift > 7 days is a finding under **OBS-C-02**.
 
 ## 8. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) — Grafana's role in the reference architecture.
-- [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) — enterprise severity policy.
-- [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — IaC standard the Section 7.1 workflow conforms to.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — Grafana's role in the reference architecture.
+- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — enterprise severity policy.
+- [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — IaC standard the Section 7.1 workflow conforms to.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — OBS-C-02 audits the dashboards-as-code controls.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — KPI scorecard rendered through Grafana.
 - [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md) — burn-rate panels embedded in Section 7.1.4 service dashboards.

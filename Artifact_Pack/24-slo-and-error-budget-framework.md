@@ -43,7 +43,7 @@ Without a formal SLO methodology, "reliability targets" are aspirational. With i
 
 ## 3. SLO Target Derivation
 
-| Service Tier (per [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](1-enterprise-observability-standards-catalog.md#41-service-tiering-model)) | Availability SLO | Latency SLO | Window |
+| Service Tier (per [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model)) | Availability SLO | Latency SLO | Window |
 |---|---|---|---|
 | T1 | 99.9% | 99% requests under tier-specific target (e.g., P99 ≤ 800 ms) | 30-day rolling |
 | T2 | 99.5% | 95% requests under target | 30-day rolling |
@@ -143,7 +143,7 @@ Exception process: written waiver from Director SRE + Service Owner with stated 
 3. Owner observes 30 days of telemetry to baseline current performance.
 4. Proposed SLO = current_performance − 0.5σ (rounded down to a comfortable target).
 5. Reviewed by SRE; approved by Director SRE; recorded in service catalog.
-6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [Chapter 7](7-iac-for-observability-standard.md)).
+6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [Chapter 7](07-iac-for-observability-standard.md)).
 7. Quarterly review.
 
 ## 8. Tooling Decision
@@ -169,7 +169,7 @@ ADR-008 (proposed): "Adopt Sloth as SLO-rule generator."
 This rolls up to the alerting KPIs in [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md).
 
 ## 10. Cross-References
-- [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) — severity model that burn-rate alerts plug into.
+- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — severity model that burn-rate alerts plug into.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — outcome KPIs derived from SLO posture.
 - [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — what happens when a burn alert fires.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — required SLI labels in app telemetry.

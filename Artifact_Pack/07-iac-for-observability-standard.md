@@ -101,7 +101,7 @@ observability-platform/
 | Validation | Health-Check Pass Rate | 100% | < 99% one service | Any service `Unhealthy` > 5 min | PowerShell `Test-StackHealth.ps1`. |
 
 ## 5. Severity Policy (Deployment-Specific)
-Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4. Domain-Specific Triggers (Reference) (subsection 4.7)](4-alerting-and-incident-severity-policy.md#4-domain-specific-triggers-reference). Summary:
+Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4. Domain-Specific Triggers (Reference) (subsection 4.7)](04-alerting-and-incident-severity-policy.md#4-domain-specific-triggers-reference). Summary:
 
 | Severity | Trigger | Action |
 |---|---|---|
@@ -111,7 +111,7 @@ Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4. Domain-
 
 ## 6. Implementation & Visualization
 
-**In Grafana (see also [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md)):**
+**In Grafana (see also [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)):**
 - **Deployment dashboards** → status of each Compose service per host (image tag, uptime, healthcheck state).
 - **Coverage dashboards** → per-host exporter scrape success and OTel service emission coverage.
 - **Performance dashboards** → stack provision time and update time trends, sourced from PowerShell-emitted metrics.
@@ -134,7 +134,7 @@ After a few cycles, refine thresholds:
 
 ## 7.1. Change Management
 
-Changes to the observability platform are themselves a **change-managed** activity, distinct from changes by service teams to their service-level dashboards/alerts (covered by [Chapter 5. Grafana Platform Standard and Visualization Playbook -> Section 7.1. Dashboards-as-Code](5-grafana-platform-standard-and-visualization-playbook.md#71-dashboards-as-code)).
+Changes to the observability platform are themselves a **change-managed** activity, distinct from changes by service teams to their service-level dashboards/alerts (covered by [Chapter 5. Grafana Platform Standard and Visualization Playbook -> Section 7.1. Dashboards-as-Code](05-grafana-platform-standard-and-visualization-playbook.md#71-dashboards-as-code)).
 
 ### 7.1.1 Change Classes
 
@@ -162,7 +162,7 @@ A change passes a wave gate if **all** of the following hold during the wave's s
 - Collector deploy success ≥ 99% across the wave's hosts.
 - Exporter health ≥ 98% across the wave.
 - No critical-severity self-monitoring alert ([Chapter 21. Observability Platform HA and DR Design -> Section 7. Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor)).
-- Cardinality budget ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance)) within ±5% of pre-change baseline.
+- Cardinality budget ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) within ±5% of pre-change baseline.
 
 ### 7.1.3 Rollback Standards
 
@@ -192,9 +192,9 @@ Every Normal+ change requires a post-change validation report within 48 hours:
 The post-change report is the auditable evidence under **OBS-C-02** ([Chapter 10](10-compliance-and-audit-control-matrix.md)).
 
 ## 8. Cross-References
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) — reference architecture deployed by these scripts.
-- [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook -> Section 7.1. Dashboards-as-Code](5-grafana-platform-standard-and-visualization-playbook.md#71-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — reference architecture deployed by these scripts.
+- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
+- [Chapter 5. Grafana Platform Standard and Visualization Playbook -> Section 7.1. Dashboards-as-Code](05-grafana-platform-standard-and-visualization-playbook.md#71-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — OBS-C-02 audits change records produced by Section 7.1.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — platform KPI roll-up to executive scorecard.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — change control / ARB approvals for stack changes.

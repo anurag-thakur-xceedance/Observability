@@ -95,7 +95,7 @@ Any of the above must be **bucketed** (e.g., path templates instead of paths) or
 5. **Emergency switch:** A pre-tested `metric_relabel_config` block-list deployed via Git PR within 30 minutes when an incident demands it.
 
 ### 3.1.4 Cardinality KPIs
-- Per-service cardinality vs budget — dashboard in [Chapter 5](5-grafana-platform-standard-and-visualization-playbook.md).
+- Per-service cardinality vs budget — dashboard in [Chapter 5](05-grafana-platform-standard-and-visualization-playbook.md).
 - New high-cardinality metrics introduced per release.
 - Time from cardinality breach to remediation.
 
@@ -230,10 +230,10 @@ Safe baselines. After several weeks of telemetry, calibrate so **Warning ≈ 95t
 - **CSAT**: Customer Satisfaction.
 
 ## 14. Cross-References
-- [Chapter 3. Domain Observability Runbooks Pack](3-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
-- [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md): How standards render in Grafana dashboards.
-- [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md): AIOps interpretation of these metrics.
+- [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
+- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
+- [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md): How standards render in Grafana dashboards.
+- [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md): AIOps interpretation of these metrics.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md): Outcome KPI scorecard tied to these measurements.
 
 ---

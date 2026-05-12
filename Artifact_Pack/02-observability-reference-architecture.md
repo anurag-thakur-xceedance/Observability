@@ -48,7 +48,7 @@ status: Draft
 [ Agentic AI Layer ]          ← consumes telemetry APIs for RCA, anomaly detection, ticketing
 ```
 
-The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a **Docker Compose** project, provisioned and managed by **PowerShell** scripts. See [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md).
+The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a **Docker Compose** project, provisioned and managed by **PowerShell** scripts. See [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md).
 
 ## 3. Core Concepts
 
@@ -115,14 +115,14 @@ Telemetry is captured across four major layers:
 3. **Database.** Query, lock, connection, and replication telemetry via dedicated exporters as Compose services.
 4. **Network & Latency.** Host-level network counters (packet drops, retransmits) plus active probes (Blackbox Exporter) for cross-service latency, DNS, and reachability.
 
-A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md).
+A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md).
 
 ## 5.1. Sampling Strategy
 
 | Signal | Approach | Rate (default) | Rationale |
 |---|---|---|---|
 | Metrics | No sampling — full fidelity at scrape interval | 100% | Aggregated by definition; sampling defeats the purpose |
-| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](1-enterprise-observability-standards-catalog.md#41-service-tiering-model)) |
+| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model)) |
 | Traces (head-based, baseline) | `parentbased_traceidratio` at SDK | T1 10%, T2 5%, T3 1%, T4 0.1% | Decision propagates with `traceparent`; lightweight |
 | Traces (tail-based, gateway) | Tail sampling at gateway Collector | 100% of errors + 100% of slow (> P95) + N% of normal | Captures the interesting traces; downsamples the rest |
 
@@ -166,7 +166,7 @@ The same Docker Compose definition runs in every environment (development, test,
 - **Cross-Host Incident Visibility.** Incidents that span hosts / sites remain visible in a single context.
 - **Low Operational Surface.** No control plane to operate beyond Docker Engine itself.
 
-**Design constraints (see [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) for KPIs):**
+**Design constraints (see [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) for KPIs):**
 - **Cross-host config parity ≥ 95%** between hosts of the same tier.
 - **Image / Compose version alignment 100%** within a tier.
 - **Health-check pass rate 100%** post-deployment.
@@ -308,15 +308,15 @@ service:
 - **`otelcol_processor_dropped_spans`** is a meta-monitor alert (see [Chapter 21 Section 7. Self-Monitoring](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor)).
 
 ### 7.5 Schema Validation and Cardinality Controls
-- Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](1-enterprise-observability-standards-catalog.md#31-cardinality-governance).
+- Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance).
 - Required-attribute enforcement: `attributes/required` processor pattern rejects telemetry missing any of `service.name`, `tier`, `tenant_id`.
 - Recording rules in Prometheus / Mimir track per-service active-series count.
 
 ## 8. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) — Grafana platform standards and dashboard playbook.
-- [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) — Docker Compose + PowerShell deployment standard.
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — data lifecycle and retention applied to backends.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
+- [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana platform standards and dashboard playbook.
+- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — Docker Compose + PowerShell deployment standard.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — data lifecycle and retention applied to backends.
 - [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — formal data model for entities/relationships across pillars.
 - [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — HA topology overlaid on this architecture.
 - [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) — sizing and scale-out triggers.

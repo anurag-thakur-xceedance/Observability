@@ -20,10 +20,10 @@ status: Draft
 ---
 
 ## 1. Purpose
-Defines **what** application services must emit, **how** fields are named, and **what thresholds** they must adhere to. Operational triage steps live in [Chapter 3. Domain Observability Runbooks Pack -> Section 3. Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](3-domain-observability-runbooks-pack.md#3-application-observability-runbook-pre-login-post-login-execution-steps).
+Defines **what** application services must emit, **how** fields are named, and **what thresholds** they must adhere to. Operational triage steps live in [Chapter 3. Domain Observability Runbooks Pack -> Section 3. Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](03-domain-observability-runbooks-pack.md#3-application-observability-runbook-pre-login-post-login-execution-steps).
 
 ## 2. Scope
-All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must emit pre-login and post-login telemetry via OpenTelemetry SDKs and pipelines defined in [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md).
+All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must emit pre-login and post-login telemetry via OpenTelemetry SDKs and pipelines defined in [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md).
 
 ## 3. Pre-Login Telemetry (Required Fields & Standards)
 
@@ -38,7 +38,7 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 - `service.name`, `auth.provider`, `auth.method` (`password` / `mfa` / `sso`), `auth.outcome` (`success` / `failure` / `mfa_required`), `gateway.route`, `client.region`, `correlation.id`.
 
 ### 3.2 Required Log Fields
-- `timestamp`, `level`, `service.name`, `auth.outcome`, `error.code`, `correlation.id`. **No PII** (see [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md)).
+- `timestamp`, `level`, `service.name`, `auth.outcome`, `error.code`, `correlation.id`. **No PII** (see [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)).
 
 ## 4. Post-Login Telemetry (Required Fields & Standards)
 
@@ -62,18 +62,18 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 
 ## 6. PII & Data Classification
 - **PII prohibited** in logs and traces wherever possible.
-- Masking / tokenisation / redaction enforced at source or in the OpenTelemetry pipeline (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 5. Data Classification](8-observability-data-governance-and-retention-policy.md#5-data-classification)).
+- Masking / tokenisation / redaction enforced at source or in the OpenTelemetry pipeline (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 5. Data Classification](08-observability-data-governance-and-retention-policy.md#5-data-classification)).
 
 ## 7. Conformance
-- Services must meet this standard before production promotion (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 6. Data Quality and Standards](8-observability-data-governance-and-retention-policy.md#6-data-quality-and-standards)).
+- Services must meet this standard before production promotion (see [Chapter 8. Observability Data Governance and Retention Policy -> Section 6. Data Quality and Standards](08-observability-data-governance-and-retention-policy.md#6-data-quality-and-standards)).
 - Conformance evidence is part of release readiness.
 
 ## 8. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
-- [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) — pipeline and backend that consume this telemetry.
-- [Chapter 3. Domain Observability Runbooks Pack -> Section 3. Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](3-domain-observability-runbooks-pack.md#3-application-observability-runbook-pre-login-post-login-execution-steps) — operational runbook applying this telemetry.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of these metrics.
-- [Chapter 8. Observability Data Governance and Retention Policy](8-observability-data-governance-and-retention-policy.md) — PII / data governance constraints.
+- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
+- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — pipeline and backend that consume this telemetry.
+- [Chapter 3. Domain Observability Runbooks Pack -> Section 3. Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](03-domain-observability-runbooks-pack.md#3-application-observability-runbook-pre-login-post-login-execution-steps) — operational runbook applying this telemetry.
+- [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of these metrics.
+- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — PII / data governance constraints.
 - [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — formal data model for span hierarchy and entities.
 
 ---

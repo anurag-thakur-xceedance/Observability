@@ -29,7 +29,7 @@ This appendix to [Chapter 23. Observability Platform Security Architecture](23-o
 - **Granularity**: per platform component (see Section 3).
 - **Refresh cadence**: annually, or on any major architectural change (per [Chapter 27 NFR-SEC-05](27-observability-non-functional-requirements.md)).
 - **Owner**: Security Architect, ratified by ARB ([Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)).
-- **Inputs**: architecture diagrams ([Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md)), data-flow boundaries ([Chapter 2 -> Section 6.1. Network Topology and Trust Boundaries](2-observability-reference-architecture.md#61-network-topology-and-trust-boundaries)), tenant model ([Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md)).
+- **Inputs**: architecture diagrams ([Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md)), data-flow boundaries ([Chapter 2 -> Section 6.1. Network Topology and Trust Boundaries](02-observability-reference-architecture.md#61-network-topology-and-trust-boundaries)), tenant model ([Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md)).
 
 ## 3. In-Scope Components
 
@@ -54,7 +54,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | Threat | Description | Primary Mitigation | Mitigation Reference | Residual |
 |---|---|---|---|---|
 | **S**poofing | Rogue process emits telemetry impersonating a real service | Service identity via mTLS + workload identity | [Chapter 23](23-observability-platform-security-architecture.md), NFR-SEC-01 | L |
-| **T**ampering | Local agent config altered to emit false metrics | Config in Git only; drift detection | [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md), NFR-CFG-01 | L |
+| **T**ampering | Local agent config altered to emit false metrics | Config in Git only; drift detection | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md), NFR-CFG-01 | L |
 | **R**epudiation | Service denies emitting a problematic event | Signed telemetry origin (resource attributes); audit trail | [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) | L |
 | **I**nfo disclosure | PII leaks through unredacted log fields | PII redaction at source; pre-flight linter | [Chapter 17 -> Section 6. PII & Data Classification](17-application-telemetry-standard.md#6-pii-data-classification), NFR-PRV-01 | M |
 | **D**oS | Misbehaving SDK floods collector | Rate-limiting per service; cardinality budget | [Chapter 22 -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget), NFR-CAP-01 | L |
@@ -65,8 +65,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
 | **S** | Spoofed collector endpoint accepts traffic | mTLS server + client auth; DNS pinning | NFR-SEC-01 | L |
-| **T** | Tail-sampling rules altered to drop evidence | Config in Git; signed deploys | [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) | L |
-| **R** | Origin of dropped telemetry disputed | Drop-rate metrics + sampler decisions logged | [Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md) | M |
+| **T** | Tail-sampling rules altered to drop evidence | Config in Git; signed deploys | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) | L |
+| **R** | Origin of dropped telemetry disputed | Drop-rate metrics + sampler decisions logged | [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) | M |
 | **I** | Tenant-mixing in multi-tenant collector | Tenant attribution processor; isolation testing | [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md), NFR-MUL-01 | M |
 | **D** | Volumetric DoS at ingress | Network ACL; per-tenant rate-limit; backpressure | [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md), NFR-CAP-02 | M |
 | **E** | Collector exploit → backend write access | Least-privilege per backend; network segmentation | [Chapter 23](23-observability-platform-security-architecture.md) | L |
@@ -97,23 +97,23 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
-| **S** | Untrusted model output presented as platform fact | Model-decision provenance recorded; human-in-loop on Sev1–Sev2 | [Chapter 6 -> Section 8. AI Safety, Explainability, and LLM Data Leakage](6-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage) | M |
-| **T** | Training data poisoned to bias detections | Data lineage tracked; held-out validation set | [Chapter 6 -> Section 7. MLOps Lifecycle for AIOps Models](6-aiops-guardrails-and-implementation-playbook.md#7-mlops-lifecycle-for-aiops-models) | M |
+| **S** | Untrusted model output presented as platform fact | Model-decision provenance recorded; human-in-loop on Sev1–Sev2 | [Chapter 6 -> Section 8. AI Safety, Explainability, and LLM Data Leakage](06-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage) | M |
+| **T** | Training data poisoned to bias detections | Data lineage tracked; held-out validation set | [Chapter 6 -> Section 7. MLOps Lifecycle for AIOps Models](06-aiops-guardrails-and-implementation-playbook.md#7-mlops-lifecycle-for-aiops-models) | M |
 | **R** | AI-suggested action disputed in PIR | Reproducible inference: model version + input snapshot stored | NFR-AUD-02 | L |
-| **I** | LLM leaks confidential telemetry in prompt → external provider | Tenant-isolated context; redaction at prompt boundary; no PII to external LLM | [Chapter 6 -> Section 8](6-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage) | **H** |
-| **D** | AI runaway loop drives cost spike | Inference budget per service; circuit breaker | [Chapter 9. Observability FinOps Standard](9-observability-finops-standard.md), [Chapter 6](6-aiops-guardrails-and-implementation-playbook.md) | M |
-| **E** | AI tool gains write access beyond ticket creation | Human-out-of-loop disabled by default; explicit approval for write actions | [Chapter 6](6-aiops-guardrails-and-implementation-playbook.md) | M |
+| **I** | LLM leaks confidential telemetry in prompt → external provider | Tenant-isolated context; redaction at prompt boundary; no PII to external LLM | [Chapter 6 -> Section 8](06-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage) | **H** |
+| **D** | AI runaway loop drives cost spike | Inference budget per service; circuit breaker | [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md), [Chapter 6](06-aiops-guardrails-and-implementation-playbook.md) | M |
+| **E** | AI tool gains write access beyond ticket creation | Human-out-of-loop disabled by default; explicit approval for write actions | [Chapter 6](06-aiops-guardrails-and-implementation-playbook.md) | M |
 
 ### C8 — IaC Pipeline (Git → Deployment)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
-| **S** | Malicious commit by impersonator | Signed commits; required reviewers | [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) | L |
+| **S** | Malicious commit by impersonator | Signed commits; required reviewers | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) | L |
 | **T** | CI runner image tampered | Pinned image digests; SBOM verified | NFR-MNT-01 | L |
 | **R** | Deploy actor unknown | Pipeline run logs immutable; identity required for approval | NFR-AUD-01 | L |
 | **I** | Secrets leak via build logs | Secret-scanning in CI; centralised vault | [Chapter 23](23-observability-platform-security-architecture.md) | L |
 | **D** | Pipeline saturated by junk PRs | Concurrency caps; abuse detection | — | L |
-| **E** | Compromised runner → prod access | Ephemeral runners; OIDC short-lived creds | [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md) | M |
+| **E** | Compromised runner → prod access | Ephemeral runners; OIDC short-lived creds | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) | M |
 
 ### C9 — Archive Store (Long-Term)
 
@@ -138,7 +138,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | C8 IaC Pipeline | M (Elevation of privilege via runner) | Ephemeral, identity-bound runners |
 | C9 Archive | M (Information disclosure) | CMK + egress alerts |
 
-The single **High** residual risk relates to LLM data leakage at the prompt boundary (C7-I) and is tracked in the AIOps risk register ([Chapter 6 -> Section 8. AI Safety, Explainability, and LLM Data Leakage](6-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage)).
+The single **High** residual risk relates to LLM data leakage at the prompt boundary (C7-I) and is tracked in the AIOps risk register ([Chapter 6 -> Section 8. AI Safety, Explainability, and LLM Data Leakage](06-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage)).
 
 ## 6. Open Threats / Action Register
 
@@ -153,7 +153,7 @@ The single **High** residual risk relates to LLM data leakage at the prompt boun
 ## 7. Cross-References
 
 - [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — parent chapter.
-- [Chapter 6. AIOps Guardrails and Implementation Playbook](6-aiops-guardrails-and-implementation-playbook.md) — AI risk register and guardrails.
+- [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) — AI risk register and guardrails.
 - [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — tenant boundaries used by threat model.
 - [Chapter 27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md) — NFR-SEC controls referenced.
 - [Chapter 28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md) — archive integrity and access controls.
