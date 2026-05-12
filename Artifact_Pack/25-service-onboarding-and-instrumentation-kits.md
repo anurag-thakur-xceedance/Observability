@@ -52,7 +52,7 @@ A service may not be promoted to production without a PASS on every item below.
 | 9 | At least 1 burn-rate alert wired to on-call routing | Service Owner | Alert YAML |
 | 10 | Runbook document linked from every alert | Service Owner | Runbook URL |
 | 11 | PII redaction validated for any user-impacting fields | Dev + Security | Synthetic-PII canary results |
-| 12 | Cardinality budget per [Chapter 22. Capacity and Scale Model -> Section 7. Cardinality Budget](22-capacity-and-scale-model.md#7-cardinality-budget) respected | Platform Engineering | Cardinality report |
+| 12 | Cardinality budget per [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget) respected | Platform Engineering | Cardinality report |
 | 13 | Tenant labels present where multi-tenant per [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md) | Dev | Sample telemetry |
 | 14 | Capacity sizing reviewed against [Chapter 22](22-capacity-and-scale-model.md) reference deployment | Platform Engineering | Sizing note |
 

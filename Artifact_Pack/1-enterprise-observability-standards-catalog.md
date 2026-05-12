@@ -17,8 +17,6 @@ status: Draft
 |---|---|---|---|---|---|
 | 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
-> **TEMP TEST LINK:** [Jump to Chapter 22 Section 7 — Cardinality Budget](22-capacity-and-scale-model.md#7-cardinality-budget)
-
 ---
 
 ## 1. Scope and Intent
@@ -71,7 +69,7 @@ Every metric, log line, and trace span must carry these resource attributes:
 ## 3.1. Cardinality Governance
 Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce three layers:
 
-### 3.1.1 Per-Service Cardinality Budget (from [Chapter 22. Capacity and Scale Model -> Section 7. Cardinality Budget](22-capacity-and-scale-model.md#7-cardinality-budget))
+### 3.1.1 Per-Service Cardinality Budget (from [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget))
 
 | Tier | Max Active Series per Service | Max Distinct Label Combos per Metric |
 |---|---|---|

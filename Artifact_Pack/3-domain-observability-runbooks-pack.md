@@ -127,10 +127,156 @@ Scaling observability validates that capacity changes deliver the user-visible p
 
 ---
 
-## 7. Calibration Note
+## 7. Query Examples and Decision Trees (Per Domain)
+
+This section provides concrete query examples (PromQL / LogQL / TraceQL) and decision trees for each of the five domain runbooks above. **Thresholds are reasonable defaults** — recalibrate per service per [Section 8](#8-calibration-note) once production baselines exist.
+
+### 7.1. Infrastructure — PromQL
+
+```promql
+# CPU saturation (host) — per-host 5m average
+100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+# Memory pressure (host)
+(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+
+# Disk filling within 24h (linear projection)
+predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"}[1h], 24*3600) < 0
+
+# Container OOM kills in last 1h
+increase(container_oom_events_total[1h]) > 0
+```
+
+### 7.2. Application — PromQL + LogQL + TraceQL
+
+```promql
+# RED — Rate (req/s) per service+route
+sum by (service_name, http_route) (rate(http_server_request_duration_seconds_count[5m]))
+
+# RED — Errors (5xx rate)
+sum by (service_name) (rate(http_server_request_duration_seconds_count{http_response_status_code=~"5.."}[5m]))
+  /
+sum by (service_name) (rate(http_server_request_duration_seconds_count[5m]))
+
+# RED — Duration (p95)
+histogram_quantile(0.95,
+  sum by (le, service_name, http_route) (rate(http_server_request_duration_seconds_bucket[5m]))
+)
+```
+
+```logql
+# Recent 5xx errors with trace_id, exclude noisy health probes
+{service_name="$service"} |~ "(?i)error|exception"
+  | json
+  | http_response_status_code >= 500
+  | http_route != "/healthz"
+  | line_format "{{.timestamp}} trace={{.trace_id}} route={{.http_route}} msg={{.body}}"
+
+# Error rate by route over 5m
+sum by (http_route) (rate({service_name="$service"} | json | http_response_status_code >= 500 [5m]))
+```
+
+```traceql
+# Slow spans (>2s) in checkout flow
+{ resource.service.name="checkout" && duration > 2s }
+
+# Error traces touching payment gateway
+{ resource.service.name="checkout" && span.http.target=~"/api/payment.*" && status=error }
+```
+
+### 7.3. Database — PromQL
+
+```promql
+# Connection-pool utilisation
+(db_client_connections_usage{state="used"}
+  / db_client_connections_max) * 100
+
+# Slow-query rate (queries > 1s, by db.system)
+sum by (db_system, db_name) (rate(db_client_operation_duration_seconds_bucket{le="+Inf"}[5m]))
+  -
+sum by (db_system, db_name) (rate(db_client_operation_duration_seconds_bucket{le="1.0"}[5m]))
+
+# Replication lag
+db_replication_lag_seconds > 30
+```
+
+### 7.4. Network & Latency — PromQL + LogQL
+
+```promql
+# Inter-service p95 latency from RED histogram
+histogram_quantile(0.95,
+  sum by (le, source_service, dest_service)
+    (rate(http_client_request_duration_seconds_bucket[5m]))
+)
+
+# TCP retransmits (proxy for network instability)
+rate(node_netstat_Tcp_RetransSegs[5m])
+
+# DNS resolution failures
+rate(coredns_dns_responses_total{rcode!="NOERROR"}[5m])
+```
+
+```logql
+# Gateway 502/504 spikes
+sum by (upstream) (
+  rate({job="gateway"} | json | status >= 502 [5m])
+)
+```
+
+### 7.5. Scaling & Performance — PromQL
+
+```promql
+# Saturation — request queue length per service
+max by (service_name) (otel_collector_receiver_accepted_spans_total
+  - otel_collector_exporter_sent_spans_total)
+
+# Goroutines / threads as growth signal
+deriv(process_runtime_go_goroutines[10m]) > 0
+
+# GC pressure
+rate(process_runtime_jvm_gc_duration_seconds_sum[5m])
+  / rate(process_runtime_jvm_gc_duration_seconds_count[5m])
+```
+
+### 7.6. Decision Tree — On-Call Triage
+
+```mermaid
+flowchart TD
+    A["Alert fires"] --> B{"Is the SLO burn-rate fast (>14.4× over 1h)?"}
+    B -->|"yes"| C["Page Critical — open incident"]
+    B -->|"no"| D{"Is it slow-burn (>1× over 6h)?"}
+    D -->|"yes"| E["Ticket — investigate within business hours"]
+    D -->|"no"| F["Auto-close after observation window"]
+
+    C --> G{"Symptom class?"}
+    G -->|"latency"| H["Apply Sec 7.2 app/network queries<br/>check upstream deps in Tempo"]
+    G -->|"error rate"| I["Sec 7.2 LogQL error grep<br/>correlate with last deploy<br/>(Ch 7 Sec 7.1 change calendar)"]
+    G -->|"saturation"| J["Sec 7.1 infra + Sec 7.5 scaling queries<br/>scale out per Ch 22"]
+    G -->|"data freshness"| K["Sec 7.3 DB lag query<br/>check ingest pipeline (Ch 2 Sec 7)"]
+
+    H --> L["Mitigate per Ch 12 Sec 5"]
+    I --> L
+    J --> L
+    K --> L
+    L --> M["PIR within 24h (Ch 12 Sec 6)"]
+```
+
+### 7.7. Decision Tree — Symptom → Runbook Section
+
+```mermaid
+flowchart LR
+    S["Observed symptom"] --> S1{"Where?"}
+    S1 -->|"single host"| R1["Sec 2 Infra — Sec 7.1 queries"]
+    S1 -->|"single service<br/>(many hosts)"| R2["Sec 3 Application — Sec 7.2 queries"]
+    S1 -->|"DB layer"| R3["Sec 4 Database — Sec 7.3 queries"]
+    S1 -->|"cross-service path"| R4["Sec 5 Network — Sec 7.4 queries"]
+    S1 -->|"under load only"| R5["Sec 6 Scaling — Sec 7.5 queries"]
+```
+
+## 8. Calibration Note
 After a few weeks of production data, narrow each range so **Warning ≈ 95th percentile of normal** and **Critical ≈ approaching SLA breach**.
 
-## 8. Cross-References
+## 9. Cross-References
 - [Chapter 1. Enterprise Observability Standards Catalog](1-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalog.
 - [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
 - [Chapter 5. Grafana Platform Standard and Visualization Playbook](5-grafana-platform-standard-and-visualization-playbook.md) — Grafana dashboard structure.

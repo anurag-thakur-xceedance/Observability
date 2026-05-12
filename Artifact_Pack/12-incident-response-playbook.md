@@ -69,7 +69,7 @@ sequenceDiagram
     OnCall->>OnCall: acknowledge, open incident
     alt severity = Critical
         OnCall->>IC: engage incident commander
-        IC->>Comms: open comms cadence (Ch 4 §5)
+        IC->>Comms: open comms cadence (Ch 4 Sec 5)
     end
     OnCall->>SO: consult runbook + service owner
     SO-->>OnCall: rollback / config / traffic-shift decision

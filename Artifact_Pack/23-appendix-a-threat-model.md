@@ -26,7 +26,7 @@ This appendix to [Chapter 23. Observability Platform Security Architecture](23-o
 ## 2. Methodology
 
 - **Framework**: STRIDE — Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege.
-- **Granularity**: per platform component (see §3).
+- **Granularity**: per platform component (see Section 3).
 - **Refresh cadence**: annually, or on any major architectural change (per [Chapter 27 NFR-SEC-05](27-observability-non-functional-requirements.md)).
 - **Owner**: Security Architect, ratified by ARB ([Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)).
 - **Inputs**: architecture diagrams ([Chapter 2. Observability Reference Architecture](2-observability-reference-architecture.md)), data-flow boundaries ([Chapter 2 -> Section 6.1. Network Topology and Trust Boundaries](2-observability-reference-architecture.md#61-network-topology-and-trust-boundaries)), tenant model ([Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md)).
@@ -57,7 +57,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **T**ampering | Local agent config altered to emit false metrics | Config in Git only; drift detection | [Chapter 7. IaC for Observability Standard](7-iac-for-observability-standard.md), NFR-CFG-01 | L |
 | **R**epudiation | Service denies emitting a problematic event | Signed telemetry origin (resource attributes); audit trail | [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) | L |
 | **I**nfo disclosure | PII leaks through unredacted log fields | PII redaction at source; pre-flight linter | [Chapter 17 -> Section 6. PII & Data Classification](17-application-telemetry-standard.md#6-pii-data-classification), NFR-PRV-01 | M |
-| **D**oS | Misbehaving SDK floods collector | Rate-limiting per service; cardinality budget | [Chapter 22 -> Section 7. Cardinality Budget](22-capacity-and-scale-model.md#7-cardinality-budget), NFR-CAP-01 | L |
+| **D**oS | Misbehaving SDK floods collector | Rate-limiting per service; cardinality budget | [Chapter 22 -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget), NFR-CAP-01 | L |
 | **E**oP | SDK exploited to gain platform credentials | SDKs hold no platform creds; mTLS workload identity only | [Chapter 23](23-observability-platform-security-architecture.md) | L |
 
 ### C2 — OpenTelemetry Collector (Gateway)

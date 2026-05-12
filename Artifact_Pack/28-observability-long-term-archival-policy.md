@@ -87,7 +87,7 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 
 - At rest: AES-256, customer-managed key (CMK) where data residency requires; tenant-isolated keys for multi-tenant deployments.
 - In transit: TLS 1.3 to the archive endpoint; mTLS where backend supports.
-- Key rotation: annual; old keys retained for the lifetime of objects encrypted with them (then cryptographically erased — see §6.3).
+- Key rotation: annual; old keys retained for the lifetime of objects encrypted with them (then cryptographically erased — see Section 6.3).
 
 ## 6. Data Lifecycle
 
@@ -97,7 +97,7 @@ Promotion is automated by an archival worker that runs daily:
 
 1. Reads the operational cold-store retention manifest.
 2. Selects records whose cold-tier retention has expired and whose retention category is non-zero.
-3. Applies privacy treatment per §7 (redaction, de-identification, or aggregation).
+3. Applies privacy treatment per Section 7 (redaction, de-identification, or aggregation).
 4. Writes to the selected archive tier with sidecar metadata.
 5. Records the promotion in the archive ledger (immutable).
 6. Deletes from the cold store after sidecar signing and ledger commit.
@@ -153,7 +153,7 @@ Access is governed by [Chapter 23. Observability Platform Security Architecture]
 - Erasure requests are received by the Data Protection Officer.
 - DPO determines whether the record qualifies (e.g. exemption under GDPR Art. 17(3) for legal obligation or public interest).
 - If qualified: archive worker performs **cryptographic erasure** of the affected records' keys within **30 days**.
-- Aggregated and pseudonymised records are exempt where re-identification is no longer feasible (see §7).
+- Aggregated and pseudonymised records are exempt where re-identification is no longer feasible (see Section 7).
 - Erasure certificate retained for 2 years.
 
 ## 11. Chain of Custody (Forensic / Legal)

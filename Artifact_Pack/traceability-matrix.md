@@ -122,7 +122,7 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 26 | [Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) | New (gap-fill) — extends Section 40 host-portable Compose model to multi-tenant context. |
 | 27 | [Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md) | New (P1 gap-fill) — consolidates platform NFRs scattered across Sections 4, 7, 22, 42, 46, 47. |
 | 28 | [Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md) | New (P1 gap-fill) — extends Section 43 (retention tiers) and Section 47 (compliance) for archival >1 year. |
-| 23A | [Threat Model (STRIDE) — Appendix to Chapter 23](23-appendix-a-threat-model.md) | New (P1 gap-fill) — deepens Chapter 23 §1 STRIDE summary with per-component matrix and residual-risk register. |
+| 23A | [Threat Model (STRIDE) — Appendix to Chapter 23](23-appendix-a-threat-model.md) | New (P1 gap-fill) — deepens Chapter 23 Section 1 STRIDE summary with per-component matrix and residual-risk register. |
 
 ---
 
@@ -139,9 +139,9 @@ Artifacts 20–28 (including Chapter 23 Appendix A) and Annexure B / README do n
 | 24 — SLO & Error-Budget | Business Objectives (Section 2); Continuous Improvement (Section 6) | Burn-rate alerts referenced by 4, 5, 11 |
 | 25 — Service Onboarding & Kits | Pre/Post-Login Telemetry (Sections 11–13); Telemetry Standards (Section 3) | PRR gate enforced by Chapter 15 Section 3 |
 | 26 — Multi-Tenant Model | Multi-Cloud Observability (Section 40, retired) — repurposed for tenant context | Tenant isolation evidenced in 10 OBS-C-12 |
-| 27 — NFR Register | Cross-cutting (Sections 4, 7, 22, 42, 46, 47) — no single source section | Verification owners feed Chapter 11 §6.1; controls cross-link Chapter 10 |
+| 27 — NFR Register | Cross-cutting (Sections 4, 7, 22, 42, 46, 47) — no single source section | Verification owners feed Chapter 11 Section 6.1; controls cross-link Chapter 10 |
 | 28 — Long-Term Archival Policy | Telemetry retention tiers (Section 43); Compliance (Section 47) | Extends Chapter 8 hot/warm/cold with >1y archival; cost model feeds Chapter 9 |
-| 23A — Threat Model (STRIDE) Appendix | Governance & Data Strategy (Section 42); Compliance (Section 47) | Deepens Chapter 23 §1; residual risks tracked against Chapter 27 NFR-SEC-* |
+| 23A — Threat Model (STRIDE) Appendix | Governance & Data Strategy (Section 42); Compliance (Section 47) | Deepens Chapter 23 Section 1; residual risks tracked against Chapter 27 NFR-SEC-* |
 | Annexure B — Concepts Glossary | Appendix glossary (Section 58) | Augments Annexure A acronyms |
 | README | New onboarding aid | Persona-based entry to all artifacts |
 

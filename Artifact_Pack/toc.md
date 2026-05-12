@@ -88,8 +88,9 @@ status: Draft
 - [4. Database Observability Runbook](3-domain-observability-runbooks-pack.md#4-database-observability-runbook)
 - [5. Network & Latency Observability Runbook](3-domain-observability-runbooks-pack.md#5-network-latency-observability-runbook)
 - [6. Scaling & Performance Runbook](3-domain-observability-runbooks-pack.md#6-scaling-performance-runbook)
-- [7. Calibration Note](3-domain-observability-runbooks-pack.md#7-calibration-note)
-- [8. Cross-References](3-domain-observability-runbooks-pack.md#8-cross-references)
+- [7. Query Examples and Decision Trees (Per Domain)](3-domain-observability-runbooks-pack.md#7-query-examples-and-decision-trees-per-domain)
+- [8. Calibration Note](3-domain-observability-runbooks-pack.md#8-calibration-note)
+- [9. Cross-References](3-domain-observability-runbooks-pack.md#9-cross-references)
 
 ## [Chapter 4. Alerting and Incident Severity Policy](4-alerting-and-incident-severity-policy.md)
 
@@ -169,6 +170,7 @@ status: Draft
 - [6.1. Unit Economics](9-observability-finops-standard.md#61-unit-economics)
 - [6.2. Optimisation Playbook](9-observability-finops-standard.md#62-optimisation-playbook)
 - [6.3. Forecast and Budget Model](9-observability-finops-standard.md#63-forecast-and-budget-model)
+- [6.4. Twelve-Month Worked Cost Model](9-observability-finops-standard.md#64-twelve-month-worked-cost-model)
 - [7. Deletion & Compaction Monitoring](9-observability-finops-standard.md#7-deletion-compaction-monitoring)
 - [8. Cross-References](9-observability-finops-standard.md#8-cross-references)
 
@@ -250,7 +252,8 @@ status: Draft
 - [Decision](16-observability-adr-decision-register.md#decision)
 - [Consequences](16-observability-adr-decision-register.md#consequences)
 - [Linked Artifacts](16-observability-adr-decision-register.md#linked-artifacts)
-- [4. Cross-References](16-observability-adr-decision-register.md#4-cross-references)
+- [4. ADR Bodies (Full Records)](16-observability-adr-decision-register.md#4-adr-bodies-full-records)
+- [5. Cross-References](16-observability-adr-decision-register.md#5-cross-references)
 
 ## [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md)
 
@@ -314,12 +317,13 @@ status: Draft
 
 - [1. Capacity Drivers](22-capacity-and-scale-model.md#1-capacity-drivers)
 - [2. Reference Deployment Sizes](22-capacity-and-scale-model.md#2-reference-deployment-sizes)
-- [3. Scale-Out Triggers](22-capacity-and-scale-model.md#3-scale-out-triggers)
-- [4. Sizing Calculator (heuristic)](22-capacity-and-scale-model.md#4-sizing-calculator-heuristic)
-- [5. Cost Projection (illustrative, Azure pricing class)](22-capacity-and-scale-model.md#5-cost-projection-illustrative-azure-pricing-class)
-- [6. Performance SLOs for the Platform Itself](22-capacity-and-scale-model.md#6-performance-slos-for-the-platform-itself)
-- [7. Cardinality Budget](22-capacity-and-scale-model.md#7-cardinality-budget)
-- [8. Cross-References](22-capacity-and-scale-model.md#8-cross-references)
+- [3. Worked Sizing Examples](22-capacity-and-scale-model.md#3-worked-sizing-examples)
+- [4. Scale-Out Triggers](22-capacity-and-scale-model.md#4-scale-out-triggers)
+- [5. Sizing Calculator (heuristic)](22-capacity-and-scale-model.md#5-sizing-calculator-heuristic)
+- [6. Cost Projection (illustrative, Azure pricing class)](22-capacity-and-scale-model.md#6-cost-projection-illustrative-azure-pricing-class)
+- [7. Performance SLOs for the Platform Itself](22-capacity-and-scale-model.md#7-performance-slos-for-the-platform-itself)
+- [8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget)
+- [9. Cross-References](22-capacity-and-scale-model.md#9-cross-references)
 
 ## [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md)
 
