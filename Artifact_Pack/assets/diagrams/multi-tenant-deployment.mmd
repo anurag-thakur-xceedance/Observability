@@ -1,0 +1,55 @@
+%% Diagram: Multi-Tenant Deployment Model
+%% Source of truth for Chapter 26 Section 1 (Deployment Topologies) and Section 4 (Per-Tenant Data Isolation).
+%% Shows the three sanctioned topologies and the tenant-isolation enforcement points.
+
+flowchart TB
+    subgraph T1["Topology A — Xceedance-Hosted, Shared Backend"]
+        direction LR
+        A_T1["Tenant 1 Services"] --> A_GW["Shared Gateway<br/>(X-Scope-OrgID injection)"]
+        A_T2["Tenant 2 Services"] --> A_GW
+        A_T3["Tenant 3 Services"] --> A_GW
+        A_GW --> A_BE["Shared Prom / Loki / Tempo<br/>(tenant-labelled streams)"]
+        A_BE --> A_GR["Shared Grafana<br/>(RBAC + datasource scoping)"]
+    end
+
+    subgraph T2["Topology B — Xceedance-Hosted, Dedicated Backend"]
+        direction LR
+        B_T1["Tenant 1 Services"] --> B_GW1["Tenant-1 Gateway"]
+        B_T2["Tenant 2 Services"] --> B_GW2["Tenant-2 Gateway"]
+        B_GW1 --> B_BE1["Tenant-1<br/>Prom / Loki / Tempo"]
+        B_GW2 --> B_BE2["Tenant-2<br/>Prom / Loki / Tempo"]
+        B_BE1 --> B_GR["Shared Grafana<br/>(per-tenant datasources)"]
+        B_BE2 --> B_GR
+    end
+
+    subgraph T3["Topology C — Customer-Site (Edge) with Forwarding"]
+        direction LR
+        C_SVC["Customer Services<br/>(at customer site)"] --> C_AGENT["Customer-site Agent<br/>(local buffer, store-and-forward)"]
+        C_AGENT -->|"residency-aware<br/>forwarding"| C_GW["Xceedance Edge Gateway<br/>(tenant + residency hint)"]
+        C_GW --> C_BE["Xceedance Backends<br/>(tenant-labelled or dedicated)"]
+        C_AGENT -.->|"residency=local-only"| C_LOCAL["Local Backend<br/>(customer-managed)"]
+    end
+
+    subgraph CTRL["Cross-Cutting Controls"]
+        direction TB
+        ENF["Tenant-Label Enforcer<br/>(reject untagged)"]
+        AUD["Audit: cross-tenant<br/>query attempts"]
+        RES["Residency Policy<br/>(EU / US / IN / local-only)"]
+    end
+
+    A_GW -.-> ENF
+    B_GW1 -.-> ENF
+    B_GW2 -.-> ENF
+    C_GW -.-> ENF
+    A_GR -.-> AUD
+    B_GR -.-> AUD
+    C_GW -.-> RES
+
+    classDef topa fill:#eef,stroke:#446,color:#000
+    classDef topb fill:#efe,stroke:#464,color:#000
+    classDef topc fill:#ffd,stroke:#a80,color:#000
+    classDef ctrl fill:#f6e6ff,stroke:#639,color:#000
+    class A_T1,A_T2,A_T3,A_GW,A_BE,A_GR topa
+    class B_T1,B_T2,B_GW1,B_GW2,B_BE1,B_BE2,B_GR topb
+    class C_SVC,C_AGENT,C_GW,C_BE,C_LOCAL topc
+    class ENF,AUD,RES ctrl

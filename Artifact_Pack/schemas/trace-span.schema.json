@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://observability.xceedance.internal/schemas/trace-span.schema.json",
+  "title": "Trace Span",
+  "description": "Canonical envelope for a single distributed-trace span. Aligned with the OpenTelemetry trace data model and W3C Trace Context. Spans that exceed the configured size or attribute count are truncated; truncation is signalled via dropped_attributes_count and dropped_events_count rather than discarded silently.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "trace_id",
+    "span_id",
+    "name",
+    "kind",
+    "start_time_unix_nano",
+    "end_time_unix_nano",
+    "status",
+    "resource",
+    "attributes"
+  ],
+  "properties": {
+    "trace_id":   { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+    "span_id":    { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+    "parent_span_id": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{16}$",
+      "description": "Null/omitted for root spans."
+    },
+    "trace_state": { "type": "string", "maxLength": 256 },
+    "name": {
+      "type": "string",
+      "description": "Low-cardinality span name (operation), e.g. HTTP GET /api/v1/policies/:id. Never include high-cardinality values like ids — promote them to attributes.",
+      "maxLength": 128
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["SPAN_KIND_INTERNAL", "SPAN_KIND_SERVER", "SPAN_KIND_CLIENT", "SPAN_KIND_PRODUCER", "SPAN_KIND_CONSUMER"]
+    },
+    "start_time_unix_nano": { "type": "integer", "minimum": 1577836800000000000 },
+    "end_time_unix_nano":   { "type": "integer", "minimum": 1577836800000000000 },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code"],
+      "properties": {
+        "code":    { "type": "string", "enum": ["STATUS_CODE_UNSET", "STATUS_CODE_OK", "STATUS_CODE_ERROR"] },
+        "message": { "type": "string", "maxLength": 1024 }
+      }
+    },
+    "resource": { "$ref": "metric-sample.schema.json#/$defs/resource" },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": { "type": ["string", "number", "boolean"] },
+      "maxProperties": 64,
+      "properties": {
+        "http.request.method":      { "type": "string" },
+        "http.response.status_code":{ "type": "integer", "minimum": 100, "maximum": 599 },
+        "http.route":               { "type": "string" },
+        "url.scheme":               { "type": "string", "enum": ["http", "https"] },
+        "server.address":           { "type": "string" },
+        "server.port":              { "type": "integer", "minimum": 1, "maximum": 65535 },
+        "db.system":                { "type": "string" },
+        "db.operation.name":        { "type": "string" },
+        "messaging.system":         { "type": "string" },
+        "messaging.destination.name": { "type": "string" },
+        "rpc.system":               { "type": "string" },
+        "rpc.service":              { "type": "string" },
+        "rpc.method":               { "type": "string" },
+        "transaction.name":         { "type": "string", "description": "Named user journey (Chapter 17, Section 4)." },
+        "journey.name":             { "type": "string" },
+        "tenant_class":             { "type": "string", "enum": ["t1", "t2", "t3", "internal"] }
+      }
+    },
+    "events": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["time_unix_nano", "name"],
+        "properties": {
+          "time_unix_nano": { "type": "integer" },
+          "name":           { "type": "string", "maxLength": 64 },
+          "attributes":     { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean"] } }
+        }
+      }
+    },
+    "links": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["trace_id", "span_id"],
+        "properties": {
+          "trace_id":   { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+          "span_id":    { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+          "attributes": { "type": "object" }
+        }
+      }
+    },
+    "dropped_attributes_count": { "type": "integer", "minimum": 0 },
+    "dropped_events_count":     { "type": "integer", "minimum": 0 },
+    "dropped_links_count":      { "type": "integer", "minimum": 0 }
+  }
+}

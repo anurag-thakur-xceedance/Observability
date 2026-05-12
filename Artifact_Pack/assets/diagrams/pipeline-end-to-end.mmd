@@ -1,0 +1,82 @@
+%% Diagram: Observability Pipeline — End-to-End
+%% Source of truth for Chapter 2 Section 2 (High-Level Architecture, Logical View).
+%% Render: any Mermaid 10+ renderer. Keep node labels short; details belong in the chapter prose.
+
+flowchart LR
+    subgraph SRC["Sources"]
+        APP["Application Services<br/>(OTel SDK)"]
+        INFRA["Infra Exporters<br/>(node, cAdvisor,<br/>blackbox)"]
+        EBPF["eBPF Agents<br/>(auto-instrumentation)"]
+        SYNTH["Synthetic Probers"]
+    end
+
+    subgraph EDGE["Edge Collection"]
+        AGENT["OTel Collector — Agent<br/>(per-host / sidecar)"]
+    end
+
+    subgraph GW["Gateway Tier"]
+        GATEWAY["OTel Collector — Gateway<br/>(tail-sampling, redaction,<br/>cardinality limits)"]
+    end
+
+    subgraph BACKENDS["Storage Backends"]
+        PROM["Prometheus<br/>(metrics)"]
+        LOKI["Loki<br/>(logs)"]
+        TEMPO["Tempo<br/>(traces)"]
+        PYRO["Pyroscope<br/>(profiles)"]
+        OBJ["Object Storage<br/>(WORM tier)"]
+    end
+
+    subgraph CONS["Consumption"]
+        GRAFANA["Grafana<br/>(dashboards, explore, alerts)"]
+        AIOPS["AIOps Layer<br/>(Ch 6)"]
+        AM["Alertmanager"]
+    end
+
+    subgraph AUDIT["Audit & DLQ"]
+        DLQ["Schema-Violation DLQ<br/>(Ch 19 Sec 8.4)"]
+        EVID["Audit Evidence Store<br/>(Ch 10 Sec 7)"]
+    end
+
+    APP --> AGENT
+    INFRA --> AGENT
+    EBPF --> AGENT
+    SYNTH --> AGENT
+
+    AGENT -->|"OTLP / gRPC<br/>mTLS"| GATEWAY
+
+    GATEWAY -->|"remote-write"| PROM
+    GATEWAY -->|"OTLP logs"| LOKI
+    GATEWAY -->|"OTLP traces"| TEMPO
+    GATEWAY -->|"pprof"| PYRO
+    GATEWAY -.->|"schema-violation"| DLQ
+
+    PROM --> OBJ
+    LOKI --> OBJ
+    TEMPO --> OBJ
+
+    PROM --> GRAFANA
+    LOKI --> GRAFANA
+    TEMPO --> GRAFANA
+    PYRO --> GRAFANA
+
+    PROM --> AIOPS
+    LOKI --> AIOPS
+    TEMPO --> AIOPS
+
+    GRAFANA --> AM
+    AIOPS --> AM
+    AIOPS --> EVID
+    AM --> EVID
+
+    classDef src     fill:#eef,stroke:#446,color:#000
+    classDef edge    fill:#efe,stroke:#464,color:#000
+    classDef gw      fill:#ffd,stroke:#a80,color:#000
+    classDef store   fill:#fee,stroke:#a44,color:#000
+    classDef cons    fill:#eef7ff,stroke:#357,color:#000
+    classDef audit   fill:#f6e6ff,stroke:#639,color:#000
+    class APP,INFRA,EBPF,SYNTH src
+    class AGENT edge
+    class GATEWAY gw
+    class PROM,LOKI,TEMPO,PYRO,OBJ store
+    class GRAFANA,AIOPS,AM cons
+    class DLQ,EVID audit

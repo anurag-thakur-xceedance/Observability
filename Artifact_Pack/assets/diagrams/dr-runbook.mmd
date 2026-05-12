@@ -1,0 +1,40 @@
+%% Diagram: DR Runbook — Region Loss
+%% Source of truth for Chapter 21 Section 5 (DR Patterns) and Section 8 (DR Drill Cadence).
+%% Sequence of decisions during a region-loss event with RTO/RPO checkpoints.
+
+flowchart TD
+    START(["Region-A failure<br/>detected by meta-monitor"]) --> ASSESS["Assess blast radius<br/>(partial vs full)"]
+
+    ASSESS -->|"partial<br/>(single component)"| RESTART["Restart failed component<br/>from local snapshot"]
+    RESTART --> VERIFY1{"Component<br/>healthy?"}
+    VERIFY1 -->|"yes"| MONITOR["Resume normal ops<br/>+ post-incident review"]
+    VERIFY1 -->|"no"| ASSESS
+
+    ASSESS -->|"full region loss"| DECLARE["Declare DR event<br/>(page DR commander)"]
+    DECLARE --> ISOLATE["Isolate Region-A<br/>(LB drains, DNS TTL drops)"]
+    ISOLATE --> RESTORE_OBJ["Object store cross-region<br/>(already replicated)"]
+    RESTORE_OBJ --> SPINUP["Spin up Region-B stack<br/>from IaC (Ch 7)"]
+    SPINUP --> RECONFIG["Repoint producers via DNS<br/>(OTLP endpoint switch)"]
+    RECONFIG --> VERIFY2{"Ingest visible<br/>in Region-B?"}
+
+    VERIFY2 -->|"no, within RTO=4h"| ESCALATE["Escalate to vendor<br/>+ manual restore<br/>(Tempo / Loki blocks)"]
+    ESCALATE --> VERIFY2
+    VERIFY2 -->|"yes"| RPO_CHECK{"Data gap<br/>≤ RPO=15m?"}
+
+    RPO_CHECK -->|"yes"| ANNOUNCE["Announce recovery<br/>+ start post-incident<br/>review"]
+    RPO_CHECK -->|"no"| GAP_REPORT["Document data gap<br/>+ notify affected<br/>customers (contracts)"]
+    GAP_REPORT --> ANNOUNCE
+
+    ANNOUNCE --> EVID["Publish DR-drill evidence<br/>(OBS-C-13, Ch 10 Sec 7)"]
+    MONITOR --> EVID
+
+    classDef start    fill:#efe,stroke:#464,color:#000
+    classDef step     fill:#eef,stroke:#446,color:#000
+    classDef decision fill:#ffd,stroke:#a80,color:#000
+    classDef bad      fill:#fee,stroke:#a44,color:#000
+    classDef good     fill:#eef7ff,stroke:#357,color:#000
+    class START start
+    class ASSESS,RESTART,DECLARE,ISOLATE,RESTORE_OBJ,SPINUP,RECONFIG,ESCALATE,GAP_REPORT step
+    class VERIFY1,VERIFY2,RPO_CHECK decision
+    class ESCALATE,GAP_REPORT bad
+    class MONITOR,ANNOUNCE,EVID good

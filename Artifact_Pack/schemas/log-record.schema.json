@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://observability.xceedance.internal/schemas/log-record.schema.json",
+  "title": "Log Record",
+  "description": "Canonical structured-log envelope. Aligned with OpenTelemetry logs data model and ECS (Elastic Common Schema) where compatible. Records that fail validation are not silently dropped: they are routed to the schema-violation dead-letter stream and counted against the producing service's data-quality SLO (Chapter 8, Section 6).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "timestamp",
+    "severity_number",
+    "severity_text",
+    "body",
+    "resource",
+    "attributes"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp in UTC with millisecond precision (e.g. 2026-05-12T14:03:11.482Z)."
+    },
+    "observed_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Collector ingest timestamp; populated by the pipeline, not by the producer."
+    },
+    "severity_number": {
+      "type": "integer",
+      "description": "OpenTelemetry severity number. 1-4 trace, 5-8 debug, 9-12 info, 13-16 warn, 17-20 error, 21-24 fatal.",
+      "minimum": 1,
+      "maximum": 24
+    },
+    "severity_text": {
+      "type": "string",
+      "enum": ["TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"]
+    },
+    "body": {
+      "description": "Free-form message body. PII patterns enumerated in Chapter 23 Section 4 are stripped at source.",
+      "oneOf": [
+        { "type": "string", "maxLength": 8192 },
+        { "type": "object" }
+      ]
+    },
+    "trace_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$",
+      "description": "16-byte W3C Trace Context trace id, lowercase hex. Required for any log emitted within an active span."
+    },
+    "span_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$",
+      "description": "8-byte span id, lowercase hex."
+    },
+    "trace_flags": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 255
+    },
+    "resource": { "$ref": "metric-sample.schema.json#/$defs/resource" },
+    "attributes": {
+      "type": "object",
+      "description": "Event-level attributes. Required keys depend on service tier; see Chapter 17 Section 4 for the per-tier required-field matrix.",
+      "additionalProperties": { "type": ["string", "number", "boolean"] },
+      "properties": {
+        "event.name":             { "type": "string", "maxLength": 64 },
+        "event.domain":           { "type": "string", "enum": ["app", "infra", "security", "audit", "business"] },
+        "http.request.method":    { "type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"] },
+        "http.response.status_code": { "type": "integer", "minimum": 100, "maximum": 599 },
+        "http.route":             { "type": "string", "maxLength": 256 },
+        "user.session.id":        { "type": "string", "pattern": "^[a-f0-9]{64}$", "description": "SHA-256 hash of session id; never the raw value." },
+        "tenant_class":           { "type": "string", "enum": ["t1", "t2", "t3", "internal"] },
+        "error.type":             { "type": "string", "maxLength": 128 },
+        "error.message":          { "type": "string", "maxLength": 1024 },
+        "error.stack_trace":      { "type": "string", "maxLength": 16384 }
+      }
+    },
+    "dropped_attributes_count": { "type": "integer", "minimum": 0 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "severity_number": { "minimum": 17 } }, "required": ["severity_number"] },
+      "then": { "required": ["attributes"], "properties": { "attributes": { "required": ["error.type"] } } }
+    }
+  ]
+}

@@ -131,17 +131,56 @@ Pack now contains **36 markdown files** (27 numbered chapters + 1 appendix + 2 a
 
 ---
 
+## 2.3. P2 Depth-and-Asset Pass (2026-05-12)
+
+A fourth pass closed the P2 backlog — adding depth, schemas, reference assets, and durable agent rules. Verifier baseline at close: **1,296 internal links / 0 broken; front-matter clean; zero scaffold markers; zero U+00A7 occurrences.**
+
+**Content depth:**
+
+- **[Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)** — new **Section 9 Worked Examples** added (Cross-References renumbered 9 -> 10): two filled model cards (`latency-anomaly-detector-v1`, `deployment-error-correlator-v1`), a 7-stage LLM sanitisation standard (allow-list, deny-list, PII regex table, tenant-scope enforcer, token-budget guard, system-prompt injector, audit logger), three filled prompt-registry entries (`incident-summary-v1`, `rca-hypothesis-v1` shadow mode, `runbook-finder-v1`), reference system prompt, and KPI targets.
+- **[Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)** — new **Section 6.4** 12-month worked cost model with unit-cost evolution and optimisation impact projection.
+- **[Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md)** — new **Section 7 Audit-Evidence Catalogue** mapping each of the 17 controls to producing system, storage path, format, and retention; existing Audit Lifecycle and Cross-References renumbered 8 and 9. SOC2 / ISO 27001 Annex A / GDPR Article / NIST CSF 2.0 mappings populated in Section 6.
+- **[Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md)** — Section 8 stub replaced with substantive content: **8.1 JSON Schema Index** (5 schemas, version lifecycle), **8.2 Entity Relationship Diagram** (Mermaid, 8 entities with formal cardinality), **8.3 OpenTelemetry Semantic-Convention Crosswalk** (~30 attributes), **8.4 Dead-Letter Discipline** (5 failure classes, dedicated DLQ streams), **8.5 Native-Backend Mapping**, **8.6 Conformance Hooks**.
+- **[Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md)** — new **Section 3 Worked Sizing Examples** (Small / Medium / Large customer profiles with 10-step methodology); existing sections renumbered.
+- **[Chapter 27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md)** — new **Section 4 Verification Methods (Per NFR)** covering 18 NFR families plus Section 4.19 evidence-storage layout.
+
+**Reference assets (in-repo):**
+
+- **5 JSON Schemas** (Draft 2020-12) under `schemas/`: `metric-sample.schema.json`, `log-record.schema.json`, `trace-span.schema.json`, `event-record.schema.json`, `profile-sample.schema.json`. Shared `resource` definition; schema-version lifecycle and conformance hooks indexed in [Chapter 19. Observability Data Model Specification -> Section 8.1 JSON Schema Index](19-observability-data-model-specification.md#81-json-schema-index).
+- **5 Mermaid architecture diagrams** under `assets/diagrams/` (catalogue in `assets/diagrams/index.md`): pipeline end-to-end (Ch 2), multi-tenant deployment (Ch 26), AIOps closed-loop (Ch 6), HA topology (Ch 21), DR runbook (Ch 21). Standalone `.mmd` source files plus catalogue with rendering and change-control guidance.
+
+**Tooling and rules:**
+
+- **Three PowerShell verifiers** under `tools/` at the repo root: `verify_links.ps1` (internal-link + anchor integrity), `verify_frontmatter.ps1` (YAML + table sanity), `regen_toc.ps1` (TOC regeneration from H1/H2).
+- **`AGENTS.md`** authored at repo root — durable rules for any agent editing the pack: Markdown style (banned characters, link-label form, slug conventions), file-I/O rules (`[System.IO.File]` to avoid console mangling of non-ASCII glyphs), verifier discipline, and a Phase-5 final-sweep checklist.
+
+**Filename hygiene:**
+
+- All single-digit chapter files **zero-padded** to two digits via `git mv` (90% similarity preserved); 36 files re-linked. YAML `chapter:` field stays numeric.
+
+**P3 scope recorded** in [Traceability Matrix -> Section D](traceability-matrix.md) as a tiered close: items K1-K5 (anchored gaps) plus H-list (high-priority depth items) for a 3-4 week increment after P2.
+
+Pack now contains **36 markdown chapters** plus **5 JSON schemas** plus **5 Mermaid diagrams** plus **3 PowerShell verifiers** plus root **AGENTS.md**.
+
+---
+
 ## 3. Sections Pending
 
 None for **structural extraction**. All sections have a destination and content has been migrated.
 
-The following items are **content depth follow-ups** rather than missing extraction:
+The following items are P3 / implementation-phase follow-ups:
 
-- [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — concrete framework mapping (specific SOC2 CC IDs, ISO 27001 Annex A clauses, GDPR Articles) needs domain SME pass.
-- [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — embedded sequence diagram from the source doc (image) was not OCR'd; logical flow captured textually.
-- [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) — full ADRs not yet authored; index of seven inferred decisions has been recorded for ratification.
-- [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — JSON schemas, ERD diagram, and tool-native mappings remain to be authored.
+- [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 9.4](06-aiops-guardrails-and-implementation-playbook.md#9-worked-examples-filled-model-cards-and-prompt-registry) — the YAML prompt-registry entries reference `reference-implementations/aiops/prompts/`; that directory and its working YAML files are P3 K3 (reference implementations).
+- [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — embedded sequence diagram from the source doc (image) was not OCR'd; logical flow captured textually and as a Mermaid sequence in Section 4.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — placeholder named user-journey list (`policy-quote`) needs product confirmation.
+- **Grafana dashboard JSON exports** — deferred to implementation phase per project direction; `dashboards/` directory exists but is empty.
+- **P3 K1-K5** and H-list per [Traceability Matrix -> Section D](traceability-matrix.md) — risk register (new Ch 29), reference implementations, meta-observability dashboards, RUM standard, supply-chain SBOM section, edge collection patterns, privacy NFR set.
+
+**SME validation caveat.** Content is synthesis-grade; the following items in particular benefit from SME review before production use:
+- Ch 06 Section 9.3.3 PII regex table (illustrative patterns).
+- Ch 10 Section 6 framework mappings (SOC2 CC IDs, ISO Annex A IDs, GDPR Articles) — currently best-effort; auditor confirmation recommended.
+- Ch 19 Section 8 JSON Schemas — review by data-platform SME against actual producer libraries.
+- Ch 27 NFR thresholds — confirm with platform team before adoption as binding NFRs.
 
 ---
 
@@ -166,13 +205,13 @@ The following items are **content depth follow-ups** rather than missing extract
 
 ## 5. Recommended Next Step
 
-1. **Convert revised strategy to `.docx`** if business stakeholders require Word format (Pandoc one-liner).
-2. **ARB / Governance review** of the artifact pack (resolves Decisions #1, #2, #3).
-3. **Compliance SME pass** on [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) to populate concrete control-framework mappings (Decision #4).
-4. **Author full ADRs** for [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) ADR-001 through ADR-007 to ratify implicit decisions, and migrate any backlog from the empty source decision-log.
-5. **Schema / ERD authoring** for [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) (JSON schemas per signal type, span hierarchy spec) so [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) can reference concrete schemas.
-6. **Editorial consistency pass** — re-read [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) ↔ [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) ↔ [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) to ensure no threshold drift between catalog, runbook, and visualization artifacts.
-7. **Repository setup** — recommend committing `Artifact_Pack/` to a Git repo (GitOps prerequisite for [Chapter 4. Alerting and Incident Severity Policy -> Section 5. Alert Routing & Escalation](04-alerting-and-incident-severity-policy.md#5-alert-routing-escalation) alert-rule version control and [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) audit trail).
+1. **ARB / Governance review** of the artifact pack (resolves Decisions #1, #2, #3).
+2. **Compliance SME pass** on [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) Section 6 to confirm framework-clause mappings populated during P2.
+3. **Data-platform SME pass** on the 5 JSON Schemas under `schemas/` and [Chapter 19. Observability Data Model Specification -> Section 8](19-observability-data-model-specification.md#8-canonical-json-schemas-erd-and-otel-crosswalk) against actual producer libraries.
+4. **Product confirmation** of named user journeys in [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) (Decision #5).
+5. **P3 increment kickoff** — work the K1-K5 anchored gaps and H-list per [Traceability Matrix -> Section D](traceability-matrix.md). Start with K3 (reference implementations) so the YAML prompt registry referenced from Ch 06 Section 9.4 lands alongside its consuming standard, and K4 (new Chapter 29 programme risk register).
+6. **Editorial consistency pass** — re-read [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) <-> [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) <-> [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) to ensure no threshold drift between catalog, runbook, and visualization artifacts.
+7. **Convert revised strategy to `.docx`** if business stakeholders require Word format (Pandoc one-liner).
 
 ---
 

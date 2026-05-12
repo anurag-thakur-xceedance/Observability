@@ -1,0 +1,81 @@
+%% Diagram: AIOps Closed-Loop (Detect -> Diagnose -> Decide -> Act -> Learn)
+%% Source of truth for Chapter 6 Section 1 (Strategic Intent) and Section 6 (Feedback Loop).
+%% Highlights human-in-the-loop checkpoints and the shadow-mode / production gate.
+
+flowchart LR
+    subgraph TELE["Telemetry"]
+        M["Metrics"]
+        L["Logs"]
+        T["Traces"]
+        E["Events<br/>(deploys, scaling)"]
+    end
+
+    subgraph DETECT["1. Detect"]
+        ANOM["Anomaly Detector<br/>(latency, error-rate,<br/>saturation)"]
+        CHANGE["Change Correlator<br/>(deploys vs incidents)"]
+    end
+
+    subgraph DIAG["2. Diagnose"]
+        RCA["RCA Hypothesiser<br/>(LLM, shadow mode)"]
+        TOPO["Topology Reasoner<br/>(span graph traversal)"]
+    end
+
+    subgraph DECIDE["3. Decide"]
+        SEV["Severity Classifier"]
+        ROUTE["Routing &<br/>Suppression Policy"]
+        HUMAN{"Human<br/>Approval?"}
+    end
+
+    subgraph ACT["4. Act"]
+        TICKET["Enriched Incident<br/>Ticket"]
+        PAGE["Page On-Call"]
+        RUNBOOK["Runbook Finder<br/>(retrieve, not execute)"]
+    end
+
+    subgraph LEARN["5. Learn"]
+        FEEDBACK["On-Call Feedback<br/>(true / false positive)"]
+        REGISTRY["Model Registry<br/>(MLflow)"]
+        ARB["ARB Review<br/>(quarterly)"]
+    end
+
+    M --> ANOM
+    L --> ANOM
+    T --> ANOM
+    E --> CHANGE
+    M --> CHANGE
+
+    ANOM --> RCA
+    ANOM --> TOPO
+    CHANGE --> RCA
+    TOPO --> RCA
+
+    RCA --> SEV
+    TOPO --> SEV
+    SEV --> ROUTE
+    ROUTE --> HUMAN
+
+    HUMAN -->|"yes —<br/>warn-only models"| TICKET
+    HUMAN -->|"auto —<br/>production models"| TICKET
+    TICKET --> PAGE
+    TICKET --> RUNBOOK
+
+    PAGE --> FEEDBACK
+    RUNBOOK --> FEEDBACK
+    FEEDBACK --> REGISTRY
+    REGISTRY --> ARB
+    ARB -.->|"approval<br/>required"| ANOM
+    ARB -.-> CHANGE
+    ARB -.-> RCA
+
+    classDef tele     fill:#eef,stroke:#446,color:#000
+    classDef detect   fill:#efe,stroke:#464,color:#000
+    classDef diag     fill:#ffd,stroke:#a80,color:#000
+    classDef decide   fill:#fee,stroke:#a44,color:#000
+    classDef act      fill:#eef7ff,stroke:#357,color:#000
+    classDef learn    fill:#f6e6ff,stroke:#639,color:#000
+    class M,L,T,E tele
+    class ANOM,CHANGE detect
+    class RCA,TOPO diag
+    class SEV,ROUTE,HUMAN decide
+    class TICKET,PAGE,RUNBOOK act
+    class FEEDBACK,REGISTRY,ARB learn

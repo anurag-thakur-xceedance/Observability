@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://observability.xceedance.internal/schemas/metric-sample.schema.json",
+  "title": "Metric Sample",
+  "description": "Canonical envelope for a single metric sample emitted by an instrumented service. Aligned with OpenTelemetry metrics data model and Prometheus exposition format. Required-attribute set is enforced by the collection pipeline; samples missing required attributes are routed to the schema-violation dead-letter stream (see Chapter 19, Section 8.4).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "value",
+    "timestamp_unix_nano",
+    "instrument_type",
+    "unit",
+    "resource",
+    "attributes"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Metric name in dot.snake_case form: <domain>.<entity>.<measure>.<unit>. Examples: http.server.request.duration.ms, db.client.connections.idle.count.",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+){2,5}$",
+      "maxLength": 128
+    },
+    "value": {
+      "description": "Sample value. Histogram instruments use the value_histogram object; counters and gauges use a numeric scalar.",
+      "oneOf": [
+        { "type": "number" },
+        { "$ref": "#/$defs/histogramValue" }
+      ]
+    },
+    "timestamp_unix_nano": {
+      "type": "integer",
+      "description": "Sample timestamp in Unix nanoseconds (UTC). Must be within +/- 5 minutes of ingest wall-clock or the sample is rejected as out-of-window.",
+      "minimum": 1577836800000000000
+    },
+    "instrument_type": {
+      "type": "string",
+      "enum": ["counter", "up_down_counter", "gauge", "histogram", "summary"],
+      "description": "OpenTelemetry instrument kind."
+    },
+    "unit": {
+      "type": "string",
+      "description": "UCUM unit code. Use 1 for dimensionless, ms for milliseconds, By for bytes, % for percent (0-100 scale).",
+      "pattern": "^[A-Za-z0-9%/{}.\\-_]{1,16}$"
+    },
+    "resource": { "$ref": "#/$defs/resource" },
+    "attributes": {
+      "type": "object",
+      "description": "Bounded-cardinality dimensions. Combined cardinality (resource + attributes) must respect Chapter 8 Section 6 limits.",
+      "maxProperties": 16,
+      "additionalProperties": { "type": ["string", "number", "boolean"] }
+    },
+    "exemplar": {
+      "type": "object",
+      "description": "Optional trace exemplar for cross-pillar correlation.",
+      "required": ["trace_id", "span_id"],
+      "additionalProperties": false,
+      "properties": {
+        "trace_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "span_id":  { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "value":    { "type": "number" }
+      }
+    }
+  },
+  "$defs": {
+    "resource": {
+      "type": "object",
+      "description": "Identifies the entity emitting the metric. Fields marked required form the partition key for cross-pillar joins.",
+      "required": ["service.name", "service.version", "deployment.environment"],
+      "additionalProperties": { "type": "string" },
+      "properties": {
+        "service.name":           { "type": "string", "maxLength": 64 },
+        "service.version":        { "type": "string", "maxLength": 32 },
+        "service.namespace":      { "type": "string", "maxLength": 32 },
+        "deployment.environment": { "type": "string", "enum": ["prod", "staging", "uat", "dev"] },
+        "cloud.provider":         { "type": "string", "enum": ["aws", "azure", "gcp", "onprem"] },
+        "cloud.region":           { "type": "string", "maxLength": 32 },
+        "host.name":              { "type": "string", "maxLength": 128 },
+        "container.id":           { "type": "string", "maxLength": 64 },
+        "k8s.namespace.name":     { "type": "string", "maxLength": 64 },
+        "k8s.pod.name":           { "type": "string", "maxLength": 128 },
+        "tenant_class":           { "type": "string", "enum": ["t1", "t2", "t3", "internal"] }
+      }
+    },
+    "histogramValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "sum", "bucket_counts", "explicit_bounds"],
+      "properties": {
+        "count":          { "type": "integer", "minimum": 0 },
+        "sum":            { "type": "number" },
+        "min":            { "type": "number" },
+        "max":            { "type": "number" },
+        "bucket_counts":  { "type": "array", "items": { "type": "integer", "minimum": 0 }, "minItems": 1 },
+        "explicit_bounds":{ "type": "array", "items": { "type": "number" }, "minItems": 0 }
+      }
+    }
+  }
+}

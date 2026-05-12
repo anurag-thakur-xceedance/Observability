@@ -92,9 +92,37 @@ The framework set is selected and governed by [Chapter 15. Observability Governa
 - **Quarterly** (e.g. OBS-C-04 retention review, OBS-C-05 access review).
 - **Annual** (e.g. OBS-C-13 DR drill, OBS-C-15 SBOM attestation refresh, OBS-C-17 backup-restore drill).
 
-**Owner discipline.** Each owner publishes evidence to the central audit-evidence repository indexed by Control ID; the governance body (Section 7) reviews exceptions and remediation timelines.
+**Owner discipline.** Each owner publishes evidence to the central audit-evidence repository indexed by Control ID; the governance body (Section 8) reviews exceptions and remediation timelines.
 
-## 7. Audit Lifecycle
+## 7. Audit-Evidence Catalogue
+
+This catalogue is the bridge between Section 5 controls and the systems that produce their evidence. It tells an auditor exactly **where** each artefact lives, **what format** it takes, and **how long** it is retained — without which "evidence" is a verbal claim. Paths under `audit-evidence/` are S3/Azure Blob prefixes in the WORM evidence bucket established in [Chapter 23. Observability Platform Security Architecture -> Section 5. Audit Trail](23-observability-platform-security-architecture.md#5-audit-trail).
+
+| Control | Evidence Artefact | Producing System | Storage Path | Format | Retention |
+|---|---|---|---|---|---|
+| OBS-C-01 | Admin-action audit log export | Grafana, Prometheus, Loki, Alertmanager admin APIs | `audit-evidence/admin-actions/{system}/{yyyy}/{mm}/` | NDJSON, signed | 7 years (WORM) |
+| OBS-C-02 | Git commit history + signed-tag manifest for alerts/dashboards/SLOs | GitOps repo (`observability-config`) | Repo itself + monthly snapshot `audit-evidence/gitops-snapshots/` | Git bundle, GPG-signed tags | 7 years |
+| OBS-C-03 | Pipeline redaction config + monthly PII-scan report | OTel Collector config; pii-scan job | `audit-evidence/pii/{yyyy}-{mm}/` | YAML config + scan-report PDF | 3 years (PII-scan); config in Git indefinitely |
+| OBS-C-04 | Backend retention configuration snapshot | Prometheus, Loki, Tempo configs | `audit-evidence/retention-configs/{yyyy}-Q{n}/` | YAML snapshot | 7 years |
+| OBS-C-05 | Quarterly access-review attestation | IdP (Azure AD / Okta) + Grafana/Prom/Loki/Tempo RBAC exports | `audit-evidence/access-reviews/{yyyy}-Q{n}/` | CSV + signed attestation PDF | 7 years |
+| OBS-C-06 | Audit-findings register + remediation log | Internal audit tool | `audit-evidence/audits/{yyyy}/` | Issue export (CSV/JSON) | 7 years |
+| OBS-C-07 | Distribution-list confirmations + timestamps | Compliance reporting job | `audit-evidence/reports/{report_name}/{yyyy}-{mm}/` | PDF + email-receipt log | 3 years |
+| OBS-C-08 | Deletion/compaction job success metrics + alert history | Prometheus job metrics; Alertmanager history | `audit-evidence/retention-jobs/{yyyy}-Q{n}/` | Metric export + alert log | 3 years |
+| OBS-C-09 | PRR scorecard + telemetry-conformance dashboard export | PRR tool; Grafana | `audit-evidence/prr/{service}/{yyyy}-Q{n}/` | JSON scorecard + dashboard PNG | 5 years |
+| OBS-C-10 | Gateway processor config + reject-rate metric snapshot | OTel Collector; Prometheus | `audit-evidence/cardinality/{yyyy}-Q{n}/` | YAML + PromQL export | 3 years |
+| OBS-C-11 | Certificate inventory + expiry-alert history | Cert manager; Alertmanager | `audit-evidence/tls/{yyyy}-Q{n}/` | CSV + alert log | 5 years |
+| OBS-C-12 | Tenant-label policy report + cross-tenant query test results | Multi-tenancy enforcer; test harness | `audit-evidence/tenancy/{yyyy}-Q{n}/` | Policy YAML + test-run JSON | 7 years |
+| OBS-C-13 | DR-drill report (RTO/RPO measured) | DR runbook output | `audit-evidence/dr-drills/{yyyy}-Q{n}/` | Markdown report + screenshots | 7 years |
+| OBS-C-14 | Model card; shadow-mode metrics; ARB approval record; prompt-registry diff; LLM audit log per [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 9.3.6 Audit Logging](06-aiops-guardrails-and-implementation-playbook.md#9-worked-examples-filled-model-cards-and-prompt-registry) | MLflow / model registry; AIOps audit pipeline | `audit-evidence/aiops/{model_id}/{version}/`; LLM audit at `audit-evidence/llm/{yyyy}-{mm}/` | YAML model card + JSON metrics + signed ARB minute; LLM audit NDJSON | 7 years; LLM audit per Section 9.3.6 (default 90 days, 7 years for production templates) |
+| OBS-C-15 | SBOM (CycloneDX) + Sigstore attestation | Build pipeline (cosign) | `audit-evidence/sbom/{component}/{version}/` | CycloneDX JSON + .sig | Lifetime of image + 3 years |
+| OBS-C-16 | Vulnerability-scan report + admission-controller decision log | Trivy/Grype; OPA admission controller | `audit-evidence/image-scans/{component}/{version}/` | SARIF + decision log | 3 years |
+| OBS-C-17 | Restore-test report (backup integrity verified) | Backup tooling | `audit-evidence/backup-restore/{yyyy}-Q{n}/` | Markdown report + checksum log | 7 years |
+
+**WORM enforcement.** All paths under `audit-evidence/` reside in an object-lock bucket (S3 Object Lock Compliance mode / Azure Immutable Blob in time-based mode) with retention equal to the longest control retention plus a one-year buffer. Cryptographic-erasure attestation for tenant-scoped evidence on tenant offboarding is governed by P3 deliverable K1 (see traceability matrix Section D).
+
+**Auditor self-service.** Read-only auditor access is granted via a scoped role that can list and download but not modify or delete under `audit-evidence/`. The role and its grants are themselves evidenced under OBS-C-05.
+
+## 8. Audit Lifecycle
 
 1. **Plan.** Governance body confirms framework set and scope (annual).
 2. **Collect.** Owners publish evidence per cadence above.
@@ -105,7 +133,7 @@ The framework set is selected and governed by [Chapter 15. Observability Governa
 
 The **next-section number reservation** for sub-controls (e.g. OBS-C-01.1) is documented per audit cycle in the evidence repository.
 
-## 8. Cross-References
+## 9. Cross-References
 - [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — retention rules audited here.
 - [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — deletion / compaction mechanics evidenced here.
 - [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.3. Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#43-framework-selection-and-mapping) — selects the frameworks mapped in Section 6.

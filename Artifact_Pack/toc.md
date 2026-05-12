@@ -1,5 +1,5 @@
 ---
-title: Observability Artifact Pack — Table of Contents
+title: Observability Artifact Pack â€” Table of Contents
 chapter: TOC
 version: 0.1
 owner: TBD
@@ -9,15 +9,11 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-# Observability Artifact Pack — Table of Contents
+# Observability Artifact Pack â€” Table of Contents
 
 | Version | Owner | Classification | Last Reviewed | Next Review | Status |
 |---|---|---|---|---|---|
 | 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
-> Index of all documents in this pack with two levels of structure (chapter title + sections). Click any heading to navigate.
-
----
 
 ## [README — Observability Artifact Pack](readme.md)
 
@@ -47,7 +43,7 @@ status: Draft
 - [14. Architecture Governance & Review (Narrative)](00-observability-strategy-revised.md#14-architecture-governance-review-narrative)
 - [15. Appendix (Light References)](00-observability-strategy-revised.md#15-appendix-light-references)
 
-## [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md)
+## [1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md)
 
 - [1. Scope and Intent](01-enterprise-observability-standards-catalog.md#1-scope-and-intent)
 - [2. The Five Pillars of Telemetry](01-enterprise-observability-standards-catalog.md#2-the-five-pillars-of-telemetry)
@@ -66,7 +62,7 @@ status: Draft
 - [13. Glossary (Light References from Strategy Appendix)](01-enterprise-observability-standards-catalog.md#13-glossary-light-references-from-strategy-appendix)
 - [14. Cross-References](01-enterprise-observability-standards-catalog.md#14-cross-references)
 
-## [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md)
+## [2. Observability Reference Architecture](02-observability-reference-architecture.md)
 
 - [1. Architectural Principles](02-observability-reference-architecture.md#1-architectural-principles)
 - [2. High-Level Architecture (Logical View)](02-observability-reference-architecture.md#2-high-level-architecture-logical-view)
@@ -80,7 +76,7 @@ status: Draft
 - [7. Pipeline Processing](02-observability-reference-architecture.md#7-pipeline-processing)
 - [8. Cross-References](02-observability-reference-architecture.md#8-cross-references)
 
-## [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md)
+## [3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md)
 
 - [1. Purpose](03-domain-observability-runbooks-pack.md#1-purpose)
 - [2. Infrastructure Observability Runbook](03-domain-observability-runbooks-pack.md#2-infrastructure-observability-runbook)
@@ -92,7 +88,7 @@ status: Draft
 - [8. Calibration Note](03-domain-observability-runbooks-pack.md#8-calibration-note)
 - [9. Cross-References](03-domain-observability-runbooks-pack.md#9-cross-references)
 
-## [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md)
+## [4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md)
 
 - [1. Purpose](04-alerting-and-incident-severity-policy.md#1-purpose)
 - [2. Principles](04-alerting-and-incident-severity-policy.md#2-principles)
@@ -102,7 +98,7 @@ status: Draft
 - [6. Calibration Guidance](04-alerting-and-incident-severity-policy.md#6-calibration-guidance)
 - [7. Cross-References](04-alerting-and-incident-severity-policy.md#7-cross-references)
 
-## [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)
+## [5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)
 
 - [1. Purpose](05-grafana-platform-standard-and-visualization-playbook.md#1-purpose)
 - [2. Role of Grafana in the Strategy](05-grafana-platform-standard-and-visualization-playbook.md#2-role-of-grafana-in-the-strategy)
@@ -114,7 +110,7 @@ status: Draft
 - [7.1. Dashboards-as-Code](05-grafana-platform-standard-and-visualization-playbook.md#71-dashboards-as-code)
 - [8. Cross-References](05-grafana-platform-standard-and-visualization-playbook.md#8-cross-references)
 
-## [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)
+## [6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)
 
 - [1. Strategic Intent & Guardrails](06-aiops-guardrails-and-implementation-playbook.md#1-strategic-intent-guardrails)
 - [2. AI-Driven Observability Metrics](06-aiops-guardrails-and-implementation-playbook.md#2-ai-driven-observability-metrics)
@@ -131,9 +127,17 @@ status: Draft
 - [Monitoring](06-aiops-guardrails-and-implementation-playbook.md#monitoring)
 - [Approvals](06-aiops-guardrails-and-implementation-playbook.md#approvals)
 - [8. AI Safety, Explainability, and LLM Data Leakage](06-aiops-guardrails-and-implementation-playbook.md#8-ai-safety-explainability-and-llm-data-leakage)
-- [9. Cross-References](06-aiops-guardrails-and-implementation-playbook.md#9-cross-references)
+- [9. Worked Examples — Filled Model Cards and Prompt Registry](06-aiops-guardrails-and-implementation-playbook.md#9-worked-examples-filled-model-cards-and-prompt-registry)
+- [Intent](06-aiops-guardrails-and-implementation-playbook.md#intent)
+- [Data](06-aiops-guardrails-and-implementation-playbook.md#data)
+- [Training](06-aiops-guardrails-and-implementation-playbook.md#training)
+- [Evaluation](06-aiops-guardrails-and-implementation-playbook.md#evaluation)
+- [Operating Range](06-aiops-guardrails-and-implementation-playbook.md#operating-range)
+- [Monitoring](06-aiops-guardrails-and-implementation-playbook.md#monitoring)
+- [Approvals](06-aiops-guardrails-and-implementation-playbook.md#approvals)
+- [10. Cross-References](06-aiops-guardrails-and-implementation-playbook.md#10-cross-references)
 
-## [Chapter 7. IaC for Observability Standard (Docker Compose + PowerShell)](07-iac-for-observability-standard.md)
+## [7. IaC for Observability Standard (Docker Compose + PowerShell)](07-iac-for-observability-standard.md)
 
 - [1. Strategic Policy Position](07-iac-for-observability-standard.md#1-strategic-policy-position)
 - [2. Scope](07-iac-for-observability-standard.md#2-scope)
@@ -145,7 +149,7 @@ status: Draft
 - [7.1. Change Management](07-iac-for-observability-standard.md#71-change-management)
 - [8. Cross-References](07-iac-for-observability-standard.md#8-cross-references)
 
-## [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)
+## [8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)
 
 - [1. Purpose](08-observability-data-governance-and-retention-policy.md#1-purpose)
 - [2. Scope](08-observability-data-governance-and-retention-policy.md#2-scope)
@@ -159,7 +163,7 @@ status: Draft
 - [9.1. Day-2 Operations](08-observability-data-governance-and-retention-policy.md#91-day-2-operations)
 - [10. Cross-References](08-observability-data-governance-and-retention-policy.md#10-cross-references)
 
-## [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)
+## [9. Observability FinOps Standard](09-observability-finops-standard.md)
 
 - [1. Purpose](09-observability-finops-standard.md#1-purpose)
 - [2. Storage Tier Model](09-observability-finops-standard.md#2-storage-tier-model)
@@ -174,7 +178,7 @@ status: Draft
 - [7. Deletion & Compaction Monitoring](09-observability-finops-standard.md#7-deletion-compaction-monitoring)
 - [8. Cross-References](09-observability-finops-standard.md#8-cross-references)
 
-## [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md)
+## [10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md)
 
 - [1. Purpose](10-compliance-and-audit-control-matrix.md#1-purpose)
 - [2. Audit Trails](10-compliance-and-audit-control-matrix.md#2-audit-trails)
@@ -182,10 +186,11 @@ status: Draft
 - [4. Reporting](10-compliance-and-audit-control-matrix.md#4-reporting)
 - [5. Control Matrix (Initial)](10-compliance-and-audit-control-matrix.md#5-control-matrix-initial)
 - [6. Framework Mapping](10-compliance-and-audit-control-matrix.md#6-framework-mapping)
-- [7. Audit Lifecycle](10-compliance-and-audit-control-matrix.md#7-audit-lifecycle)
-- [8. Cross-References](10-compliance-and-audit-control-matrix.md#8-cross-references)
+- [7. Audit-Evidence Catalogue](10-compliance-and-audit-control-matrix.md#7-audit-evidence-catalogue)
+- [8. Audit Lifecycle](10-compliance-and-audit-control-matrix.md#8-audit-lifecycle)
+- [9. Cross-References](10-compliance-and-audit-control-matrix.md#9-cross-references)
 
-## [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)
+## [11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)
 
 - [1. Purpose](11-observability-kpi-scorecard.md#1-purpose)
 - [2. Core Outcome KPIs](11-observability-kpi-scorecard.md#2-core-outcome-kpis)
@@ -197,7 +202,7 @@ status: Draft
 - [7. Reporting Cadence](11-observability-kpi-scorecard.md#7-reporting-cadence)
 - [8. Cross-References](11-observability-kpi-scorecard.md#8-cross-references)
 
-## [Chapter 12. Incident Response Playbook (Telemetry to Resolution)](12-incident-response-playbook.md)
+## [12. Incident Response Playbook (Telemetry to Resolution)](12-incident-response-playbook.md)
 
 - [1. Purpose](12-incident-response-playbook.md#1-purpose)
 - [2. End-to-End Incident Sequence (Logical Flow)](12-incident-response-playbook.md#2-end-to-end-incident-sequence-logical-flow)
@@ -208,7 +213,7 @@ status: Draft
 - [7. Success Criteria](12-incident-response-playbook.md#7-success-criteria)
 - [8. Cross-References](12-incident-response-playbook.md#8-cross-references)
 
-## [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md)
+## [13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md)
 
 - [1. Purpose](13-observability-roadmap-delivery-plan.md#1-purpose)
 - [2. Phase 1 — Foundation (Months 1–3)](13-observability-roadmap-delivery-plan.md#2-phase-1-foundation-months-13)
@@ -218,7 +223,7 @@ status: Draft
 - [6. Risks (Initial)](13-observability-roadmap-delivery-plan.md#6-risks-initial)
 - [7. Cross-References](13-observability-roadmap-delivery-plan.md#7-cross-references)
 
-## [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md)
+## [14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md)
 
 - [1. Purpose](14-observability-capability-assessment-framework.md#1-purpose)
 - [2. Maturity Phase Scorecard](14-observability-capability-assessment-framework.md#2-maturity-phase-scorecard)
@@ -228,7 +233,7 @@ status: Draft
 - [6. Outputs](14-observability-capability-assessment-framework.md#6-outputs)
 - [7. Cross-References](14-observability-capability-assessment-framework.md#7-cross-references)
 
-## [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)
+## [15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)
 
 - [1. Purpose](15-observability-governance-charter-and-arb-pack.md#1-purpose)
 - [2. Governance Body](15-observability-governance-charter-and-arb-pack.md#2-governance-body)
@@ -242,7 +247,7 @@ status: Draft
 - [7. Audit & Reporting](15-observability-governance-charter-and-arb-pack.md#7-audit-reporting)
 - [8. Cross-References](15-observability-governance-charter-and-arb-pack.md#8-cross-references)
 
-## [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md)
+## [16. Observability ADR Decision Register](16-observability-adr-decision-register.md)
 
 - [1. Purpose](16-observability-adr-decision-register.md#1-purpose)
 - [2. ADR Index (Initial)](16-observability-adr-decision-register.md#2-adr-index-initial)
@@ -255,7 +260,7 @@ status: Draft
 - [4. ADR Bodies (Full Records)](16-observability-adr-decision-register.md#4-adr-bodies-full-records)
 - [5. Cross-References](16-observability-adr-decision-register.md#5-cross-references)
 
-## [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md)
+## [17. Application Telemetry Standard](17-application-telemetry-standard.md)
 
 - [1. Purpose](17-application-telemetry-standard.md#1-purpose)
 - [2. Scope](17-application-telemetry-standard.md#2-scope)
@@ -266,7 +271,7 @@ status: Draft
 - [7. Conformance](17-application-telemetry-standard.md#7-conformance)
 - [8. Cross-References](17-application-telemetry-standard.md#8-cross-references)
 
-## [Chapter 18. Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md)
+## [18. Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md)
 
 - [1. Purpose](18-observability-operating-model-and-adoption-plan.md#1-purpose)
 - [2. Cultural Principles](18-observability-operating-model-and-adoption-plan.md#2-cultural-principles)
@@ -279,7 +284,7 @@ status: Draft
 - [7.1. Adoption KPIs](18-observability-operating-model-and-adoption-plan.md#71-adoption-kpis)
 - [8. Cross-References](18-observability-operating-model-and-adoption-plan.md#8-cross-references)
 
-## [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md)
+## [19. Observability Data Model Specification](19-observability-data-model-specification.md)
 
 - [1. Purpose](19-observability-data-model-specification.md#1-purpose)
 - [2. Telemetry Signal Types](19-observability-data-model-specification.md#2-telemetry-signal-types)
@@ -288,10 +293,10 @@ status: Draft
 - [5. Correlation Identifiers](19-observability-data-model-specification.md#5-correlation-identifiers)
 - [6. Schema Conventions](19-observability-data-model-specification.md#6-schema-conventions)
 - [7. PII & Sensitive Data](19-observability-data-model-specification.md#7-pii-sensitive-data)
-- [8. To Be Authored (Follow-Up)](19-observability-data-model-specification.md#8-to-be-authored-follow-up)
+- [8. Canonical JSON Schemas, ERD, and OTel Crosswalk](19-observability-data-model-specification.md#8-canonical-json-schemas-erd-and-otel-crosswalk)
 - [9. Cross-References](19-observability-data-model-specification.md#9-cross-references)
 
-## [Chapter 20. Business Capability and Value-Stream Mapping](20-business-capability-and-value-stream-mapping.md)
+## [20. Business Capability and Value-Stream Mapping](20-business-capability-and-value-stream-mapping.md)
 
 - [1. Why This Chapter Exists](20-business-capability-and-value-stream-mapping.md#1-why-this-chapter-exists)
 - [2. Business Capability Map (Insurance Reference)](20-business-capability-and-value-stream-mapping.md#2-business-capability-map-insurance-reference)
@@ -301,7 +306,7 @@ status: Draft
 - [6. Stakeholder Value Statements](20-business-capability-and-value-stream-mapping.md#6-stakeholder-value-statements)
 - [7. Cross-References](20-business-capability-and-value-stream-mapping.md#7-cross-references)
 
-## [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md)
+## [21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md)
 
 - [1. HA / DR Posture](21-observability-platform-ha-and-dr-design.md#1-ha-dr-posture)
 - [2. Component HA Matrix](21-observability-platform-ha-and-dr-design.md#2-component-ha-matrix)
@@ -313,7 +318,7 @@ status: Draft
 - [8. DR Drill Cadence](21-observability-platform-ha-and-dr-design.md#8-dr-drill-cadence)
 - [9. Cross-References](21-observability-platform-ha-and-dr-design.md#9-cross-references)
 
-## [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md)
+## [22. Capacity and Scale Model](22-capacity-and-scale-model.md)
 
 - [1. Capacity Drivers](22-capacity-and-scale-model.md#1-capacity-drivers)
 - [2. Reference Deployment Sizes](22-capacity-and-scale-model.md#2-reference-deployment-sizes)
@@ -325,7 +330,17 @@ status: Draft
 - [8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget)
 - [9. Cross-References](22-capacity-and-scale-model.md#9-cross-references)
 
-## [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md)
+### [23 Appendix A. Threat Model (STRIDE)](23-appendix-a-threat-model.md)
+
+- [1. Purpose](23-appendix-a-threat-model.md#1-purpose)
+- [2. Methodology](23-appendix-a-threat-model.md#2-methodology)
+- [3. In-Scope Components](23-appendix-a-threat-model.md#3-in-scope-components)
+- [4. STRIDE Threat Matrix](23-appendix-a-threat-model.md#4-stride-threat-matrix)
+- [5. Residual Risk Summary](23-appendix-a-threat-model.md#5-residual-risk-summary)
+- [6. Open Threats / Action Register](23-appendix-a-threat-model.md#6-open-threats-action-register)
+- [7. Cross-References](23-appendix-a-threat-model.md#7-cross-references)
+
+## [23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md)
 
 - [1. Threat Model (STRIDE)](23-observability-platform-security-architecture.md#1-threat-model-stride)
 - [2. Authentication and Authorisation](23-observability-platform-security-architecture.md#2-authentication-and-authorisation)
@@ -338,17 +353,7 @@ status: Draft
 - [9. Hardening Baseline](23-observability-platform-security-architecture.md#9-hardening-baseline)
 - [10. Cross-References](23-observability-platform-security-architecture.md#10-cross-references)
 
-### [Chapter 23 Appendix A. Threat Model (STRIDE)](23-appendix-a-threat-model.md)
-
-- [1. Purpose](23-appendix-a-threat-model.md#1-purpose)
-- [2. Methodology](23-appendix-a-threat-model.md#2-methodology)
-- [3. In-Scope Components](23-appendix-a-threat-model.md#3-in-scope-components)
-- [4. STRIDE Threat Matrix](23-appendix-a-threat-model.md#4-stride-threat-matrix)
-- [5. Residual Risk Summary](23-appendix-a-threat-model.md#5-residual-risk-summary)
-- [6. Open Threats / Action Register](23-appendix-a-threat-model.md#6-open-threats-action-register)
-- [7. Cross-References](23-appendix-a-threat-model.md#7-cross-references)
-
-## [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md)
+## [24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md)
 
 - [1. Why an SLO Framework](24-slo-and-error-budget-framework.md#1-why-an-slo-framework)
 - [2. SLI Categories (Choose 1–3 per Service)](24-slo-and-error-budget-framework.md#2-sli-categories-choose-13-per-service)
@@ -361,7 +366,7 @@ status: Draft
 - [9. Alert Quality Scorecard (per service)](24-slo-and-error-budget-framework.md#9-alert-quality-scorecard-per-service)
 - [10. Cross-References](24-slo-and-error-budget-framework.md#10-cross-references)
 
-## [Chapter 25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md)
+## [25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md)
 
 - [1. Onboarding Workflow (Service Owner View)](25-service-onboarding-and-instrumentation-kits.md#1-onboarding-workflow-service-owner-view)
 - [2. Production-Readiness Review (PRR) Gate](25-service-onboarding-and-instrumentation-kits.md#2-production-readiness-review-prr-gate)
@@ -371,7 +376,7 @@ status: Draft
 - [6. Adoption KPIs (rolling)](25-service-onboarding-and-instrumentation-kits.md#6-adoption-kpis-rolling)
 - [7. Cross-References](25-service-onboarding-and-instrumentation-kits.md#7-cross-references)
 
-## [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md)
+## [26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md)
 
 - [1. Deployment Topologies](26-multi-tenant-and-customer-site-deployment-model.md#1-deployment-topologies)
 - [2. Tenant Identity Model](26-multi-tenant-and-customer-site-deployment-model.md#2-tenant-identity-model)
@@ -384,16 +389,17 @@ status: Draft
 - [9. Tenant Onboarding Checklist](26-multi-tenant-and-customer-site-deployment-model.md#9-tenant-onboarding-checklist)
 - [10. Cross-References](26-multi-tenant-and-customer-site-deployment-model.md#10-cross-references)
 
-## [Chapter 27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md)
+## [27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md)
 
 - [1. Purpose](27-observability-non-functional-requirements.md#1-purpose)
 - [2. Scope](27-observability-non-functional-requirements.md#2-scope)
 - [3. NFR Register](27-observability-non-functional-requirements.md#3-nfr-register)
-- [4. Verification & Evidence](27-observability-non-functional-requirements.md#4-verification-evidence)
-- [5. Change Control](27-observability-non-functional-requirements.md#5-change-control)
-- [6. Cross-References](27-observability-non-functional-requirements.md#6-cross-references)
+- [4. Verification Methods (Per NFR)](27-observability-non-functional-requirements.md#4-verification-methods-per-nfr)
+- [5. Evidence Cadence by Category](27-observability-non-functional-requirements.md#5-evidence-cadence-by-category)
+- [6. Change Control](27-observability-non-functional-requirements.md#6-change-control)
+- [7. Cross-References](27-observability-non-functional-requirements.md#7-cross-references)
 
-## [Chapter 28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md)
+## [28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md)
 
 - [1. Purpose](28-observability-long-term-archival-policy.md#1-purpose)
 - [2. Scope](28-observability-long-term-archival-policy.md#2-scope)
@@ -412,23 +418,31 @@ status: Draft
 - [15. KPIs](28-observability-long-term-archival-policy.md#15-kpis)
 - [16. Cross-References](28-observability-long-term-archival-policy.md#16-cross-references)
 
-## [Traceability Matrix — Source Sections ↔ Target Artifacts](traceability-matrix.md)
-
-- [A. Source Section → Target Artifact(s)](traceability-matrix.md#a-source-section-target-artifacts)
-- [B. Target Artifact → Source Section(s)](traceability-matrix.md#b-target-artifact-source-sections)
-- [C. Gap-Fill Artifacts → Source Strategy Sections (Implicit)](traceability-matrix.md#c-gap-fill-artifacts-source-strategy-sections-implicit)
-
 ## [Annexure A — Acronyms & Definitions](annexure-a-acronyms.md)
 
+
 ## [Annexure B — Concepts Glossary](annexure-b-concepts-glossary.md)
+
 
 ## [Handover Report — Observability Strategy Decomposition](handover-report.md)
 
 - [1. Created Files](handover-report.md#1-created-files)
 - [2. Sections Processed](handover-report.md#2-sections-processed)
 - [2.1. Enterprise Hardening Pass (2026-05-07)](handover-report.md#21-enterprise-hardening-pass-2026-05-07)
+- [2.2. P1 Expert-Review Pass (2026-05-12)](handover-report.md#22-p1-expert-review-pass-2026-05-12)
+- [2.3. P2 Depth-and-Asset Pass (2026-05-12)](handover-report.md#23-p2-depth-and-asset-pass-2026-05-12)
 - [3. Sections Pending](handover-report.md#3-sections-pending)
 - [4. Decisions Required](handover-report.md#4-decisions-required)
 - [5. Recommended Next Step](handover-report.md#5-recommended-next-step)
 - [Guardrail Compliance Summary](handover-report.md#guardrail-compliance-summary)
 
+## [Traceability Matrix — Source Sections ↔ Target Artifacts](traceability-matrix.md)
+
+- [A. Source Section → Target Artifact(s)](traceability-matrix.md#a-source-section-target-artifacts)
+- [B. Target Artifact → Source Section(s)](traceability-matrix.md#b-target-artifact-source-sections)
+- [C. Gap-Fill Artifacts → Source Strategy Sections (Implicit)](traceability-matrix.md#c-gap-fill-artifacts-source-strategy-sections-implicit)
+- [D. P3. Tiered-Close Gap-Fill (Planned)](traceability-matrix.md#d-p3-tiered-close-gap-fill-planned)
+
+---
+
+Generated by `tools/regen_toc.ps1`. Do not edit by hand â€” re-run the script after any heading change.

@@ -56,23 +56,26 @@ A short reading order by audience:
 - **29 chapters** (Chapter 0 strategy + Chapters 1–28 standards, playbooks, and operating-model artifacts), plus **Chapter 23 Appendix A** (Threat Model).
 - **2 annexures** — [Acronyms](annexure-a-acronyms.md) and [Concepts Glossary](annexure-b-concepts-glossary.md).
 - **3 cross-cutting documents** — [TOC](toc.md), [Traceability Matrix](traceability-matrix.md), [Handover Report](handover-report.md).
+- **5 JSON Schemas** for the five telemetry signals under `schemas/` — see [Chapter 19. Observability Data Model Specification -> Section 8.1 JSON Schema Index](19-observability-data-model-specification.md#81-json-schema-index).
+- **5 Mermaid architecture diagrams** under `assets/diagrams/` (catalogue in `assets/diagrams/index.md`) — pipeline, multi-tenant, AIOps loop, HA topology, DR runbook.
 
 ## Conventions
 
-- **Headings:** `# Chapter Title` (H1) and `## N. Section Title` (H2). Anchors are GitHub-style auto-generated slugs (lowercase, hyphenated, punctuation stripped).
-- **Cross-references:** chapter links use URL-encoded filenames (e.g. `01-enterprise-observability-standards-catalog.md`); section links append `#anchor`.
+- **Headings:** `# Chapter Title` (H1) and `## N. Section Title` (H2). Anchors are GitHub-style auto-generated slugs (lowercase, hyphenated, punctuation stripped; leading section numbers retained, e.g. `3.1 Foo` -> `#31-foo`).
+- **Cross-references:** chapter links use the canonical form `[Chapter N, Section M.K — Title]` followed by `(file.md#anchor)`. The Unicode section-sign character (U+00A7) is **banned** anywhere in the pack — see the durable agent rules in `AGENTS.md` at the repository root.
 - **Back-to-TOC:** every chapter carries `[↑ Back to TOC](toc.md)` at the top and bottom.
-- **Header block:** every chapter declares its source strategy section(s) and current status.
+- **Header block:** every chapter declares version, owner, classification, last/next review, and status.
+- **No scaffolding:** `TEMP`, `TODO`, `FIXME`, `XXX`, `PLACEHOLDER` are not permitted in committed content (verifier-enforced). `TBD` is permitted only in `owner:` fields.
 
 ## Maintenance
 
-The pack is maintained with three small Python scripts:
+The pack ships with three PowerShell verifiers under `tools/`:
 
-- `regen_toc.py` — regenerates [toc.md](toc.md) from each chapter's H1/H2.
-- `verify_links.py` — validates 100% of internal markdown links and TOC parity (must run zero-broken).
-- `add_back_to_toc.py` — injects bidirectional TOC links.
+- `tools/regen_toc.ps1` — regenerates [toc.md](toc.md) from each chapter's H1/H2.
+- `tools/verify_links.ps1` — validates internal markdown links and anchors (must run zero-broken).
+- `tools/verify_frontmatter.ps1` — validates YAML front-matter and the standard front-matter table.
 
-PRs against the pack must run both `regen_toc.py` and `verify_links.py`, register new acronyms or concepts in the annexures, update the [Traceability Matrix](traceability-matrix.md) if artifacts change, and cite a relevant ADR in [Chapter 16](16-observability-adr-decision-register.md) for any architectural decision.
+PRs against the pack MUST run `verify_links.ps1` and `verify_frontmatter.ps1` (zero-broken / zero-error), regenerate the TOC if any heading changed, register new acronyms or concepts in the annexures, update the [Traceability Matrix](traceability-matrix.md) if artifacts change, and cite a relevant ADR in [Chapter 16](16-observability-adr-decision-register.md) for any architectural decision.
 
 ## Status and Open Items
 

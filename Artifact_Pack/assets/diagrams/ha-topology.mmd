@@ -1,0 +1,95 @@
+%% Diagram: HA Topology — Single Region
+%% Source of truth for Chapter 21 Section 3 (Reference HA Topology, Compose, Single Region).
+%% Component pairings, gossip, and shared object-storage backplane.
+
+flowchart TB
+    subgraph CLIENT["Producers"]
+        PROD["Services + Edge Agents<br/>(OTLP, mTLS)"]
+    end
+
+    subgraph LB["Ingress"]
+        LB1["Load Balancer<br/>(L4 / L7)"]
+    end
+
+    subgraph GW_HA["Gateway Tier (active / active)"]
+        GW_A["OTel Gateway A"]
+        GW_B["OTel Gateway B"]
+    end
+
+    subgraph METRICS["Metrics HA"]
+        PROM_A["Prometheus A<br/>(independent scrape)"]
+        PROM_B["Prometheus B<br/>(independent scrape)"]
+    end
+
+    subgraph LOGS["Logs HA"]
+        LOKI_A["Loki A"]
+        LOKI_B["Loki B"]
+    end
+
+    subgraph TRACES["Traces HA"]
+        TEMPO_A["Tempo A"]
+        TEMPO_B["Tempo B"]
+    end
+
+    subgraph OBJ["Shared Object Storage (replicated)"]
+        S3["S3 / Azure Blob<br/>(Loki + Tempo chunks,<br/>Prometheus long-term)"]
+    end
+
+    subgraph ALERT["Alerting HA"]
+        AM1["Alertmanager 1"]
+        AM2["Alertmanager 2"]
+        AM3["Alertmanager 3"]
+    end
+
+    subgraph UI["Grafana HA"]
+        GR_A["Grafana A"]
+        GR_B["Grafana B"]
+        PG["External Postgres<br/>(shared session +<br/>dashboard state)"]
+    end
+
+    PROD --> LB1
+    LB1 --> GW_A
+    LB1 --> GW_B
+
+    GW_A --> PROM_A
+    GW_A --> LOKI_A
+    GW_A --> TEMPO_A
+    GW_B --> PROM_B
+    GW_B --> LOKI_B
+    GW_B --> TEMPO_B
+
+    PROM_A --> S3
+    PROM_B --> S3
+    LOKI_A --> S3
+    LOKI_B --> S3
+    TEMPO_A --> S3
+    TEMPO_B --> S3
+
+    PROM_A --> AM1
+    PROM_B --> AM2
+
+    AM1 <-->|"gossip"| AM2
+    AM2 <-->|"gossip"| AM3
+    AM1 <-->|"gossip"| AM3
+
+    GR_A --> PG
+    GR_B --> PG
+    PROM_A --> GR_A
+    PROM_B --> GR_B
+    LOKI_A --> GR_A
+    LOKI_B --> GR_B
+    TEMPO_A --> GR_A
+    TEMPO_B --> GR_B
+
+    classDef src   fill:#eef,stroke:#446,color:#000
+    classDef lb    fill:#ffd,stroke:#a80,color:#000
+    classDef gw    fill:#efe,stroke:#464,color:#000
+    classDef store fill:#fee,stroke:#a44,color:#000
+    classDef alert fill:#f6e6ff,stroke:#639,color:#000
+    classDef ui    fill:#eef7ff,stroke:#357,color:#000
+    class PROD src
+    class LB1 lb
+    class GW_A,GW_B gw
+    class PROM_A,PROM_B,LOKI_A,LOKI_B,TEMPO_A,TEMPO_B,S3 store
+    class AM1,AM2,AM3 alert
+    class GR_A,GR_B,PG ui

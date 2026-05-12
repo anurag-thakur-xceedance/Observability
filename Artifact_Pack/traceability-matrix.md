@@ -144,6 +144,82 @@ Artifacts 20–28 (including Chapter 23 Appendix A) and Annexure B / README do n
 | 23A — Threat Model (STRIDE) Appendix | Governance & Data Strategy (Section 42); Compliance (Section 47) | Deepens Chapter 23 Section 1; residual risks tracked against Chapter 27 NFR-SEC-* |
 | Annexure B — Concepts Glossary | Appendix glossary (Section 58) | Augments Annexure A acronyms |
 | README | New onboarding aid | Persona-based entry to all artifacts |
+| `schemas/` (5 JSON Schemas) | P2 Phase 3 deepening of Chapter 19 stub | Indexed in [Chapter 19. Observability Data Model Specification -> Section 8.1 JSON Schema Index](19-observability-data-model-specification.md#81-json-schema-index); shared `resource` definition |
+| `assets/diagrams/` (5 Mermaid diagrams + index) | P2 Phase 4 — canonical diagrams replacing ASCII boxes | Consumed by Ch 2 Section 2 (pipeline), Ch 6 Section 1 (AIOps loop), Ch 21 Sections 3 + 5 (HA + DR), Ch 26 Section 1 (multi-tenant) |
+| `tools/verify_links.ps1`, `tools/verify_frontmatter.ps1`, `tools/regen_toc.ps1` | P2 Phase 1 verifier tooling | Phase-5 sweep gate; PR-required green |
+| Root `AGENTS.md` | P2 — durable agent rules | Banned characters, slug rules, file-I/O, verifier discipline |
+
+---
+
+## D. P3. Tiered-Close Gap-Fill (Planned)
+
+The pack v0.1 ships with P1 + P2 scope (see Sections A, B, C above). An expert-review pass (recorded in this session) surfaced a further set of gaps to be closed in a dedicated P3 cycle. P3 is **scoped, time-boxed, and additive** — it does not retroactively change v0.1 scope.
+
+### D.0 P2 Close Summary (v0.1 Scope Frozen)
+
+Items closed during the P2 depth-and-asset pass and counted as v0.1 scope:
+
+| Phase | Scope | Outcome |
+|---|---|---|
+| P2.1 | Ch 12 Mermaid incident flowchart + sequence | Delivered |
+| P2.2 | Ch 16 ADR bodies (ADR-010 through ADR-017) | Delivered |
+| P2.3 | Ch 03 query examples + decision trees | Delivered |
+| P2.4 | Ch 22 worked sizing examples (Small / Medium / Large) | Delivered |
+| P2.5 | Ch 09 12-month worked cost model | Delivered |
+| P2.6 | Ch 27 per-NFR verification methods (18 families) | Delivered (closes H-list N1) |
+| P2.7 + P2.8 | Ch 06 model cards, LLM sanitisation standard, prompt registry | Delivered (closes H-list D9) |
+| P2 Phase 3 | 5 JSON Schemas + Ch 19 ERD + OTel crosswalk + DLQ discipline; Ch 10 evidence catalogue | Delivered (closes H-list S1, D1) |
+| P2 Phase 4 (diagrams) | 5 standalone Mermaid `.mmd` files + index | Delivered |
+| P2 Phase 4 (Grafana JSON) | 5 dashboards | **Deferred to implementation phase** (project direction) |
+| P2 Phase 5 | TOC regen + README/Handover/Traceability sweep + verifier rerun | Delivered |
+| Tooling | 3 PowerShell verifiers + root AGENTS.md + chapter zero-padding | Delivered |
+
+Verifier baseline at v0.1 close: **1,296 internal links / 0 broken; front-matter clean; zero scaffold markers; zero U+00A7 occurrences.**
+
+### D.1 P3 — Killer-five (C-list)
+
+| ID | Gap | Target Location | Status |
+|---|---|---|---|
+| K1 | Tamper-evident archival (WORM, Immutable Blob / Object Lock Compliance mode) + cryptographic-erasure attestation procedure and certificate template | Chapter 28, new section | Planned |
+| K2 | Master data-classification × retention × archive-tier × deletion-method × legal-basis matrix | Chapter 8, new section; cross-links to Chapter 10, Chapter 23, Chapter 28 | Planned |
+| K3 | Reference implementations directory containing IaC (Terraform / Bicep / Docker Compose), OTel Collector configurations (agent / gateway / edge profiles), and alert/recording-rule libraries (Prometheus / Loki / Tempo) | New top-level directory `reference-implementations/` inside pack repo | Planned |
+| K4 | Consolidated programme risk register at portfolio level (risk ID, description, likelihood, impact, owner, mitigation, residual, review date) | New Chapter 29 `29-observability-programme-risk-register.md` | Planned |
+| K5 | Meta-observability ("watching the watcher") runbook — dead-man's-switch alerting, independent monitor stack, runbook for Prometheus / Alertmanager / OTel Collector outages | New section in Chapter 21 | Planned |
+
+### D.2 P3 — High-priority gaps (H-list)
+
+| ID | Gap | Target Location | Status |
+|---|---|---|---|
+| S1 | OpenTelemetry Semantic Convention crosswalk (stable / experimental / deprecated attributes, version pin) | Chapter 19, new section | **Delivered (P2 Phase 3)** — see [Chapter 19. Observability Data Model Specification -> Section 8.3 OpenTelemetry Semantic-Convention Crosswalk](19-observability-data-model-specification.md#83-opentelemetry-semantic-convention-crosswalk) |
+| S2 | Log severity standard (OTel SeverityNumber 1–24 ↔ syslog ↔ application levels, with retention-by-severity policy) | Chapter 1 or Chapter 17, new section | Planned |
+| S6 | Frontend / Real User Monitoring (RUM) standard — Core Web Vitals, W3C `traceparent` browser-to-backend correlation, session-replay PII redaction | New Chapter (proposed 30) | Planned |
+| A1 | Archival format specification (Parquet/Iceberg/Delta), schema-evolution policy, compaction cadence, and rehydration / restore-from-archive procedure with SLO | Chapter 28, new sections | Planned |
+| A2 | Legal-hold workflow (placement, release, evidence) integrated with GDPR Art. 17 erasure carve-out | Chapter 28 + Chapter 10, new sections | Planned |
+| N1 | NFR verification methods column (per NFR: how measured, evidence artefact, owner, cadence) | Chapter 27 verification matrix | **Delivered (P2 Phase 2.6)** — see [Chapter 27. Observability Non-Functional Requirements -> Section 4. Verification Methods (Per NFR)](27-observability-non-functional-requirements.md#4-verification-methods-per-nfr) |
+| N5 | Privacy-by-design NFRs (GDPR Art. 25 — DPIA threshold, DSAR SLA, cross-border transfer mechanism / SCCs) | Chapter 27 + Chapter 10 | Planned |
+| G1 | Observability domain RACI matrix (capability × role: Platform Engineering, Service Owner, AIOps Lead, FinOps, ARB, Security, Compliance) | Chapter 18 or Chapter 15, new section | Planned |
+| O4 | Supply-chain security — SBOM requirement (CycloneDX / SPDX), signed-image policy (Sigstore / Cosign), vulnerability-scan cadence on observability stack images | Chapter 23, new section | Planned |
+| E4 | Edge / customer-site collection patterns — offline buffering, store-and-forward, identity bootstrap, tenant isolation at edge | Chapter 26, new section | Planned |
+| D1 | JSON Schemas (draft 2020-12) for metrics / logs / traces / events / profiles | `Artifact_Pack/schemas/` | **Delivered (P2 Phase 3)** — five schemas under `Artifact_Pack/schemas/`, indexed in [Chapter 19. Observability Data Model Specification -> Section 8.1 JSON Schema Index](19-observability-data-model-specification.md#81-json-schema-index) |
+| D9 | LLM prompt-sanitisation standard + prompt-template registry | Chapter 6 or new Chapter 31 | **Delivered (P2 Phase 2.7/2.8)** — see [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 9. Worked Examples](06-aiops-guardrails-and-implementation-playbook.md#9-worked-examples-filled-model-cards-and-prompt-registry) |
+
+### D.3 P3 — Subsumed gaps
+
+The following M-rated gaps from the expert review are absorbed by the items above and not separately tracked:
+
+- A5 → subsumed by K2 (master matrix)
+- A7 → subsumed by K1 (tamper-evident)
+- G4 → subsumed by K4 (risk register)
+- O1 → subsumed by K5 (meta-observability)
+- D3 / D4 / D5 → subsumed by K3 (reference implementations)
+
+### D.4 P3 — Sequencing
+
+P3 begins **after** v0.1 of the pack is committed (P2 close per Section D.0). P3 itself is time-boxed to ~3–4 weeks of focused effort. Recommended start order: **K3 (reference implementations)** so the YAML prompt-registry directory referenced by Ch 06 Section 9.4 lands alongside its consuming standard; then **K4 (Chapter 29 risk register)**; then K1, K2, K5 in parallel; H-list items pulled by team capacity.
+
+### D.5 P3 — Deferred (out of P3 scope)
+
+Items from the expert review classified Medium / Low are deferred to a future v0.3 or v1.0 cycle and are recorded here only for traceability: S3, S4, S5, S7, S8, N2, N3, N4, N6, N7, N8, A3, A4, A6, O2, O3, O5, O6, G2, G3, G5, G6, E1, E2, E3, E5, E6, E7, E8, D2, D6, D7, D8, D10, D11, D12, D13, D14. Definitions are in the expert-review record (session log).
 
 ---
 

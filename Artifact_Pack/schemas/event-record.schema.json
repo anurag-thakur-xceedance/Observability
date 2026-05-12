@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://observability.xceedance.internal/schemas/event-record.schema.json",
+  "title": "Discrete Event Record",
+  "description": "Canonical envelope for discrete, low-volume occurrences distinct from continuous log streams: deployments, scaling actions, configuration changes, feature-flag flips, incident lifecycle transitions, model rollouts. Events feed the correlation layer (Chapter 11) and are immutable once written.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "event_type",
+    "event_time",
+    "source",
+    "subject",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Producer-generated UUIDv4; pipeline-deduplicated within a 24-hour window."
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Canonical event taxonomy. Add new types only via change-control (Chapter 25, Section 5).",
+      "enum": [
+        "deployment.started",
+        "deployment.succeeded",
+        "deployment.failed",
+        "deployment.rolled_back",
+        "scaling.scaled_up",
+        "scaling.scaled_down",
+        "config.changed",
+        "feature_flag.flipped",
+        "incident.opened",
+        "incident.acknowledged",
+        "incident.resolved",
+        "incident.postmortem_published",
+        "model.rolled_out",
+        "model.rolled_back",
+        "model.shadow_promoted",
+        "secret.rotated",
+        "policy.violation_detected"
+      ]
+    },
+    "event_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 UTC timestamp of the business occurrence (not the ingest time)."
+    },
+    "ingest_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Collector ingest timestamp; populated by the pipeline."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "principal"],
+      "properties": {
+        "system":    { "type": "string", "description": "Originating system, e.g. github-actions, argocd, k8s-hpa, opsgenie, mlflow.", "maxLength": 64 },
+        "principal": { "type": "string", "description": "Actor that caused the event: service-account, user-id (hashed), or automation name.", "maxLength": 128 },
+        "trace_id":  { "type": "string", "pattern": "^[0-9a-f]{32}$" }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "description": "What the event is about. At least one of service / model / incident must be present.",
+      "additionalProperties": false,
+      "properties": {
+        "service":     { "type": "string", "maxLength": 64 },
+        "environment": { "type": "string", "enum": ["prod", "staging", "uat", "dev"] },
+        "version":     { "type": "string", "maxLength": 32 },
+        "model_id":    { "type": "string", "maxLength": 64 },
+        "incident_id": { "type": "string", "maxLength": 32 },
+        "region":      { "type": "string", "maxLength": 32 }
+      },
+      "anyOf": [
+        { "required": ["service"] },
+        { "required": ["model_id"] },
+        { "required": ["incident_id"] }
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "low", "medium", "high", "critical"],
+      "description": "Operational severity; for incident.* events must match the incident severity."
+    },
+    "payload": {
+      "type": "object",
+      "description": "Event-type-specific data. Schema-per-type is enforced by the validating consumer (Chapter 11, Section 4).",
+      "additionalProperties": true
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["relation", "ref"],
+        "properties": {
+          "relation": { "type": "string", "enum": ["correlated_with", "caused_by", "supersedes", "remediates"] },
+          "ref":      { "type": "string", "description": "Event id, incident id, or external URN.", "maxLength": 256 }
+        }
+      }
+    }
+  }
+}
