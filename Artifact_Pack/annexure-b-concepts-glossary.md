@@ -1,6 +1,21 @@
+---
+title: Annexure B — Concepts Glossary
+chapter: Annexure B
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # Annexure B — Concepts Glossary
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > Conceptual glossary (as opposed to acronym expansions in [Annexure A](annexure-a-acronyms.md)). Defines the terms and mental models used across the Observability Artifact Pack.
 

@@ -1,6 +1,21 @@
+---
+title: Observability Platform Security Architecture
+chapter: 23
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # 23. Observability Platform Security Architecture
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > **Closes Gaps:** C1, C2, C3, C4.
 

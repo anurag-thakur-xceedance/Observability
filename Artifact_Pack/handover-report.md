@@ -1,6 +1,21 @@
+---
+title: Handover Report — Observability Strategy Decomposition
+chapter: Handover Report
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # Handover Report — Observability Strategy Decomposition
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 **Date:** 2026-05-07 (enterprise-hardening pass)
 **Source artefacts consumed:**
@@ -48,6 +63,9 @@
 | 24 | [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md) — **new** |
 | 25 | [Chapter 25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md) — **new** |
 | 26 | [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — **new** |
+| 27 | [Chapter 27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md) — **new (P1 gap-fill)** |
+| 28 | [Chapter 28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md) — **new (P1 gap-fill)** |
+| 23A | [Chapter 23 Appendix A. Threat Model (STRIDE)](23-appendix-a-threat-model.md) — **new (P1 gap-fill)** |
 
 ### Supporting Files
 | File | Purpose |
@@ -97,6 +115,19 @@ A second pass was executed to close 47 gaps surfaced by gap analysis (11 Critica
 - **Bidirectional TOC navigation** (top + bottom back-links) injected across all chapters.
 
 The pack now contains **30 markdown files** (22 numbered chapters + 7 new chapters + TOC + Traceability + Handover Report + Annexure A + Annexure B + README + Chapter 0 strategy).
+
+---
+
+## 2.2. P1 Expert-Review Pass (2026-05-12)
+
+A third pass closed four P1 gaps surfaced by expert review:
+
+- **[Chapter 27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md)** — consolidated NFR register (50+ NFRs across performance, availability, capacity, security, operability, observability-of-observability, compliance, cost, portability) treating the platform itself as a Tier 1 service.
+- **[Chapter 28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md)** — archival (>1 year) policy distinct from operational hot/warm/cold tiers, covering categories, retention schedule, storage, lifecycle, privacy treatment, access control, legal hold, GDPR Art. 17 erasure, chain of custody, cost, residency, KPIs.
+- **[Chapter 23 Appendix A. Threat Model (STRIDE)](23-appendix-a-threat-model.md)** — STRIDE-based threat model across 9 platform components × 6 threat categories, with residual-risk summary and an open-action register. **One High residual** is flagged: **C7-I (LLM prompt leakage)** — the AIOps/LLM layer's prompt-construction surface can disclose sensitive context if unredacted telemetry is fed into prompts; mitigation backlog in §6.
+- **Document front-matter** — YAML block plus a visible metadata table (`Version | Owner | Classification | Last Reviewed | Next Review | Status`) inserted into all 36 pack documents to support audit traceability. Placeholder values: `version: 0.1`, `owner: TBD`, `classification: Internal`, `last_reviewed: 2026-Q2`, `next_review: 2026-Q3`, `status: Draft`.
+
+Pack now contains **36 markdown files** (27 numbered chapters + 1 appendix + 2 annexures + 3 cross-cutting + README + others).
 
 ---
 

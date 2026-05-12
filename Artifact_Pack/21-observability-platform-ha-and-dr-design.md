@@ -1,6 +1,21 @@
+---
+title: Observability Platform HA and DR Design
+chapter: 21
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # 21. Observability Platform HA and DR Design
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > **Closes Gaps:** B2.
 

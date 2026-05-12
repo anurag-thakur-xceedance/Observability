@@ -1,6 +1,21 @@
+---
+title: README — Observability Artifact Pack
+chapter: Pack README
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # README — Observability Artifact Pack
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 ---
 
@@ -32,13 +47,13 @@ A short reading order by audience:
 - **Architects** → [Chapter 2. Reference Architecture](2-observability-reference-architecture.md), [Chapter 16. ADR Register](16-observability-adr-decision-register.md), and [Chapter 21. HA and DR](21-observability-platform-ha-and-dr-design.md).
 - **SRE / Platform** → [Chapter 7. IaC Standard](7-iac-for-observability-standard.md), [Chapter 24. SLO Framework](24-slo-and-error-budget-framework.md), and [Chapter 12. Incident Response](12-incident-response-playbook.md).
 - **Service Developers** → [Chapter 25. Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md) and [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md).
-- **Security / Compliance** → [Chapter 23. Security Architecture](23-observability-platform-security-architecture.md) and [Chapter 10. Compliance Control Matrix](10-compliance-and-audit-control-matrix.md).
+- **Security / Compliance** → [Chapter 23. Security Architecture](23-observability-platform-security-architecture.md), [Chapter 23 Appendix A. Threat Model (STRIDE)](23-appendix-a-threat-model.md), [Chapter 10. Compliance Control Matrix](10-compliance-and-audit-control-matrix.md), and [Chapter 28. Long-Term Archival Policy](28-observability-long-term-archival-policy.md).
 - **FinOps** → [Chapter 9. FinOps Standard](9-observability-finops-standard.md) and [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md).
-- **Auditors** → [Handover Report](handover-report.md), [Traceability Matrix](traceability-matrix.md), [Chapter 16. ADR Register](16-observability-adr-decision-register.md).
+- **Auditors** → [Handover Report](handover-report.md), [Traceability Matrix](traceability-matrix.md), [Chapter 16. ADR Register](16-observability-adr-decision-register.md), [Chapter 27. Non-Functional Requirements Register](27-observability-non-functional-requirements.md).
 
 ## Pack Structure at a Glance
 
-- **27 chapters** (Chapter 0 strategy + Chapters 1–26 standards, playbooks, and operating-model artifacts).
+- **29 chapters** (Chapter 0 strategy + Chapters 1–28 standards, playbooks, and operating-model artifacts), plus **Chapter 23 Appendix A** (Threat Model).
 - **2 annexures** — [Acronyms](annexure-a-acronyms.md) and [Concepts Glossary](annexure-b-concepts-glossary.md).
 - **3 cross-cutting documents** — [TOC](toc.md), [Traceability Matrix](traceability-matrix.md), [Handover Report](handover-report.md).
 

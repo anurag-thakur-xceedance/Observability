@@ -1,6 +1,21 @@
+---
+title: Annexure A — Acronyms & Definitions
+chapter: Annexure A
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # Annexure A — Acronyms & Definitions
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > Glossary of acronyms used across the Observability Artifact Pack.
 > Cross-reference: full glossary of strategy terms in [Chapter 1. Enterprise Observability Standards Catalog -> Section 13. Glossary (Light References from Strategy Appendix)](1-enterprise-observability-standards-catalog.md#13-glossary-light-references-from-strategy-appendix).

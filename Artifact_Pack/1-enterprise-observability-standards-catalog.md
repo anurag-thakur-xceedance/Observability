@@ -1,6 +1,21 @@
+---
+title: Enterprise Observability Standards Catalog
+chapter: 1
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # 1. Enterprise Observability Standards Catalog
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > **TEMP TEST LINK:** [Jump to Chapter 22 Section 7 — Cardinality Budget](22-capacity-and-scale-model.md#7-cardinality-budget)
 

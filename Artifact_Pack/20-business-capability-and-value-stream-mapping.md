@@ -1,6 +1,21 @@
+---
+title: Business Capability and Value-Stream Mapping
+chapter: 20
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # 20. Business Capability and Value-Stream Mapping
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > **Closes Gaps:** A2, A5, J1 (partial).
 

@@ -1,6 +1,21 @@
+---
+title: Xceedance Observability Strategy
+chapter: 0
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # Xceedance Observability Strategy
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 ## 1. Executive Summary
 The observability strategy transitions operations from reactive monitoring to proactive intelligence. A single-pane-of-glass view across logs, metrics, and traces gives the visibility needed across the estate, and supports deployment at customer sites, application observability, client-ecosystem integration, and Xceedance PaaS / SaaS hosting.

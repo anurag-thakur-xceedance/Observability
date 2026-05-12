@@ -1,6 +1,21 @@
+---
+title: Multi-Tenant and Customer-Site Deployment Model
+chapter: 26
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # 26. Multi-Tenant and Customer-Site Deployment Model
 
 [↑ Back to TOC](toc.md)
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > **Closes Gaps:** J1, J2.
 

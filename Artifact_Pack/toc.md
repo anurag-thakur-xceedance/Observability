@@ -1,4 +1,19 @@
+---
+title: Observability Artifact Pack — Table of Contents
+chapter: TOC
+version: 0.1
+owner: TBD
+classification: Internal
+last_reviewed: 2026-Q2
+next_review: 2026-Q3
+status: Draft
+---
+
 # Observability Artifact Pack — Table of Contents
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
 
 > Index of all documents in this pack with two levels of structure (chapter title + sections). Click any heading to navigate.
 
@@ -319,6 +334,16 @@
 - [9. Hardening Baseline](23-observability-platform-security-architecture.md#9-hardening-baseline)
 - [10. Cross-References](23-observability-platform-security-architecture.md#10-cross-references)
 
+### [Chapter 23 Appendix A. Threat Model (STRIDE)](23-appendix-a-threat-model.md)
+
+- [1. Purpose](23-appendix-a-threat-model.md#1-purpose)
+- [2. Methodology](23-appendix-a-threat-model.md#2-methodology)
+- [3. In-Scope Components](23-appendix-a-threat-model.md#3-in-scope-components)
+- [4. STRIDE Threat Matrix](23-appendix-a-threat-model.md#4-stride-threat-matrix)
+- [5. Residual Risk Summary](23-appendix-a-threat-model.md#5-residual-risk-summary)
+- [6. Open Threats / Action Register](23-appendix-a-threat-model.md#6-open-threats-action-register)
+- [7. Cross-References](23-appendix-a-threat-model.md#7-cross-references)
+
 ## [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md)
 
 - [1. Why an SLO Framework](24-slo-and-error-budget-framework.md#1-why-an-slo-framework)
@@ -354,6 +379,34 @@
 - [8. Operational Boundaries (Who Operates What)](26-multi-tenant-and-customer-site-deployment-model.md#8-operational-boundaries-who-operates-what)
 - [9. Tenant Onboarding Checklist](26-multi-tenant-and-customer-site-deployment-model.md#9-tenant-onboarding-checklist)
 - [10. Cross-References](26-multi-tenant-and-customer-site-deployment-model.md#10-cross-references)
+
+## [Chapter 27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md)
+
+- [1. Purpose](27-observability-non-functional-requirements.md#1-purpose)
+- [2. Scope](27-observability-non-functional-requirements.md#2-scope)
+- [3. NFR Register](27-observability-non-functional-requirements.md#3-nfr-register)
+- [4. Verification & Evidence](27-observability-non-functional-requirements.md#4-verification-evidence)
+- [5. Change Control](27-observability-non-functional-requirements.md#5-change-control)
+- [6. Cross-References](27-observability-non-functional-requirements.md#6-cross-references)
+
+## [Chapter 28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md)
+
+- [1. Purpose](28-observability-long-term-archival-policy.md#1-purpose)
+- [2. Scope](28-observability-long-term-archival-policy.md#2-scope)
+- [3. Archival Categories](28-observability-long-term-archival-policy.md#3-archival-categories)
+- [4. Retention Schedule (Worked View)](28-observability-long-term-archival-policy.md#4-retention-schedule-worked-view)
+- [5. Storage Architecture](28-observability-long-term-archival-policy.md#5-storage-architecture)
+- [6. Data Lifecycle](28-observability-long-term-archival-policy.md#6-data-lifecycle)
+- [7. Privacy Treatment Before Archival](28-observability-long-term-archival-policy.md#7-privacy-treatment-before-archival)
+- [8. Access Control](28-observability-long-term-archival-policy.md#8-access-control)
+- [9. Legal Hold](28-observability-long-term-archival-policy.md#9-legal-hold)
+- [10. Right to Erasure (GDPR Art. 17)](28-observability-long-term-archival-policy.md#10-right-to-erasure-gdpr-art-17)
+- [11. Chain of Custody (Forensic / Legal)](28-observability-long-term-archival-policy.md#11-chain-of-custody-forensic-legal)
+- [12. Cost Model](28-observability-long-term-archival-policy.md#12-cost-model)
+- [13. Data Residency](28-observability-long-term-archival-policy.md#13-data-residency)
+- [14. Roles & Responsibilities (Summary)](28-observability-long-term-archival-policy.md#14-roles-responsibilities-summary)
+- [15. KPIs](28-observability-long-term-archival-policy.md#15-kpis)
+- [16. Cross-References](28-observability-long-term-archival-policy.md#16-cross-references)
 
 ## [Traceability Matrix — Source Sections ↔ Target Artifacts](traceability-matrix.md)
 
