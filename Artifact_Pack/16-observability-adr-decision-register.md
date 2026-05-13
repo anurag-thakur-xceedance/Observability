@@ -36,7 +36,7 @@ Formal Architecture Decision Records (ADRs) for significant observability decisi
 | ADR-007 | AIOps guardrails: FP < 5%, detection latency < 2 min | Implicit → ratify | Strategy section "AI-Driven Observability — Success criteria" |
 | ADR-008 | Adopt Sloth as SLO-rule generator | Proposed | [Chapter 24 Section 8. Tooling Decision](24-slo-and-error-budget-framework.md#8-tooling-decision) |
 | ADR-009 | Service Tiering Model (T1–T4) with per-tier policy deltas | Proposed | [Chapter 1 Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model) |
-| ADR-010 | Cardinality Budget (per-service, enforced at SDK + collector + backend) | Proposed | [Chapter 1 Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance) |
+| ADR-010 | Cardinality Budget (per-service, enforced at SDK + collector + backend) | Proposed | [Chapter 1 Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance) |
 | ADR-011 | Multi-tenant data-isolation model with gateway-injected `tenant_id` | Proposed | [Chapter 26 Section 3. Tenant Labelling Enforcement](26-multi-tenant-and-customer-site-deployment-model.md#3-tenant-labelling-enforcement) |
 | ADR-012 | Auto-instrumentation via eBPF (Beyla) for legacy / unmodifiable services | Proposed | [Chapter 2 Section 4.1. Auto-Instrumentation via eBPF](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf) |
 | ADR-013 | Tail-based sampling at gateway with 100%-error retention | Proposed | [Chapter 2 Section 5.1. Sampling Strategy](02-observability-reference-architecture.md#51-sampling-strategy) |
@@ -380,7 +380,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, Platform Lead
 - **Supersedes**: —
-- **Related**: [Chapter 1 -> Section 3.1](01-enterprise-observability-standards-catalog.md#31-cardinality-governance), [Chapter 22 -> Section 8](22-capacity-and-scale-model.md#8-cardinality-budget)
+- **Related**: [Chapter 1 -> Section 3.4](01-enterprise-observability-standards-catalog.md#34-cardinality-governance), [Chapter 22 -> Section 8](22-capacity-and-scale-model.md#8-cardinality-budget)
 
 **Context.** Uncontrolled label cardinality is the #1 cause of Prometheus outages and cost overruns.
 

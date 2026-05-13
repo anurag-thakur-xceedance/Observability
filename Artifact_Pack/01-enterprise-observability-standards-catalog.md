@@ -49,7 +49,7 @@ Every metric, log line, and trace span must carry these resource attributes:
 | `deployment.environment` | Deploy pipeline | `prod` / `uat` / `dev` |
 | `team` | Service catalog | `quote-platform` |
 | `tier` | Service catalog | `T1` / `T2` / `T3` / `T4` |
-| `tenant_id` | Auth context (per [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md)) | `customer-acme` |
+| `tenant_id` | Auth context (per [Chapter 26, Section 2 — Tenant Identity Model](26-multi-tenant-and-customer-site-deployment-model.md#2-tenant-identity-model)) | `customer-acme` |
 | `tenant_class` | Service catalog | `enterprise` / `mid` / `smb` |
 | `region` | Deploy pipeline | `eu-west-1` |
 | `host.name` | Auto-detected | `xc-host-001` |
@@ -66,10 +66,10 @@ Every metric, log line, and trace span must carry these resource attributes:
 - Required fields: `ts`, `level`, `msg`, `service`, `trace_id`, `span_id`, `tenant_id`.
 - PII fields prohibited at source (see [Chapter 23 Section 4. PII Redaction (Concrete Mechanisms)](23-observability-platform-security-architecture.md#4-pii-redaction-concrete-mechanisms)).
 
-## 3.1. Cardinality Governance
+### 3.4 Cardinality Governance
 Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce three layers:
 
-### 3.1.1 Per-Service Cardinality Budget (from [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget))
+#### 3.4.1 Per-Service Cardinality Budget (from [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget))
 
 | Tier | Max Active Series per Service | Max Distinct Label Combos per Metric |
 |---|---|---|
@@ -78,7 +78,7 @@ Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce t
 | T3 | 10,000 | 200 |
 | T4 | 5,000 | 100 |
 
-### 3.1.2 Forbidden Label Patterns
+#### 3.4.2 Forbidden Label Patterns
 - User identifiers (`user_id`, `email`, `session_id`).
 - Free-form strings (request paths with IDs, raw URLs).
 - Timestamps as labels.
@@ -87,14 +87,14 @@ Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce t
 
 Any of the above must be **bucketed** (e.g., path templates instead of paths) or **dropped** before ingestion.
 
-### 3.1.3 Enforcement Mechanisms
+#### 3.4.3 Enforcement Mechanisms
 1. **At source:** SDK-side label allow-list per kit (see [Chapter 25](25-service-onboarding-and-instrumentation-kits.md)).
 2. **At collector:** `metric_relabel_configs` to drop forbidden labels.
 3. **At backend:** `limits.max_label_names_per_series`, `limits.max_series_per_user` configured in Prometheus / Mimir.
 4. **Recording rule:** `count by (__name__)({__name__=~".+"})` to track per-metric cardinality; alert when a service breaches its budget.
 5. **Emergency switch:** A pre-tested `metric_relabel_config` block-list deployed via Git PR within 30 minutes when an incident demands it.
 
-### 3.1.4 Cardinality KPIs
+#### 3.4.4 Cardinality KPIs
 - Per-service cardinality vs budget — dashboard in [Chapter 5](05-grafana-platform-standard-and-visualization-playbook.md).
 - New high-cardinality metrics introduced per release.
 - Time from cardinality breach to remediation.
@@ -111,11 +111,11 @@ Any of the above must be **bucketed** (e.g., path templates instead of paths) or
 | Service Restart Events (Compose) | count/day | 0–1 | 1–5 | > 10/day | Frequent restarts → review healthchecks / config |
 | Container Start Time | seconds | < 5 s | 5–15 s | > 30 s | Long start times slow recovery and updates |
 
-## 4.1. Service Tiering Model
+### 4.1 Service Tiering Model
 
 The tier of a service determines instrumentation depth, SLO strictness, retention, alerting policy, and on-call coverage.
 
-### 4.1.1 Tier Definitions
+#### 4.1.1 Tier Definitions
 
 | Tier | Definition | Examples |
 |---|---|---|
@@ -124,7 +124,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | **T3 — Supporting** | Internal or periodic; outage = inconvenience | Reporting, BI, internal analytics |
 | **T4 — Standard** | Internal-only or non-business-critical | Corporate IT, internal tooling |
 
-### 4.1.2 Per-Tier Policy Deltas
+#### 4.1.2 Per-Tier Policy Deltas
 
 | Dimension | T1 | T2 | T3 | T4 |
 |---|---|---|---|---|
@@ -141,10 +141,10 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | On-call response | ≤ 5 min ack | ≤ 15 min ack | ≤ 1 h | NBD |
 | RTO / RPO | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) |
 
-### 4.1.3 Tier Assignment
+#### 4.1.3 Tier Assignment
 - Tier is assigned at service registration in the catalog.
 - Tier changes require ARB approval and an ADR (see [Chapter 16](16-observability-adr-decision-register.md)).
-- The tier label is mandatory on every signal (per Section 3.1).
+- The tier label is mandatory on every signal (per Section 3.4).
 
 ## 5. Application Telemetry Standards (Pre-Login)
 
@@ -222,12 +222,9 @@ Targets: false-positive rate < 5%, detection latency < 2 min from anomaly onset,
 ## 12. Calibration Guidance
 Safe baselines. After several weeks of telemetry, calibrate so **Warning ≈ 95th percentile of normal behaviour** and **Critical ≈ user impact or SLA breach**.
 
-## 13. Glossary (Light References from Strategy Appendix)
-- **MTTD**: Mean Time to Detect.
-- **MTTR**: Mean Time to Resolution.
-- **SLO / SLA**: Service Level Objective / Agreement.
-- **RPO / RTO**: Recovery Point / Time Objective.
-- **CSAT**: Customer Satisfaction.
+## 13. Glossary
+
+Acronyms used in this chapter (MTTD, MTTR, SLO, SLA, RPO, RTO, CSAT) are defined in [Annexure A. Acronyms and Abbreviations](annexure-a-acronyms.md). Conceptual terms are defined in [Annexure B. Concepts Glossary](annexure-b-concepts-glossary.md).
 
 ## 14. Cross-References
 - [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).

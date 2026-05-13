@@ -162,7 +162,7 @@ A change passes a wave gate if **all** of the following hold during the wave's s
 - Collector deploy success ≥ 99% across the wave's hosts.
 - Exporter health ≥ 98% across the wave.
 - No critical-severity self-monitoring alert ([Chapter 21. Observability Platform HA and DR Design -> Section 7. Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor)).
-- Cardinality budget ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) within ±5% of pre-change baseline.
+- Cardinality budget ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)) within ±5% of pre-change baseline.
 
 ### 7.1.3 Rollback Standards
 

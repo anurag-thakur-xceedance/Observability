@@ -96,7 +96,7 @@ The retention and governance policy creates a continuous **Day-2 operational** l
 | Storage capacity review (per backend) | Weekly | Platform Ops | Capacity dashboard ([Chapter 22](22-capacity-and-scale-model.md)) |
 | Retention-job success rate review | Weekly | Platform Ops | Job success metric; alert log |
 | Compaction lag check (Loki, Tempo) | Daily | Platform Ops | Compaction lag metric |
-| Cardinality drift review ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | Weekly | Platform Ops | Active-series report |
+| Cardinality drift review ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)) | Weekly | Platform Ops | Active-series report |
 | Schema-conformance scan | Weekly | Data Governance | Conformance dashboard |
 | PII redaction validation (sample audit) | Monthly | Data Governance | Audit report |
 | Backup-restore drill (per stateful backend) | Quarterly | Platform Ops | Drill report; RTO measured |

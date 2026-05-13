@@ -92,7 +92,7 @@ The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a
 
 All components are open-source or vendor-neutral; commercial choices (paging, IdP, Vault) are pluggable per [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md).
 
-## 4.1. Auto-Instrumentation via eBPF
+### 4.1. Auto-Instrumentation via eBPF
 For legacy services, vendor-supplied components, or any workload where code-level instrumentation is impractical, eBPF-based auto-instrumentation (e.g., Grafana **Beyla**, or Cilium Tetragon for security signals) provides language-agnostic visibility into HTTP, gRPC, and SQL traffic at the kernel level.
 
 **Decision:** Beyla is recommended as a complementary layer beside the OpenTelemetry SDK kits in [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) — formalised in **ADR-012** in [Chapter 16](16-observability-adr-decision-register.md).
@@ -117,7 +117,7 @@ Telemetry is captured across four major layers:
 
 A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md).
 
-## 5.1. Sampling Strategy
+### 5.1. Sampling Strategy
 
 | Signal | Approach | Rate (default) | Rationale |
 |---|---|---|---|
@@ -172,7 +172,7 @@ The same Docker Compose definition runs in every environment (development, test,
 - **Health-check pass rate 100%** post-deployment.
 - All deployment is reproducible from Git via PowerShell scripts.
 
-## 6.1. Network Topology and Trust Boundaries
+### 6.1. Network Topology and Trust Boundaries
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │  Service / Customer Network Zone                                     │
@@ -308,7 +308,7 @@ service:
 - **`otelcol_processor_dropped_spans`** is a meta-monitor alert (see [Chapter 21 Section 7. Self-Monitoring](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor)).
 
 ### 7.5 Schema Validation and Cardinality Controls
-- Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance).
+- Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance).
 - Required-attribute enforcement: `attributes/required` processor pattern rejects telemetry missing any of `service.name`, `tier`, `tenant_id`.
 - Recording rules in Prometheus / Mimir track per-service active-series count.
 

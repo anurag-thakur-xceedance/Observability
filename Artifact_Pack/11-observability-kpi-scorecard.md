@@ -74,7 +74,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 
 ## 6.1. Telemetry Data Quality SLIs
 
-The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance), [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), and [Chapter 21. Observability Platform HA and DR Design -> Section 7. Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor).
+The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance), [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), and [Chapter 21. Observability Platform HA and DR Design -> Section 7. Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor).
 
 ### 6.1.1 Ingest Quality SLIs
 
@@ -133,7 +133,7 @@ Section 6.1 SLIs appear on the **Platform Health** dashboard, viewable to all en
 - Incident-driven adjustments raised through [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) (ADRs).
 
 ## 8. Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance) — feeds Section 6.1.2 cardinality SLI.
+- [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance) — feeds Section 6.1.2 cardinality SLI.
 - [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
 - [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) / [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) / [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.
 - [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md) — roadmap phase plan that drives phase targets.

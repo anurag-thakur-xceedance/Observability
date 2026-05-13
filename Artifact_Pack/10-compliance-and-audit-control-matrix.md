@@ -52,7 +52,7 @@ Compliance and governance reports are generated on a regular schedule and shared
 | OBS-C-07 | Compliance reports issued on schedule | Internal | Report distribution list and timestamps | Governance Body |
 | OBS-C-08 | Deletion / compaction jobs monitored for compliance | GDPR | Job success metrics, alert evidence | Platform Ops |
 | OBS-C-09 | Service telemetry conformance ≥ 90% (PRR gate, [Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) | Internal | PRR scorecard, conformance dashboard | Service Owner |
-| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
+| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
 | OBS-C-11 | mTLS between collectors and backends ([Chapter 23](23-observability-platform-security-architecture.md)) | SOC2 / ISO | Cert inventory; expiry alerts | Platform Ops |
 | OBS-C-12 | Tenant isolation verified for multi-tenant deployments ([Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md)) | Internal / customer contract | Tenant-label policy report; cross-tenant query test | Platform Ops |
 | OBS-C-13 | DR drill executed at planned cadence ([Chapter 21](21-observability-platform-ha-and-dr-design.md)) | SOC2 (Availability) | Drill report, RTO/RPO measurements | SRE |

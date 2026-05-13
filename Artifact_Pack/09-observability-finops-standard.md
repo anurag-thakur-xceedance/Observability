@@ -75,7 +75,7 @@ C_signal = C_ingest + C_storage_hot + C_storage_warm + C_storage_cold + C_query
 
 | Unit | Definition | Reporting Cadence | Used By |
 |---|---|---|---|
-| **$/active series/month** | Prometheus active series cost ÷ active series count | Monthly | Cardinality reviews ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) |
+| **$/active series/month** | Prometheus active series cost ÷ active series count | Monthly | Cardinality reviews ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)) |
 | **$/GB-day metrics (hot)** | Hot metrics storage cost ÷ GB-days | Monthly | Tier-window calibration |
 | **$/GB ingested logs** | Loki ingest cost ÷ GB ingested | Monthly | Log-volume conversations with service teams |
 | **$/GB-day logs (hot)** | Hot logs storage cost ÷ GB-days | Monthly | Tier-window calibration |
@@ -164,7 +164,7 @@ Inputs and outputs of the FinOps planning cycle.
 |---|---|---|
 | Service onboarding pipeline | [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) | Monthly |
 | Service tier distribution | [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model) | Quarterly |
-| Cardinality budget headroom | [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance) | Monthly |
+| Cardinality budget headroom | [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance) | Monthly |
 | Capacity sizing model | [Chapter 22](22-capacity-and-scale-model.md) | Quarterly |
 | Tenant onboarding pipeline | [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md) | Monthly |
 | Vendor unit-rate changes | Contracts | As-changed |

@@ -60,7 +60,7 @@ The decision-rights table (Section 3) names the **A**ccountable role only. The f
 |---|---|---|---|---|---|---|---|
 | Define service SLO ([Chapter 24](24-slo-and-error-budget-framework.md)) | A,R | C | I | I | I | C | I |
 | Approve new telemetry standard ([Chapter 1](01-enterprise-observability-standards-catalog.md)) | C | R | C | I | C | A | I |
-| Approve cardinality-budget exception ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)) | R | C | I | I | I | A | C |
+| Approve cardinality-budget exception ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)) | R | C | I | I | I | A | C |
 | Onboard new service (PRR gate, [Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) | A,R | R | C | I | C | I | I |
 | Change retention policy ([Chapter 8](08-observability-data-governance-and-retention-policy.md)) | I | R | A,R | I | C | C | C |
 | Promote AIOps model to production ([Chapter 6](06-aiops-guardrails-and-implementation-playbook.md)) | C | R | C | A,R | I | C | I |
@@ -85,7 +85,7 @@ Tracked risks to the **governance** function itself (separate from operational p
 | Risk ID | Risk | Likelihood | Impact | Owner | Mitigation | Trigger / KRI |
 |---|---|---|---|---|---|---|
 | GOV-R-01 | Standards drift: services bypass `1.` standards under delivery pressure | Med | High | Governance Body | PRR gate ([Chapter 25](25-service-onboarding-and-instrumentation-kits.md)); compliance scan ([Chapter 10](10-compliance-and-audit-control-matrix.md) OBS-C-09) | Conformance score < 90% (KPI in [Chapter 11](11-observability-kpi-scorecard.md)) |
-| GOV-R-02 | Cardinality breach destabilises platform | Med | High | Platform Ops | Budget enforcement at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance)); reject-on-breach policy | Active series > 90% of budget |
+| GOV-R-02 | Cardinality breach destabilises platform | Med | High | Platform Ops | Budget enforcement at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)); reject-on-breach policy | Active series > 90% of budget |
 | GOV-R-03 | Retention misconfiguration causes GDPR breach | Low | Critical | Data Governance | Automated retention checks (OBS-C-04); quarterly audit | Retention drift detected by job |
 | GOV-R-04 | RBAC role explosion / least-privilege erosion | High | Med | Identity | Quarterly access review (Section 6); role-template enforcement | Roles per user > 5; unreviewed roles > 30 days |
 | GOV-R-05 | ADR backlog: decisions made informally, not recorded | High | Med | ARB | ADR-required gate at ARB; ADR log review at every cadence | ADRs created per quarter < changes per quarter |

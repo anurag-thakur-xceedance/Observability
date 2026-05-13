@@ -157,7 +157,7 @@ The document is reviewed via ARB / Exception Panel / SDG / Change Board.
 > **Detailed governance mechanics, decision rights, review cadence → [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md). Decision log → [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md).**
 
 ## 15. Appendix (Light References)
-- **Glossary** — see [Chapter 1. Enterprise Observability Standards Catalog -> Section 13. Glossary (Light References from Strategy Appendix)](01-enterprise-observability-standards-catalog.md#13-glossary-light-references-from-strategy-appendix).
+- **Glossary** — see [Chapter 1. Enterprise Observability Standards Catalog -> Section 13. Glossary](01-enterprise-observability-standards-catalog.md#13-glossary), which points to [Annexure A. Acronyms](annexure-a-acronyms.md) and [Annexure B. Concepts Glossary](annexure-b-concepts-glossary.md).
 - **KPI tables** — see [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md).
 - **Domain metric tables** — see [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) and the relevant domain runbook in [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md).
 - **Visualization & dashboard tables** — see [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md).

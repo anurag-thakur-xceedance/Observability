@@ -486,7 +486,7 @@ Cardinality is a budget. Per-service quotas:
 | T3 | 10,000 | 200 |
 | T4 | 5,000 | 100 |
 
-Enforcement is described in [Chapter 1 Section 3.1. Cardinality Governance](01-enterprise-observability-standards-catalog.md#31-cardinality-governance).
+Enforcement is described in [Chapter 1 Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance).
 
 ## 9. Cross-References
 - [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md)
