@@ -36,7 +36,7 @@ status: Draft
 ### Artifact Pack — markdown documents (22 numbered chapters + 7 gap-fill chapters + Annexures + supporting)
 | # | File |
 |---|---|
-| 0 | [Chapter 0. Observability Strategy (Revised)](00-observability-strategy-revised.md) |
+| 0 | [Chapter 0. Xceedance Observability Strategy](00-observability-strategy.md) |
 | 1 | [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) |
 | 2 | [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) |
 | 3 | [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) |

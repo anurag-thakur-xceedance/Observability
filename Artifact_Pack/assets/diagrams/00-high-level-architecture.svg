@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+  <title>High-Level Observability Architecture (One-Page View)</title>
+  <desc>Sources flow into the OpenTelemetry Collector, which fans out to Prometheus (metrics), Loki (logs), and Tempo (traces). Grafana reads all three backends and provides the single pane of glass. Agentic AI consumes Grafana data for anomaly detection, RCA, and enriched ticketing. Diagram for Chapter 0, Section 7.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <style>
+      .node { stroke: #1f2937; stroke-width: 1.5; }
+      .src  { fill: #dbeafe; }
+      .edge { fill: #dcfce7; }
+      .store{ fill: #fee2e2; }
+      .pane { fill: #fef3c7; }
+      .ai   { fill: #ede9fe; }
+      .label{ fill: #111827; text-anchor: middle; }
+      .sub  { fill: #4b5563; font-size: 11px; text-anchor: middle; }
+      .flow { stroke: #374151; stroke-width: 1.6; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Layer 1: Sources -->
+  <rect class="node src" x="300" y="30" width="300" height="60" rx="6"/>
+  <text class="label" x="450" y="56">Services / Apps / Infra</text>
+  <text class="sub"   x="450" y="74">Hosts, containers, applications, network devices</text>
+
+  <!-- Layer 2: Collector -->
+  <rect class="node edge" x="280" y="150" width="340" height="60" rx="6"/>
+  <text class="label" x="450" y="176">OpenTelemetry Collector</text>
+  <text class="sub"   x="450" y="194">Universal telemetry gateway</text>
+
+  <!-- Layer 3: Backends -->
+  <rect class="node store" x="80"  y="280" width="200" height="60" rx="6"/>
+  <text class="label" x="180" y="306">Prometheus</text>
+  <text class="sub"   x="180" y="324">Metrics</text>
+
+  <rect class="node store" x="350" y="280" width="200" height="60" rx="6"/>
+  <text class="label" x="450" y="306">Loki</text>
+  <text class="sub"   x="450" y="324">Logs</text>
+
+  <rect class="node store" x="620" y="280" width="200" height="60" rx="6"/>
+  <text class="label" x="720" y="306">Tempo</text>
+  <text class="sub"   x="720" y="324">Traces</text>
+
+  <!-- Layer 4: Grafana -->
+  <rect class="node pane" x="280" y="410" width="340" height="60" rx="6"/>
+  <text class="label" x="450" y="436">Grafana</text>
+  <text class="sub"   x="450" y="454">Single pane of glass — dashboards, alerting</text>
+
+  <!-- Layer 5: Agentic AI -->
+  <rect class="node ai" x="280" y="540" width="340" height="60" rx="6"/>
+  <text class="label" x="450" y="566">Agentic AI</text>
+  <text class="sub"   x="450" y="584">Anomaly detection, RCA, enriched ticketing</text>
+
+  <!-- Flows -->
+  <path class="flow" d="M450,90 L450,150"   marker-end="url(#arrow)"/>
+  <path class="flow" d="M380,210 L180,280"  marker-end="url(#arrow)"/>
+  <path class="flow" d="M450,210 L450,280"  marker-end="url(#arrow)"/>
+  <path class="flow" d="M520,210 L720,280"  marker-end="url(#arrow)"/>
+  <path class="flow" d="M180,340 L380,410"  marker-end="url(#arrow)"/>
+  <path class="flow" d="M450,340 L450,410"  marker-end="url(#arrow)"/>
+  <path class="flow" d="M720,340 L520,410"  marker-end="url(#arrow)"/>
+  <path class="flow" d="M450,470 L450,540"  marker-end="url(#arrow)"/>
+</svg>

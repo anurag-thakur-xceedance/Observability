@@ -43,7 +43,7 @@ The full table of contents — every chapter, every section, with deep links —
 
 A short reading order by audience:
 
-- **Executives / Directors** → start with [Chapter 0. Xceedance Observability Strategy](00-observability-strategy-revised.md), then [Chapter 11. KPI Scorecard](11-observability-kpi-scorecard.md) and [Chapter 13. Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md).
+- **Executives / Directors** → start with [Chapter 0. Xceedance Observability Strategy](00-observability-strategy.md), then [Chapter 11. KPI Scorecard](11-observability-kpi-scorecard.md) and [Chapter 13. Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md).
 - **Architects** → [Chapter 2. Reference Architecture](02-observability-reference-architecture.md), [Chapter 16. ADR Register](16-observability-adr-decision-register.md), and [Chapter 21. HA and DR](21-observability-platform-ha-and-dr-design.md).
 - **SRE / Platform** → [Chapter 7. IaC Standard](07-iac-for-observability-standard.md), [Chapter 24. SLO Framework](24-slo-and-error-budget-framework.md), and [Chapter 12. Incident Response](12-incident-response-playbook.md).
 - **Service Developers** → [Chapter 25. Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md) and [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md).

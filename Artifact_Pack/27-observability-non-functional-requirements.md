@@ -292,7 +292,7 @@ Changes to this register require an ADR ([Chapter 16. Observability ADR Decision
 
 ## 7. Cross-References
 
-- [Chapter 0. Xceedance Observability Strategy](00-observability-strategy-revised.md) — strategic principles underpinning the NFRs.
+- [Chapter 0. Xceedance Observability Strategy](00-observability-strategy.md) — strategic principles underpinning the NFRs.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — outcome KPIs derived from these NFRs.
 - [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md) — maturity scoring uses these NFRs as evidence.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — governance approving NFR changes.

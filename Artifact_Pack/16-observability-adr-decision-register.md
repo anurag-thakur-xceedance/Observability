@@ -26,7 +26,7 @@ Formal Architecture Decision Records (ADRs) for significant observability decisi
 
 | ID | Title | Status | Source |
 |---|---|---|---|
-| ADR-000 | Observability Strategy Principles (10 principles) | Accepted | [Chapter 0 Section 1.1. Vision, Mission, and Guiding Principles](00-observability-strategy-revised.md#11-vision-mission-and-guiding-principles) |
+| ADR-000 | Observability Strategy Principles (10 principles) | Accepted | [Chapter 0, Section 1.1 — Vision, Mission, and Guiding Principles](00-observability-strategy.md#11-vision-mission-and-guiding-principles) |
 | ADR-001 | Adopt OpenTelemetry as universal telemetry standard | Implicit (in strategy) → ratify | Strategy section "Build the Technical Foundation" |
 | ADR-002 | Select Grafana as primary visualization & alerting tool | Implicit → ratify | Strategy section "Build the Technical Foundation" |
 | ADR-003 | Use Prometheus / Loki / Tempo as backends | Implicit → ratify | Strategy section "High-Level Architecture" |
@@ -98,7 +98,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB
 - **Supersedes**: —
-- **Related**: [Chapter 0 -> Section 1.1](00-observability-strategy-revised.md#11-vision-mission-and-guiding-principles)
+- **Related**: [Chapter 0, Section 1.1 — Vision, Mission, and Guiding Principles](00-observability-strategy.md#11-vision-mission-and-guiding-principles)
 
 **Context.** Without explicit guiding principles, downstream decisions diverge across teams and customer sites. We need an enduring north star to evaluate every architectural and operational decision against.
 

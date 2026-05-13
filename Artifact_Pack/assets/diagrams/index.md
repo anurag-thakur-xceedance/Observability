@@ -40,6 +40,7 @@ This directory holds canonical Mermaid source for the architecture diagrams refe
 
 | Diagram | File | Consumed By |
 |---|---|---|
+| High-Level Architecture (Strategy) | `00-high-level-architecture.svg` | [Chapter 0. Observability Strategy -> Section 7. High-Level Architecture (One-Page View)](../../00-observability-strategy-revised.md#7-high-level-architecture-one-page-view) |
 | Observability Pipeline — End-to-End | `pipeline-end-to-end.mmd`     | [Chapter 2. Observability Reference Architecture -> Section 2. High-Level Architecture (Logical View)](../../02-observability-reference-architecture.md#2-high-level-architecture-logical-view) |
 | Multi-Tenant Deployment Model       | `multi-tenant-deployment.mmd` | [Chapter 26. Multi-Tenant and Customer-Site Deployment Model -> Section 1. Deployment Topologies](../../26-multi-tenant-and-customer-site-deployment-model.md#1-deployment-topologies) |
 | AIOps Closed-Loop                   | `aiops-closed-loop.mmd`       | [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 1. Strategic Intent & Guardrails](../../06-aiops-guardrails-and-implementation-playbook.md#1-strategic-intent-guardrails) |
