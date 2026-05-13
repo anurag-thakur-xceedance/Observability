@@ -53,7 +53,7 @@ Lifecycle policies manage cost and performance of observability platforms. This 
 - Storage cost vs. retention SLO compliance.
 - Tool count consolidation (reduction of 30–40% over 12 months).
 
-## 6.1. Unit Economics
+### 6.1 Unit Economics
 
 The platform's cost story is told in **unit economics**: cost per signal, per service, per tier, per tenant. Aggregated cost numbers are necessary but not sufficient — only unit economics let the business decide where to invest, where to cut, and where to charge back.
 
@@ -120,7 +120,7 @@ The attribution model is the basis for **chargeback / showback** in Section 6.2.
 
 The decision to move from showback to chargeback is an ARB decision recorded in [Chapter 16](16-observability-adr-decision-register.md).
 
-## 6.2. Optimisation Playbook
+### 6.2 Optimisation Playbook
 
 A repeatable set of moves the FinOps + Platform Ops team executes when a unit cost trends adverse. Every move is **measured against the unit cost** to confirm impact.
 
@@ -154,7 +154,7 @@ Monthly review:
 - **Optimising during incident.** Freeze optimisation activity during active incidents and during the change-freeze windows in [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](07-iac-for-observability-standard.md#71-change-management).
 - **One-off "spring cleaning"**. Optimisation must be cyclical (Section 6.2.2) — single events drift back within a quarter.
 
-## 6.3. Forecast and Budget Model
+### 6.3 Forecast and Budget Model
 
 Inputs and outputs of the FinOps planning cycle.
 
@@ -187,7 +187,7 @@ Three rolling envelopes are tracked:
 | > +20% | Emergency ARB; escalate to executive; consider service onboarding freeze |
 | Negative variance > 10% | Investigate under-instrumentation (false economy); review against telemetry quality SLIs ([Chapter 11. Observability KPI Scorecard -> Section 6.1. Telemetry Data Quality SLIs](11-observability-kpi-scorecard.md#61-telemetry-data-quality-slis)) |
 
-## 6.4. Twelve-Month Worked Cost Model
+### 6.4 Twelve-Month Worked Cost Model
 
 This worked model takes the **Medium reference deployment** (see [Chapter 22, Section 3.2 — Worked Example B (Medium)](22-capacity-and-scale-model.md#3-worked-sizing-examples)) and projects 12 months of cost evolution including organic growth, optimisation interventions, and budget variance. Numbers are illustrative for Azure West Europe pricing class (2026-Q1) and must be re-baselined per estate.
 

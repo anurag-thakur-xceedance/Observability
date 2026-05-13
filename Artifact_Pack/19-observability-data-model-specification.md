@@ -86,11 +86,11 @@ Five canonical schemas live under `Artifact_Pack/schemas/`. Each schema is the s
 
 All schemas use **JSON Schema Draft 2020-12**. Cross-schema references (e.g. the shared `resource` definition) use relative `$ref` so the schemas are portable as a single bundle.
 
-#### 8.1.1 Required Resource Attributes (All Signals)
+### 8.1.1 Required Resource Attributes (All Signals)
 
 The `resource` definition in `metric-sample.schema.json#/$defs/resource` is the **single source of truth** for the resource block on every signal. It enforces three required attributes — `service.name`, `service.version`, `deployment.environment` — because these three form the partition key for every cross-pillar join in [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 3. Interpreting the AI-Driven Metrics](06-aiops-guardrails-and-implementation-playbook.md#3-interpreting-the-ai-driven-metrics).
 
-#### 8.1.2 Schema Version Lifecycle
+### 8.1.2 Schema Version Lifecycle
 
 - Schemas are versioned via the `$id` URL path (e.g. `/schemas/v1/metric-sample.schema.json` when v2 lands).
 - Breaking changes require a new major version and a 90-day overlap window during which producers MAY emit either version.

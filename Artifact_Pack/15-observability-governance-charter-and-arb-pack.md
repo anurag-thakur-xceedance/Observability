@@ -52,7 +52,7 @@ The strategy doc retains the high-level governance narrative (review status). De
 
 > Source state: **Not Seen** for all four boards (per the strategy doc Architecture Governance and Review table). Action: schedule reviews — **decision required**.
 
-## 4.1. RACI Matrix
+### 4.1 RACI Matrix
 
 The decision-rights table (Section 3) names the **A**ccountable role only. The full RACI for routine activities is below. R = Responsible (does the work), A = Accountable (one per row, owns the outcome), C = Consulted (two-way), I = Informed (one-way).
 
@@ -78,7 +78,7 @@ The decision-rights table (Section 3) names the **A**ccountable role only. The f
 - **R** may co-exist with **A** when the accountable role also performs the work.
 - Disagreements between two **C** roles are escalated to the **A** role; if **A** is unable to resolve, escalation goes to ARB.
 
-## 4.2. Governance Risk Register
+### 4.2 Governance Risk Register
 
 Tracked risks to the **governance** function itself (separate from operational platform risks, which live in service-level risk registers). Reviewed at every quarterly cadence.
 
@@ -95,7 +95,7 @@ Tracked risks to the **governance** function itself (separate from operational p
 | GOV-R-09 | Governance body decisions delayed beyond cadence | Med | Med | Governance Body | Async ADR review; emergency ARB convening rule (within 5 business days) | Open ADRs aged > 30 days |
 | GOV-R-10 | Loss of platform skills / single-point-of-knowledge | Med | High | Platform Ops | CoP rotation ([Chapter 18. Observability Operating Model and Adoption Plan -> Section 4.1. Community of Practice](18-observability-operating-model-and-adoption-plan.md#41-community-of-practice)); runbook coverage ≥ 95% | Bus factor < 2 for any critical component |
 
-## 4.3. Framework Selection and Mapping
+### 4.3 Framework Selection and Mapping
 
 Compliance frameworks the governance body **explicitly** recognises and maps to. Selection prioritises the regulatory profile of insurance / financial services and the lowest-cost evidence path.
 

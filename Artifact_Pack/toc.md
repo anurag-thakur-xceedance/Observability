@@ -102,7 +102,6 @@ status: Draft
 - [5. Recommended Alerting Policy (Grafana Implementation)](05-grafana-platform-standard-and-visualization-playbook.md#5-recommended-alerting-policy-grafana-implementation)
 - [6. Implementation & Visualization Tips](05-grafana-platform-standard-and-visualization-playbook.md#6-implementation-visualization-tips)
 - [7. Calibration](05-grafana-platform-standard-and-visualization-playbook.md#7-calibration)
-- [7.1. Dashboards-as-Code](05-grafana-platform-standard-and-visualization-playbook.md#71-dashboards-as-code)
 - [8. Cross-References](05-grafana-platform-standard-and-visualization-playbook.md#8-cross-references)
 
 ## [6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)
@@ -141,7 +140,6 @@ status: Draft
 - [5. Severity Policy (Deployment-Specific)](07-iac-for-observability-standard.md#5-severity-policy-deployment-specific)
 - [6. Implementation & Visualization](07-iac-for-observability-standard.md#6-implementation-visualization)
 - [7. Calibration](07-iac-for-observability-standard.md#7-calibration)
-- [7.1. Change Management](07-iac-for-observability-standard.md#71-change-management)
 - [8. Cross-References](07-iac-for-observability-standard.md#8-cross-references)
 
 ## [8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)
@@ -155,7 +153,6 @@ status: Draft
 - [7. Deletion and Retention Enforcement](08-observability-data-governance-and-retention-policy.md#7-deletion-and-retention-enforcement)
 - [8. Lifecycle Mechanics (linked to FinOps)](08-observability-data-governance-and-retention-policy.md#8-lifecycle-mechanics-linked-to-finops)
 - [9. Success Criteria](08-observability-data-governance-and-retention-policy.md#9-success-criteria)
-- [9.1. Day-2 Operations](08-observability-data-governance-and-retention-policy.md#91-day-2-operations)
 - [10. Cross-References](08-observability-data-governance-and-retention-policy.md#10-cross-references)
 
 ## [9. Observability FinOps Standard](09-observability-finops-standard.md)
@@ -166,10 +163,6 @@ status: Draft
 - [4. Cost Levers](09-observability-finops-standard.md#4-cost-levers)
 - [5. Cost KPIs](09-observability-finops-standard.md#5-cost-kpis)
 - [6. Value Tracking](09-observability-finops-standard.md#6-value-tracking)
-- [6.1. Unit Economics](09-observability-finops-standard.md#61-unit-economics)
-- [6.2. Optimisation Playbook](09-observability-finops-standard.md#62-optimisation-playbook)
-- [6.3. Forecast and Budget Model](09-observability-finops-standard.md#63-forecast-and-budget-model)
-- [6.4. Twelve-Month Worked Cost Model](09-observability-finops-standard.md#64-twelve-month-worked-cost-model)
 - [7. Deletion & Compaction Monitoring](09-observability-finops-standard.md#7-deletion-compaction-monitoring)
 - [8. Cross-References](09-observability-finops-standard.md#8-cross-references)
 
@@ -193,7 +186,6 @@ status: Draft
 - [4. Governance Success KPIs (from Governance & Data Strategy)](11-observability-kpi-scorecard.md#4-governance-success-kpis-from-governance-data-strategy)
 - [5. Platform KPIs Roll-Up (from IaC Standard — Docker Compose + PowerShell)](11-observability-kpi-scorecard.md#5-platform-kpis-roll-up-from-iac-standard-docker-compose-powershell)
 - [6. Maturity Phase Targets (from Capability Assessment / Roadmap)](11-observability-kpi-scorecard.md#6-maturity-phase-targets-from-capability-assessment-roadmap)
-- [6.1. Telemetry Data Quality SLIs](11-observability-kpi-scorecard.md#61-telemetry-data-quality-slis)
 - [7. Reporting Cadence](11-observability-kpi-scorecard.md#7-reporting-cadence)
 - [8. Cross-References](11-observability-kpi-scorecard.md#8-cross-references)
 
@@ -234,9 +226,6 @@ status: Draft
 - [2. Governance Body](15-observability-governance-charter-and-arb-pack.md#2-governance-body)
 - [3. Decision Rights](15-observability-governance-charter-and-arb-pack.md#3-decision-rights)
 - [4. Architecture Review Board (ARB) Pack](15-observability-governance-charter-and-arb-pack.md#4-architecture-review-board-arb-pack)
-- [4.1. RACI Matrix](15-observability-governance-charter-and-arb-pack.md#41-raci-matrix)
-- [4.2. Governance Risk Register](15-observability-governance-charter-and-arb-pack.md#42-governance-risk-register)
-- [4.3. Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#43-framework-selection-and-mapping)
 - [5. Review Cadence](15-observability-governance-charter-and-arb-pack.md#5-review-cadence)
 - [6. Data Classification & Access Governance](15-observability-governance-charter-and-arb-pack.md#6-data-classification-access-governance)
 - [7. Audit & Reporting](15-observability-governance-charter-and-arb-pack.md#7-audit-reporting)
@@ -272,11 +261,9 @@ status: Draft
 - [2. Cultural Principles](18-observability-operating-model-and-adoption-plan.md#2-cultural-principles)
 - [3. Roles & Responsibilities](18-observability-operating-model-and-adoption-plan.md#3-roles-responsibilities)
 - [4. Adoption Plan (Aligned to Roadmap)](18-observability-operating-model-and-adoption-plan.md#4-adoption-plan-aligned-to-roadmap)
-- [4.1. Community of Practice](18-observability-operating-model-and-adoption-plan.md#41-community-of-practice)
 - [5. Continuous Improvement Process](18-observability-operating-model-and-adoption-plan.md#5-continuous-improvement-process)
 - [6. Training Curriculum (Initial)](18-observability-operating-model-and-adoption-plan.md#6-training-curriculum-initial)
 - [7. Success Indicators](18-observability-operating-model-and-adoption-plan.md#7-success-indicators)
-- [7.1. Adoption KPIs](18-observability-operating-model-and-adoption-plan.md#71-adoption-kpis)
 - [8. Cross-References](18-observability-operating-model-and-adoption-plan.md#8-cross-references)
 
 ## [19. Observability Data Model Specification](19-observability-data-model-specification.md)

@@ -466,7 +466,7 @@ Every prompt + response pair is logged with:
 | `full_prompt` | text | 90 days (rolling) |
 | `full_response` | text | 90 days (rolling) |
 
-Storage is the audit bucket per Chapter 27 Section 4.19. Full-text retention is 90 days for incident investigation; the hashes are retained for 7 years for non-repudiation. Restoring full text from archive follows the rehydration procedure in Chapter 28.
+Storage is the audit bucket per [Chapter 27, Section 4.19 — Verification Evidence Storage](27-observability-non-functional-requirements.md#419-verification-evidence-storage). Full-text retention is 90 days for incident investigation; the hashes are retained for 7 years for non-repudiation. Restoring full text from archive follows the rehydration procedure in [Chapter 28, Section 6.2 — Restore From Archive](28-observability-long-term-archival-policy.md#62-restore-from-archive).
 
 ### 9.4 Prompt Template Registry (Worked Entries)
 

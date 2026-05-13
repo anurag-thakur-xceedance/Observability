@@ -72,7 +72,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 | Manual RCA Required | 100% | 50% | < 20% |
 | Automated Ticket Creation | 0% | 50% | > 90% |
 
-## 6.1. Telemetry Data Quality SLIs
+### 6.1 Telemetry Data Quality SLIs
 
 The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance), [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), and [Chapter 21. Observability Platform HA and DR Design -> Section 7. Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor).
 

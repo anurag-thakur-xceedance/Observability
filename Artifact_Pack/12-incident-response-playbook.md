@@ -24,7 +24,7 @@ How a telemetry anomaly becomes a diagnosed, communicated, remediated incident. 
 
 ## 2. End-to-End Incident Sequence (Logical Flow)
 
-### 2.1. Lifecycle Flow (Mermaid Flowchart)
+### 2.1 Lifecycle Flow (Mermaid Flowchart)
 
 ```mermaid
 flowchart TD
@@ -49,7 +49,7 @@ flowchart TD
     class I,J review;
 ```
 
-### 2.2. Actor Sequence (Mermaid Sequence Diagram)
+### 2.2 Actor Sequence (Mermaid Sequence Diagram)
 
 ```mermaid
 sequenceDiagram
@@ -82,7 +82,7 @@ sequenceDiagram
     IC-->>SO: track never-repeat items (Ch 16 ADR if systemic)
 ```
 
-### 2.3. Step-by-Step Description
+### 2.3 Step-by-Step Description
 
 | # | Step | Owner | Cross-Reference |
 |---|---|---|---|

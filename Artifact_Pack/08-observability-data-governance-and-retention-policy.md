@@ -85,7 +85,7 @@ Cost-related lifecycle mechanics (hot / warm / cold storage, downsampling) are o
 
 (Outcome measurement maintained in [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md).)
 
-## 9.1. Day-2 Operations
+### 9.1 Day-2 Operations
 
 The retention and governance policy creates a continuous **Day-2 operational** load that is owned by Platform Ops and the Data Governance lead. This section codifies the routine activities, their cadence, owner, and evidence — feeding **OBS-C-04** and **OBS-C-08** in [Chapter 10](10-compliance-and-audit-control-matrix.md).
 

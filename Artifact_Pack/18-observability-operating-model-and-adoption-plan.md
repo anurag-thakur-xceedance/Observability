@@ -56,7 +56,7 @@ Observability is as much about **people and processes** as tools. This document 
 - Mature post-incident review process; PIR records reused in risk reviews.
 - Embed business-impact storytelling in incident communications.
 
-## 4.1. Community of Practice
+### 4.1 Community of Practice
 
 The Observability **Community of Practice (CoP)** is the working-level forum that operationalises governance below the ARB. It is the primary mechanism by which standards from [Chapter 1](01-enterprise-observability-standards-catalog.md) and decisions from [Chapter 15](15-observability-governance-charter-and-arb-pack.md) become **lived practice** across services.
 
@@ -122,7 +122,7 @@ The strategy is regularly reassessed and refined as the technology landscape and
 - Cross-team incident resolution rate ≥ 70% within 6 months.
 - Reduced "war-room" sessions; demonstrable cross-functional ownership.
 
-## 7.1. Adoption KPIs
+### 7.1 Adoption KPIs
 
 The headline indicators in Section 7 are operationalised below as **leading** (predict success) and **lagging** (confirm success) KPIs. All are reported on the scorecard in [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md).
 

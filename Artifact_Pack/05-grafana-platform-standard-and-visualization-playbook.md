@@ -73,11 +73,11 @@ Severity model is owned by [Chapter 4. Alerting and Incident Severity Policy](04
 ## 7. Calibration
 Industry-standard starting ranges. After a few weeks of live data, calibrate: warning ≈ 95th-percentile normal; critical ≈ user impact / SLA breach.
 
-## 7.1. Dashboards-as-Code
+### 7.1 Dashboards-as-Code
 
 All Grafana dashboards, alert rules, and notification policies are managed **as code**. No production dashboard is hand-edited in the UI; UI changes are exported and committed via PR. This is enforced by **OBS-C-02** in [Chapter 10. Compliance and Audit Control Matrix -> Section 5. Control Matrix (Initial)](10-compliance-and-audit-control-matrix.md#5-control-matrix-initial).
 
-### 7.1.1 Repository Layout
+#### 7.1.1 Repository Layout
 
 ```
 observability-grafana/
@@ -110,7 +110,7 @@ observability-grafana/
     └── deploy.yml                      # CI: lint → test → plan → apply
 ```
 
-### 7.1.2 Toolchain
+#### 7.1.2 Toolchain
 
 | Tool | Purpose | Notes |
 |---|---|---|
@@ -121,7 +121,7 @@ observability-grafana/
 | **`promtool test rules`** | Unit-test alert rules | Required for every alert rule |
 | **`amtool`** | Test notification routing | Validates `policies/` |
 
-### 7.1.3 PR Workflow
+#### 7.1.3 PR Workflow
 
 ```
 PR opened → CI runs:
@@ -137,7 +137,7 @@ PR opened → CI runs:
 
 A **break-glass** path exists for severity-Critical incident-response dashboard fixes: a designated SRE may apply a hot-fix via grizzly direct to prod with a follow-up PR within 24 hours. The break-glass action is logged and reviewed at the next CoP ([Chapter 18. Observability Operating Model and Adoption Plan -> Section 4.1. Community of Practice](18-observability-operating-model-and-adoption-plan.md#41-community-of-practice)).
 
-### 7.1.4 Service Dashboard Template (RED)
+#### 7.1.4 Service Dashboard Template (RED)
 
 Every service inherits the same RED dashboard skeleton, parameterised by service name. Pseudocode:
 
@@ -163,7 +163,7 @@ Every service inherits the same RED dashboard skeleton, parameterised by service
 
 Service teams provide only `serviceName` and `tier`; the dashboard itself is generated. This is the single largest lever for the **dashboard self-service rate** KPI in [Chapter 18. Observability Operating Model and Adoption Plan -> Section 7.1. Adoption KPIs](18-observability-operating-model-and-adoption-plan.md#71-adoption-kpis).
 
-### 7.1.5 Drift Detection
+#### 7.1.5 Drift Detection
 
 A scheduled job exports the live Grafana state and `diff`s it against the repository. Any drift opens an issue automatically. Common causes:
 - Hot-fix without follow-up PR (break-glass).
