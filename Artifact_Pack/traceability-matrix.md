@@ -183,7 +183,7 @@ Verifier baseline at v0.1 close: **1,296 internal links / 0 broken; front-matter
 | K1 | Tamper-evident archival (WORM, Immutable Blob / Object Lock Compliance mode) + cryptographic-erasure attestation procedure and certificate template | Chapter 28, new section | Planned |
 | K2 | Master data-classification × retention × archive-tier × deletion-method × legal-basis matrix | Chapter 8, new section; cross-links to Chapter 10, Chapter 23, Chapter 28 | Planned |
 | K3 | Reference implementations directory containing IaC (Terraform / Bicep / Docker Compose), OTel Collector configurations (agent / gateway / edge profiles), and alert/recording-rule libraries (Prometheus / Loki / Tempo) | New top-level directory `reference-implementations/` inside pack repo | Planned |
-| K4 | Consolidated programme risk register at portfolio level (risk ID, description, likelihood, impact, owner, mitigation, residual, review date) | New Chapter 29 `29-observability-programme-risk-register.md` | Planned |
+| K4 | Consolidated programme risk register at portfolio level (risk ID, description, likelihood, impact, owner, mitigation, residual, review date) | New Chapter 29 `29-observability-programme-risk-register.md` | **Delivered (P3, v0.1 handover scope)** — see [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md). Quality caveat: synthesis-grade; SME validation required pre-prod (tracked as R-01 / R-08 / R-10 / R-15 within the register itself). |
 | K5 | Meta-observability ("watching the watcher") runbook — dead-man's-switch alerting, independent monitor stack, runbook for Prometheus / Alertmanager / OTel Collector outages | New section in Chapter 21 | Planned |
 
 ### D.2 P3 — High-priority gaps (H-list)
@@ -213,9 +213,9 @@ The following M-rated gaps from the expert review are absorbed by the items abov
 - O1 → subsumed by K5 (meta-observability)
 - D3 / D4 / D5 → subsumed by K3 (reference implementations)
 
-### D.4 P3 — Sequencing
+### D.4 P3 — Sequencing and scope realisation
 
-P3 begins **after** v0.1 of the pack is committed (P2 close per Section D.0). P3 itself is time-boxed to ~3–4 weeks of focused effort. Recommended start order: **K3 (reference implementations)** so the YAML prompt-registry directory referenced by Ch 06 Section 9.4 lands alongside its consuming standard; then **K4 (Chapter 29 risk register)**; then K1, K2, K5 in parallel; H-list items pulled by team capacity.
+P3 was scoped as a **handover-grade close-out** rather than full engineering delivery. The adopted P3 scope covers item **K4 (Chapter 29 risk register)** plus the supporting documentation sweep (handover-report Section 3 framing, readme maturity note, Chapter 10 Section 6.1 regulatory-mapping sub-table). Items **K1 (tamper-evident archival)**, **K2 (master classification × retention matrix)**, **K3 (reference implementations directory)**, and **K5 (meta-observability runbook)** are deferred to the engineering-implementation phase along with the H-list. Rationale and dependencies are recorded in [Handover Report -> Section 3.2 Known Gaps for Engineering Phase](handover-report.md#32-known-gaps-for-engineering-phase) and in [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md) (risks R-02, R-03, R-04, R-05, R-09, R-11, R-12, R-13, R-14).
 
 ### D.5 P3 — Deferred (out of P3 scope)
 

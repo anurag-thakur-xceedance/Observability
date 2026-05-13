@@ -179,8 +179,32 @@ The following items are P3 / implementation-phase follow-ups:
 **SME validation caveat.** Content is synthesis-grade; the following items in particular benefit from SME review before production use:
 - Ch 06 Section 9.3.3 PII regex table (illustrative patterns).
 - Ch 10 Section 6 framework mappings (SOC2 CC IDs, ISO Annex A IDs, GDPR Articles) — currently best-effort; auditor confirmation recommended.
+- Ch 10 Section 6.1 financial-services regulatory crosswalk (DORA, NAIC Model Bulletin #674, APRA CPS 234) — synthesis-grade; compliance / legal confirmation required.
 - Ch 19 Section 8 JSON Schemas — review by data-platform SME against actual producer libraries.
 - Ch 27 NFR thresholds — confirm with platform team before adoption as binding NFRs.
+- Ch 29 Observability Programme Risk Register — likelihood, impact, and residual ratings are author-assigned; risk-owner ratification required.
+
+### 3.1 Pack Maturity Framing
+
+This is a v0.1 **handover** artifact, not an engineering-ready specification. Chapter depth is intentionally asymmetric: governance, operating-model, strategy, and compliance-mapping content is more developed than reference implementations, dashboard JSON, prompt registries, and edge / RUM / SBOM patterns. The engineering phase is expected to:
+
+- Implement IaC reference modules (P3 K1) and harden the JSON Schemas (P3 K2) against producer libraries.
+- Author the AIOps prompt-registry YAML (P3 K3) and the Grafana dashboard JSON (P3 K5).
+- Validate every synthesis-grade artifact above with the named SME before binding adoption.
+- Resolve the open contradictions and gaps enumerated in Section 3.2 below.
+
+### 3.2 Known Gaps for Engineering Phase
+
+The following gaps were identified during v0.1 review and are explicitly deferred to the engineering phase. Each is mirrored as a risk in [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md):
+
+1. **WORM control contradiction (Ch 10 OBS-C-04 vs OBS-C-17 vs Ch 28).** The compliance matrix asserts WORM retention via S3 Object Lock Compliance / Azure Immutable Blob, but Ch 28 long-term archival policy does not yet specify the archival format, restore SLO, or legal-hold workflow. Resolve before any audit attestation. (Ch 29 R-04, R-09.)
+2. **Ch 27 missing NFR families.** Privacy NFRs, supply-chain / SBOM NFRs, AIOps model-drift NFRs, and edge-collection NFRs are not yet enumerated. Required before NFRs can be cited as binding in contracts or design reviews. (Ch 29 R-11.)
+3. **Vendor telemetry contracts.** No standard exists for third-party / SaaS vendor telemetry ingest (data contract, retention, PII handling, on-prem connector). Required before any vendor signal is admitted to the platform. (Ch 29 R-13.)
+4. **Reference implementations absent.** `reference-implementations/` directory is empty. IaC modules (Compose, PowerShell), AIOps prompt registry YAML, and onboarding kit scaffolding (Ch 25) need working code, not just standards text. (Ch 29 R-02, R-03.)
+5. **Grafana dashboard JSON deferred.** `dashboards/` is empty. Meta-observability dashboards (platform-on-platform), KPI dashboards (Ch 11), and SLO dashboards (Ch 24) need exportable JSON. (Ch 29 R-05.)
+6. **RUM standard absent.** No Real User Monitoring chapter exists; front-end telemetry is out of scope for v0.1. (Ch 29 R-12.)
+7. **Edge / mobile collection patterns absent.** Collector topology assumes server-side workloads; offline-first, intermittent-connectivity, and mobile-SDK patterns are not covered. (Ch 29 R-14.)
+8. **Synthesis-grade content not SME-validated.** Items listed under "SME validation caveat" above remain unratified; binding adoption blocked until owner sign-off. (Ch 29 R-01, R-08, R-10, R-15.)
 
 ---
 

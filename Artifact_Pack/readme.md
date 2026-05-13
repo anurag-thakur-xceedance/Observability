@@ -81,6 +81,8 @@ PRs against the pack MUST run `verify_links.ps1` and `verify_frontmatter.ps1` (z
 
 Open decisions, deferred items, and known gaps are tracked in the [Handover Report](handover-report.md). The [Traceability Matrix](traceability-matrix.md) provides the source-to-artifact coverage map.
 
+**Pack maturity — read before adoption.** This is a v0.1 **handover** artifact, not an engineering-ready specification. Chapter depth is intentionally asymmetric: governance, operating-model, strategy, and compliance-mapping content is more developed than reference implementations, dashboard JSON, prompt registries, and edge / RUM / SBOM patterns — those are deferred to the engineering phase. Schemas, NFR thresholds, regulatory crosswalks, and AIOps prompt scaffolding are **synthesis-grade** and require SME validation (data-platform, compliance, security, SRE) before they are used as binding artifacts. Known gaps are enumerated in the [Handover Report -> Section 3. Sections Pending](handover-report.md#3-sections-pending) and the new [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md).
+
 ---
 
 [↑ Back to TOC](toc.md)

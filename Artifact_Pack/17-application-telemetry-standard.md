@@ -53,7 +53,7 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 - `service.name`, `transaction.name`, `user.session.id` (hashed/tokenised), `journey.name`, `dependency.name`, `dependency.kind` (`db` / `cache` / `http` / `queue`), `correlation.id`.
 
 ### 4.2 Required Span Hierarchy
-- Root span per user transaction; child spans per service call and dependency call. End-to-end span coverage required for the four named journeys: **login**, **checkout**, **report-gen**, **policy-quote** (placeholder — confirm with product).
+- Root span per user transaction; child spans per service call and dependency call. End-to-end span coverage required for the four named journeys: **login**, **checkout**, **report-gen**, **policy-quote** (subject to product confirmation).
 
 ## 5. Naming Conventions
 - Metric names follow `<domain>.<entity>.<measure>.<unit>` (e.g. `app.auth.latency.ms`).

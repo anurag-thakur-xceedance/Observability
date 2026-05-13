@@ -418,6 +418,17 @@ status: Draft
 - [15. KPIs](28-observability-long-term-archival-policy.md#15-kpis)
 - [16. Cross-References](28-observability-long-term-archival-policy.md#16-cross-references)
 
+## [29. Observability Programme Risk Register](29-observability-programme-risk-register.md)
+
+- [1. Purpose](29-observability-programme-risk-register.md#1-purpose)
+- [2. Scope](29-observability-programme-risk-register.md#2-scope)
+- [3. Rating Scheme](29-observability-programme-risk-register.md#3-rating-scheme)
+- [4. Risk Register (Top Programme Risks)](29-observability-programme-risk-register.md#4-risk-register-top-programme-risks)
+- [5. Risk Categories (Reference)](29-observability-programme-risk-register.md#5-risk-categories-reference)
+- [6. Operating the Register](29-observability-programme-risk-register.md#6-operating-the-register)
+- [7. Known Limitations of v0.1](29-observability-programme-risk-register.md#7-known-limitations-of-v01)
+- [8. Cross-References](29-observability-programme-risk-register.md#8-cross-references)
+
 ## [Annexure A — Acronyms & Definitions](annexure-a-acronyms.md)
 
 

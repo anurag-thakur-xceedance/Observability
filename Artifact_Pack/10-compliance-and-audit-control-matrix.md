@@ -94,6 +94,37 @@ The framework set is selected and governed by [Chapter 15. Observability Governa
 
 **Owner discipline.** Each owner publishes evidence to the central audit-evidence repository indexed by Control ID; the governance body (Section 8) reviews exceptions and remediation timelines.
 
+### 6.1 Financial-Services and Operational-Resilience Mapping
+
+The frameworks above (SOC 2, ISO/IEC 27001, GDPR, NIST CSF) cover general-purpose information-security and privacy obligations. For regulated financial-services workloads, the following additional frameworks consume the same control evidence. Applicability is set by [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.3. Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#43-framework-selection-and-mapping); only the rows whose jurisdiction applies to the operating entity need be evidenced.
+
+| Control ID | EU DORA (Reg. 2022/2554) | NAIC Model Bulletin #674 (Insurer AI Use) | APRA CPS 234 (Information Security) |
+|---|---|---|---|
+| OBS-C-01 | Art. 9 (ICT risk management — monitoring); Art. 17 (ICT-related incident reporting) | Section 4 (Governance & Risk Management) — audit trails | Para. 23 (Incident management); Para. 36 (Audit trail) |
+| OBS-C-02 | Art. 8 (Identification — asset/config inventory); Art. 9 (Protection — change control) | Section 4.4 (Documentation of AI system changes) | Para. 27 (Change management) |
+| OBS-C-03 | Art. 9(4)(d) (Data integrity); Art. 28 (Third-party data risk where telemetry leaves jurisdiction) | Section 4.2 (Data governance — sensitive-data handling in AI inputs/outputs) | Para. 21–22 (Information asset classification) |
+| OBS-C-04 | Art. 12 (Backup and restoration — retention bounds) | Section 4.5 (Recordkeeping minimums for AI decisions) | Para. 27 (Information lifecycle) |
+| OBS-C-05 | Art. 9(2)(c) (Access management) | Section 4.3 (Access to AI systems and training data) | Para. 24 (Access management) |
+| OBS-C-06 | Art. 13 (Learning and evolving — internal audit) | Section 4.6 (Periodic AI system validation) | Para. 35 (Internal audit) |
+| OBS-C-07 | Art. 5 (Governance — board reporting); Art. 17–19 (Incident reporting cadence) | Section 4.7 (Reporting to senior leadership and regulators) | Para. 13 (Board oversight reporting) |
+| OBS-C-08 | Art. 12 (Backup integrity — deletion verification) | Section 4.5 (Recordkeeping integrity) | Para. 27 (Information lifecycle) |
+| OBS-C-09 | Art. 8 (Asset onboarding readiness) | Section 4.4 (Pre-deployment AI system review) | Para. 23 (Information-security capability) |
+| OBS-C-10 | Art. 11 (Operational continuity — capacity) | — | Para. 30 (Capacity and performance) |
+| OBS-C-11 | Art. 9(4)(a) (Cryptography and key management) | Section 4.3 (Secure transmission of AI data) | Para. 25 (Information-security controls — cryptography) |
+| OBS-C-12 | Art. 28 (Third-party / tenant risk); Art. 9 (Logical segregation) | Section 4.3 (Tenant separation in shared AI platforms) | Para. 25 (Segregation); Para. 36(c) (Third-party assurance) |
+| OBS-C-13 | Art. 11 (Response and recovery); Art. 24–27 (Digital operational resilience testing — TLPT and scenario testing) | Section 4.8 (Continuity for AI services) | Para. 32 (Testing of controls); Para. 33 (Incident response) |
+| OBS-C-14 | Art. 9 (Protection of ICT systems supporting AI); Art. 17 (Incident reporting where AI failure is material) | **Sections 4.1–4.7 (Entire AI governance lifecycle — primary mapping)** | Para. 23 (Capability commensurate with information-asset criticality) |
+| OBS-C-15 | Art. 28 (ICT third-party risk — supply chain) | Section 4.4 (Third-party AI component disclosure) | Para. 36 (Third-party information-security assurance) |
+| OBS-C-16 | Art. 9 (Protection — secure development) | Section 4.4 (AI-component vulnerability management) | Para. 25 (Vulnerability management) |
+| OBS-C-17 | Art. 11–12 (Recovery and backup verification) | Section 4.8 (Restoration of AI services and training data) | Para. 32 (Testing); Para. 33 (Incident response) |
+
+**Jurisdictional applicability.**
+- **EU DORA** applies to in-scope EU financial entities and their critical ICT third-party providers from 17 January 2025; observability evidence supports Articles 5–14 (ICT risk management framework) and 17–23 (incident reporting and resilience testing).
+- **NAIC Model Bulletin #674** applies in US states that adopt it (adoption is state-by-state). Where adopted, every AIOps capability in [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) that influences underwriting, claims, or consumer-facing decisions is in scope and OBS-C-14 is the primary control.
+- **APRA CPS 234** applies to APRA-regulated entities (banks, insurers, superannuation funds in Australia) and their related parties; observability evidence supports the information-security capability, incident notification, and third-party assurance requirements.
+
+**Limitation.** This mapping is synthesis-grade and reflects the published text of each framework. It has **not** been validated by external counsel or the entity's compliance function. Before relying on it for a regulatory submission, the governance body (Section 8) must commission an SME review per [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md) risk R-09.
+
 ## 7. Audit-Evidence Catalogue
 
 This catalogue is the bridge between Section 5 controls and the systems that produce their evidence. It tells an auditor exactly **where** each artefact lives, **what format** it takes, and **how long** it is retained — without which "evidence" is a verbal claim. Paths under `audit-evidence/` are S3/Azure Blob prefixes in the WORM evidence bucket established in [Chapter 23. Observability Platform Security Architecture -> Section 5. Audit Trail](23-observability-platform-security-architecture.md#5-audit-trail).
