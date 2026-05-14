@@ -37,6 +37,8 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 ### 3.1 Required Trace Attributes (Pre-Login)
 - `service.name`, `auth.provider`, `auth.method` (`password` / `mfa` / `sso`), `auth.outcome` (`success` / `failure` / `mfa_required`), `gateway.route`, `client.region`, `correlation.id`.
 
+**Correlation initiation (mandatory).** The W3C Trace Context `traceparent` header MUST be created at the first Azure ingress hop (Azure Front Door, Application Gateway, or API Management — whichever is outermost) and propagated through every downstream service, message, and async hand-off. Application services MUST NOT regenerate `traceparent`; they extract `trace_id` / `span_id` from the inbound header and attach them to every emitted span, log line, and metric exemplar. Pre-login flows that bypass authenticated APIM policies still inherit `traceparent` from Front Door / App Gateway. See [Chapter 1, Section 3.1 — Required Resource Attributes (every signal)](01-enterprise-observability-standards-catalog.md#31-required-resource-attributes-every-signal) for the edge-injection contract.
+
 ### 3.2 Required Log Fields
 - `timestamp`, `level`, `service.name`, `auth.outcome`, `error.code`, `correlation.id`. **No PII** (see [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)).
 
