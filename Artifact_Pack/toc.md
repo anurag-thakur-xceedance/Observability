@@ -45,8 +45,7 @@ status: Draft
 - [10. Grafana Visualization Layer Standards](01-enterprise-observability-standards-catalog.md#10-grafana-visualization-layer-standards)
 - [11. AI-Driven Telemetry Standards](01-enterprise-observability-standards-catalog.md#11-ai-driven-telemetry-standards)
 - [12. Calibration Guidance](01-enterprise-observability-standards-catalog.md#12-calibration-guidance)
-- [13. Glossary](01-enterprise-observability-standards-catalog.md#13-glossary)
-- [14. Cross-References](01-enterprise-observability-standards-catalog.md#14-cross-references)
+- [13. Cross-References](01-enterprise-observability-standards-catalog.md#13-cross-references)
 
 ## [2. Observability Reference Architecture](02-observability-reference-architecture.md)
 

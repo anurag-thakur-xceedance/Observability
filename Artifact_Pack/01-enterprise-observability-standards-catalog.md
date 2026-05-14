@@ -237,11 +237,7 @@ Targets: false-positive rate < 5%, detection latency < 2 min from anomaly onset,
 ## 12. Calibration Guidance
 Safe baselines. After several weeks of telemetry, calibrate so **Warning ≈ 95th percentile of normal behaviour** and **Critical ≈ user impact or SLA breach**.
 
-## 13. Glossary
-
-Acronyms used in this chapter (MTTD, MTTR, SLO, SLA, RPO, RTO, CSAT) are defined in [Annexure A. Acronyms and Abbreviations](annexure-a-acronyms.md). Conceptual terms are defined in [Annexure B. Concepts Glossary](annexure-b-concepts-glossary.md).
-
-## 14. Cross-References
+## 13. Cross-References
 - [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
 - [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
 - [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md): How standards render in Grafana dashboards.
