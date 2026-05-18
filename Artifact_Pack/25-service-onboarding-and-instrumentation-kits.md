@@ -113,7 +113,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 ### 3.8 Legacy / Unmodifiable Service (eBPF Kit)
 - **Beyla** (or equivalent eBPF auto-instrumentation) for HTTP/gRPC visibility without code changes.
 - Useful for vendor-supplied or legacy components where SDK adoption isn't possible.
-- See [Chapter 2 Section 4.1. Auto-Instrumentation via eBPF](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf).
+- See [Chapter 2 Section 4.1. eBPF for Legacy and Non-Intrusive Instrumentation](02-observability-reference-architecture.md#41-ebpf-for-legacy-and-non-intrusive-instrumentation).
 
 ## 4. Role-Based Training
 

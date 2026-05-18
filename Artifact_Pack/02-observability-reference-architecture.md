@@ -31,21 +31,66 @@ status: Draft
 
 ## 2. High-Level Architecture (Logical View)
 
-```
-[ Services / Apps / Hosts / Containers ]
-        │ (OpenTelemetry SDK / Node Exporter / cAdvisor / DB exporters)
-        ▼
-[ OpenTelemetry Collector ]   ← universal telemetry gateway (receive, process, enrich, export)
-        │
-        ├──► Prometheus  (Metrics)
-        ├──► Loki        (Logs)
-        ├──► Tempo       (Traces)
-        │
-        ▼
-[ Grafana ]                   ← dashboards, exploration, alerting (single pane of glass)
-        │
-        ▼
-[ Agentic AI Layer ]          ← consumes telemetry APIs for RCA, anomaly detection, ticketing
+<img src="assets/diagrams/observability-pipeline-architecture.jpg" alt="Observability pipeline architecture showing applications and infrastructure telemetry flowing through the OpenTelemetry SDK and Collector into Prometheus, Loki, and Tempo, then into the Grafana observability layer, alerting, AI observability actions, root cause analysis, and incident management." width="1100">
+
+```mermaid
+flowchart LR
+    APP[Applications] --> SDK[OpenTelemetry SDK]
+
+    subgraph INPUTS[Inputs]
+        INFRA[Infrastructure Metrics]
+        NET[Network Telemetry]
+        DB[Database Telemetry]
+        K8S[Kubernetes / VM Telemetry]
+    end
+
+    subgraph STORAGE[Storage]
+        COL[OpenTelemetry Collector]
+        PROM[Prometheus]
+        LOKI[Loki]
+        TEMPO[Tempo]
+    end
+
+    subgraph VIZ[Visualization]
+        GRAF[Grafana Observability Layer]
+        DASH[Dashboards]
+        ALERT[Alerting Engine]
+    end
+
+    subgraph ACT[Actions]
+        AI[AI Observability Agent]
+        RCA[Initial Root Cause Analysis]
+        TICKET[Automated Ticket Creation]
+    end
+
+    INC[Incident Management System]
+
+    SDK --> COL
+    INFRA --> COL
+    NET --> COL
+    DB --> COL
+    K8S --> COL
+
+    COL --> PROM
+    COL --> LOKI
+    COL --> TEMPO
+
+    PROM --> GRAF
+    LOKI --> GRAF
+    TEMPO --> GRAF
+
+    GRAF --> DASH
+    GRAF --> ALERT
+    GRAF --> AI
+
+    ALERT --> AI
+    AI --> RCA
+    AI --> TICKET
+    RCA --> INC
+
+    classDef box fill:#eaf2ff,stroke:#4a7bd1,color:#111,stroke-width:1px
+    classDef group fill:#fff,stroke:#bbb,color:#111,stroke-width:1px
+    class APP,SDK,INFRA,NET,DB,K8S,COL,PROM,LOKI,TEMPO,GRAF,DASH,ALERT,AI,RCA,TICKET,INC box
 ```
 
 The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a **Docker Compose** project, provisioned and managed by **PowerShell** scripts. See [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md).
@@ -92,7 +137,7 @@ The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a
 
 All components are open-source or vendor-neutral; commercial choices (paging, IdP, Vault) are pluggable per [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md).
 
-### 4.1. Auto-Instrumentation via eBPF
+### 4.1. eBPF for Legacy and Non-Intrusive Instrumentation
 For legacy services, vendor-supplied components, or any workload where code-level instrumentation is impractical, eBPF-based auto-instrumentation (e.g., Grafana **Beyla**, or Cilium Tetragon for security signals) provides language-agnostic visibility into HTTP, gRPC, and SQL traffic at the kernel level.
 
 **Decision:** Beyla is recommended as a complementary layer beside the OpenTelemetry SDK kits in [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) — formalised in **ADR-012** in [Chapter 16](16-observability-adr-decision-register.md).
@@ -126,35 +171,6 @@ A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling)
 | Traces (head-based, baseline) | `parentbased_traceidratio` at SDK | T1 10%, T2 5%, T3 1%, T4 0.1% | Decision propagates with `traceparent`; lightweight |
 | Traces (tail-based, gateway) | Tail sampling at gateway Collector | 100% of errors + 100% of slow (> P95) + N% of normal | Captures the interesting traces; downsamples the rest |
 
-**Tail-Sampling Policy (gateway OTel Collector):**
-```yaml
-processors:
-  tail_sampling:
-    decision_wait: 10s
-    num_traces: 100000
-    expected_new_traces_per_sec: 1000
-    policies:
-      - name: errors
-        type: status_code
-        status_code: { status_codes: [ERROR] }
-      - name: slow_requests
-        type: latency
-        latency: { threshold_ms: 800 }
-      - name: t1_services_baseline
-        type: and
-        and:
-          and_sub_policy:
-            - name: tier_t1
-              type: string_attribute
-              string_attribute: { key: tier, values: [T1] }
-            - name: probabilistic_10
-              type: probabilistic
-              probabilistic: { sampling_percentage: 10 }
-      - name: default
-        type: probabilistic
-        probabilistic: { sampling_percentage: 1 }
-```
-
 **Decision** formalised in **ADR-013**.
 
 ## 6. Host-Portable Deployment Design
@@ -174,17 +190,17 @@ The same Docker Compose definition runs in every environment (development, test,
 
 ### 6.1. Network Topology and Trust Boundaries
 ```
-┌─────────────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────────────┐
 │  Service / Customer Network Zone                                     │
-│  ┌──────────┐   ┌──────────┐   ┌──────────┐                         │
-│  │ Service  │   │ Service  │   │ Service  │   (instrumented w/ SDK) │
-│  └────┬─────┘   └────┬─────┘   └────┬─────┘                         │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐                          │
+│  │ Service  │   │ Service  │   │ Service  │   (instrumented w/ SDK)  │
+│  └────┬─────┘   └────┬─────┘   └────┬─────┘                          │
 │       │ OTLP/mTLS    │              │                                │
 │       └──────────────┴──────────────┘                                │
 │                      │                                               │
-│  ┌───────────────────▼──────────────────┐                           │
+│  ┌───────────────────▼──────────────────┐                            │
 │  │  Edge OTel Collector  (per host)     │  ← attribute enrich, redact│
-│  └───────────────────┬──────────────────┘                           │
+│  └───────────────────┬──────────────────┘                            │
 └──────────────────────┼───────────────────────────────────────────────┘
                        │ TLS 1.3 + bearer token
                        │ ─── trust boundary ───
@@ -192,14 +208,14 @@ The same Docker Compose definition runs in every environment (development, test,
 │  Observability Platform Zone (DMZ-like)                              │
 │  ┌─────────────────────────────────────┐                             │
 │  │  Gateway OTel Collector (HA pair)   │  ← tenant injection, tail   │
-│  │                                     │     sampling, redaction      │
+│  │                                     │     sampling, redaction     │
 │  └────────┬────────────────────────────┘                             │
 │           │                                                          │
 │  ┌────────▼─────┐ ┌─────────┐ ┌───────┐ ┌──────────┐                 │
 │  │  Prometheus  │ │  Loki   │ │ Tempo │ │ Pyroscope│                 │
 │  └────────┬─────┘ └────┬────┘ └───┬───┘ └────┬─────┘                 │
-│           │            │          │           │                      │
-│  ┌────────▼────────────▼──────────▼───────────▼─────┐                │
+│           │            │          │          │                       │
+│  ┌────────▼────────────▼──────────▼──────────▼──────┐                │
 │  │  Grafana (HA pair)  +  Alertmanager (3-cluster)  │                │
 │  └────────┬─────────────────────────────────────────┘                │
 └───────────┼──────────────────────────────────────────────────────────┘
@@ -227,87 +243,13 @@ Detailed control catalogue in [Chapter 23. Observability Platform Security Archi
 - **Gateway Collector (HA, central):** authenticate, inject authoritative tenant ID, apply tail-sampling for traces, route per signal type to backends.
 - **Backends:** durable storage and query.
 
-### 7.2 Edge Collector Reference Config (Excerpt)
-```yaml
-receivers:
-  otlp:
-    protocols:
-      grpc: { endpoint: 0.0.0.0:4317, tls: { cert_file: /etc/otel/tls.crt, key_file: /etc/otel/tls.key } }
-      http: { endpoint: 0.0.0.0:4318 }
-  hostmetrics:
-    collection_interval: 30s
-    scrapers: [cpu, memory, disk, network, filesystem, load, processes]
-  filelog:
-    include: [/var/log/app/*.json]
-    operators:
-      - type: json_parser
-        timestamp: { parse_from: attributes.ts, layout: '%Y-%m-%dT%H:%M:%S.%fZ' }
-processors:
-  memory_limiter: { check_interval: 1s, limit_percentage: 80, spike_limit_percentage: 25 }
-  resourcedetection: { detectors: [env, system, docker], timeout: 2s }
-  resource:
-    attributes:
-      - { key: deployment.environment, value: ${ENV},               action: upsert }
-      - { key: tier,                   value: ${SERVICE_TIER},      action: upsert }
-      - { key: team,                   value: ${TEAM},              action: upsert }
-  attributes/redact:
-    actions:
-      - key: http.url
-        action: update
-        regex_replace: { pattern: '([?&])(token|api_key|password)=[^&]*', replace: '$1$2=***' }
-      - key: user.email
-        action: hash
-  batch: { timeout: 5s, send_batch_size: 10000 }
-  file_storage: { directory: /var/lib/otel/queue, timeout: 1s }
-exporters:
-  otlp/gateway:
-    endpoint: gateway.obs.internal:4317
-    tls: { insecure: false, ca_file: /etc/otel/ca.crt }
-    headers: { authorization: 'Bearer ${OTEL_TOKEN}' }
-    sending_queue: { enabled: true, num_consumers: 4, queue_size: 5000, storage: file_storage }
-    retry_on_failure: { enabled: true, initial_interval: 5s, max_interval: 60s, max_elapsed_time: 600s }
-service:
-  extensions: [file_storage]
-  pipelines:
-    metrics: { receivers: [otlp, hostmetrics], processors: [memory_limiter, resourcedetection, resource, batch], exporters: [otlp/gateway] }
-    logs:    { receivers: [otlp, filelog],    processors: [memory_limiter, resourcedetection, resource, attributes/redact, batch], exporters: [otlp/gateway] }
-    traces:  { receivers: [otlp],             processors: [memory_limiter, resourcedetection, resource, attributes/redact, batch], exporters: [otlp/gateway] }
-```
-
-### 7.3 Gateway Collector Reference Config (Excerpt)
-```yaml
-receivers:
-  otlp:
-    protocols:
-      grpc: { endpoint: 0.0.0.0:4317, auth: { authenticator: bearertokenauth/ingest } }
-extensions:
-  bearertokenauth/ingest: { tokens_file: /etc/otel/tenants.tokens.yml }
-processors:
-  tail_sampling: { ... see Section 5.1. Sampling Strategy ... }
-  attributes/tenant:
-    actions:
-      - { key: tenant_id, action: upsert, from_attribute: auth.tenant }
-  resource:
-    attributes:
-      - { key: cluster, value: gateway-eu-west-1, action: upsert }
-exporters:
-  prometheusremotewrite: { endpoint: http://prometheus:9090/api/v1/write }
-  loki:                  { endpoint: http://loki:3100/loki/api/v1/push, headers: { X-Scope-OrgID: '${tenant_id}' } }
-  otlp/tempo:            { endpoint: tempo:4317, tls: { insecure: true } }
-service:
-  pipelines:
-    metrics: { receivers: [otlp], processors: [memory_limiter, attributes/tenant, batch], exporters: [prometheusremotewrite] }
-    logs:    { receivers: [otlp], processors: [memory_limiter, attributes/tenant, batch], exporters: [loki] }
-    traces:  { receivers: [otlp], processors: [memory_limiter, attributes/tenant, tail_sampling, batch], exporters: [otlp/tempo] }
-```
-
-### 7.4 Backpressure and Reliability
+### 7.2 Backpressure and Reliability
 - `memory_limiter` aborts ingestion when memory exceeds 80% — prevents OOM.
 - `sending_queue` with `file_storage` persists telemetry across collector restarts.
 - `retry_on_failure` with exponential backoff handles transient backend outages.
 - **`otelcol_processor_dropped_spans`** is a meta-monitor alert (see [Chapter 21 Section 7. Self-Monitoring](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor)).
 
-### 7.5 Schema Validation and Cardinality Controls
+### 7.3 Schema Validation and Cardinality Controls
 - Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance).
 - Required-attribute enforcement: `attributes/required` processor pattern rejects telemetry missing any of `service.name`, `tier`, `tenant_id`.
 - Recording rules in Prometheus / Mimir track per-service active-series count.

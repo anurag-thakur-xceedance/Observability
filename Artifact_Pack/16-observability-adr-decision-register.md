@@ -38,7 +38,7 @@ Formal Architecture Decision Records (ADRs) for significant observability decisi
 | ADR-009 | Service Tiering Model (T1–T4) with per-tier policy deltas | Proposed | [Chapter 1 Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model) |
 | ADR-010 | Cardinality Budget (per-service, enforced at SDK + collector + backend) | Proposed | [Chapter 1 Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance) |
 | ADR-011 | Multi-tenant data-isolation model with gateway-injected `tenant_id` | Proposed | [Chapter 26 Section 3. Tenant Labelling Enforcement](26-multi-tenant-and-customer-site-deployment-model.md#3-tenant-labelling-enforcement) |
-| ADR-012 | Auto-instrumentation via eBPF (Beyla) for legacy / unmodifiable services | Proposed | [Chapter 2 Section 4.1. Auto-Instrumentation via eBPF](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf) |
+| ADR-012 | Auto-instrumentation via eBPF (Beyla) for legacy / unmodifiable services | Proposed | [Chapter 2 Section 4.1. eBPF for Legacy and Non-Intrusive Instrumentation](02-observability-reference-architecture.md#41-ebpf-for-legacy-and-non-intrusive-instrumentation) |
 | ADR-013 | Tail-based sampling at gateway with 100%-error retention | Proposed | [Chapter 2 Section 5.1. Sampling Strategy](02-observability-reference-architecture.md#51-sampling-strategy) |
 | ADR-014 | HA topology: Prometheus pair, Alertmanager 3-cluster, Loki/Tempo + object storage, Grafana × 2 with external Postgres | Proposed | [Chapter 21 Section 3. Reference HA Topology](21-observability-platform-ha-and-dr-design.md#3-reference-ha-topology-compose-single-region) |
 | ADR-015 | Compliance framework adoption: SOC 2 Type II + ISO 27001 + GDPR baseline (DORA where applicable) | Proposed | [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) |
@@ -436,7 +436,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: Platform Lead
 - **Supersedes**: —
-- **Related**: [Chapter 2 -> Section 4.1](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf)
+- **Related**: [Chapter 2 -> Section 4.1](02-observability-reference-architecture.md#41-ebpf-for-legacy-and-non-intrusive-instrumentation)
 
 **Context.** Some services cannot be re-instrumented (vendor-supplied, frozen-binary, regulatory-frozen). Without telemetry they remain dark.
 

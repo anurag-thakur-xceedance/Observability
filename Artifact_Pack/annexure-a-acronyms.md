@@ -43,7 +43,7 @@ status: Draft
 | DNS | Domain Name System | Name-resolution service; failure rate is a network telemetry signal. |
 | DORA | Digital Operational Resilience Act | EU financial-sector regulation; emerging compliance driver. |
 | DR | Disaster Recovery | Architecture pattern; covered in [Chapter 21](21-observability-platform-ha-and-dr-design.md). |
-| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 2. Observability Reference Architecture -> Section 4.1. Auto-Instrumentation via eBPF](02-observability-reference-architecture.md#41-auto-instrumentation-via-ebpf). |
+| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 2. Observability Reference Architecture -> Section 4.1. eBPF for Legacy and Non-Intrusive Instrumentation](02-observability-reference-architecture.md#41-ebpf-for-legacy-and-non-intrusive-instrumentation). |
 | EKS | Elastic Kubernetes Service | AWS's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
 | ERD | Entity-Relationship Diagram | Data-model diagram pending in [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md). |
 | FaaS | Function as a Service | Serverless runtime; cold-start latency target < 300 ms. |
