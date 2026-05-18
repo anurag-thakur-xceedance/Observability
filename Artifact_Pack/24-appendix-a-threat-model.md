@@ -52,7 +52,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | Threat | Description | Primary Mitigation | Mitigation Reference | Residual |
 |---|---|---|---|---|
 | **S**poofing | Rogue process emits telemetry impersonating a real service | Service identity via mTLS + workload identity | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md), NFR-SEC-01 | L |
-| **T**ampering | Local agent config altered to emit false metrics | Config in Git only; drift detection | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md), NFR-CFG-01 | L |
+| **T**ampering | Local agent config altered to emit false metrics | Config in Git only; drift detection | [8. IaC for Observability Standard](08-iac-for-observability-standard.md), NFR-CFG-01 | L |
 | **R**epudiation | Service denies emitting a problematic event | Signed telemetry origin (resource attributes); audit trail | [18. Application Telemetry Standard](18-application-telemetry-standard.md) | L |
 | **I**nfo disclosure | PII leaks through unredacted log fields | PII redaction at source; pre-flight linter | [Chapter 18. Application Telemetry Standard -> Section 18.6 PII & Data Classification](18-application-telemetry-standard.md#186-pii-data-classification), NFR-PRV-01 | M |
 | **D**oS | Misbehaving SDK floods collector | Rate-limiting per service; cardinality budget | [Chapter 23. Capacity and Scale Model -> Section 23.8 Cardinality Budget](23-capacity-and-scale-model.md#238-cardinality-budget), NFR-CAP-01 | L |
@@ -63,7 +63,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
 | **S** | Spoofed collector endpoint accepts traffic | mTLS server + client auth; DNS pinning | NFR-SEC-01 | L |
-| **T** | Tail-sampling rules altered to drop evidence | Config in Git; signed deploys | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) | L |
+| **T** | Tail-sampling rules altered to drop evidence | Config in Git; signed deploys | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) | L |
 | **R** | Origin of dropped telemetry disputed | Drop-rate metrics + sampler decisions logged | [3. Observability Reference Architecture](03-observability-reference-architecture.md) | M |
 | **I** | Tenant-mixing in multi-tenant collector | Tenant attribution processor; isolation testing | [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md), NFR-MUL-01 | M |
 | **D** | Volumetric DoS at ingress | Network ACL; per-tenant rate-limit; backpressure | [23. Capacity and Scale Model](23-capacity-and-scale-model.md), NFR-CAP-02 | M |
@@ -106,12 +106,12 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
-| **S** | Malicious commit by impersonator | Signed commits; required reviewers | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) | L |
+| **S** | Malicious commit by impersonator | Signed commits; required reviewers | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) | L |
 | **T** | CI runner image tampered | Pinned image digests; SBOM verified | NFR-MNT-01 | L |
 | **R** | Deploy actor unknown | Pipeline run logs immutable; identity required for approval | NFR-AUD-01 | L |
 | **I** | Secrets leak via build logs | Secret-scanning in CI; centralised vault | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 | **D** | Pipeline saturated by junk PRs | Concurrency caps; abuse detection | — | L |
-| **E** | Compromised runner → prod access | Ephemeral runners; OIDC short-lived creds | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) | M |
+| **E** | Compromised runner → prod access | Ephemeral runners; OIDC short-lived creds | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) | M |
 
 ### 24A.4.7 C9 — Archive Store (Long-Term)
 

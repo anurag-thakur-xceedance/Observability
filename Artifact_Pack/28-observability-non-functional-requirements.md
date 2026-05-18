@@ -48,7 +48,7 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-SEC-01 | Security | All telemetry encrypted in transit | mTLS 1.3 between collector and backend | Network policy audit | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
 | NFR-SEC-02 | Security | All telemetry encrypted at rest | AES-256 (provider-default or CMK) | Storage config audit | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
 | NFR-SEC-03 | Security | RBAC enforced on every dashboard, alert rule, and data source | 100% coverage | Quarterly access review | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
-| NFR-SEC-04 | Security | Critical-vulnerability remediation | ≤ 7 days from disclosure | CVE scanner output | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
+| NFR-SEC-04 | Security | Critical-vulnerability remediation | ≤ 7 days from disclosure | CVE scanner output | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | NFR-SEC-05 | Security | Threat-model coverage | Refreshed annually or on major change | ARB minutes | [24 Appendix A. Threat Model (STRIDE)](24-appendix-a-threat-model.md) |
 | NFR-PRV-01 | Privacy | PII redaction at source | 100% of regulated fields | Pre-flight log linter | [Chapter 18. Application Telemetry Standard -> Section 18.6 PII & Data Classification](18-application-telemetry-standard.md#186-pii-data-classification) |
 | NFR-PRV-02 | Privacy | DPIA performed for any new telemetry containing personal data | Mandatory pre-go-live | DPIA register | [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
@@ -56,7 +56,7 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-CMP-01 | Compliance | SOC 2 Type II control coverage | All in-scope CC controls mapped | Control matrix evidence | [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) |
 | NFR-CMP-02 | Compliance | ISO 27001 Annex A control coverage | All in-scope clauses mapped | Control matrix evidence | [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) |
 | NFR-CMP-03 | Compliance | Audit-log immutability | Write-once for ≥ 1 year | Storage policy audit | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
-| NFR-MNT-01 | Maintainability | Platform dependency upgrade SLA | ≤ 90 days from upstream GA | Dependency-bot reports | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
+| NFR-MNT-01 | Maintainability | Platform dependency upgrade SLA | ≤ 90 days from upstream GA | Dependency-bot reports | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | NFR-MNT-02 | Maintainability | Mean change-implementation lead time | ≤ 5 working days | Git → prod telemetry | DORA Four Keys |
 | NFR-MNT-03 | Maintainability | Change failure rate | ≤ 15% | Platform incident log | DORA Four Keys |
 | NFR-MNT-04 | Maintainability | Technical-debt KPI | Tracked, reviewed quarterly | Debt register | [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) |
@@ -77,9 +77,9 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-OPR-01 | Operability | Toil budget for platform team | ≤ 50% of team time | Weekly time-tracking | [19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) |
 | NFR-OPR-02 | Operability | On-call rotation fairness | Max 1 week-in-4 per engineer | Roster export | [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
 | NFR-SUP-01 | Supportability | Vendor escalation contact list maintained | Reviewed quarterly | Vendor register | [19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) |
-| NFR-SUP-02 | Supportability | OSS dependency support tier | Critical components on commercial support OR named OSS maintainer contact | Dependency register | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
+| NFR-SUP-02 | Supportability | OSS dependency support tier | Critical components on commercial support OR named OSS maintainer contact | Dependency register | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | NFR-TST-01 | Testability | Synthetic probes for every Tier-1 user journey | 100% coverage | Synthetic-monitoring dashboard | [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) |
-| NFR-TST-02 | Testability | Alert-rule unit tests | Mandatory before merge | CI pipeline | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
+| NFR-TST-02 | Testability | Alert-rule unit tests | Mandatory before merge | CI pipeline | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | NFR-TST-03 | Testability | Dashboard regression test on Grafana version upgrade | Mandatory pre-prod | CI pipeline | [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) |
 | NFR-AUD-01 | Auditability | All platform admin actions logged immutably | 100% | Audit log review | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
 | NFR-AUD-02 | Auditability | ADR record for every architectural decision | Mandatory | ADR register | [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) |
@@ -90,9 +90,9 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-THR-01 | Throughput | Ingest throughput per collector | ≥ 50 k spans/s, ≥ 100 k log lines/s baseline | Load-test artefact | [23. Capacity and Scale Model](23-capacity-and-scale-model.md) |
 | NFR-INT-04 | Integrity | Telemetry tamper-evidence | Audit-trail signing on Sev1–Sev2 evidence | Signing pipeline | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
 | NFR-MUL-01 | Multi-tenancy | Tenant data isolation | Enforced at namespace + RBAC + storage prefix | Penetration test | [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) |
-| NFR-CFG-01 | Configurability | All config in Git | 100%; no hand-edits in production | Drift detector | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
-| NFR-DPL-01 | Deployability | Mean deployment duration | ≤ 30 min for full-stack refresh | Deployment metrics | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
-| NFR-DPL-02 | Deployability | Rollback time | ≤ 15 min | Deployment runbook | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
+| NFR-CFG-01 | Configurability | All config in Git | 100%; no hand-edits in production | Drift detector | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
+| NFR-DPL-01 | Deployability | Mean deployment duration | ≤ 30 min for full-stack refresh | Deployment metrics | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
+| NFR-DPL-02 | Deployability | Rollback time | ≤ 15 min | Deployment runbook | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 
 ## 28.4 Verification Methods (Per NFR)
 

@@ -21,9 +21,9 @@ status: Draft
 - **Centralised Data Collection.** All telemetry consolidated in a unified platform to break down silos and enable cross-pillar correlation.
 - **Open Standards.** Vendor-neutral instrumentation (OpenTelemetry) to avoid lock-in and simplify integration.
 - **Tool Selection.** Grafana selected as primary visualization and alerting tool based on scalability, ease of use, and cost.
-- **Host-Portable Delivery.** Same Docker Compose definition runs on any Linux/Windows host with Docker Engine — on-prem, customer site, or cloud VM.
+- **Containerized Delivery.** The observability platform is delivered as containerized services, with implementation chosen per environment (for example Kubernetes, Docker Compose, or equivalent platform-managed container deployment).
 - **Single Pane of Glass.** Unified view across infra, application, and business layers.
-- **Reproducible Deployment.** PowerShell-driven IaC with version-controlled Compose files, configs, dashboards, and alert rules.
+- **Reproducible Deployment.** IaC and deployment automation are version-controlled, repeatable, and environment-aware, with platform-specific configuration, dashboards, and alert rules managed as code.
 - **Deployment-Model Awareness.** Universal observability — consistent logs + metrics + traces + events across all runtimes — is implemented in a model-aware manner, not one-size-fits-all. Deployment topology (on-prem, customer site, cloud VM) directly shapes what can be instrumented, the context that can be captured, and where telemetry can be stored or processed; trace continuity, data ownership, and cost control follow from those choices.
 - **Application / Infrastructure Convergence.** Application-stack tooling has been pre-selected and the infrastructure stack is broadly guided by Azure-native capabilities; this architecture brings application and infrastructure insights together into a single pane of glass within those constraints.
 
@@ -91,7 +91,7 @@ flowchart LR
     class APP,SDK,INFRA,NET,DB,K8S,COL,PROM,LOKI,TEMPO,GRAF,DASH,ALERT,AI,RCA,TICKET,INC box
 ```
 
-The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a **Docker Compose** project, provisioned and managed by **PowerShell** scripts. See [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md).
+The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is deployed as a **containerized observability stack**. Exact deployment tooling is environment-specific and may use Kubernetes, Docker Compose, or equivalent orchestration and automation patterns. See [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 
 ## 3.3 Core Concepts
 
@@ -103,8 +103,8 @@ The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a
 | Tempo | Stores distributed traces; provides end-to-end visibility into request flows and dependencies. |
 | Grafana | Dashboards, exploration views, and visual analytics across metrics, logs, and traces. |
 | Agentic AI Layer | Consumes telemetry via APIs from Prometheus/Loki/Tempo to perform automated RCA, anomaly detection, and enriched incident-ticket generation. |
-| Docker Compose | Declarative deployment unit for the observability stack — one Compose project per environment. |
-| PowerShell | Orchestrator and IaC layer: provisions hosts, renders configs, runs `docker compose` lifecycle, validates health, emits deployment telemetry. |
+| Container Orchestrator / Runtime | Deployment substrate for the observability stack — Kubernetes, Docker Compose, or equivalent environment-standard runtime. |
+| IaC / Automation Layer | Provisions environments, renders configs, applies deployments, validates health, and emits deployment telemetry. |
 
 ## 3.4 Core Open-Source Stack
 
@@ -171,20 +171,20 @@ A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling)
 
 **Decision** formalised in **ADR-013**.
 
-## 3.6 Host-Portable Deployment Design
-The same Docker Compose definition runs in every environment (development, test, staging, production; on-prem, customer-hosted, or cloud VM). The model deliberately avoids any single cloud's container-orchestration platform.
+## 3.6 Containerized Deployment Design
+The observability stack runs as containerized services in every environment (development, test, staging, production; on-prem, customer-hosted, cloud VM, or managed cluster). The design is deployment-model aware rather than tied to one runtime or one cloud-specific platform.
 
 **Advantages:**
 - **Centralized Dashboards.** Unified Grafana view regardless of where the stack runs.
 - **Unified Telemetry Schema.** Same metric names, labels, log fields, trace attributes everywhere.
 - **Cross-Host Incident Visibility.** Incidents that span hosts / sites remain visible in a single context.
-- **Low Operational Surface.** No control plane to operate beyond Docker Engine itself.
+- **Operational Flexibility.** Teams can use the container orchestration layer that fits their environment while preserving the same observability standards and telemetry contracts.
 
-**Design constraints (see [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) for KPIs):**
-- **Cross-host config parity ≥ 95%** between hosts of the same tier.
-- **Image / Compose version alignment 100%** within a tier.
+**Design constraints (see [8. IaC for Observability Standard](08-iac-for-observability-standard.md) for KPIs):**
+- **Cross-environment config parity ≥ 95%** between deployments of the same tier.
+- **Image / deployment-version alignment 100%** within a tier.
 - **Health-check pass rate 100%** post-deployment.
-- All deployment is reproducible from Git via PowerShell scripts.
+- All deployment is reproducible from Git via approved automation.
 
 ### 3.6.1 Network Topology and Trust Boundaries
 ```
@@ -255,7 +255,7 @@ Detailed control catalogue in [24. Observability Platform Security Architecture]
 ## 3.8 Cross-References
 - [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
 - [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana platform standards and dashboard playbook.
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — Docker Compose + PowerShell deployment standard.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment and automation standard.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data lifecycle and retention applied to backends.
 - [20. Observability Data Model Specification](20-observability-data-model-specification.md) — formal data model for entities/relationships across pillars.
 - [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — HA topology overlaid on this architecture.

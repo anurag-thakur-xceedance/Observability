@@ -28,8 +28,8 @@ Formal Architecture Decision Records (ADRs) for significant observability decisi
 | ADR-001 | Adopt OpenTelemetry as universal telemetry standard | Implicit (in strategy) → ratify | Strategy section "Build the Technical Foundation" |
 | ADR-002 | Select Grafana as primary visualization & alerting tool | Implicit → ratify | Strategy section "Build the Technical Foundation" |
 | ADR-003 | Use Prometheus / Loki / Tempo as backends | Implicit → ratify | Strategy section "High-Level Architecture" |
-| ADR-004 | Adopt PowerShell + Docker Compose for IaC and orchestration (supersedes earlier Pulumi/Kubernetes direction) | Accepted (revised) | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md); Strategy section "IaC Role in OpenTelemetry Deployment" |
-| ADR-005 | Host-portable deployment (on-prem / customer site / cloud VM) via the same Compose stack — supersedes earlier multi-cloud K8s posture | Accepted (revised) | [Chapter 3. Observability Reference Architecture -> Section 3.6 Host-Portable Deployment Design](03-observability-reference-architecture.md#36-host-portable-deployment-design); [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
+| ADR-004 | Adopt containerized deployment with environment-specific automation and orchestration | Accepted (revised) | [8. IaC for Observability Standard](08-iac-for-observability-standard.md); Strategy section "IaC Role in OpenTelemetry Deployment" |
+| ADR-005 | Adopt deployment-model-aware containerized delivery across on-prem, customer site, cloud VM, and managed clusters | Accepted (revised) | [Chapter 3. Observability Reference Architecture -> Section 3.6 Containerized Deployment Design](03-observability-reference-architecture.md#36-containerized-deployment-design); [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | ADR-006 | Tiered retention (hot / warm / cold) with metrics 30–90d, logs 7–30d, traces 7d, RCA 1y | Implicit → ratify | Strategy section "Telemetry retention tiers" |
 | ADR-007 | AIOps guardrails: FP < 5%, detection latency < 2 min | Implicit → ratify | Strategy section "AI-Driven Observability — Success criteria" |
 | ADR-008 | Adopt Sloth as SLO-rule generator | Proposed | [Chapter 25. SLO and Error-Budget Framework -> Section 25.8 Tooling Decision](25-slo-and-error-budget-framework.md#258-tooling-decision) |
@@ -194,64 +194,64 @@ Selected option and the rationale that distinguishes it.
 **Consequences.**
 - (+) Best-of-breed per signal; community-supported migration paths (Mimir, GrafanaCloud) if scale demands.
 - (+) Object-store (S3-compatible) is the canonical durable store — fits host-portable deployment (ADR-005).
-- (-) Three operational targets (vs one); mitigated by single Compose stack.
+- (-) Three operational targets (vs one); mitigated by a unified platform standard and shared telemetry contracts.
 - Follow-on: define cardinality budget (ADR-010) and retention tiers (ADR-006).
 
 **Linked Artifacts.** Chapter 2, Chapter 8, Chapter 23.
 
 ---
 
-### 17.4.5 ADR-004: Adopt PowerShell + Docker Compose for IaC and orchestration (supersedes Pulumi/Kubernetes)
+### 17.4.5 ADR-004: Adopt containerized deployment with environment-specific automation and orchestration
 
 - **Status**: Accepted (revised)
 - **Date**: 2026-05-04
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, SRE Director
-- **Supersedes**: Earlier Pulumi/Kubernetes direction in source `v0.1` strategy.
-- **Related**: [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md), ADR-005
+- **Supersedes**: Earlier single-tool deployment direction in source `v0.1` strategy.
+- **Related**: [8. IaC for Observability Standard](08-iac-for-observability-standard.md), ADR-005
 
-**Context.** The original strategy assumed Kubernetes (AKS/EKS/GKE) with Pulumi IaC. Two issues surfaced: (1) customer-site deployments cannot mandate Kubernetes (many run Windows or single-host Linux); (2) Pulumi is overkill for the deployment scale we actually need (10s of hosts, not 100s of clusters).
+**Context.** The original strategy leaned toward a single deployment toolchain. Two issues surfaced: (1) customer-site and internal environments do not share one universal runtime; (2) observability standards should remain portable across containerized deployment models rather than tied to one tooling choice.
 
 **Options Considered.**
-- (A) Stay on Pulumi + Kubernetes. Pros: cloud-scale ready; Cons: customer-site infeasible, ops complexity, training cost.
-- (B) Ansible + bare-metal. Pros: agentless, no runtime; Cons: weaker app packaging, no isolation.
-- (C) **PowerShell + Docker Compose**. Pros: host-portable (Win/Linux), single tool chain, container isolation, Git-friendly YAML, zero new training for Xceedance ops; Cons: not horizontal-cluster scale.
+- (A) Standardise on one cluster-centric orchestrator. Pros: strong scaling primitives; Cons: poor fit for some customer and legacy environments.
+- (B) Standardise on one host-level container toolchain. Pros: simpler for some environments; Cons: underfits managed-cluster estates.
+- (C) **Containerized deployment with environment-specific orchestration and automation**. Pros: preserves portability, supports internal AKS and non-AKS environments, and keeps standards focused on telemetry contracts rather than one tool; Cons: requires stronger governance to avoid drift.
 
-**Decision.** Option C. PowerShell drives provisioning, Compose orchestrates the stack. Horizontal scale handled by **federation of Compose stacks** (per HA design ADR-014), not by Kubernetes.
+**Decision.** Option C. The observability platform is delivered as containers, while orchestration and deployment automation remain environment-specific and governed by common standards.
 
 **Consequences.**
-- (+) Single deployment model for cloud VMs, on-prem, customer sites.
-- (+) Existing Xceedance ops staff productive day-1.
-- (-) Cannot leverage K8s ecosystem (Helm, operators, HPA) — must implement equivalents manually.
-- (-) Some advanced features (service mesh, sidecar) require alternate patterns.
-- Follow-on: author the IaC standard — owner Platform Lead — done (Chapter 7).
+- (+) Internal AKS-style deployment remains acceptable.
+- (+) Customer-site and non-clustered environments remain supported.
+- (-) Governance must define which platform-specific features are optional versus normative.
+- (-) More than one automation path may exist, so validation and policy gates must stay strong.
+- Follow-on: author the IaC standard — owner Platform Lead — done (Chapter 8).
 
 **Linked Artifacts.** Chapter 7; ADR-005 (deployment model).
 
 ---
 
-### 17.4.6 ADR-005: Host-portable deployment (supersedes multi-cloud K8s posture)
+### 17.4.6 ADR-005: Deployment-model-aware containerized delivery
 
 - **Status**: Accepted (revised)
 - **Date**: 2026-05-04
 - **Authors**: A. Thakur
 - **Reviewers**: ARB
-- **Supersedes**: Earlier multi-cloud AKS/EKS/GKE posture.
-- **Related**: [Chapter 3. Observability Reference Architecture -> Section 3.6 Host-Portable Deployment Design](03-observability-reference-architecture.md#36-host-portable-deployment-design), [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md), ADR-004
+- **Supersedes**: Earlier deployment posture that over-specified one runtime model.
+- **Related**: [Chapter 3. Observability Reference Architecture -> Section 3.6 Containerized Deployment Design](03-observability-reference-architecture.md#36-containerized-deployment-design), [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md), ADR-004
 
-**Context.** Xceedance customer base spans cloud-only, hybrid, on-prem-only, and air-gapped customer sites. A multi-cloud K8s posture fits cloud-only customers but excludes the rest.
+**Context.** Xceedance customer base spans cloud-only, hybrid, on-prem-only, air-gapped customer sites, and internal managed-cluster estates. A single deployment posture does not fit all of them cleanly.
 
 **Options Considered.**
-- (A) Multi-cloud Kubernetes only. Pros: cloud-scale; Cons: excludes on-prem / customer-site / air-gapped.
-- (B) Per-environment-specific stack (different on-prem vs cloud). Pros: optimised per env; Cons: 2× maintenance, drift, audit pain.
-- (C) **One Compose stack, host-portable** (works identically on cloud VM, on-prem host, customer site). Pros: uniform; Cons: lowest-common-denominator features.
+- (A) Multi-cloud Kubernetes only. Pros: cloud-scale; Cons: excludes or complicates some customer-site and host-based estates.
+- (B) Fully different per-environment stacks. Pros: optimised per environment; Cons: 2× maintenance, drift, audit pain.
+- (C) **One containerized observability standard with deployment-model-aware implementation**. Pros: consistent telemetry and governance across environments; Cons: requires discipline to keep implementations aligned.
 
-**Decision.** Option C. Same Compose definitions deploy to any Docker-capable host.
+**Decision.** Option C. The observability standard stays consistent across environments, while deployment implementation can vary by runtime and operational context.
 
 **Consequences.**
-- (+) One artefact, one deployment model, one runbook — works everywhere.
-- (+) Customer sites onboard with zero platform engineering — Compose pull + start.
-- (-) Cloud-native auto-scaling and managed services not directly leveraged.
+- (+) One observability standard, one telemetry contract, one governance model.
+- (+) Internal AKS deployments and customer-site deployments can both conform.
+- (-) Platform-specific implementations need continuous parity checks.
 - Follow-on: per-tenant variant testing on at least 3 host types — owner Platform Lead — 2026-Q3.
 
 **Linked Artifacts.** Chapter 2, Section 7; Chapter 27.
@@ -503,7 +503,7 @@ Selected option and the rationale that distinguishes it.
 
 **Consequences.**
 - (+) Platform survives single-host failure with zero RPO.
-- (-) Configuration complexity; Compose stacks per role.
+- (-) Configuration complexity; deployment variants per role.
 - Follow-on: HA verification chaos test quarterly — owner SRE Director — ongoing.
 
 **Linked Artifacts.** Chapter 21, Chapter 22 (capacity sizing).
@@ -568,7 +568,7 @@ Selected option and the rationale that distinguishes it.
 ---
 
 ## 17.5 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) / [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) / [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — architectural decisions implemented.
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) / [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) / [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — architectural decisions implemented.
 - [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance body that ratifies ADRs.
 
 ---

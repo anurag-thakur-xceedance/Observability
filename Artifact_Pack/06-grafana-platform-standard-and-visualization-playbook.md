@@ -175,7 +175,7 @@ Drift > 7 days is a finding under **OBS-C-02**.
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — Grafana's role in the reference architecture.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
 - [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — IaC standard the Section 8.1 workflow conforms to.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — IaC standard the Section 8.1 workflow conforms to.
 - [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits the dashboards-as-code controls.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard rendered through Grafana.
 - [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — burn-rate panels embedded in Section 8.1.4 service dashboards.

@@ -51,7 +51,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 - Reduction in storage cost per service over time while maintaining required visibility.
 - Demonstrable reuse of RCA summaries in post-incident reviews and risk assessments.
 
-## 12.5 Platform KPIs Roll-Up (from IaC Standard — Docker Compose + PowerShell)
+## 12.5 Platform KPIs Roll-Up (from IaC Standard)
 - Collector Deployment Success Rate ≥ 99%.
 - Service Telemetry Coverage (OTel SDK) ≥ 95%.
 - Cross-Host Config Parity ≥ 95%.
@@ -115,7 +115,7 @@ The observability platform is itself a tier-1 service whose **inputs** (the tele
 ### 12.6.6 Error Budget for Telemetry Quality
 
 The platform itself runs SLOs against Section 7.1.1–6.1.4 SLIs, with a **30-day error budget**, modelled per [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md). When the platform's own error budget burns:
-- **50% burn**: Platform Ops freezes all Normal-class changes ([Chapter 8. IaC for Observability Standard (Docker Compose + PowerShell) -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management)).
+- **50% burn**: Platform Ops freezes all Normal-class changes ([Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management)).
 - **75% burn**: ARB notified; emergency review.
 - **100% burn**: All non-Emergency changes paused until budget recovers.
 
@@ -132,7 +132,7 @@ Section 7.1 SLIs appear on the **Platform Health** dashboard, viewable to all en
 
 ## 12.8 Cross-References
 - [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) — feeds Section 7.1.2 cardinality SLI.
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) / [10. Observability FinOps Standard](10-observability-finops-standard.md) / [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.
 - [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — roadmap phase plan that drives phase targets.
 - [15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) — capability assessment framework feeding maturity scoring.

@@ -155,12 +155,12 @@ Rules:
 | **Cross-region within residency** | Regulated tenants requiring HA | ≤ 30 min | ≤ 5 min |
 | **Forward-only to Xceedance central** | Loss-tolerant tenants | ≤ 24 h (rebuild from last forward) | varies |
 
-DR runbook per customer site is templated and parameterised in [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md).
+DR runbook per customer site is templated and parameterised in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 
 ## 27.8 Operational Boundaries (Who Operates What)
 | Component | Customer site | Xceedance shared |
 |---|---|---|
-| Compose stack lifecycle | Xceedance Platform Engineering (with customer change-window approval) | Xceedance Platform Engineering |
+| Deployment stack lifecycle | Xceedance Platform Engineering (with customer change-window approval) | Xceedance Platform Engineering |
 | Configuration changes | Xceedance, via Git PR + customer change board | Xceedance, via Git PR + ARB |
 | Dashboard authoring | Xceedance + customer (per RBAC) | Xceedance |
 | Alert authoring | Xceedance authors; customer reviews | Xceedance |

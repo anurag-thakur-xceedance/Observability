@@ -488,7 +488,7 @@ Enforcement is described in [Chapter 2. Enterprise Observability Standards Catal
 
 ## 23.9 Cross-References
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md)
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — Compose configurations sized to these reference deployments.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment configurations sized to these reference deployments.
 - [10. Observability FinOps Standard](10-observability-finops-standard.md) — cost modelling and unit economics.
 - [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — HA topology overlaid on these sizes.
 

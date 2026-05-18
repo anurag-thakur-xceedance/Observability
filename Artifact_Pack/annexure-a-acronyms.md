@@ -24,7 +24,7 @@ status: Draft
 | ADR | Architecture Decision Record | Short document capturing one architecture decision, its context, and consequences. Index in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md). |
 | AI | Artificial Intelligence | Used here in the AIOps sense — anomaly detection, RCA suggestion, enriched alerting. |
 | AIOps | AI for IT Operations | Application of AI/ML to observability data for detection, correlation, and remediation. See [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md). |
-| AKS | Azure Kubernetes Service | Microsoft's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
+| AKS | Azure Kubernetes Service | Microsoft's managed Kubernetes. Acceptable as an internal deployment target where it fits the environment. |
 | API | Application Programming Interface | Network-callable service interface; instrumented via OpenTelemetry. |
 | ARB | Architecture Review Board | Governance body that reviews architecture decisions and ratifies ADRs. See [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md). |
 | CC | Common Criteria | Used here as SOC2 control-category prefix (e.g. "CC ID" = SOC2 control reference). |
@@ -42,17 +42,17 @@ status: Draft
 | DORA | Digital Operational Resilience Act | EU financial-sector regulation; emerging compliance driver. |
 | DR | Disaster Recovery | Architecture pattern; covered in [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md). |
 | eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 3. Observability Reference Architecture -> Section 3.4.1 eBPF for Legacy and Non-Intrusive Instrumentation](03-observability-reference-architecture.md#341-ebpf-for-legacy-and-non-intrusive-instrumentation). |
-| EKS | Elastic Kubernetes Service | AWS's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
+| EKS | Elastic Kubernetes Service | AWS's managed Kubernetes. One possible managed-cluster deployment target depending on environment needs. |
 | ERD | Entity-Relationship Diagram | Data-model diagram pending in [20. Observability Data Model Specification](20-observability-data-model-specification.md). |
 | FaaS | Function as a Service | Serverless runtime; cold-start latency target < 300 ms. |
 | FinOps | Financial Operations | Discipline for managing cloud/observability cost. See [10. Observability FinOps Standard](10-observability-finops-standard.md). |
 | FP | False Positive | AIOps quality metric; guardrail target < 5%. |
 | GDPR | General Data Protection Regulation | EU data-protection law; drives PII handling and retention rules. |
 | GitOps | Git-based Operations | Operational model where Git is the source of truth for configuration and alert rules. |
-| GKE | Google Kubernetes Engine | Google Cloud's managed Kubernetes. Referenced historically; superseded by host-portable Compose model. |
+| GKE | Google Kubernetes Engine | Google Cloud's managed Kubernetes. One possible managed-cluster deployment target depending on environment needs. |
 | HA | High Availability | Architecture pattern; covered in [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md). |
 | HIPAA | Health Insurance Portability and Accountability Act | US healthcare regulation; out of scope today. |
-| IaC | Infrastructure as Code | Code-defined infrastructure provisioning. See [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md). |
+| IaC | Infrastructure as Code | Code-defined infrastructure provisioning. See [8. IaC for Observability Standard](08-iac-for-observability-standard.md). |
 | ID | Identifier | Generic identifier (e.g. trace ID, span ID, control ID). |
 | IdP | Identity Provider | Authentication system used in pre-login telemetry (e.g. Okta, Azure AD). |
 | IO | Input/Output | Disk or network throughput dimension. |

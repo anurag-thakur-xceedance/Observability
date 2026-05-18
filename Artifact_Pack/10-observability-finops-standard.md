@@ -149,7 +149,7 @@ Monthly review:
 - **Cutting retention without consulting incident response.** Long incidents need long telemetry windows; rule of thumb: retain hot ≥ p95 incident duration + 50%.
 - **Aggressive head-sampling in T1.** Misses rare-but-important patterns; prefer tail-sampling that preserves errors and slow traces.
 - **Removing labels without measuring.** Always model cardinality reduction before applying — some labels look high-cardinality but contribute little to cost (sparse).
-- **Optimising during incident.** Freeze optimisation activity during active incidents and during the change-freeze windows in [Chapter 8. IaC for Observability Standard (Docker Compose + PowerShell) -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management).
+- **Optimising during incident.** Freeze optimisation activity during active incidents and during the change-freeze windows in [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management).
 - **One-off "spring cleaning"**. Optimisation must be cyclical (Section 7.2.2) — single events drift back within a quarter.
 
 ### 10.6.11 Forecast and Budget Model

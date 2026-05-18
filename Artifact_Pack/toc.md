@@ -13,6 +13,7 @@ status: Draft
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
 | 0.1 | TBD | Internal |  | Draft |
+
 ## [README — Observability Artifact Pack](readme.md)
 
 - [Overview](readme.md#overview)
@@ -52,7 +53,7 @@ status: Draft
 - [3.3 Core Concepts](03-observability-reference-architecture.md#33-core-concepts)
 - [3.4 Core Open-Source Stack](03-observability-reference-architecture.md#34-core-open-source-stack)
 - [3.5 Telemetry Collection Layers](03-observability-reference-architecture.md#35-telemetry-collection-layers)
-- [3.6 Host-Portable Deployment Design](03-observability-reference-architecture.md#36-host-portable-deployment-design)
+- [3.6 Containerized Deployment Design](03-observability-reference-architecture.md#36-containerized-deployment-design)
 - [3.7 Pipeline Processing](03-observability-reference-architecture.md#37-pipeline-processing)
 - [3.8 Cross-References](03-observability-reference-architecture.md#38-cross-references)
 
@@ -102,12 +103,12 @@ status: Draft
 - [7.9 Worked Examples — Filled Model Cards and Prompt Registry](07-aiops-guardrails-and-implementation-playbook.md#79-worked-examples-filled-model-cards-and-prompt-registry)
 - [7.10 Cross-References](07-aiops-guardrails-and-implementation-playbook.md#710-cross-references)
 
-## [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md)
+## [8. IaC for Observability Standard](08-iac-for-observability-standard.md)
 
 - [8.1 Strategic Policy Position](08-iac-for-observability-standard.md#81-strategic-policy-position)
 - [8.2 Scope](08-iac-for-observability-standard.md#82-scope)
 - [8.3 Implementation Patterns](08-iac-for-observability-standard.md#83-implementation-patterns)
-- [8.4 Platform KPIs (Deployment via PowerShell + Docker Compose)](08-iac-for-observability-standard.md#84-platform-kpis-deployment-via-powershell-docker-compose)
+- [8.4 Platform KPIs (Deployment and Automation)](08-iac-for-observability-standard.md#84-platform-kpis-deployment-and-automation)
 - [8.5 Severity Policy (Deployment-Specific)](08-iac-for-observability-standard.md#85-severity-policy-deployment-specific)
 - [8.6 Implementation & Visualization](08-iac-for-observability-standard.md#86-implementation-visualization)
 - [8.7 Calibration](08-iac-for-observability-standard.md#87-calibration)
@@ -155,7 +156,7 @@ status: Draft
 - [12.2 Core Outcome KPIs](12-observability-kpi-scorecard.md#122-core-outcome-kpis)
 - [12.3 Resilience & Coverage KPIs](12-observability-kpi-scorecard.md#123-resilience-coverage-kpis)
 - [12.4 Governance Success KPIs (from Governance & Data Strategy)](12-observability-kpi-scorecard.md#124-governance-success-kpis-from-governance-data-strategy)
-- [12.5 Platform KPIs Roll-Up (from IaC Standard — Docker Compose + PowerShell)](12-observability-kpi-scorecard.md#125-platform-kpis-roll-up-from-iac-standard-docker-compose-powershell)
+- [12.5 Platform KPIs Roll-Up (from IaC Standard)](12-observability-kpi-scorecard.md#125-platform-kpis-roll-up-from-iac-standard)
 - [12.6 Maturity Phase Targets (from Capability Assessment / Roadmap)](12-observability-kpi-scorecard.md#126-maturity-phase-targets-from-capability-assessment-roadmap)
 - [12.7 Reporting Cadence](12-observability-kpi-scorecard.md#127-reporting-cadence)
 - [12.8 Cross-References](12-observability-kpi-scorecard.md#128-cross-references)

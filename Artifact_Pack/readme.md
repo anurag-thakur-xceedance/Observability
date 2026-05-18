@@ -21,7 +21,7 @@ status: Draft
 
 The Xceedance Observability Artifact Pack is a complete, hyperlinked, enterprise-grade specification for how Xceedance instruments, operates, governs, and monetises observability across all business domains, customer sites, and cloud footprints.
 
-It defines **one strategy, one platform, one data model, and one operating model** — built on **OpenTelemetry, Grafana, Prometheus, Loki, Tempo, PowerShell, and Docker Compose** — host-portable across on-premise data centres, customer-managed sites, and cloud VMs, with no Kubernetes dependency.
+It defines **one strategy, one platform, one data model, and one operating model** — built on **OpenTelemetry, Grafana, Prometheus, Loki, and Tempo** — with containerized deployment across on-premise data centres, customer-managed sites, cloud VMs, and managed clusters.
 
 The pack covers the full lifecycle of observability as a capability:
 
@@ -43,7 +43,7 @@ A short reading order by audience:
 
 - **Executives / Directors** → start with [1. Xceedance Observability Strategy](01-xceedance-observability-strategy.md), then [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) and [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md).
 - **Architects** → [3. Observability Reference Architecture](03-observability-reference-architecture.md), [17. Observability ADR Decision Register](17-observability-adr-decision-register.md), and [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md).
-- **SRE / Platform** → [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md), [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md), and [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md).
+- **SRE / Platform** → [8. IaC for Observability Standard](08-iac-for-observability-standard.md), [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md), and [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md).
 - **Service Developers** → [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) and [18. Application Telemetry Standard](18-application-telemetry-standard.md).
 - **Security / Compliance** → [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md), [24 Appendix A. Threat Model (STRIDE)](24-appendix-a-threat-model.md), [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md), and [29. Observability Long-Term Archival Policy](29-observability-long-term-archival-policy.md).
 - **FinOps** → [10. Observability FinOps Standard](10-observability-finops-standard.md) and [23. Capacity and Scale Model](23-capacity-and-scale-model.md).

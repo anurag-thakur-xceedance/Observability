@@ -84,19 +84,19 @@ The platform itself is **Tier 1**. Recovery objectives:
 ## 22.5 DR Patterns
 
 ### 22.5.1 Pattern A — Hot/Warm Cross-Region (recommended for Tier 1)
-- Primary region: full Compose stack as in Section 4.
-- DR region: lightweight Compose stack (single host of each component) with object storage replicated cross-region.
+- Primary region: full observability deployment stack as in Section 4.
+- DR region: lightweight deployment stack (single host or minimal footprint per component) with object storage replicated cross-region.
 - Prometheus remote-write to a regional Mimir / VictoriaMetrics with cross-region replication.
 - DR Grafana provisioned identically; DNS / LB cutover for failover.
 - **RTO ≤ 30 min, RPO ≤ 5 min.**
 
 ### 22.5.2 Pattern B — Cold-Backup
 - Object-storage replication cross-region (Azure GRS / S3 cross-region replication).
-- DR site provisioned on demand from PowerShell IaC scripts in [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md).
+- DR site provisioned on demand from approved IaC automation in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 - **RTO ≤ 4 h, RPO ≤ 1 h.** Acceptable for non-customer-facing observability tiers only.
 
 ### 22.5.3 Pattern C — Customer-Site Local DR
-- Each customer site runs its own Compose stack (see [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).
+- Each customer site runs its own observability deployment stack (see [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).
 - DR is local snapshot + remote-write to central Xceedance aggregation (after PII redaction per [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)).
 
 ## 22.6 Failure Modes and Mitigations
@@ -130,7 +130,7 @@ A separate, deliberately small Prometheus + Alertmanager pair runs on a differen
 
 ## 22.9 Cross-References
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — base architecture.
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — PowerShell + Compose provisioning.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment provisioning and automation.
 - [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — when to migrate from Compose to distributed.
 - [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth & encryption between HA peers.
 - [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — customer-site DR patterns.

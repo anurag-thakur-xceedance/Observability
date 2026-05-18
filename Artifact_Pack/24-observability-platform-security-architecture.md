@@ -165,7 +165,7 @@ processors:
 | Object-storage SAS / IAM keys | Vault, scoped | 30 days |
 | Postgres credentials | Vault | 90 days |
 
-Compose files reference secrets by `${VAR}` resolved at deploy by PowerShell IaC; secrets never committed to Git.
+Deployment definitions reference secrets through approved runtime or automation bindings; secrets are never committed to Git.
 
 ## 24.7 Supply-Chain Security
 - Container images: pinned digests, not floating tags.
@@ -190,7 +190,7 @@ Compose files reference secrets by `${VAR}` resolved at deploy by PowerShell IaC
 
 ## 24.10 Cross-References
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline detail.
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — Compose hardening configs.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment hardening configs.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data classification.
 - [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — SOC 2 / ISO 27001 mapping.
 - [18. Application Telemetry Standard](18-application-telemetry-standard.md) — what services must (not) emit.

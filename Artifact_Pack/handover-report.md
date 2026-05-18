@@ -41,7 +41,7 @@ status: Draft
 | 4 | [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) |
 | 5 | [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) |
 | 6 | [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) |
-| 7 | [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) |
+| 7 | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | 8 | [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
 | 9 | [10. Observability FinOps Standard](10-observability-finops-standard.md) |
 | 10 | [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) |
@@ -210,7 +210,7 @@ The following gaps were identified during v0.1 review and are explicitly deferre
 
 | # | Decision | Owner | Notes |
 |---|---|---|---|
-| 1 | Ratify ADRs for OpenTelemetry, Grafana, Prometheus/Loki/Tempo, **PowerShell + Docker Compose (replaces Pulumi/K8s)**, **host-portable deployment (replaces multi-cloud AKS/EKS/GKE)**, retention tiers, AIOps guardrails | Governance Body / ARB | [Chapter 17. Observability ADR Decision Register -> Section 17.2 ADR Index (Initial)](17-observability-adr-decision-register.md#172-adr-index-initial) lists seven candidates; ADR-004 and ADR-005 revised to reflect the Compose + PowerShell direction. |
+| 1 | Ratify ADRs for OpenTelemetry, Grafana, Prometheus/Loki/Tempo, **containerized deployment with environment-specific automation/orchestration**, **deployment-model-aware delivery across internal and customer environments**, retention tiers, AIOps guardrails | Governance Body / ARB | [Chapter 17. Observability ADR Decision Register -> Section 17.2 ADR Index (Initial)](17-observability-adr-decision-register.md#172-adr-index-initial) lists seven candidates; ADR-004 and ADR-005 were revised to reflect the generalized containerized direction. |
 | 2 | Architecture Governance review status — currently **Not Seen** for ARB / Exception Panel / SDG / Change Board | Governance Body | Schedule reviews; capture decisions in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md). |
 | 3 | Source `Decision Log` table is empty — confirm no decisions exist yet, or supply backlog | Document author (A. Thakur) | Affects [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) baseline. |
 | 4 | [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) control framework selection (SOC2 vs ISO 27001 vs both) and mandatory regulations (GDPR scope, financial-services rules) | Compliance / Legal | Drives [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) evidence requirements. |
@@ -221,7 +221,7 @@ The following gaps were identified during v0.1 review and are explicitly deferre
 | 9 | Confirm Pyroscope (Profiles) is in-scope for Phase 2 or Phase 3 | Architecture | Strategy refers to Profiles as "emerging fifth pillar" only. |
 | 10 | Image-based content (incident sequence diagram, any architecture images) — re-author or include as exported assets in `Artifact_Pack/assets/`? | Document owner | Currently captured as logical text flow in [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md). |
 | 11 | Source v0.3 introduces **Appendix 2** as a placeholder ("Deployment-model awareness — universal observability across runtimes") with no body — supply content or confirm coverage by [Chapter 3. Observability Reference Architecture -> Section 3.1 Architectural Principles](03-observability-reference-architecture.md#31-architectural-principles) (now extended with the deployment-model-awareness principle and Azure-native infra context). | Document author (A. Thakur) | Decision gates whether Appendix 2 needs a dedicated artifact or is satisfied by the Reference Architecture extension. |
-| 12 | Source v0.3 release notes claim Pulumi removed, yet Final Architecture Summary and Table 20 (IaC role) still reference Pulumi and AKS/EKS/GKE — pack already aligned to the **author-stated intent** (Pulumi replaced by PowerShell + Docker Compose; cloud portability reframed as host-portable). Confirm intent vs residual source text. | Document author (A. Thakur) | Mismatch noted in source `.docx`; pack treats the v0.3 release-note as authoritative. |
+| 12 | Source v0.3 release notes claim Pulumi removed, yet Final Architecture Summary and Table 20 (IaC role) still reference Pulumi and AKS/EKS/GKE. Confirm whether the intended position is generic containerized deployment with environment-specific implementation, and identify any platform-specific exclusions (for example Helm) explicitly. | Document author (A. Thakur) | Mismatch noted in source `.docx`; pack now treats the containerized direction as authoritative and avoids over-specifying one runtime. |
 
 ---
 

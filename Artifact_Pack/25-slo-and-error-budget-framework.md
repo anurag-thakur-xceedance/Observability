@@ -141,13 +141,13 @@ Exception process: written waiver from Director SRE + Service Owner with stated 
 3. Owner observes 30 days of telemetry to baseline current performance.
 4. Proposed SLO = current_performance − 0.5σ (rounded down to a comfortable target).
 5. Reviewed by SRE; approved by Director SRE; recorded in service catalog.
-6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md)).
+6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [8. IaC for Observability Standard](08-iac-for-observability-standard.md)).
 7. Quarterly review.
 
 ## 25.8 Tooling Decision
 | Option | Pros | Cons | Decision |
 |---|---|---|---|
-| Sloth (`slok8s/sloth`) | Generates Prom rules from declarative SLO YAML; widely adopted | Originally Kubernetes-flavoured but works as a CLI | **Recommended** — fits Compose model; ADR-008 candidate |
+| Sloth (`slok8s/sloth`) | Generates Prom rules from declarative SLO YAML; widely adopted | Originally Kubernetes-flavoured but works as a CLI | **Recommended** — fits the Git-managed deployment model; ADR-008 candidate |
 | Pyrra | Web UI + rule generator; good UX | Operator-style; some K8s assumptions | Alternative |
 | Hand-written rules | Full control | High maintenance | Fallback only |
 

@@ -48,7 +48,7 @@ Assesses observability maturity against the phase plan in [14. Observability Roa
 ## 15.5 Inputs
 - KPI scorecard ([12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
 - Incident review records ([13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
-- IaC platform metrics ([8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md)).
+- IaC platform metrics ([8. IaC for Observability Standard](08-iac-for-observability-standard.md)).
 - Compliance / audit reports ([11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
 
 ## 15.6 Outputs

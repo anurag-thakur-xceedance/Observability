@@ -110,7 +110,7 @@ The retention and governance policy creates a continuous **Day-2 operational** l
 
 **Adding a new log source.** Service team submits parser config + sample lines → Platform Ops verifies parsing in non-prod → runs schema scan → promotes to prod → records ingest baseline.
 
-**Retention change.** Data Governance proposes change → Platform Ops models cost and capacity impact ([23. Capacity and Scale Model](23-capacity-and-scale-model.md)) → governance body approves → Platform Ops applies via IaC ([8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md)) → post-change validation per [Chapter 8. IaC for Observability Standard (Docker Compose + PowerShell) -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management).
+**Retention change.** Data Governance proposes change → Platform Ops models cost and capacity impact ([23. Capacity and Scale Model](23-capacity-and-scale-model.md)) → governance body approves → Platform Ops applies via IaC ([8. IaC for Observability Standard](08-iac-for-observability-standard.md)) → post-change validation per [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management).
 
 **Tenant offboarding ([27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).** Data Governance issues deletion ticket → Platform Ops runs scoped deletion against each backend (Prometheus tenant labels, Loki tenant streams, Tempo tenant blocks) → object-storage tenant prefix marked for deletion (lifecycle rule honours legal hold) → certificate of deletion produced for the tenant.
 
@@ -137,7 +137,7 @@ To mitigate **GOV-R-10** (single-point-of-knowledge), every Day-2 procedure has:
 ## 9.10 Cross-References
 - [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) / [20. Observability Data Model Specification](20-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
 - [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks for Section 10.1 Day-2 procedures.
-- [Chapter 8. IaC for Observability Standard (Docker Compose + PowerShell) -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management) — change workflow used for Section 10.1 retention changes.
+- [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management) — change workflow used for Section 10.1 retention changes.
 - [10. Observability FinOps Standard](10-observability-finops-standard.md) — cost-driven lifecycle mechanics.
 - [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance and audit control matrix; OBS-C-04, OBS-C-08 sourced from Section 10.1.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard for governance success.

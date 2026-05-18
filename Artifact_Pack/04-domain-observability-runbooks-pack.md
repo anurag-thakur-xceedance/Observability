@@ -18,7 +18,7 @@ status: Draft
 ---
 
 ## 4.1 Purpose
-Operational runbooks that translate the standards in [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). The deployment platform is described in [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) (Docker Compose + PowerShell).
+Operational runbooks that translate the standards in [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). The deployment platform is described in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 
 ---
 
@@ -278,7 +278,7 @@ After a few weeks of production data, narrow each range so **Warning ≈ 95th pe
 - [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalog.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
 - [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana dashboard structure.
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — Docker Compose + PowerShell deployment standard.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment standard.
 - [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident response playbook for end-to-end resolution.
 
 ---

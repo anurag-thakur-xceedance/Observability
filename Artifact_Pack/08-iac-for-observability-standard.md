@@ -1,5 +1,5 @@
 ---
-title: IaC for Observability Standard (Docker Compose + PowerShell)
+title: IaC for Observability Standard
 chapter: 8
 version: 0.1
 owner: TBD
@@ -8,7 +8,7 @@ reviewed_date:
 status: Draft
 ---
 
-# 8. IaC for Observability Standard (Docker Compose + PowerShell)
+# 8. IaC for Observability Standard
 
 [↑ Back to TOC](toc.md)
 
@@ -18,29 +18,29 @@ status: Draft
 ---
 
 ## 8.1 Strategic Policy Position
-Observability deployment must be **reproducible, version-controlled, host-portable, and measurable**. The selected delivery model is:
+Observability deployment must be **reproducible, version-controlled, containerized, and measurable**. The approved delivery approach is environment-aware rather than bound to a single orchestration tool:
 
-- **Docker Compose** — declarative definition of the observability stack (Collector, Prometheus, Loki, Tempo, Grafana, exporters).
-- **PowerShell** — primary automation and IaC scripting layer: provisions hosts, renders configuration, brings the stack up/down, validates health, manages secrets, and emits deployment telemetry.
+- **Containerized deployment** — the observability stack runs as containers using the runtime or orchestrator appropriate for the target environment.
+- **Automation and IaC** — deployment, configuration, validation, secrets handling, and rollout controls are managed through approved automation tooling and version-controlled definitions.
 
-All Compose files, PowerShell scripts, exporter configs, dashboards, alert rules, and SLO definitions are **version-controlled in Git** (GitOps-style change control).
+All deployment definitions, automation scripts, exporter configs, dashboards, alert rules, and SLO definitions are **version-controlled in Git** (GitOps-style change control).
 
 ## 8.2 Scope
-- Deployment of the **OpenTelemetry Collector** as a Compose service.
+- Deployment of the **OpenTelemetry Collector** as a containerized service.
 - Configuration of **exporters, pipelines, sampling, processors**.
-- Deployment of the full observability stack: **Prometheus, Loki, Tempo, Grafana** as Compose services.
+- Deployment of the full observability stack: **Prometheus, Loki, Tempo, Grafana** as containerized services.
 - Per-host **node / container exporters** (Node Exporter, cAdvisor, Postgres / MySQL exporters, etc.).
 - Application-side **OpenTelemetry SDK** wiring in services running on the same host or reachable over the network.
-- PowerShell-driven **provisioning, lifecycle, validation, and reporting**.
+- IaC-driven **provisioning, lifecycle, validation, and reporting**.
 
 ## 8.3 Implementation Patterns
 
 ### 8.3.1 Repository Layout (Recommended)
 ```
 observability-platform/
-├─ compose/
-│  ├─ docker-compose.yml              # base stack (otelcol, prometheus, loki, tempo, grafana)
-│  ├─ docker-compose.exporters.yml    # node/cadvisor/db exporters overlay
+├─ deploy/
+│  ├─ base/                           # base stack definition
+│  ├─ overlays/                       # environment / component overlays
 │  └─ env/<environment>.env           # per-env variables (no secrets)
 ├─ config/
 │  ├─ otelcol/config.yaml
@@ -56,47 +56,47 @@ observability-platform/
 │  ├─ Rotate-Secrets.ps1
 │  └─ Export-DeploymentTelemetry.ps1
 └─ tests/
-   └─ Pester/                         # PowerShell Pester tests
+   └─ deployment/                     # deployment automation tests
 ```
 
-### 8.3.2 PowerShell Responsibilities
-- **Provisioning** — install/verify Docker Engine + Compose plugin, prepare data directories, file permissions.
-- **Configuration rendering** — substitute env-specific values into Compose / config templates.
-- **Lifecycle** — `docker compose up -d`, `docker compose pull`, `docker compose down`, rolling updates per service.
+### 8.3.2 Automation Responsibilities
+- **Provisioning** — prepare runtime prerequisites, storage, network access, and platform dependencies.
+- **Configuration rendering** — substitute environment-specific values into deployment and config templates.
+- **Lifecycle** — deploy, update, roll back, and remove stack components in a controlled and repeatable way.
 - **Validation** — health checks against each exposed endpoint (Prometheus `/-/ready`, Loki `/ready`, Tempo `/ready`, Grafana `/api/health`, OTel Collector `:13133/`).
-- **Secrets** — pull from approved secret store; never persisted in repo or Compose files; injected as environment variables or Docker secrets.
+- **Secrets** — pull from approved secret store; never persist secrets in repo; inject through approved secret-delivery patterns.
 - **Telemetry export** — emit deploy success / failure / duration counters to the Collector for Grafana visualisation.
-- **Idempotency** — scripts safe to re-run; converge to declared state.
+- **Idempotency** — automation must be safe to re-run and converge to declared state.
 
-### 8.3.3 Docker Compose Conventions
-- One compose project per environment; environment selected via `COMPOSE_PROJECT_NAME` and `--env-file`.
-- All services define **`healthcheck`** stanzas; PowerShell waits on `Healthy` before continuing.
-- All services define **`restart: unless-stopped`** (or stricter in production).
-- Persistent state on **named volumes** with documented backup strategy.
-- Internal-only services bound to a **dedicated Docker network**; only Grafana is exposed externally.
+### 8.3.3 Deployment Conventions
+- One logical deployment unit per environment with explicit environment configuration.
+- All services define health checks; automation waits on `Healthy` before continuing.
+- Restart policy and rollout behaviour must be defined explicitly for production deployments.
+- Persistent state must use durable storage with a documented backup strategy.
+- Internal-only services stay on private network paths; only approved entry points are exposed externally.
 - Image versions are **pinned by digest or immutable tag** — no `:latest` in production.
 
 ### 8.3.4 Host & Workload Telemetry
 - **Host metrics:** Node Exporter on every host; scraped by Prometheus.
 - **Container metrics:** cAdvisor (or equivalent) for container CPU / memory / I/O.
-- **Database telemetry:** Postgres / MySQL exporter Compose services pointed at managed DBs.
+- **Database telemetry:** Postgres / MySQL exporter services pointed at managed DBs.
 - **Application telemetry:** OpenTelemetry SDK in each service exporting OTLP to the Collector endpoint.
 
-## 8.4 Platform KPIs (Deployment via PowerShell + Docker Compose)
+## 8.4 Platform KPIs (Deployment and Automation)
 
 | Category | Metric | Healthy | Warning | Critical | Notes |
 |---|---|---|---|---|
-| Stack Deployment | Deploy OpenTelemetry Collector | 100% success | < 99% one env | < 95% / repeated failures | Failures imply config drift or PowerShell error. |
+| Stack Deployment | Deploy OpenTelemetry Collector | 100% success | < 99% one env | < 95% / repeated failures | Failures imply config drift or automation error. |
 | Stack Deployment | Configure Exporters | ≥ 99% valid | 97–99% sustained | < 97% / repeated misconfig | Misconfigured exporters cause data gaps. |
-| Stack Deployment | Stack Provision Time (cold start) | ≤ 5 min per host | 5–10 min | > 10 min or errors > 1 | Measured from `Deploy-Stack.ps1` invocation to all services `Healthy`. |
+| Stack Deployment | Stack Provision Time (cold start) | ≤ 5 min per host | 5–10 min | > 10 min or errors > 1 | Measured from approved deployment invocation to all services `Healthy`. |
 | Stack Deployment | Stack Update Time (image pull + restart) | ≤ 2 min per service | 2–5 min | > 5 min or failure | Rolling-update target. |
 | Auto-Instrumentation | Service Coverage (OTel SDK) | 95–100% | 85–95% sustained | < 85% / errors | % of targeted services emitting telemetry. |
 | Auto-Instrumentation | Exporter Health (Node / cAdvisor / DB) | ≥ 98% scrape success | 95–98% | < 95% / scrape failures | Prometheus `up{}` per exporter. |
 | Auto-Instrumentation | Log Pipelines | 100% success | 99% / minor retry | < 98% / repeated parse errors | Test each Loki ingest path post-deploy. |
-| Host Portability | Compose Validation (`docker compose config`) | 100% pass | 99% | Any failure on main branch | CI gate. |
-| Host Portability | Cross-Host Config Parity | 95–100% | 90–95% | < 90% mismatch / drift | < 5% drift target across host fleet. |
-| Host Portability | Image / Compose Version Alignment | 100% | 95–99% | < 95% mismatch | Same digests across hosts of the same tier. |
-| Validation | Health-Check Pass Rate | 100% | < 99% one service | Any service `Unhealthy` > 5 min | PowerShell `Test-StackHealth.ps1`. |
+| Deployment Portability | Deployment Definition Validation | 100% pass | 99% | Any failure on main branch | CI gate. |
+| Deployment Portability | Cross-Host Config Parity | 95–100% | 90–95% | < 90% mismatch / drift | < 5% drift target across host fleet. |
+| Deployment Portability | Image / Deployment Version Alignment | 100% | 95–99% | < 95% mismatch | Same digests across deployments of the same tier. |
+| Validation | Health-Check Pass Rate | 100% | < 99% one service | Any service `Unhealthy` > 5 min | Validated through approved health-check automation. |
 
 ## 8.5 Severity Policy (Deployment-Specific)
 Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4.7 IaC / OpenTelemetry Deployment](05-alerting-and-incident-severity-policy.md#547-iac-opentelemetry-deployment). Summary:
@@ -104,15 +104,15 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4.7 IaC 
 | Severity | Trigger | Action |
 |---|---|---|
 | Info / Normal | Healthy / normal | CI-CD trend analytics; no action. |
-| Warning | Sustained breach ≥ 5 min, or 1 deployment failure | Review PowerShell logs, Compose definitions, exporter configs; correct drift. |
+| Warning | Sustained breach ≥ 5 min, or 1 deployment failure | Review deployment logs, deployment definitions, exporter configs; correct drift. |
 | Critical | Critical breach, or repeated deployment failures within 3 runs | Trigger incident or rollback; high chance of data loss / missing telemetry. |
 
 ## 8.6 Implementation & Visualization
 
 **In Grafana (see also [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)):**
-- **Deployment dashboards** → status of each Compose service per host (image tag, uptime, healthcheck state).
+- **Deployment dashboards** → status of each platform service per host or cluster (image tag, uptime, healthcheck state).
 - **Coverage dashboards** → per-host exporter scrape success and OTel service emission coverage.
-- **Performance dashboards** → stack provision time and update time trends, sourced from PowerShell-emitted metrics.
+- **Performance dashboards** → stack provision time and update time trends, sourced from deployment automation metrics.
 
 **SLI examples:**
 - **Collector Deployment Success Rate** = (Hosts with healthy Collector ÷ Intended hosts) × 100.
@@ -120,10 +120,10 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4.7 IaC 
 - **Service Telemetry Coverage** = (Services emitting OTel signals ÷ Targeted services) × 100.
 
 **Validation tooling:**
-- `docker compose config` — schema/syntax validation in CI.
-- `docker compose ps --format json` — health-state inspection by PowerShell.
-- Pester tests covering Compose file rendering, PowerShell cmdlets, and post-deploy probes.
-- Each PowerShell deployment writes a structured success/failure record (JSON) consumed by an OTel exporter and surfaced in Grafana.
+- Deployment-definition validation in CI.
+- Runtime health-state inspection by approved automation.
+- Automated tests covering deployment rendering, automation logic, and post-deploy probes.
+- Each deployment writes a structured success/failure record (JSON) consumed by an OTel exporter and surfaced in Grafana.
 
 ## 8.7 Calibration
 After a few cycles, refine thresholds:
@@ -148,7 +148,7 @@ Changes to the observability platform are themselves a **change-managed** activi
 ```
 [Idea] → [Design / RFC if Normal+] → [PR opened]
                                         │
-                                        ├─ CI: lint, compose config, unit tests
+                                        ├─ CI: lint, deployment-definition validation, unit tests
                                         ├─ Staging deploy + smoke tests
                                         ├─ Canary host (production, 1 host)
                                         │     └─ 30-min soak; auto-rollback on health regression
@@ -165,7 +165,7 @@ A change passes a wave gate if **all** of the following hold during the wave's s
 ### 8.7.4 Rollback Standards
 
 Every change has a **named rollback path** documented in the PR description:
-- **Compose-level**: `git revert <sha>` + `Deploy-Stack.ps1 -Environment prod -Wave full` is the **default** rollback.
+- **Deployment-level**: `git revert <sha>` plus approved deployment automation is the **default** rollback.
 - **Schema-changing**: Forward-only schema migrations require a **forward fix** plan (rollback would lose data); explicit ARB approval needed for any such change (Major class).
 - **Stateful**: Backend version downgrades that cross a storage-format boundary are **not** rollback-safe; treated as Major class with full DR rehearsal.
 
@@ -190,13 +190,13 @@ Every Normal+ change requires a post-change validation report within 48 hours:
 The post-change report is the auditable evidence under **OBS-C-02** ([11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
 
 ## 8.8 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — reference architecture deployed by these scripts.
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — reference architecture deployed by this standard.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
 - [Chapter 6. Grafana Platform Standard and Visualization Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualization-playbook.md#671-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
 - [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits change records produced by Section 8.1.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — platform KPI roll-up to executive scorecard.
 - [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — change control / ARB approvals for stack changes.
-- [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADR for choice of Docker Compose + PowerShell.
+- [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADRs for deployment and automation choices.
 - [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — self-monitoring signals gating Section 8.1 wave promotion.
 
 ---

@@ -34,7 +34,7 @@ Defines who governs observability standards, retention, access, and architecture
 | Cost / FinOps levers ([10. Observability FinOps Standard](10-observability-finops-standard.md)) | Platform Ops with governance body sign-off above threshold. |
 | Alerting & severity ([5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md)) | SRE / Incident Mgmt with governance body endorsement. |
 | AIOps guardrails ([7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) | AI lead + governance body co-approval. |
-| IaC standard ([8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md)) | Platform Ops; ARB endorsement for cross-cloud changes. |
+| IaC standard ([8. IaC for Observability Standard](08-iac-for-observability-standard.md)) | Platform Ops; ARB endorsement for cross-cloud changes. |
 | Roadmap phase gates ([14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md)) | Governance body / ARB. |
 
 ## 16.4 Architecture Review Board (ARB) Pack
@@ -62,7 +62,7 @@ The decision-rights table (Section 4) names the **A**ccountable role only. The f
 | Onboard new service (PRR gate, [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) | A,R | R | C | I | C | I | I |
 | Change retention policy ([9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)) | I | R | A,R | I | C | C | C |
 | Promote AIOps model to production ([7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) | C | R | C | A,R | I | C | I |
-| Approve cross-cloud platform change ([8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md)) | I | R | I | I | C | A | C |
+| Approve cross-cloud platform change ([8. IaC for Observability Standard](08-iac-for-observability-standard.md)) | I | R | I | I | C | A | C |
 | Update RBAC role definitions | I | R | C | I | A,R | C | I |
 | Approve cost-optimisation lever above threshold ([10. Observability FinOps Standard](10-observability-finops-standard.md)) | C | R | I | I | I | A | R |
 | Ratify ADR ([17. Observability ADR Decision Register](17-observability-adr-decision-register.md)) | C | C | C | C | C | A,R | C |

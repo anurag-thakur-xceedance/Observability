@@ -66,7 +66,7 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 37 | Key Metrics for IaC Role in OTel Deployments | EXTRACT | 7, 11 | Platform KPIs in artifact 7 Section 5; roll-up in artifact 11 Section 6. |
 | 38 | Severity Policy (IaC) | EXTRACT | 4 | Artifact 4 Section 5.7. |
 | 39 | Implementation & Visualization Tips (IaC) | EXTRACT | 7 | Artifact 7 Section 7. |
-| 40 | Multi-Cloud Observability Design | MIXED | 2 | Superseded by host-portable Compose model in artifact 2 Section 7; multi-cloud K8s posture retired. |
+| 40 | Multi-Cloud Observability Design | MIXED | 2 | Reframed as deployment-model-aware containerized delivery in artifact 2 Section 6; platform-specific implementation remains environment-dependent. |
 | 41 | Observability Data Model | EXTRACT | 19 | Data model spec in artifact 19. |
 | 42 | Governance and Data Strategy | MIXED | 8, 15 | Narrative kept; data controls → artifact 8; governance model → artifact 15. |
 | 43 | Telemetry retention tiers | EXTRACT | 8 | Artifact 8 Section 4. |
@@ -98,7 +98,7 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 4 | [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) | 14, 17, 20, 24, 28, 34, 38 |
 | 5 | [Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) | 26, 27, 28, 29, 58 |
 | 6 | [AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) | 30, 31, 32, 33, 34, 35, 58 |
-| 7 | [IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) | 36, 37, 39 |
+| 7 | [IaC for Observability Standard](08-iac-for-observability-standard.md) | 36, 37, 39 |
 | 8 | [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) | 42, 43, 44, 58 |
 | 9 | [Observability FinOps Standard](10-observability-finops-standard.md) | 46 |
 | 10 | [Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) | 47 |
@@ -117,7 +117,7 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 23 | [Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | New (gap-fill) — extends Section 43, Section 48 with STRIDE, mTLS, supply-chain controls. |
 | 24 | [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) | New (gap-fill) — extracts from Section 3 and standardises burn-rate alerting referenced in Section 15. |
 | 25 | [Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) | New (gap-fill) — operationalises Section 12–Section 14 with PRR gate. |
-| 26 | [Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | New (gap-fill) — extends Section 41 host-portable Compose model to multi-tenant context. |
+| 26 | [Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | New (gap-fill) — extends the deployment-model-aware containerized design to multi-tenant context. |
 | 27 | [28. Observability Non-Functional Requirements Register](28-observability-non-functional-requirements.md) | New (P1 gap-fill) — consolidates platform NFRs scattered across Sections 4, 7, 22, 42, 46, 47. |
 | 28 | [29. Observability Long-Term Archival Policy](29-observability-long-term-archival-policy.md) | New (P1 gap-fill) — extends Section 44 (retention tiers) and Section 48 (compliance) for archival >1 year. |
 | 23A | [Threat Model (STRIDE) — Appendix to Chapter 23](24-appendix-a-threat-model.md) | New (P1 gap-fill) — deepens Chapter 23 Section 2 STRIDE summary with per-component matrix and residual-risk register. |

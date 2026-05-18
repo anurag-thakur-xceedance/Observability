@@ -72,7 +72,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 - MTTD < 1 min, MTTR in minutes, services instrumented 100%, alert noise low (< 10% FP), manual RCA < 20%, automated tickets > 90%.
 
 ## 14.5 Dependencies (Cross-Phase)
-- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.
+- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.
 - [18. Application Telemetry Standard](18-application-telemetry-standard.md) — required to instrument services consistently across phases.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — required before significant telemetry volume in Phase 2.
 - [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — pre-condition for Phase 3 automation.
@@ -86,7 +86,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 ## 14.7 Cross-References
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard with phase targets.
 - [15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) — capability assessment framework.
-- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) / [18. Application Telemetry Standard](18-application-telemetry-standard.md) / [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) / [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — dependent standards / policies.
+- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) / [18. Application Telemetry Standard](18-application-telemetry-standard.md) / [8. IaC for Observability Standard](08-iac-for-observability-standard.md) / [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — dependent standards / policies.
 
 ---
 
