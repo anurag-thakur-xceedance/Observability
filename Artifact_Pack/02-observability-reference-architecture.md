@@ -19,7 +19,7 @@ status: Draft
 
 ---
 
-## 1. Architectural Principles
+## 2.1 Architectural Principles
 - **Centralised Data Collection.** All telemetry consolidated in a unified platform to break down silos and enable cross-pillar correlation.
 - **Open Standards.** Vendor-neutral instrumentation (OpenTelemetry) to avoid lock-in and simplify integration.
 - **Tool Selection.** Grafana selected as primary visualization and alerting tool based on scalability, ease of use, and cost.
@@ -29,7 +29,7 @@ status: Draft
 - **Deployment-Model Awareness.** Universal observability — consistent logs + metrics + traces + events across all runtimes — is implemented in a model-aware manner, not one-size-fits-all. Deployment topology (on-prem, customer site, cloud VM) directly shapes what can be instrumented, the context that can be captured, and where telemetry can be stored or processed; trace continuity, data ownership, and cost control follow from those choices.
 - **Application / Infrastructure Convergence.** Application-stack tooling has been pre-selected and the infrastructure stack is broadly guided by Azure-native capabilities; this architecture brings application and infrastructure insights together into a single pane of glass within those constraints.
 
-## 2. High-Level Architecture (Logical View)
+## 2.2 High-Level Architecture (Logical View)
 
 <img src="assets/diagrams/observability-pipeline-architecture.jpg" alt="Observability pipeline architecture showing applications and infrastructure telemetry flowing through the OpenTelemetry SDK and Collector into Prometheus, Loki, and Tempo, then into the Grafana observability layer, alerting, AI observability actions, root cause analysis, and incident management." width="1100">
 
@@ -95,7 +95,7 @@ flowchart LR
 
 The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a **Docker Compose** project, provisioned and managed by **PowerShell** scripts. See [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md).
 
-## 3. Core Concepts
+## 2.3 Core Concepts
 
 | Component | Role |
 |---|---|
@@ -108,7 +108,7 @@ The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a
 | Docker Compose | Declarative deployment unit for the observability stack — one Compose project per environment. |
 | PowerShell | Orchestrator and IaC layer: provisions hosts, renders configs, runs `docker compose` lifecycle, validates health, emits deployment telemetry. |
 
-## 4. Core Open-Source Stack
+## 2.4 Core Open-Source Stack
 
 | Layer | Tool | Role |
 |---|---|---|
@@ -137,7 +137,7 @@ The entire backend (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is a
 
 All components are open-source or vendor-neutral; commercial choices (paging, IdP, Vault) are pluggable per [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md).
 
-### 4.1. eBPF for Legacy and Non-Intrusive Instrumentation
+### 2.4.1 eBPF for Legacy and Non-Intrusive Instrumentation
 For legacy services, vendor-supplied components, or any workload where code-level instrumentation is impractical, eBPF-based auto-instrumentation (e.g., Grafana **Beyla**, or Cilium Tetragon for security signals) provides language-agnostic visibility into HTTP, gRPC, and SQL traffic at the kernel level.
 
 **Decision:** Beyla is recommended as a complementary layer beside the OpenTelemetry SDK kits in [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) — formalised in **ADR-012** in [Chapter 16](16-observability-adr-decision-register.md).
@@ -152,7 +152,7 @@ For legacy services, vendor-supplied components, or any workload where code-leve
 - Less attribute fidelity than SDK instrumentation.
 - Custom business attributes still require SDK.
 
-## 5. Telemetry Collection Layers
+## 2.5 Telemetry Collection Layers
 Telemetry is captured across four major layers:
 
 1. **Infrastructure (Host + Container).** Host-level metrics via Node Exporter; container-level metrics via cAdvisor. Logs collected by the OpenTelemetry Collector or a log-shipping agent (e.g. Promtail).
@@ -162,18 +162,18 @@ Telemetry is captured across four major layers:
 
 A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md).
 
-### 5.1. Sampling Strategy
+### 2.5.1 Sampling Strategy
 
 | Signal | Approach | Rate (default) | Rationale |
 |---|---|---|---|
 | Metrics | No sampling — full fidelity at scrape interval | 100% | Aggregated by definition; sampling defeats the purpose |
-| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model)) |
+| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.4.1 Service Tiering Model](01-enterprise-observability-standards-catalog.md#141-service-tiering-model)) |
 | Traces (head-based, baseline) | `parentbased_traceidratio` at SDK | T1 10%, T2 5%, T3 1%, T4 0.1% | Decision propagates with `traceparent`; lightweight |
 | Traces (tail-based, gateway) | Tail sampling at gateway Collector | 100% of errors + 100% of slow (> P95) + N% of normal | Captures the interesting traces; downsamples the rest |
 
 **Decision** formalised in **ADR-013**.
 
-## 6. Host-Portable Deployment Design
+## 2.6 Host-Portable Deployment Design
 The same Docker Compose definition runs in every environment (development, test, staging, production; on-prem, customer-hosted, or cloud VM). The model deliberately avoids any single cloud's container-orchestration platform.
 
 **Advantages:**
@@ -188,7 +188,7 @@ The same Docker Compose definition runs in every environment (development, test,
 - **Health-check pass rate 100%** post-deployment.
 - All deployment is reproducible from Git via PowerShell scripts.
 
-### 6.1. Network Topology and Trust Boundaries
+### 2.6.1 Network Topology and Trust Boundaries
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │  Service / Customer Network Zone                                     │
@@ -236,25 +236,25 @@ The same Docker Compose definition runs in every environment (development, test,
 
 Detailed control catalogue in [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md).
 
-## 7. Pipeline Processing
+## 2.7 Pipeline Processing
 
-### 7.1 Pipeline Roles
+### 2.7.1 Pipeline Roles
 - **Edge Collector (per host or per service):** receive (OTLP, file, syslog), enrich (resource attributes), redact (PII at source), batch, export to gateway.
 - **Gateway Collector (HA, central):** authenticate, inject authoritative tenant ID, apply tail-sampling for traces, route per signal type to backends.
 - **Backends:** durable storage and query.
 
-### 7.2 Backpressure and Reliability
+### 2.7.2 Backpressure and Reliability
 - `memory_limiter` aborts ingestion when memory exceeds 80% — prevents OOM.
 - `sending_queue` with `file_storage` persists telemetry across collector restarts.
 - `retry_on_failure` with exponential backoff handles transient backend outages.
-- **`otelcol_processor_dropped_spans`** is a meta-monitor alert (see [Chapter 21 Section 7. Self-Monitoring](21-observability-platform-ha-and-dr-design.md#7-self-monitoring-meta-monitor)).
+- **`otelcol_processor_dropped_spans`** is a meta-monitor alert (see [Chapter 21. Observability Platform HA and DR Design -> Section 21.7 Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#217-self-monitoring-meta-monitor)).
 
-### 7.3 Schema Validation and Cardinality Controls
-- Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance).
+### 2.7.3 Schema Validation and Cardinality Controls
+- Cardinality enforcement per [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance).
 - Required-attribute enforcement: `attributes/required` processor pattern rejects telemetry missing any of `service.name`, `tier`, `tenant_id`.
 - Recording rules in Prometheus / Mimir track per-service active-series count.
 
-## 8. Cross-References
+## 2.8 Cross-References
 - [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
 - [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana platform standards and dashboard playbook.
 - [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — Docker Compose + PowerShell deployment standard.

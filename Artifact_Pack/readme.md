@@ -56,7 +56,7 @@ A short reading order by audience:
 - **29 chapters** (Chapter 0 strategy + Chapters 1–28 standards, playbooks, and operating-model artifacts), plus **Chapter 23 Appendix A** (Threat Model).
 - **2 annexures** — [Acronyms](annexure-a-acronyms.md) and [Concepts Glossary](annexure-b-concepts-glossary.md).
 - **3 cross-cutting documents** — [TOC](toc.md), [Traceability Matrix](traceability-matrix.md), [Handover Report](handover-report.md).
-- **5 JSON Schemas** for the five telemetry signals under `schemas/` — see [Chapter 19. Observability Data Model Specification -> Section 8.1 JSON Schema Index](19-observability-data-model-specification.md#81-json-schema-index).
+- **5 JSON Schemas** for the five telemetry signals under `schemas/` — see [Chapter 19. Observability Data Model Specification -> Section 19.8.1 JSON Schema Index](19-observability-data-model-specification.md#1981-json-schema-index).
 - **5 Mermaid architecture diagrams** under `assets/diagrams/` (catalogue in `assets/diagrams/index.md`) — pipeline, multi-tenant, AIOps loop, HA topology, DR runbook.
 
 ## Conventions

@@ -19,15 +19,15 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 18.1 Purpose
 Observability is as much about **people and processes** as tools. This document captures the operating model and adoption plan that turns the platform into a capability.
 
-## 2. Cultural Principles
+## 18.2 Cultural Principles
 - **Cross-Functional Collaboration.** Silos between DevOps, SRE, and business teams are reduced; responsibility for system health is shared.
 - **Training & Education.** Investment in team skills ensures effective use of observability tools and accurate interpretation of data.
 - **Actionable Alerting.** Intelligent thresholds reduce alert fatigue; each alert is associated with a clear response playbook (see [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md), [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md)).
 
-## 3. Roles & Responsibilities
+## 18.3 Roles & Responsibilities
 
 | Role | Primary Focus |
 |---|---|
@@ -39,32 +39,32 @@ Observability is as much about **people and processes** as tools. This document 
 | Governance Body | Owns standards, retention, policy approvals ([Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)) |
 | Product / Business | Consumes business-impact dashboards; provides outcome KPI input ([Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)) |
 
-## 4. Adoption Plan (Aligned to Roadmap)
+## 18.4 Adoption Plan (Aligned to Roadmap)
 
-### Phase 1 — Foundation
+### 18.4.1 Phase 1 — Foundation
 - Onboard top-5 critical services per [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md).
 - Train all relevant team members on Grafana navigation.
 - Establish baseline KPIs ([Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)).
 
-### Phase 2 — Correlation & Alerting
+### 18.4.2 Phase 2 — Correlation & Alerting
 - Roll out shared dashboards and topology views.
 - Establish on-call rotation aligned to [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) severities.
 - Reduce alert noise to "moderate" through tuning (see [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)).
 
-### Phase 3 — AI-Driven Intelligence
+### 18.4.3 Phase 3 — AI-Driven Intelligence
 - Operationalise AIOps feedback loops; operators routinely validate AI outputs.
 - Mature post-incident review process; PIR records reused in risk reviews.
 - Embed business-impact storytelling in incident communications.
 
-### 4.1 Community of Practice
+### 18.4.4 Community of Practice
 
 The Observability **Community of Practice (CoP)** is the working-level forum that operationalises governance below the ARB. It is the primary mechanism by which standards from [Chapter 1](01-enterprise-observability-standards-catalog.md) and decisions from [Chapter 15](15-observability-governance-charter-and-arb-pack.md) become **lived practice** across services.
 
-**Charter.** The CoP is **advisory and educational**, not a decision body. Decision authority remains with the ARB / governance body per [Chapter 15. Observability Governance Charter and ARB Pack -> Section 3. Decision Rights](15-observability-governance-charter-and-arb-pack.md#3-decision-rights).
+**Charter.** The CoP is **advisory and educational**, not a decision body. Decision authority remains with the ARB / governance body per [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.3 Decision Rights](15-observability-governance-charter-and-arb-pack.md#153-decision-rights).
 
 **Membership.**
 - **Core (standing).** Platform Ops lead, SRE lead, AIOps lead, Data Governance lead, Service Onboarding lead.
-- **Rotating (one-quarter terms).** Two service-team representatives drawn from currently-onboarding services (CoP rotation reduces single-points-of-knowledge — risk **GOV-R-10** in [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.2. Governance Risk Register](15-observability-governance-charter-and-arb-pack.md#42-governance-risk-register)).
+- **Rotating (one-quarter terms).** Two service-team representatives drawn from currently-onboarding services (CoP rotation reduces single-points-of-knowledge — risk **GOV-R-10** in [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.2 Governance Risk Register](15-observability-governance-charter-and-arb-pack.md#1542-governance-risk-register)).
 - **Open.** Any engineer may attend any CoP session.
 
 **Cadence.**
@@ -78,7 +78,7 @@ The Observability **Community of Practice (CoP)** is the working-level forum tha
 | Annual conference / unconf | Annual, full day | Internal event; external speakers welcome | Platform Ops |
 
 **Artefacts the CoP owns or curates.**
-- **Pattern library.** Worked examples for telemetry kits ([Chapter 25. Service Onboarding and Instrumentation Kits -> Section 3. Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md#3-instrumentation-kits)), dashboard templates ([Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)), SLO definitions ([Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md)).
+- **Pattern library.** Worked examples for telemetry kits ([Chapter 25. Service Onboarding and Instrumentation Kits -> Section 25.3 Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md#253-instrumentation-kits)), dashboard templates ([Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)), SLO definitions ([Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md)).
 - **Anti-pattern register.** Misuses encountered in PRR or in production; published with remediation guidance.
 - **RFC log.** Drafts headed for ADRs in [Chapter 16](16-observability-adr-decision-register.md).
 - **Champions list.** A "Champion" per service team — a named engineer accountable for that team's adherence to standards and the local point-of-contact for the CoP.
@@ -99,7 +99,7 @@ An RFC that the CoP recommends becomes a sponsored proposal to the ARB; the ARB 
 - Median RFC time-to-decision ≤ 30 days.
 - Anti-pattern register growth ≥ 1 entry per quarter (a healthy CoP surfaces issues; zero entries signals disengagement, not perfection).
 
-## 5. Continuous Improvement Process
+## 18.5 Continuous Improvement Process
 The strategy is regularly reassessed and refined as the technology landscape and business needs evolve.
 
 | Activity | Cadence | Owner |
@@ -110,19 +110,19 @@ The strategy is regularly reassessed and refined as the technology landscape and
 | KPI scorecard review | Monthly | Governance body |
 | Roadmap phase-gate readiness | Quarterly | Governance body / ARB ([Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)) |
 
-## 6. Training Curriculum (Initial)
+## 18.6 Training Curriculum (Initial)
 - Grafana basics (dashboards, exploration, alerts).
 - Reading logs (Loki) and traces (Tempo) and correlating to metrics.
 - Domain runbooks ([Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md)) — one module per domain.
 - Incident response workflow ([Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)).
 - AIOps interpretation ([Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)) — for senior on-call.
 
-## 7. Success Indicators
+## 18.7 Success Indicators
 - ≥ 70% engineering time on new feature work (vs. issue rectification) by end of Phase 3 (see [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)).
 - Cross-team incident resolution rate ≥ 70% within 6 months.
 - Reduced "war-room" sessions; demonstrable cross-functional ownership.
 
-### 7.1 Adoption KPIs
+### 18.7.1 Adoption KPIs
 
 The headline indicators in Section 7 are operationalised below as **leading** (predict success) and **lagging** (confirm success) KPIs. All are reported on the scorecard in [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md).
 
@@ -148,10 +148,10 @@ The headline indicators in Section 7 are operationalised below as **leading** (p
 **Phase-gate criteria.** Movement from Phase N to Phase N+1 requires:
 - All Phase N leading KPIs at target for two consecutive quarters.
 - ≥ 50% of Phase N lagging KPIs at target.
-- No open governance risks ([Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.2. Governance Risk Register](15-observability-governance-charter-and-arb-pack.md#42-governance-risk-register)) at **High** or **Critical**.
+- No open governance risks ([Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.2 Governance Risk Register](15-observability-governance-charter-and-arb-pack.md#1542-governance-risk-register)) at **High** or **Critical**.
 - Explicit ARB sign-off recorded as an ADR.
 
-## 8. Cross-References
+## 18.8 Cross-References
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — productivity and adoption KPIs (sourced from Section 7.1).
 - [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md) — phase plan this adoption mirrors; phase-gate criteria in Section 7.1 feed roadmap gates.
 - [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md) — cultural-adoption inputs to maturity scoring.

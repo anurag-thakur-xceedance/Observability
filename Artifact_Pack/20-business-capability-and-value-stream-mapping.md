@@ -21,7 +21,7 @@ status: Draft
 
 ---
 
-## 1. Why This Chapter Exists
+## 20.1 Why This Chapter Exists
 The strategy must be defensible at board level. "Reduce MTTR" is operational; what reviewers ask is **"What does observability do for Underwriting? For Claims? For the customer at FNOL?"** This chapter answers that question by mapping observability outcomes to business capabilities and the value streams that monetise them.
 
 Three artifacts are produced here:
@@ -29,7 +29,7 @@ Three artifacts are produced here:
 2. **Value-Stream View** — the customer-facing journeys whose performance observability protects.
 3. **Outcome → KPI → SLO → SLI → Telemetry traceability** chain.
 
-## 2. Business Capability Map (Insurance Reference)
+## 20.2 Business Capability Map (Insurance Reference)
 The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and reinsurers**. The capability axis below uses the LOMA / ACORD-aligned capability taxonomy.
 
 | Business Capability | Tier | Criticality Driver | Data Classification | Target SLO (Availability) | RTO | RPO | Observability Coverage Required |
@@ -47,11 +47,11 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 | Internal Analytics / BI | T3 | Decision support | Internal | 98.0% | ≤ 24 h | ≤ 24 h | Pipeline-health telemetry |
 | Corporate IT (HR, Finance, Email) | T4 | Internal users | Internal | 98.0% | ≤ 48 h | ≤ 24 h | Standard infra telemetry |
 
-**Tier definitions** are formalised in [Chapter 1 Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model).
+**Tier definitions** are formalised in [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.4.1 Service Tiering Model](01-enterprise-observability-standards-catalog.md#141-service-tiering-model).
 
-## 3. Value-Stream View
+## 20.3 Value-Stream View
 
-### 3.1 Value Stream — Quote-to-Bind
+### 20.3.1 Value Stream — Quote-to-Bind
 ```
 [Visitor Lands]→[Quote Form]→[Rate Engine]→[Eligibility]→[Underwriting Decision]→[Bind Offer]→[Payment]→[Policy Issue]→[Document Delivery]
        │             │             │              │                    │                   │           │            │              │
@@ -61,7 +61,7 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 ```
 **Critical KPIs on this stream:** Quote-to-Bind conversion rate, time-to-quote (P95), rate-engine latency (P95), bind success rate, payment success rate, policy-issuance latency.
 
-### 3.2 Value Stream — FNOL-to-Settlement
+### 20.3.2 Value Stream — FNOL-to-Settlement
 ```
 [FNOL Channel]→[Claim Created]→[Triage]→[Assignment]→[Investigation]→[Reserve Set]→[Adjudication]→[Approval]→[Payment]→[Closure]
       │              │            │          │              │              │            │             │           │           │
@@ -71,25 +71,25 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 ```
 **Critical KPIs:** Cycle time per stage, leakage indicators (reserve adjustments), customer-comm latency, adjudication-decision latency, fraud-flag latency.
 
-### 3.3 Value Stream — Renewal & Retention
+### 20.3.3 Value Stream — Renewal & Retention
 ```
 [Renewal Trigger]→[Eligibility Re-check]→[Re-rate]→[Customer Comm]→[Customer Decision]→[Bind/Lapse]
 ```
 **Critical KPIs:** Renewal-comm delivery rate, re-rate success rate, decision-window adherence.
 
-## 4. Outcome → KPI → SLO → SLI → Telemetry Traceability
+## 20.4 Outcome → KPI → SLO → SLI → Telemetry Traceability
 
 | Business Outcome | Business KPI | SLO (per service) | SLI | Telemetry Source | Dashboard | Alert | Runbook |
 |---|---|---|---|---|---|---|---|
-| Quote conversion | Quote-to-Bind % | Quote-engine availability ≥ 99.9% | Successful 200/total ratio over 5-min window | Quote-engine APM + LB metrics | Grafana → Quote-to-Bind board | Burn-rate alert (multi-window) | [Chapter 12 Section 2. End-to-End Incident Sequence (Logical Flow)](12-incident-response-playbook.md#2-end-to-end-incident-sequence-logical-flow) |
-| FNOL responsiveness | Time-to-FNOL-confirm (P95) | FNOL-API P95 ≤ 800ms | Server-side P95 latency | FNOL-API APM | Grafana → FNOL board | Critical if P95 > 1200ms ≥ 2 min | Domain runbook in [Chapter 3 Section 3. Application Observability Runbook](03-domain-observability-runbooks-pack.md#3-application-observability-runbook-pre-login-post-login-execution-steps) |
+| Quote conversion | Quote-to-Bind % | Quote-engine availability ≥ 99.9% | Successful 200/total ratio over 5-min window | Quote-engine APM + LB metrics | Grafana → Quote-to-Bind board | Burn-rate alert (multi-window) | [Chapter 12. Incident Response Playbook (Telemetry to Resolution) -> Section 12.2 End-to-End Incident Sequence (Logical Flow)](12-incident-response-playbook.md#122-end-to-end-incident-sequence-logical-flow) |
+| FNOL responsiveness | Time-to-FNOL-confirm (P95) | FNOL-API P95 ≤ 800ms | Server-side P95 latency | FNOL-API APM | Grafana → FNOL board | Critical if P95 > 1200ms ≥ 2 min | Domain runbook in [Chapter 3. Domain Observability Runbooks Pack -> Section 3.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](03-domain-observability-runbooks-pack.md#33-application-observability-runbook-pre-login-post-login-execution-steps) |
 | Payment reliability | Payment success % | Payment-gateway availability ≥ 99.95% | Successful auth/total over 1-min | Payment-gateway exporter | Grafana → Payments board | Critical if drop below 98% ≥ 2 min | [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) |
-| Policy issuance | Time-to-policy-doc (P95) | Doc-pipeline P95 ≤ 60s | Pipeline-stage durations | Workflow-engine custom metrics | Grafana → Policy issuance board | Warning if P95 > 90s | [Chapter 3 Section 3](03-domain-observability-runbooks-pack.md#3-application-observability-runbook-pre-login-post-login-execution-steps) |
+| Policy issuance | Time-to-policy-doc (P95) | Doc-pipeline P95 ≤ 60s | Pipeline-stage durations | Workflow-engine custom metrics | Grafana → Policy issuance board | Warning if P95 > 90s | [Chapter 3. Domain Observability Runbooks Pack -> Section 3.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](03-domain-observability-runbooks-pack.md#33-application-observability-runbook-pre-login-post-login-execution-steps) |
 | Claim cycle time | Days from FNOL to Settle | Workflow-engine availability ≥ 99.5% | Stage-transition success rate | Workflow telemetry + DB | Grafana → Claims cycle board | Warning on stage-stall > 1h | [Chapter 12](12-incident-response-playbook.md) |
 
 The full SLO methodology — including SLI categorisation, error-budget policy, and burn-rate alert formulas — is defined in [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md).
 
-## 5. Capability-to-Artifact Mapping
+## 20.5 Capability-to-Artifact Mapping
 
 | Business Capability | Primary Artifacts |
 |---|---|
@@ -100,15 +100,15 @@ The full SLO methodology — including SLI categorisation, error-budget policy, 
 | Reporting / Regulatory | [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md), [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) |
 | Multi-customer site | [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) |
 
-## 6. Stakeholder Value Statements
+## 20.6 Stakeholder Value Statements
 - **Underwriting Director:** "I see model-decision latency, override rates, and rule-engine errors per product line on a single board, with alerts when conversion or loss-ratio leading indicators drift."
 - **Claims Operations Director:** "I see cycle-time per stage, leakage indicators, and channel-mix in real time; investigation-stage stalls page my team within minutes."
 - **CISO:** "I have a complete audit trail of every change to telemetry, every PII redaction event, and every access to customer data, retained per regulatory window."
 - **CFO:** "Observability cost per business transaction is tracked; chargeback to LOB is monthly."
 - **Customer Operations:** "Per-customer-site dashboards show isolated tenancy; SLA breach detection ≤ 2 min."
 
-## 7. Cross-References
-- [Chapter 1 Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model) — tier definitions consumed by this chapter.
+## 20.7 Cross-References
+- [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.4.1 Service Tiering Model](01-enterprise-observability-standards-catalog.md#141-service-tiering-model) — tier definitions consumed by this chapter.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — KPI targets per tier.
 - [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md) — SLO methodology.
 - [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — tenant data isolation.

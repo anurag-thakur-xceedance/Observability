@@ -21,13 +21,13 @@ status: Draft
 
 ---
 
-## 1. HA / DR Posture
+## 21.1 HA / DR Posture
 The platform itself is **Tier 1**. Recovery objectives:
 - **RTO:** ≤ 30 minutes (faster than business Tier 1 RTO of 60 min, so platform is back before business systems need it).
 - **RPO:** ≤ 5 minutes for metrics/traces/logs in flight; ≤ 1 hour for dashboards/alert-rule state (recoverable from Git).
 - **Self-monitoring:** A meta-monitor (lightweight Prometheus + Alertmanager) monitors the primary observability platform.
 
-## 2. Component HA Matrix
+## 21.2 Component HA Matrix
 
 | Component | Single-Host Compose Limit | HA Pattern | Scale-Out Target | When to Migrate |
 |---|---|---|---|---|
@@ -40,7 +40,7 @@ The platform itself is **Tier 1**. Recovery objectives:
 | Alertmanager | Single instance ≠ HA | **Cluster mode:** 3 Alertmanager peers gossiping; deduplicates alerts | Already HA in cluster mode | Day 1 |
 | Pyroscope (profiles) | Single instance acceptable initially | Two instances with shared object storage | Pyroscope distributed | When profile ingest > 1GB/day |
 
-## 3. Reference HA Topology (Compose, Single Region)
+## 21.3 Reference HA Topology (Compose, Single Region)
 ```
                            ┌─────────────────────┐
                            │   L4/L7 Load Bal.   │  ← HAProxy / nginx / Azure LB
@@ -71,7 +71,7 @@ The platform itself is **Tier 1**. Recovery objectives:
                   └────────────────────┘
 ```
 
-## 4. Persistence and Backup
+## 21.4 Persistence and Backup
 | Asset | Source of Truth | Backup Mechanism | Restore Time | Test Cadence |
 |---|---|---|---|---|
 | Dashboards | Git repo (`grafana/dashboards/`) | Git + provisioning | < 5 min via re-provision | Quarterly |
@@ -83,25 +83,25 @@ The platform itself is **Tier 1**. Recovery objectives:
 | Grafana DB (Postgres) | Postgres | Logical backup (`pg_dump`) every 6h + WAL archive | ≤ 15 min | Monthly |
 | OTel Collector queue | Local disk (`file_storage` extension) | Implicit; survives restart; lost on host loss | N/A | N/A |
 
-## 5. DR Patterns
+## 21.5 DR Patterns
 
-### 5.1 Pattern A — Hot/Warm Cross-Region (recommended for Tier 1)
+### 21.5.1 Pattern A — Hot/Warm Cross-Region (recommended for Tier 1)
 - Primary region: full Compose stack as in Section 3.
 - DR region: lightweight Compose stack (single host of each component) with object storage replicated cross-region.
 - Prometheus remote-write to a regional Mimir / VictoriaMetrics with cross-region replication.
 - DR Grafana provisioned identically; DNS / LB cutover for failover.
 - **RTO ≤ 30 min, RPO ≤ 5 min.**
 
-### 5.2 Pattern B — Cold-Backup
+### 21.5.2 Pattern B — Cold-Backup
 - Object-storage replication cross-region (Azure GRS / S3 cross-region replication).
 - DR site provisioned on demand from PowerShell IaC scripts in [Chapter 7](07-iac-for-observability-standard.md).
 - **RTO ≤ 4 h, RPO ≤ 1 h.** Acceptable for non-customer-facing observability tiers only.
 
-### 5.3 Pattern C — Customer-Site Local DR
+### 21.5.3 Pattern C — Customer-Site Local DR
 - Each customer site runs its own Compose stack (see [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md)).
 - DR is local snapshot + remote-write to central Xceedance aggregation (after PII redaction per [Chapter 23](23-observability-platform-security-architecture.md)).
 
-## 6. Failure Modes and Mitigations
+## 21.6 Failure Modes and Mitigations
 | Failure | Detection | Mitigation | Owner |
 |---|---|---|---|
 | Single host loss | LB health check; meta-monitor alert | Other Compose host serves traffic; restore failed host from IaC | Platform Engineering |
@@ -113,13 +113,13 @@ The platform itself is **Tier 1**. Recovery objectives:
 | Region outage | Health-check failure across all primary endpoints | DNS / LB cutover to DR region (Pattern A) | Platform Engineering + Network |
 | OTel Collector queue full | Collector self-metric `otelcol_processor_dropped_spans` | Spill to disk via `file_storage`; backpressure to clients; scale gateway | Platform Engineering |
 
-## 7. Self-Monitoring (Meta-Monitor)
+## 21.7 Self-Monitoring (Meta-Monitor)
 A separate, deliberately small Prometheus + Alertmanager pair runs on a different host class (or a different cloud account / region) and:
 - Scrapes the primary stack's `/metrics` endpoints.
 - Fires on `up == 0`, scrape failures, ingest-rate drops > 30%, queue saturation, cardinality growth.
 - Pages observability on-call directly (bypassing the primary Alertmanager that is being monitored).
 
-## 8. DR Drill Cadence
+## 21.8 DR Drill Cadence
 | Drill | Frequency | Success Criteria |
 |---|---|---|
 | Dashboard re-provision | Quarterly | All dashboards restored from Git ≤ 5 min |
@@ -130,7 +130,7 @@ A separate, deliberately small Prometheus + Alertmanager pair runs on a differen
 | Region failover (Pattern A) | Semi-annually | RTO ≤ 30 min, RPO ≤ 5 min, no data loss in critical signals |
 | Cold-backup spin-up (Pattern B) | Annually | Stack reachable ≤ 4 h |
 
-## 9. Cross-References
+## 21.9 Cross-References
 - [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — base architecture.
 - [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — PowerShell + Compose provisioning.
 - [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) — when to migrate from Compose to distributed.

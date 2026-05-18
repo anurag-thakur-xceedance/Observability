@@ -19,11 +19,11 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 29.1 Purpose
 
 This register consolidates the portfolio-level risks for the observability programme into a single artefact. Individual chapters surface risk fragments inside their own scope (for example AIOps guardrail risks in [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md), retention and erasure risks in [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), and platform security risks in [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md)); this chapter rolls them up so that the ARB and the programme sponsor have one view of the top risks across all chapters.
 
-## 2. Scope
+## 29.2 Scope
 
 - Risks that have programme-level impact: budget, regulatory standing, customer commitments, ability to operate the platform, or ability to ship the agent capability.
 - Risks that span more than one chapter and therefore have no natural home in a single standard.
@@ -31,9 +31,9 @@ This register consolidates the portfolio-level risks for the observability progr
 
 Out-of-scope: operational incident risk (handled in [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) and [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)), and per-service application risks (owned by service teams, not the platform).
 
-## 3. Rating Scheme
+## 29.3 Rating Scheme
 
-### 3.1 Likelihood
+### 29.3.1 Likelihood
 
 | Score | Label | Definition |
 |---|---|---|
@@ -43,7 +43,7 @@ Out-of-scope: operational incident risk (handled in [Chapter 4. Alerting and Inc
 | 4 | Likely | Already occurring in some form, or will without further mitigation. |
 | 5 | Almost certain | Already materialising; visible in current evidence. |
 
-### 3.2 Impact
+### 29.3.2 Impact
 
 | Score | Label | Definition |
 |---|---|---|
@@ -53,7 +53,7 @@ Out-of-scope: operational incident risk (handled in [Chapter 4. Alerting and Inc
 | 4 | Major | Multi-quarter remediation, regulator notification, or material customer SLA breach. |
 | 5 | Severe | Regulatory enforcement action, programme cancellation, or loss of authorisation to operate. |
 
-### 3.3 Risk Score
+### 29.3.3 Risk Score
 
 `Risk = Likelihood x Impact` (1 to 25). Bands:
 
@@ -64,29 +64,29 @@ Out-of-scope: operational incident risk (handled in [Chapter 4. Alerting and Inc
 
 Residual rating is the score after the documented mitigation is in place and operating as intended.
 
-## 4. Risk Register (Top Programme Risks)
+## 29.4 Risk Register (Top Programme Risks)
 
 Each row is a programme-level risk. `R-ID` is stable across revisions of this register. `Source` points to the chapter(s) where the underlying detail is documented.
 
 | R-ID | Risk | Category | L | I | Score | Owner | Mitigation Summary | Residual L | Residual I | Residual | Source |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| R-01 | Cardinality explosion in metrics tier exceeds capacity model and drives unplanned cost or platform instability. | FinOps / Capacity | 4 | 4 | 16 | Platform Lead | Cardinality governance per [Chapter 1, Section 3.4 — Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance); capacity model in [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md); FinOps guardrails in [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md). | 2 | 3 | 6 | Ch 1, Ch 9, Ch 22 |
+| R-01 | Cardinality explosion in metrics tier exceeds capacity model and drives unplanned cost or platform instability. | FinOps / Capacity | 4 | 4 | 16 | Platform Lead | Cardinality governance per [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance); capacity model in [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md); FinOps guardrails in [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md). | 2 | 3 | 6 | Ch 1, Ch 9, Ch 22 |
 | R-02 | AIOps agent produces a confidently-wrong recommendation that is acted on and causes a customer-visible incident. | AI / Safety | 3 | 4 | 12 | AIOps Lead | Shadow-mode rollout for `rca-hypothesis-v1`; human-in-the-loop on all change-adjacent agents; guardrails in [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md). | 2 | 3 | 6 | Ch 6 |
-| R-03 | PII or other restricted data leaks into telemetry and is retained beyond lawful basis. | Privacy / Compliance | 3 | 5 | 15 | Data Protection Officer | Field-level classification and redaction per [Chapter 17. Application Telemetry Standard -> Section 6. PII & Data Classification](17-application-telemetry-standard.md#6-pii-data-classification); retention and erasure in [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) and [Chapter 28. Observability Long-Term Archival Policy -> Section 10. Right to Erasure (GDPR Art. 17)](28-observability-long-term-archival-policy.md#10-right-to-erasure-gdpr-art-17). | 2 | 4 | 8 | Ch 8, Ch 17, Ch 28 |
-| R-04 | Long-term archive is not tamper-evident in a way that satisfies regulator or auditor evidence requirements. | Compliance / Audit | 3 | 4 | 12 | Compliance Officer | WORM storage with object-lock Compliance mode and signed sidecar manifests per [Chapter 28. Observability Long-Term Archival Policy -> Section 5.3 Integrity & Tamper Evidence](28-observability-long-term-archival-policy.md#53-integrity-tamper-evidence). Archival format specification (Parquet/Iceberg/Delta) and rehydration SLO are listed as a known gap in [Handover Report](handover-report.md). | 2 | 3 | 6 | Ch 28 |
-| R-05 | DR runbook for the observability platform is not exercised, so a real DR event exceeds RTO/RPO. | Reliability / DR | 3 | 4 | 12 | SRE Lead | DR design in [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md); DR-exercise cadence (at least annual) tracked in [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md). Exercise evidence is collected in the compliance evidence catalogue (see [Chapter 10. Compliance and Audit Control Matrix -> Section 7. Evidence Catalogue](10-compliance-and-audit-control-matrix.md#7-audit-evidence-catalogue)). | 2 | 3 | 6 | Ch 12, Ch 21 |
+| R-03 | PII or other restricted data leaks into telemetry and is retained beyond lawful basis. | Privacy / Compliance | 3 | 5 | 15 | Data Protection Officer | Field-level classification and redaction per [Chapter 17. Application Telemetry Standard -> Section 17.6 PII & Data Classification](17-application-telemetry-standard.md#176-pii-data-classification); retention and erasure in [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) and [Chapter 28. Observability Long-Term Archival Policy -> Section 28.10 Right to Erasure (GDPR Art. 17)](28-observability-long-term-archival-policy.md#2810-right-to-erasure-gdpr-art-17). | 2 | 4 | 8 | Ch 8, Ch 17, Ch 28 |
+| R-04 | Long-term archive is not tamper-evident in a way that satisfies regulator or auditor evidence requirements. | Compliance / Audit | 3 | 4 | 12 | Compliance Officer | WORM storage with object-lock Compliance mode and signed sidecar manifests per [Chapter 28. Observability Long-Term Archival Policy -> Section 28.5.3 Integrity & Tamper Evidence](28-observability-long-term-archival-policy.md#2853-integrity-tamper-evidence). Archival format specification (Parquet/Iceberg/Delta) and rehydration SLO are listed as a known gap in [Handover Report](handover-report.md). | 2 | 3 | 6 | Ch 28 |
+| R-05 | DR runbook for the observability platform is not exercised, so a real DR event exceeds RTO/RPO. | Reliability / DR | 3 | 4 | 12 | SRE Lead | DR design in [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md); DR-exercise cadence (at least annual) tracked in [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md). Exercise evidence is collected in the compliance evidence catalogue (see [Chapter 10. Compliance and Audit Control Matrix -> Section 10.7 Audit-Evidence Catalogue](10-compliance-and-audit-control-matrix.md#107-audit-evidence-catalogue)). | 2 | 3 | 6 | Ch 12, Ch 21 |
 | R-06 | Single-vendor lock-in on the telemetry backend (metrics, logs, or traces) blocks a future repricing or migration. | Vendor / Architecture | 3 | 3 | 9 | Platform Lead | OpenTelemetry-native instrumentation per [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) and [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md); ADRs that record vendor selection and the exit option per [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md). | 2 | 3 | 6 | Ch 16, Ch 17, Ch 19 |
-| R-07 | Observability cost grows faster than the business it supports and forces sampling/retention cuts mid-year. | FinOps | 4 | 3 | 12 | FinOps Lead | Unit-cost guardrails and the cost model in [Chapter 9. Observability FinOps Standard -> Section 6.4 Cost Model](09-observability-finops-standard.md#64-twelve-month-worked-cost-model); quarterly tier-rebalancing review per [Chapter 28. Observability Long-Term Archival Policy -> Section 12. Cost Model](28-observability-long-term-archival-policy.md#12-cost-model). | 2 | 3 | 6 | Ch 9, Ch 28 |
+| R-07 | Observability cost grows faster than the business it supports and forces sampling/retention cuts mid-year. | FinOps | 4 | 3 | 12 | FinOps Lead | Unit-cost guardrails and the cost model in [Chapter 9. Observability FinOps Standard -> Section 9.6.15 Twelve-Month Worked Cost Model](09-observability-finops-standard.md#9615-twelve-month-worked-cost-model); quarterly tier-rebalancing review per [Chapter 28. Observability Long-Term Archival Policy -> Section 28.12 Cost Model](28-observability-long-term-archival-policy.md#2812-cost-model). | 2 | 3 | 6 | Ch 9, Ch 28 |
 | R-08 | Skills gap on the platform team (OpenTelemetry, query languages, AIOps prompt engineering) slows delivery or causes outages. | People / Capability | 4 | 3 | 12 | Platform Lead | Skills matrix and training plan in [Chapter 18. Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md); pairing rules for AIOps work in [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md). | 3 | 3 | 9 | Ch 6, Ch 18 |
 | R-09 | Adoption of the telemetry standard by service teams stalls, so observability coverage remains uneven and SLOs are unreliable. | Adoption / Governance | 4 | 3 | 12 | ARB Chair | Onboarding checklist and named-journeys coverage in [Chapter 25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md); ARB conformance review per [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md). | 3 | 2 | 6 | Ch 15, Ch 25 |
-| R-10 | Regulatory change (DORA, NAIC Model #674, APRA CPS 234, or equivalent) introduces obligations the current control set does not satisfy. | Regulatory | 3 | 4 | 12 | Compliance Officer | Sector-regulation mapping in [Chapter 10. Compliance and Audit Control Matrix -> Section 6. Framework Mapping](10-compliance-and-audit-control-matrix.md#6-framework-mapping); ARB-tracked horizon scan reviewed quarterly. | 2 | 3 | 6 | Ch 10, Ch 15 |
+| R-10 | Regulatory change (DORA, NAIC Model #674, APRA CPS 234, or equivalent) introduces obligations the current control set does not satisfy. | Regulatory | 3 | 4 | 12 | Compliance Officer | Sector-regulation mapping in [Chapter 10. Compliance and Audit Control Matrix -> Section 10.6 Framework Mapping](10-compliance-and-audit-control-matrix.md#106-framework-mapping); ARB-tracked horizon scan reviewed quarterly. | 2 | 3 | 6 | Ch 10, Ch 15 |
 | R-11 | Customer-site / on-prem deployments diverge from the SaaS platform standard, so a single evidence story cannot be told to auditors. | Multi-tenant / Compliance | 3 | 3 | 9 | Platform Lead | Deployment-topology constraints in [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md); customer-site addendum process in [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md). | 2 | 3 | 6 | Ch 2, Ch 26 |
-| R-12 | Security incident (credential leak, supply-chain compromise, or collector tampering) on the observability path goes undetected. | Security | 2 | 5 | 10 | Security Lead | Threat model and controls in [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md); audit-logging requirements in [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md); integrity controls in [Chapter 28. Observability Long-Term Archival Policy -> Section 5.3 Integrity & Tamper Evidence](28-observability-long-term-archival-policy.md#53-integrity-tamper-evidence). | 1 | 4 | 4 | Ch 10, Ch 23, Ch 28 |
-| R-13 | Schema drift between application emitters, the OpenTelemetry Collector, and the storage backends silently breaks dashboards, alerts, and AIOps inputs. | Data Quality | 4 | 3 | 12 | Platform Lead | Canonical schemas, ERD, and OTel crosswalk in [Chapter 19. Observability Data Model Specification -> Section 8. Canonical JSON Schemas, ERD, and OTel Crosswalk](19-observability-data-model-specification.md#8-canonical-json-schemas-erd-and-otel-crosswalk); conformance gate in [Chapter 25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md). | 2 | 3 | 6 | Ch 25, Ch 19 |
+| R-12 | Security incident (credential leak, supply-chain compromise, or collector tampering) on the observability path goes undetected. | Security | 2 | 5 | 10 | Security Lead | Threat model and controls in [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md); audit-logging requirements in [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md); integrity controls in [Chapter 28. Observability Long-Term Archival Policy -> Section 28.5.3 Integrity & Tamper Evidence](28-observability-long-term-archival-policy.md#2853-integrity-tamper-evidence). | 1 | 4 | 4 | Ch 10, Ch 23, Ch 28 |
+| R-13 | Schema drift between application emitters, the OpenTelemetry Collector, and the storage backends silently breaks dashboards, alerts, and AIOps inputs. | Data Quality | 4 | 3 | 12 | Platform Lead | Canonical schemas, ERD, and OTel crosswalk in [Chapter 19. Observability Data Model Specification -> Section 19.8 Canonical JSON Schemas, ERD, and OTel Crosswalk](19-observability-data-model-specification.md#198-canonical-json-schemas-erd-and-otel-crosswalk); conformance gate in [Chapter 25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md). | 2 | 3 | 6 | Ch 25, Ch 19 |
 | R-14 | Programme cannot demonstrate ROI within the first 12 months and loses executive sponsorship or budget. | Strategic | 3 | 4 | 12 | Programme Sponsor | Outcome metrics and value tree in [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md); quarterly value report to ARB; FinOps view in [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md). | 2 | 3 | 6 | Ch 13, Ch 9, Ch 15 |
 | R-15 | Documentation rot: standards drift from the running platform, so the artefact pack becomes a reference no one trusts. | Governance | 4 | 3 | 12 | ARB Chair | Versioned chapter front matter with `next_review` dates; ARB-owned review cycle per [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md); traceability matrix kept current per [Traceability Matrix](traceability-matrix.md). | 2 | 2 | 4 | Ch 15 |
 
-## 5. Risk Categories (Reference)
+## 29.5 Risk Categories (Reference)
 
 | Category | Description | Typical Owner |
 |---|---|---|
@@ -106,21 +106,21 @@ Each row is a programme-level risk. `R-ID` is stable across revisions of this re
 | Vendor / Architecture | Risks from supplier choice and architectural coupling. | Platform Lead |
 | FinOps | Cost-trajectory risks. | FinOps Lead |
 
-## 6. Operating the Register
+## 29.6 Operating the Register
 
 - Owner: ARB Chair owns this register; named risk owners own the individual rows.
 - Review cadence: quarterly at ARB; ad-hoc on any Sev 1 incident, audit finding, or regulatory change.
 - Change control: new risk IDs are append-only; closed risks are retained with `status: Closed` and the closure date — they are not deleted.
 - Inputs: incident postmortems, audit findings, FinOps reviews, AIOps eval reports, and the rolling horizon scan from Compliance.
-- Outputs: ARB minutes, quarterly programme report to the sponsor, and the evidence catalogue entry referenced in [Chapter 10. Compliance and Audit Control Matrix -> Section 7. Evidence Catalogue](10-compliance-and-audit-control-matrix.md#7-audit-evidence-catalogue).
+- Outputs: ARB minutes, quarterly programme report to the sponsor, and the evidence catalogue entry referenced in [Chapter 10. Compliance and Audit Control Matrix -> Section 10.7 Audit-Evidence Catalogue](10-compliance-and-audit-control-matrix.md#107-audit-evidence-catalogue).
 
-## 7. Known Limitations of v0.1
+## 29.7 Known Limitations of v0.1
 
 - Likelihood and impact scores in Section 4 are **synthesis-grade** estimates produced during pack authoring; they require SME validation before being used to drive investment decisions.
 - A small number of mitigations point to handover-known gaps (for example archival format specification and rehydration SLO under R-04, and the full DORA / NAIC #674 / APRA CPS 234 control mapping under R-10). Those gaps are listed in [Handover Report](handover-report.md) under "Known Gaps for Engineering Phase" and are expected to close during P3 engineering work.
 - The register is intentionally narrow at v0.1 — top programme risks only — so that the ARB has a usable artefact on day one. Per-chapter and per-service risk detail remains in the originating chapters.
 
-## 8. Cross-References
+## 29.8 Cross-References
 
 - [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md) — programme objectives and value tree referenced by R-14.
 - [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) — AI-safety mitigations for R-02 and R-08.

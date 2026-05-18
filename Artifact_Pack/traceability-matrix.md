@@ -144,7 +144,7 @@ Artifacts 20–28 (including Chapter 23 Appendix A) and Annexure B / README do n
 | 23A — Threat Model (STRIDE) Appendix | Governance & Data Strategy (Section 42); Compliance (Section 47) | Deepens Chapter 23 Section 1; residual risks tracked against Chapter 27 NFR-SEC-* |
 | Annexure B — Concepts Glossary | Appendix glossary (Section 58) | Augments Annexure A acronyms |
 | README | New onboarding aid | Persona-based entry to all artifacts |
-| `schemas/` (5 JSON Schemas) | P2 Phase 3 deepening of Chapter 19 stub | Indexed in [Chapter 19. Observability Data Model Specification -> Section 8.1 JSON Schema Index](19-observability-data-model-specification.md#81-json-schema-index); shared `resource` definition |
+| `schemas/` (5 JSON Schemas) | P2 Phase 3 deepening of Chapter 19 stub | Indexed in [Chapter 19. Observability Data Model Specification -> Section 19.8.1 JSON Schema Index](19-observability-data-model-specification.md#1981-json-schema-index); shared `resource` definition |
 | `assets/diagrams/` (5 Mermaid diagrams + index) | P2 Phase 4 — canonical diagrams replacing ASCII boxes | Consumed by Ch 2 Section 2 (pipeline), Ch 6 Section 1 (AIOps loop), Ch 21 Sections 3 + 5 (HA + DR), Ch 26 Section 1 (multi-tenant) |
 | `tools/verify_links.ps1`, `tools/verify_frontmatter.ps1`, `tools/regen_toc.ps1` | P2 Phase 1 verifier tooling | Phase-5 sweep gate; PR-required green |
 | Root `AGENTS.md` | P2 — durable agent rules | Banned characters, slug rules, file-I/O, verifier discipline |
@@ -190,18 +190,18 @@ Verifier baseline at v0.1 close: **1,296 internal links / 0 broken; front-matter
 
 | ID | Gap | Target Location | Status |
 |---|---|---|---|
-| S1 | OpenTelemetry Semantic Convention crosswalk (stable / experimental / deprecated attributes, version pin) | Chapter 19, new section | **Delivered (P2 Phase 3)** — see [Chapter 19. Observability Data Model Specification -> Section 8.3 OpenTelemetry Semantic-Convention Crosswalk](19-observability-data-model-specification.md#83-opentelemetry-semantic-convention-crosswalk) |
+| S1 | OpenTelemetry Semantic Convention crosswalk (stable / experimental / deprecated attributes, version pin) | Chapter 19, new section | **Delivered (P2 Phase 3)** — see [Chapter 19. Observability Data Model Specification -> Section 19.8.5 OpenTelemetry Semantic-Convention Crosswalk](19-observability-data-model-specification.md#1985-opentelemetry-semantic-convention-crosswalk) |
 | S2 | Log severity standard (OTel SeverityNumber 1–24 ↔ syslog ↔ application levels, with retention-by-severity policy) | Chapter 1 or Chapter 17, new section | Planned |
 | S6 | Frontend / Real User Monitoring (RUM) standard — Core Web Vitals, W3C `traceparent` browser-to-backend correlation, session-replay PII redaction | New Chapter (proposed 30) | Planned |
 | A1 | Archival format specification (Parquet/Iceberg/Delta), schema-evolution policy, compaction cadence, and rehydration / restore-from-archive procedure with SLO | Chapter 28, new sections | Planned |
 | A2 | Legal-hold workflow (placement, release, evidence) integrated with GDPR Art. 17 erasure carve-out | Chapter 28 + Chapter 10, new sections | Planned |
-| N1 | NFR verification methods column (per NFR: how measured, evidence artefact, owner, cadence) | Chapter 27 verification matrix | **Delivered (P2 Phase 2.6)** — see [Chapter 27. Observability Non-Functional Requirements -> Section 4. Verification Methods (Per NFR)](27-observability-non-functional-requirements.md#4-verification-methods-per-nfr) |
+| N1 | NFR verification methods column (per NFR: how measured, evidence artefact, owner, cadence) | Chapter 27 verification matrix | **Delivered (P2 Phase 2.6)** — see [Chapter 27. Observability Non-Functional Requirements Register -> Section 27.4 Verification Methods (Per NFR)](27-observability-non-functional-requirements.md#274-verification-methods-per-nfr) |
 | N5 | Privacy-by-design NFRs (GDPR Art. 25 — DPIA threshold, DSAR SLA, cross-border transfer mechanism / SCCs) | Chapter 27 + Chapter 10 | Planned |
 | G1 | Observability domain RACI matrix (capability × role: Platform Engineering, Service Owner, AIOps Lead, FinOps, ARB, Security, Compliance) | Chapter 18 or Chapter 15, new section | Planned |
 | O4 | Supply-chain security — SBOM requirement (CycloneDX / SPDX), signed-image policy (Sigstore / Cosign), vulnerability-scan cadence on observability stack images | Chapter 23, new section | Planned |
 | E4 | Edge / customer-site collection patterns — offline buffering, store-and-forward, identity bootstrap, tenant isolation at edge | Chapter 26, new section | Planned |
-| D1 | JSON Schemas (draft 2020-12) for metrics / logs / traces / events / profiles | `Artifact_Pack/schemas/` | **Delivered (P2 Phase 3)** — five schemas under `Artifact_Pack/schemas/`, indexed in [Chapter 19. Observability Data Model Specification -> Section 8.1 JSON Schema Index](19-observability-data-model-specification.md#81-json-schema-index) |
-| D9 | LLM prompt-sanitisation standard + prompt-template registry | Chapter 6 or new Chapter 31 | **Delivered (P2 Phase 2.7/2.8)** — see [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 9. Worked Examples](06-aiops-guardrails-and-implementation-playbook.md#9-worked-examples-filled-model-cards-and-prompt-registry) |
+| D1 | JSON Schemas (draft 2020-12) for metrics / logs / traces / events / profiles | `Artifact_Pack/schemas/` | **Delivered (P2 Phase 3)** — five schemas under `Artifact_Pack/schemas/`, indexed in [Chapter 19. Observability Data Model Specification -> Section 19.8.1 JSON Schema Index](19-observability-data-model-specification.md#1981-json-schema-index) |
+| D9 | LLM prompt-sanitisation standard + prompt-template registry | Chapter 6 or new Chapter 31 | **Delivered (P2 Phase 2.7/2.8)** — see [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 6.9 Worked Examples — Filled Model Cards and Prompt Registry](06-aiops-guardrails-and-implementation-playbook.md#69-worked-examples-filled-model-cards-and-prompt-registry) |
 
 ### D.3 P3 — Subsumed gaps
 

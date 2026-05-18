@@ -19,29 +19,29 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 27.1 Purpose
 
 This chapter consolidates the **non-functional requirements (NFRs)** for the Xceedance Observability Platform itself — treating the platform as a Tier 1 service with its own SLOs, security posture, and operational standards. NFRs are otherwise scattered across architecture, capacity, HA/DR, security, FinOps, and onboarding chapters; this register provides a single auditable view for ARB, internal audit, and customer-facing assurance.
 
-## 2. Scope
+## 27.2 Scope
 
 In-scope: the observability platform components (OpenTelemetry Collector, Prometheus, Loki, Tempo, Grafana, AIOps layer, IaC pipeline, dashboard catalogue).
 
 Out-of-scope: NFRs of the **observed** services (those are owned by each service team and tracked in their own SLO docs per [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md)).
 
-## 3. NFR Register
+## 27.3 NFR Register
 
 Each NFR has: ID, category, statement, target, measurement source, owner (TBD), and a cross-reference to the artefact where the design is detailed.
 
 | ID | Category | Requirement | Target / Threshold | Measured Via | Detail Reference |
 |---|---|---|---|---|---|
 | NFR-AVL-01 | Availability | Observability platform availability | 99.9% monthly | Grafana uptime SLO + synthetic probe | [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) |
-| NFR-AVL-02 | Availability | Telemetry ingestion availability | 99.95% monthly | Collector liveness + ingest success rate | [Chapter 2. Observability Reference Architecture -> Section 5. Telemetry Collection Layers](02-observability-reference-architecture.md#5-telemetry-collection-layers) |
-| NFR-PRF-01 | Performance | Dashboard P95 query latency | ≤ 3 s | Grafana query logs | [Chapter 22. Capacity and Scale Model -> Section 7. Performance SLOs for the Platform Itself](22-capacity-and-scale-model.md#7-performance-slos-for-the-platform-itself) |
+| NFR-AVL-02 | Availability | Telemetry ingestion availability | 99.95% monthly | Collector liveness + ingest success rate | [Chapter 2. Observability Reference Architecture -> Section 2.5 Telemetry Collection Layers](02-observability-reference-architecture.md#25-telemetry-collection-layers) |
+| NFR-PRF-01 | Performance | Dashboard P95 query latency | ≤ 3 s | Grafana query logs | [Chapter 22. Capacity and Scale Model -> Section 22.7 Performance SLOs for the Platform Itself](22-capacity-and-scale-model.md#227-performance-slos-for-the-platform-itself) |
 | NFR-PRF-02 | Performance | Alert firing-to-notification latency | P95 ≤ 90 s | Alertmanager + paging system | [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) |
 | NFR-PRF-03 | Performance | Telemetry end-to-end propagation (collector → store) | P95 ≤ 30 s | OTel pipeline metrics | [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) |
-| NFR-SCL-01 | Scalability | Horizontal scalability of collectors | Linear to 10× baseline | Load-test artefact | [Chapter 22. Capacity and Scale Model -> Section 4. Scale-Out Triggers](22-capacity-and-scale-model.md#4-scale-out-triggers) |
-| NFR-SCL-02 | Scalability | Active series headroom per backend | ≥ 30% over peak | Prometheus `prometheus_tsdb_head_series` | [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget) |
+| NFR-SCL-01 | Scalability | Horizontal scalability of collectors | Linear to 10× baseline | Load-test artefact | [Chapter 22. Capacity and Scale Model -> Section 22.4 Scale-Out Triggers](22-capacity-and-scale-model.md#224-scale-out-triggers) |
+| NFR-SCL-02 | Scalability | Active series headroom per backend | ≥ 30% over peak | Prometheus `prometheus_tsdb_head_series` | [Chapter 22. Capacity and Scale Model -> Section 22.8 Cardinality Budget](22-capacity-and-scale-model.md#228-cardinality-budget) |
 | NFR-REL-01 | Reliability | Mean Time Between Failures (platform) | ≥ 90 days | Platform incident log | [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) |
 | NFR-REL-02 | Reliability | Error-budget policy enforcement | Freezes feature work when consumed | Burn-rate alerts | [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md) |
 | NFR-REC-01 | Recoverability | Platform RTO | ≤ 4 h | DR runbook drill | [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) |
@@ -52,7 +52,7 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-SEC-03 | Security | RBAC enforced on every dashboard, alert rule, and data source | 100% coverage | Quarterly access review | [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) |
 | NFR-SEC-04 | Security | Critical-vulnerability remediation | ≤ 7 days from disclosure | CVE scanner output | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) |
 | NFR-SEC-05 | Security | Threat-model coverage | Refreshed annually or on major change | ARB minutes | [Chapter 23 Appendix A. Threat Model](23-appendix-a-threat-model.md) |
-| NFR-PRV-01 | Privacy | PII redaction at source | 100% of regulated fields | Pre-flight log linter | [Chapter 17. Application Telemetry Standard -> Section 6. PII & Data Classification](17-application-telemetry-standard.md#6-pii-data-classification) |
+| NFR-PRV-01 | Privacy | PII redaction at source | 100% of regulated fields | Pre-flight log linter | [Chapter 17. Application Telemetry Standard -> Section 17.6 PII & Data Classification](17-application-telemetry-standard.md#176-pii-data-classification) |
 | NFR-PRV-02 | Privacy | DPIA performed for any new telemetry containing personal data | Mandatory pre-go-live | DPIA register | [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) |
 | NFR-PRV-03 | Privacy | Right-to-erasure execution time | ≤ 30 days (GDPR Art. 17) | Erasure-request log | [Chapter 28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md) |
 | NFR-CMP-01 | Compliance | SOC 2 Type II control coverage | All in-scope CC controls mapped | Control matrix evidence | [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) |
@@ -74,19 +74,19 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-USE-03 | Usability | Runbook authoring standard | Every Sev1–Sev2 alert linked to runbook (no runbook → no alert) | Pre-merge check | [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) |
 | NFR-I18N-01 | Internationalisation | Alert / dashboard time-zone | UTC canonical; per-user display TZ | Grafana config | [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) |
 | NFR-I18N-02 | Internationalisation | Locale-aware number / date formatting in customer-facing reports | Configurable per tenant | Report template review | [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) |
-| NFR-CAP-01 | Capacity | Per-service active-series budget | Enforced at SDK + collector + backend | Cardinality KPI dashboard | [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget) |
+| NFR-CAP-01 | Capacity | Per-service active-series budget | Enforced at SDK + collector + backend | Cardinality KPI dashboard | [Chapter 22. Capacity and Scale Model -> Section 22.8 Cardinality Budget](22-capacity-and-scale-model.md#228-cardinality-budget) |
 | NFR-CAP-02 | Capacity | Per-tenant log-volume cap | Enforced at collector | FinOps dashboard | [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) |
 | NFR-OPR-01 | Operability | Toil budget for platform team | ≤ 50% of team time | Weekly time-tracking | [Chapter 18. Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md) |
 | NFR-OPR-02 | Operability | On-call rotation fairness | Max 1 week-in-4 per engineer | Roster export | [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) |
 | NFR-SUP-01 | Supportability | Vendor escalation contact list maintained | Reviewed quarterly | Vendor register | [Chapter 18. Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md) |
 | NFR-SUP-02 | Supportability | OSS dependency support tier | Critical components on commercial support OR named OSS maintainer contact | Dependency register | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) |
-| NFR-TST-01 | Testability | Synthetic probes for every Tier-1 user journey | 100% coverage | Synthetic-monitoring dashboard | [Chapter 3. Domain Observability Runbooks Pack -> Section 3. Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](03-domain-observability-runbooks-pack.md#3-application-observability-runbook-pre-login-post-login-execution-steps) |
+| NFR-TST-01 | Testability | Synthetic probes for every Tier-1 user journey | 100% coverage | Synthetic-monitoring dashboard | [Chapter 3. Domain Observability Runbooks Pack -> Section 3.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](03-domain-observability-runbooks-pack.md#33-application-observability-runbook-pre-login-post-login-execution-steps) |
 | NFR-TST-02 | Testability | Alert-rule unit tests | Mandatory before merge | CI pipeline | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) |
 | NFR-TST-03 | Testability | Dashboard regression test on Grafana version upgrade | Mandatory pre-prod | CI pipeline | [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) |
 | NFR-AUD-01 | Auditability | All platform admin actions logged immutably | 100% | Audit log review | [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) |
 | NFR-AUD-02 | Auditability | ADR record for every architectural decision | Mandatory | ADR register | [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) |
 | NFR-SUS-01 | Sustainability | Carbon-per-GB-ingested KPI | Tracked, reduced YoY | FinOps + carbon dashboard | [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) |
-| NFR-SUS-02 | Sustainability | Sampling policy applied for sustainability | Tail-sampling enabled where lossless not required | Sampling config audit | [Chapter 2. Observability Reference Architecture -> Section 5.1. Sampling Strategy](02-observability-reference-architecture.md#51-sampling-strategy) |
+| NFR-SUS-02 | Sustainability | Sampling policy applied for sustainability | Tail-sampling enabled where lossless not required | Sampling config audit | [Chapter 2. Observability Reference Architecture -> Section 2.5.1 Sampling Strategy](02-observability-reference-architecture.md#251-sampling-strategy) |
 | NFR-RES-01 | Resilience | Chaos-engineering programme on platform | At least 2 game-days per year | Game-day report | [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) |
 | NFR-RES-02 | Resilience | FMEA review for the platform | Annual | ARB minutes | [Chapter 23 Appendix A. Threat Model](23-appendix-a-threat-model.md) |
 | NFR-THR-01 | Throughput | Ingest throughput per collector | ≥ 50 k spans/s, ≥ 100 k log lines/s baseline | Load-test artefact | [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) |
@@ -96,20 +96,20 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-DPL-01 | Deployability | Mean deployment duration | ≤ 30 min for full-stack refresh | Deployment metrics | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) |
 | NFR-DPL-02 | Deployability | Rollback time | ≤ 15 min | Deployment runbook | [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) |
 
-## 4. Verification Methods (Per NFR)
+## 27.4 Verification Methods (Per NFR)
 
 Each NFR in Section 3 has a concrete verification specification: the exact SLI/query/artefact that measures it, the evidence artefact produced, the test or audit procedure, the role accountable, the cadence at which evidence is refreshed, and the pass/fail criterion. This section is the audit-facing answer to "how do you know?" for each NFR.
 
-Where a query language is shown, the language is named (PromQL / LogQL / TraceQL / KQL / SQL); thresholds are illustrative defaults pending environment calibration per [Chapter 3, Section 8 — Calibration Note](03-domain-observability-runbooks-pack.md#8-calibration-note).
+Where a query language is shown, the language is named (PromQL / LogQL / TraceQL / KQL / SQL); thresholds are illustrative defaults pending environment calibration per [Chapter 3. Domain Observability Runbooks Pack -> Section 3.8 Calibration Note](03-domain-observability-runbooks-pack.md#38-calibration-note).
 
-### 4.1 Availability (NFR-AVL-*)
+### 27.4.1 Availability (NFR-AVL-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
 | NFR-AVL-01 | PromQL: `1 - (sum_over_time(probe_success{job="grafana-blackbox"}[30d]) / count_over_time(probe_success{job="grafana-blackbox"}[30d]))` | Grafana SLO dashboard `platform-availability` panel + monthly export PDF | Synthetic blackbox-exporter probe every 30 s from 3 geo-locations; SLO computed on 30-day rolling window; monthly PDF generated and stored in audit bucket | SRE Lead | Continuous; monthly export | Availability ≥ 99.9% over preceding 30 days |
 | NFR-AVL-02 | PromQL: `sum(rate(otelcol_receiver_accepted_spans[5m])) / (sum(rate(otelcol_receiver_accepted_spans[5m])) + sum(rate(otelcol_receiver_refused_spans[5m])))` and equivalent for metrics / logs | Collector ingest-availability dashboard + alert history export | Computed continuously per signal; quarterly review of alert history confirms no sustained breach > 5 min | SRE Lead | Continuous; quarterly review | Per-signal ingest success ≥ 99.95% monthly |
 
-### 4.2 Performance (NFR-PRF-*)
+### 27.4.2 Performance (NFR-PRF-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -117,17 +117,17 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-PRF-02 | PromQL: `histogram_quantile(0.95, rate(alertmanager_notification_latency_seconds_bucket[5m]))` | Alertmanager metrics panel + incident-timeline reconstruction for sampled Sev1 incidents | Continuous SLI; on each Sev1 incident, post-incident review reconstructs firing → notify timeline from `alertmanager_notification_latency_seconds` and paging system webhook timestamps | SRE Lead | Continuous; per-incident sampling | P95 ≤ 90 s |
 | NFR-PRF-03 | PromQL: end-to-end propagation = `time() - max(otelcol_exporter_send_failed_spans_timestamp_seconds)` proxy; preferred: synthetic-trace timestamp-emit → search-result-visible delta measured by an independent prober | Synthetic-trace prober output table | Synthetic emits a span every 60 s with `prober.emit_ts`; a second job queries Tempo for that span every 60 s and records `find_ts - emit_ts` | Platform Lead | Continuous; monthly trend | P95 ≤ 30 s |
 
-### 4.3 Scalability & Capacity (NFR-SCL-*, NFR-CAP-*, NFR-THR-*)
+### 27.4.3 Scalability & Capacity (NFR-SCL-*, NFR-CAP-*, NFR-THR-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
 | NFR-SCL-01 | k6 load-test report comparing baseline vs. 10× ingest with N replica counts | Load-test report PDF in `reference-implementations/load-tests/` | Annual full load-test: ramp ingest 1× → 10× over 2 hours; measure CPU / RAM / ingest-success per replica count; confirm linear scaling | Platform Lead | Annual + on major version upgrade | Throughput scales ≥ 0.9 × linear up to 10× baseline |
 | NFR-SCL-02 | PromQL: `(max(prometheus_tsdb_head_series) / on() group_left max(prometheus_tsdb_head_max_series_limit)) < 0.7` | Capacity dashboard `series-headroom` panel | Continuous alert at ≥ 70% utilisation; quarterly capacity review confirms 12-month forecast retains headroom | Platform Lead | Continuous; quarterly review | Headroom ≥ 30% at peak |
-| NFR-CAP-01 | PromQL: `sum by (service) (prometheus_tsdb_head_series{service!=""}) > on() group_left service_tier_max_series` | Per-service cardinality report (weekly export from KPI dashboard) | Weekly job exports series-by-service; breaches generate Jira tickets to the owning service team per [Chapter 1, Section 3.4 — Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance) | Platform Engineering | Weekly | Zero unresolved breaches > 14 days |
+| NFR-CAP-01 | PromQL: `sum by (service) (prometheus_tsdb_head_series{service!=""}) > on() group_left service_tier_max_series` | Per-service cardinality report (weekly export from KPI dashboard) | Weekly job exports series-by-service; breaches generate Jira tickets to the owning service team per [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance) | Platform Engineering | Weekly | Zero unresolved breaches > 14 days |
 | NFR-CAP-02 | LogQL: `sum by (tenant) (rate({tenant=~".+"}[5m])) > on() group_left tenant_log_quota` | FinOps per-tenant dashboard | Continuous; breaches trigger collector-side rate-limit per tenant; monthly FinOps review surfaces repeat offenders | FinOps Lead | Continuous; monthly review | No sustained breach > 1 h without rate-limit applied |
 | NFR-THR-01 | k6 load-test artefact `collector-throughput-baseline` | Load-test report in `reference-implementations/load-tests/` | Annual baseline test on reference VM SKU; injects synthetic spans + log lines until first sustained drop or queue-fill | Platform Lead | Annual + on collector version upgrade | ≥ 50k spans/s, ≥ 100k log lines/s without drops on reference SKU |
 
-### 4.4 Reliability & Recoverability (NFR-REL-*, NFR-REC-*)
+### 27.4.4 Reliability & Recoverability (NFR-REL-*, NFR-REC-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -137,7 +137,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-REC-02 | DR drill report measuring data-loss window post-failover | DR drill report PDF | During active failover, sample last-committed sample / log-line / span pre-failure vs. first-committed post-recovery | SRE Lead | Quarterly | RPO ≤ 15 min metrics, ≤ 5 min logs |
 | NFR-REC-03 | Archive restore runbook drill report | Archive restore drill PDF in audit bucket | Semi-annual: restore a randomly chosen 1 TB cold-archive shard to a sandbox; measure submit → readable | Platform Lead + Compliance | Semi-annual | ≤ 48 h end-to-end |
 
-### 4.5 Security (NFR-SEC-*)
+### 27.4.5 Security (NFR-SEC-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -147,7 +147,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-SEC-04 | CVE scanner output (Trivy / Grype) on every container image in the platform; aged-critical count = critical CVEs ≥ 7 days since first scan | Vulnerability dashboard + monthly CVE-aging report | Continuous scan in CI + nightly scan on running images; aged criticals raise Sev2 ticket | Platform Engineering | Continuous; monthly review | Zero critical CVEs aged > 7 days |
 | NFR-SEC-05 | Threat-model review attestation in ARB minutes | ARB minutes + updated [Chapter 23 Appendix A. Threat Model](23-appendix-a-threat-model.md) | Annual scheduled review or trigger-based (new component, breach class change, major dependency); ARB records date and reviewer | Security Architect + ARB Chair | Annual + trigger-based | Last review ≤ 12 months old |
 
-### 4.6 Privacy (NFR-PRV-*)
+### 27.4.6 Privacy (NFR-PRV-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -155,7 +155,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-PRV-02 | DPIA register entry per new telemetry stream containing personal data | DPIA register (SharePoint / OneTrust) | Pre-go-live PRR gate ([Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) blocks onboarding without DPIA where personal data is in scope | DPO | Per onboarding | 100% of in-scope onboardings have DPIA before go-live |
 | NFR-PRV-03 | Erasure-request log with `received_ts`, `executed_ts`; SLA = `executed_ts - received_ts` | Erasure-request log + monthly DSAR report | Each erasure request creates a ticket; ticket close requires evidence of erasure across hot/warm/cold tiers and archive; monthly DSAR report aggregates SLA performance | DPO | Continuous; monthly report | All requests closed ≤ 30 days |
 
-### 4.7 Compliance (NFR-CMP-*)
+### 27.4.7 Compliance (NFR-CMP-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -163,7 +163,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-CMP-02 | Control-matrix coverage % for ISO 27001 Annex A | ISO 27001 certification report | Surveillance audit annually; recertification every 3 years | Compliance Lead | Annual surveillance + 3-year recertification | All in-scope Annex A clauses mapped; surveillance audit closed with zero major non-conformities |
 | NFR-CMP-03 | Storage policy attribute audit: `WORM=true`, `retention_years ≥ 1` on every audit-log container | Storage policy audit report | Continuous policy-as-code check on object-storage / immutable-blob configuration | Compliance Lead | Continuous; quarterly evidence export | 100% audit-log stores immutable for ≥ 1 year |
 
-### 4.8 Maintainability (NFR-MNT-*)
+### 27.4.8 Maintainability (NFR-MNT-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -172,14 +172,14 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-MNT-03 | DORA SLI: `change_failure_rate = failed_deploys / total_deploys` over 90 days | DORA dashboard `failure-rate` panel | Deployment-tagged incidents (`incident.cause:deploy`) divided by total deploys in same window | Platform Lead | Continuous | ≤ 15% |
 | NFR-MNT-04 | Technical-debt register count + classification; quarterly trend | Debt register exported from Jira + ARB minutes | Quarterly ARB review of debt register; new debt classified L1–L3; L1 (architectural) prioritised | ARB Chair | Quarterly | Trend stable or downward; no L1 debt > 2 quarters old |
 
-### 4.9 Meta-Observability (NFR-OBS-*)
+### 27.4.9 Meta-Observability (NFR-OBS-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
 | NFR-OBS-01 | Inventory: list of platform components × telemetry emitted (metrics/logs/traces) | Self-monitoring coverage matrix in `reference-implementations/` | Quarterly self-audit: walk every platform component and confirm telemetry endpoints + dashboards | Platform Lead | Quarterly | 100% components emit at least 2 of 3 signals |
 | NFR-OBS-02 | PromQL: `rate(otelcol_processor_dropped_spans[5m]) / rate(otelcol_processor_accepted_spans[5m]) > 0.001` sustained 5 min | Collector drop-rate alert + monthly drop-rate trend report | Continuous alert; monthly review of drop-rate trend by signal | SRE Lead | Continuous; monthly review | Zero unacknowledged drop-rate alerts; sustained drop rate ≤ 0.1% |
 
-### 4.10 Portability & Interoperability (NFR-PRT-*, NFR-INT-*)
+### 27.4.10 Portability & Interoperability (NFR-PRT-*, NFR-INT-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -189,7 +189,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-INT-02 | SIEM feed config audit: confirm security-relevant streams (audit log, auth events) forwarded to SOC | SIEM ingest dashboard + monthly feed-health report | Continuous SIEM-side feed-health monitor; monthly attestation by SOC lead | Security Architect | Continuous; monthly attestation | Zero feed-health alerts > 1 h unack |
 | NFR-INT-03 | Trace-continuity report: % of cross-service spans with parent in upstream service | TraceQL: `{ kind = "server" } && parent.kind = "client"` continuity ratio; dashboard panel | Sampled hourly; service-onboarding PRR includes trace-context test as gate item | Platform Engineering | Continuous; per onboarding | Continuity ≥ 95% for in-pack services |
 
-### 4.11 Usability (NFR-USE-*) & Internationalisation (NFR-I18N-*)
+### 27.4.11 Usability (NFR-USE-*) & Internationalisation (NFR-I18N-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -199,7 +199,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-I18N-01 | Grafana config audit: `timezone=UTC` server-side + per-user TZ enabled | Grafana config attestation | Quarterly config-audit script confirms server TZ; user TZ feature flag enabled | Grafana Platform Lead | Quarterly | Server TZ = UTC; per-user TZ available |
 | NFR-I18N-02 | Tenant report-template review: confirm locale settings configurable per tenant | Report-template review record | Annual review of customer-facing report templates per tenant | Multi-Tenancy Lead | Annual | All customer-facing reports honour tenant locale |
 
-### 4.12 Operability & Supportability (NFR-OPR-*, NFR-SUP-*)
+### 27.4.12 Operability & Supportability (NFR-OPR-*, NFR-SUP-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -208,7 +208,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-SUP-01 | Vendor register attestation: each vendor has named contact + escalation path | Vendor register | Quarterly review by procurement + platform lead | Operating-Model Owner | Quarterly | 100% vendors with active contract have named escalation contact |
 | NFR-SUP-02 | Dependency register attestation: each critical OSS dependency has commercial support OR named maintainer contact | Dependency register | Annual review; new critical-tier OSS dependency added via ADR | Platform Engineering | Annual | 100% critical dependencies have support designation |
 
-### 4.13 Testability (NFR-TST-*)
+### 27.4.13 Testability (NFR-TST-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -216,35 +216,35 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-TST-02 | CI pipeline: alert-rule unit test stage present and passing | CI pipeline output for alert-rule repo | Mandatory CI stage runs `promtool test rules` / `loki-rule test`; merge blocked on failure | SRE Lead | Continuous in CI | 100% PRs to alert-rule repo pass unit-test stage |
 | NFR-TST-03 | CI pipeline: dashboard regression test on Grafana version upgrade | Dashboard regression test report | On every Grafana minor / major upgrade in non-prod, run dashboard-render check against catalogue | Grafana Platform Lead | Per Grafana upgrade | Zero render regressions un-triaged at promote-to-prod gate |
 
-### 4.14 Auditability (NFR-AUD-*)
+### 27.4.14 Auditability (NFR-AUD-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
 | NFR-AUD-01 | Audit-log integrity report: hash-chain or signature validation over admin-action log | Audit-log integrity report | Continuous integrity check; quarterly tamper-evidence review by internal audit | Internal Audit | Continuous; quarterly review | Zero integrity-check failures |
 | NFR-AUD-02 | ADR register completeness: every architecturally significant decision in last quarter has an ADR | ADR register from [Chapter 16](16-observability-adr-decision-register.md) | Quarterly ARB review compares architectural changes (commit log, RFC log) against ADR register | ARB Chair | Quarterly | Zero significant decisions without ADR |
 
-### 4.15 Sustainability (NFR-SUS-*)
+### 27.4.15 Sustainability (NFR-SUS-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
 | NFR-SUS-01 | Carbon-per-GB-ingested = `tCO2e / GB_ingested` derived from cloud-provider sustainability API (Azure Emissions Impact) | Carbon dashboard `carbon-per-gb` panel + quarterly trend report | Continuous data feed from cloud sustainability API; quarterly trend computed against year-ago baseline | FinOps Lead | Continuous; quarterly review | YoY downward trend or stable; explicit ARB approval if trend reverses |
 | NFR-SUS-02 | Sampling-config audit: tail-sampling enabled and effective rate ≥ target on non-lossless pipelines | Sampling config audit report | Continuous policy-as-code check on collector config; quarterly effectiveness audit on stored:received ratio | Platform Lead | Continuous; quarterly review | 100% non-lossless pipelines have tail-sampling; effective ratio within ±10% of target |
 
-### 4.16 Resilience (NFR-RES-*)
+### 27.4.16 Resilience (NFR-RES-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
 | NFR-RES-01 | Game-day report count per year; report quality checklist | Game-day report folder in audit bucket | At least 2 game-days/year; each produces a written report with scenario, outcome, gaps, action register | SRE Lead | Semi-annual | ≥ 2 game-day reports in last 12 months; all actions tracked to closure |
 | NFR-RES-02 | FMEA review attestation in ARB minutes | Updated FMEA matrix attached to [Chapter 23 Appendix A. Threat Model](23-appendix-a-threat-model.md) | Annual FMEA review by SRE + Security Architect; results presented to ARB | SRE Lead + Security Architect | Annual | Last FMEA ≤ 12 months old; residual H risks have mitigation plans |
 
-### 4.17 Integrity & Multi-tenancy (NFR-INT-04, NFR-MUL-*)
+### 27.4.17 Integrity & Multi-tenancy (NFR-INT-04, NFR-MUL-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
 | NFR-INT-04 | Signing pipeline log: confirms cryptographic signing of Sev1–Sev2 incident-evidence bundles | Signing pipeline audit report | Each Sev1–Sev2 incident produces a signed evidence bundle; auditor verifies signature on random samples | Internal Audit | Continuous; quarterly sample review | 100% Sev1–Sev2 evidence bundles signed and verifiable |
 | NFR-MUL-01 | Penetration-test report covering tenant-isolation boundaries | Annual pentest report | Annual third-party pentest including tenant-isolation scenarios; findings tracked to closure | Security Architect | Annual | Zero high-severity tenant-isolation findings unresolved |
 
-### 4.18 Configurability & Deployability (NFR-CFG-*, NFR-DPL-*)
+### 27.4.18 Configurability & Deployability (NFR-CFG-*, NFR-DPL-*)
 
 | NFR | SLI / Measurement Query | Evidence Artefact | Verification Procedure | Owner | Cadence | Pass Criterion |
 |---|---|---|---|---|---|---|
@@ -252,7 +252,7 @@ Where a query language is shown, the language is named (PromQL / LogQL / TraceQL
 | NFR-DPL-01 | Deployment-pipeline metric: `deploy_duration = end_ts - start_ts` median over 90 days | Deployment-metrics dashboard | Pipeline emits start / end timestamps; median computed weekly | Platform Lead | Continuous | Median ≤ 30 min |
 | NFR-DPL-02 | Deployment-runbook drill: rollback duration measured in non-prod drill | Rollback drill report | Quarterly rollback drill in non-prod; record execution time | Platform Lead | Quarterly | Drill rollback ≤ 15 min |
 
-### 4.19 Verification Evidence Storage
+### 27.4.19 Verification Evidence Storage
 
 All evidence artefacts are stored in the **audit bucket** with the following structure:
 
@@ -267,7 +267,7 @@ audit/
 
 Retention is 7 years per [Chapter 28. Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md). The audit bucket is configured for tamper-evident immutability per NFR-CMP-03.
 
-## 5. Evidence Cadence by Category
+## 27.5 Evidence Cadence by Category
 
 | NFR Category | Primary Evidence | Review Cadence | Reviewer |
 |---|---|---|---|
@@ -282,7 +282,7 @@ Retention is 7 years per [Chapter 28. Observability Long-Term Archival Policy](2
 | Resilience | Game-day reports + FMEA | Annual | SRE lead |
 | Multi-tenancy / Portability / Interoperability / Configurability | Architecture review minutes | Annual | ARB |
 
-## 6. Change Control
+## 27.6 Change Control
 
 Changes to this register require an ADR ([Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md)) when:
 
@@ -290,7 +290,7 @@ Changes to this register require an ADR ([Chapter 16. Observability ADR Decision
 - A new NFR is introduced that imposes platform-wide change.
 - An NFR is retired.
 
-## 7. Cross-References
+## 27.7 Cross-References
 
 - [Chapter 0. Xceedance Observability Strategy](00-observability-strategy.md) — strategic principles underpinning the NFRs.
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — outcome KPIs derived from these NFRs.

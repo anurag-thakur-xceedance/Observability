@@ -19,27 +19,27 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 10.1 Purpose
 Observability data is governed to meet regulatory and internal compliance. This matrix captures controls, evidence, and reporting cadence.
 
-## 2. Audit Trails
+## 10.2 Audit Trails
 - **Administrative actions** on observability platforms (configuration changes, retention updates, access-policy modifications) are logged and retained.
 - **Changes to alert rules, dashboards, and SLO definitions** are version-controlled (e.g. via GitOps).
 - Every administrative change is traceable to a user identity and a change ticket.
 
-## 3. Regulatory Alignment
+## 10.3 Regulatory Alignment
 - Retention durations and storage locations aligned with corporate policies and relevant regulations (e.g. financial services, data-protection rules).
 - **Periodic audits verify that telemetry does not contain prohibited data types** (such as unmasked PII).
 - Where applicable, GDPR-aligned deletion timelines are enforced via automated retention rules in storage backends (see [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)).
 
-## 4. Reporting
+## 10.4 Reporting
 Compliance and governance reports are generated on a regular schedule and shared with appropriate stakeholders. Examples:
 
 - **Telemetry retention adherence** report.
 - **Access review status** report.
 - **Critical service SLO compliance** report.
 
-## 5. Control Matrix (Initial)
+## 10.5 Control Matrix (Initial)
 
 | Control ID | Control Description | Source / Driver | Evidence | Owner |
 |---|---|---|---|---|
@@ -52,7 +52,7 @@ Compliance and governance reports are generated on a regular schedule and shared
 | OBS-C-07 | Compliance reports issued on schedule | Internal | Report distribution list and timestamps | Governance Body |
 | OBS-C-08 | Deletion / compaction jobs monitored for compliance | GDPR | Job success metrics, alert evidence | Platform Ops |
 | OBS-C-09 | Service telemetry conformance ≥ 90% (PRR gate, [Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) | Internal | PRR scorecard, conformance dashboard | Service Owner |
-| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
+| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
 | OBS-C-11 | mTLS between collectors and backends ([Chapter 23](23-observability-platform-security-architecture.md)) | SOC2 / ISO | Cert inventory; expiry alerts | Platform Ops |
 | OBS-C-12 | Tenant isolation verified for multi-tenant deployments ([Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md)) | Internal / customer contract | Tenant-label policy report; cross-tenant query test | Platform Ops |
 | OBS-C-13 | DR drill executed at planned cadence ([Chapter 21](21-observability-platform-ha-and-dr-design.md)) | SOC2 (Availability) | Drill report, RTO/RPO measurements | SRE |
@@ -63,9 +63,9 @@ Compliance and governance reports are generated on a regular schedule and shared
 
 > Mapping to specific frameworks (SOC2 CC, ISO 27001 Annex A, GDPR Articles) is detailed in Section 6.
 
-## 6. Framework Mapping
+## 10.6 Framework Mapping
 
-The framework set is selected and governed by [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.3. Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#43-framework-selection-and-mapping). This table maps each control above to the specific framework clauses that consume its evidence.
+The framework set is selected and governed by [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.3 Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#1543-framework-selection-and-mapping). This table maps each control above to the specific framework clauses that consume its evidence.
 
 | Control ID | SOC 2 (TSC 2017) | ISO/IEC 27001:2022 Annex A | GDPR Article | NIST CSF 2.0 |
 |---|---|---|---|---|
@@ -94,9 +94,9 @@ The framework set is selected and governed by [Chapter 15. Observability Governa
 
 **Owner discipline.** Each owner publishes evidence to the central audit-evidence repository indexed by Control ID; the governance body (Section 8) reviews exceptions and remediation timelines.
 
-### 6.1 Financial-Services and Operational-Resilience Mapping
+### 10.6.1 Financial-Services and Operational-Resilience Mapping
 
-The frameworks above (SOC 2, ISO/IEC 27001, GDPR, NIST CSF) cover general-purpose information-security and privacy obligations. For regulated financial-services workloads, the following additional frameworks consume the same control evidence. Applicability is set by [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.3. Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#43-framework-selection-and-mapping); only the rows whose jurisdiction applies to the operating entity need be evidenced.
+The frameworks above (SOC 2, ISO/IEC 27001, GDPR, NIST CSF) cover general-purpose information-security and privacy obligations. For regulated financial-services workloads, the following additional frameworks consume the same control evidence. Applicability is set by [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.3 Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#1543-framework-selection-and-mapping); only the rows whose jurisdiction applies to the operating entity need be evidenced.
 
 | Control ID | EU DORA (Reg. 2022/2554) | NAIC Model Bulletin #674 (Insurer AI Use) | APRA CPS 234 (Information Security) |
 |---|---|---|---|
@@ -125,9 +125,9 @@ The frameworks above (SOC 2, ISO/IEC 27001, GDPR, NIST CSF) cover general-purpos
 
 **Limitation.** This mapping is synthesis-grade and reflects the published text of each framework. It has **not** been validated by external counsel or the entity's compliance function. Before relying on it for a regulatory submission, the governance body (Section 8) must commission an SME review per [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md) risk R-09.
 
-## 7. Audit-Evidence Catalogue
+## 10.7 Audit-Evidence Catalogue
 
-This catalogue is the bridge between Section 5 controls and the systems that produce their evidence. It tells an auditor exactly **where** each artefact lives, **what format** it takes, and **how long** it is retained — without which "evidence" is a verbal claim. Paths under `audit-evidence/` are S3/Azure Blob prefixes in the WORM evidence bucket established in [Chapter 23. Observability Platform Security Architecture -> Section 5. Audit Trail](23-observability-platform-security-architecture.md#5-audit-trail).
+This catalogue is the bridge between Section 5 controls and the systems that produce their evidence. It tells an auditor exactly **where** each artefact lives, **what format** it takes, and **how long** it is retained — without which "evidence" is a verbal claim. Paths under `audit-evidence/` are S3/Azure Blob prefixes in the WORM evidence bucket established in [Chapter 23. Observability Platform Security Architecture -> Section 23.5 Audit Trail](23-observability-platform-security-architecture.md#235-audit-trail).
 
 | Control | Evidence Artefact | Producing System | Storage Path | Format | Retention |
 |---|---|---|---|---|---|
@@ -144,7 +144,7 @@ This catalogue is the bridge between Section 5 controls and the systems that pro
 | OBS-C-11 | Certificate inventory + expiry-alert history | Cert manager; Alertmanager | `audit-evidence/tls/{yyyy}-Q{n}/` | CSV + alert log | 5 years |
 | OBS-C-12 | Tenant-label policy report + cross-tenant query test results | Multi-tenancy enforcer; test harness | `audit-evidence/tenancy/{yyyy}-Q{n}/` | Policy YAML + test-run JSON | 7 years |
 | OBS-C-13 | DR-drill report (RTO/RPO measured) | DR runbook output | `audit-evidence/dr-drills/{yyyy}-Q{n}/` | Markdown report + screenshots | 7 years |
-| OBS-C-14 | Model card; shadow-mode metrics; ARB approval record; prompt-registry diff; LLM audit log per [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 9.3.6 Audit Logging](06-aiops-guardrails-and-implementation-playbook.md#9-worked-examples-filled-model-cards-and-prompt-registry) | MLflow / model registry; AIOps audit pipeline | `audit-evidence/aiops/{model_id}/{version}/`; LLM audit at `audit-evidence/llm/{yyyy}-{mm}/` | YAML model card + JSON metrics + signed ARB minute; LLM audit NDJSON | 7 years; LLM audit per Section 9.3.6 (default 90 days, 7 years for production templates) |
+| OBS-C-14 | Model card; shadow-mode metrics; ARB approval record; prompt-registry diff; LLM audit log per [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 6.9 Worked Examples — Filled Model Cards and Prompt Registry](06-aiops-guardrails-and-implementation-playbook.md#69-worked-examples-filled-model-cards-and-prompt-registry) | MLflow / model registry; AIOps audit pipeline | `audit-evidence/aiops/{model_id}/{version}/`; LLM audit at `audit-evidence/llm/{yyyy}-{mm}/` | YAML model card + JSON metrics + signed ARB minute; LLM audit NDJSON | 7 years; LLM audit per Section 9.3.6 (default 90 days, 7 years for production templates) |
 | OBS-C-15 | SBOM (CycloneDX) + Sigstore attestation | Build pipeline (cosign) | `audit-evidence/sbom/{component}/{version}/` | CycloneDX JSON + .sig | Lifetime of image + 3 years |
 | OBS-C-16 | Vulnerability-scan report + admission-controller decision log | Trivy/Grype; OPA admission controller | `audit-evidence/image-scans/{component}/{version}/` | SARIF + decision log | 3 years |
 | OBS-C-17 | Restore-test report (backup integrity verified) | Backup tooling | `audit-evidence/backup-restore/{yyyy}-Q{n}/` | Markdown report + checksum log | 7 years |
@@ -153,21 +153,21 @@ This catalogue is the bridge between Section 5 controls and the systems that pro
 
 **Auditor self-service.** Read-only auditor access is granted via a scoped role that can list and download but not modify or delete under `audit-evidence/`. The role and its grants are themselves evidenced under OBS-C-05.
 
-## 8. Audit Lifecycle
+## 10.8 Audit Lifecycle
 
 1. **Plan.** Governance body confirms framework set and scope (annual).
 2. **Collect.** Owners publish evidence per cadence above.
 3. **Sample.** Auditor selects sample per control (typically 25 events / 90-day window for continuous controls).
 4. **Test.** Walk-through of sampled evidence; design + operating effectiveness.
-5. **Report.** Findings logged with severity; remediation tracked to closure in the governance risk register ([Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.2. Governance Risk Register](15-observability-governance-charter-and-arb-pack.md#42-governance-risk-register)).
+5. **Report.** Findings logged with severity; remediation tracked to closure in the governance risk register ([Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.2 Governance Risk Register](15-observability-governance-charter-and-arb-pack.md#1542-governance-risk-register)).
 6. **Remediate.** Owner closes finding; governance body verifies and signs off.
 
 The **next-section number reservation** for sub-controls (e.g. OBS-C-01.1) is documented per audit cycle in the evidence repository.
 
-## 9. Cross-References
+## 10.9 Cross-References
 - [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — retention rules audited here.
 - [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — deletion / compaction mechanics evidenced here.
-- [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.3. Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#43-framework-selection-and-mapping) — selects the frameworks mapped in Section 6.
+- [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.3 Framework Selection and Mapping](15-observability-governance-charter-and-arb-pack.md#1543-framework-selection-and-mapping) — selects the frameworks mapped in Section 6.
 - [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) — ADRs documenting compliance-driven decisions.
 - [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — technical controls behind OBS-C-11, -15, -16.
 - [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — tenant isolation evidenced under OBS-C-12.

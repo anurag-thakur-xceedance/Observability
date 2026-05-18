@@ -21,9 +21,9 @@ status: Draft
 
 ---
 
-## 1. Deployment Topologies
+## 26.1 Deployment Topologies
 
-### 1.1 Topology A — Single-Tenant On-Premise at Customer Site
+### 26.1.1 Topology A — Single-Tenant On-Premise at Customer Site
 ```
 [Customer-managed network]
    ┌──────────────────────────────────────────┐
@@ -52,7 +52,7 @@ status: Draft
 - Only redacted, aggregated signals flow upstream if contractually allowed.
 - Customer holds the keys (encryption-at-rest with customer-managed KMS).
 
-### 1.2 Topology B — Xceedance-Hosted Multi-Tenant (Shared Stack)
+### 26.1.2 Topology B — Xceedance-Hosted Multi-Tenant (Shared Stack)
 ```
 [Xceedance shared cloud / colo]
    ┌──────────────────────────────────────────┐
@@ -72,12 +72,12 @@ status: Draft
 - Storage backends are tenant-aware (`X-Scope-OrgID` for Loki/Mimir/Tempo).
 - Cross-tenant queries are blocked at Grafana data-source level.
 
-### 1.3 Topology C — Hybrid (Customer-Site + Xceedance Aggregation)
+### 26.1.3 Topology C — Hybrid (Customer-Site + Xceedance Aggregation)
 - Customer-site stack handles all PII-bearing telemetry.
 - Per-tenant redacted aggregates are forwarded (Prometheus remote-write, Loki Promtail with redaction, sampled traces).
 - Xceedance central tier is a "service-of-services" view across the customer estate.
 
-## 2. Tenant Identity Model
+## 26.2 Tenant Identity Model
 
 | Element | Definition | Example |
 |---|---|---|
@@ -94,7 +94,7 @@ Required resource attributes on every span / metric / log:
 service.name, service.version, deployment.environment, team, tier, tenant_id, tenant_class, region
 ```
 
-## 3. Tenant Labelling Enforcement
+## 26.3 Tenant Labelling Enforcement
 Three layers of defence:
 1. **SDK / kit defaults** ([Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) inject required attributes from environment.
 2. **Edge OTel Collector** rejects telemetry missing required attributes (using `attributes/required` processor pattern).
@@ -111,7 +111,7 @@ processors:
         action: upsert  # forces server-side value
 ```
 
-## 4. Per-Tenant Data Isolation Guarantees
+## 26.4 Per-Tenant Data Isolation Guarantees
 
 | Layer | Mechanism | Guarantee |
 |---|---|---|
@@ -123,13 +123,13 @@ processors:
 | Encryption | Tenant-specific KMS key for restricted classifications | Cryptographic isolation |
 | Audit | Audit events tagged with tenant_id | Auditable per tenant |
 
-## 5. Data-Residency
+## 26.5 Data-Residency
 - Telemetry stores in tenant region by default.
 - Cross-region replication only for DR within the same residency boundary unless contractually allowed.
 - Customer-site Topology A is the strongest residency posture.
-- Egress allow-list ([Chapter 23 Section 8. Egress and Data-Residency Controls](23-observability-platform-security-architecture.md#8-egress-and-data-residency-controls)) blocks unauthorised cross-border transfer.
+- Egress allow-list ([Chapter 23. Observability Platform Security Architecture -> Section 23.8 Egress and Data-Residency Controls](23-observability-platform-security-architecture.md#238-egress-and-data-residency-controls)) blocks unauthorised cross-border transfer.
 
-## 6. Trace Continuity Across Customer / Xceedance Boundary
+## 26.6 Trace Continuity Across Customer / Xceedance Boundary
 
 W3C Trace Context (`traceparent`, `tracestate`) is propagated across the boundary, but with redaction.
 
@@ -150,7 +150,7 @@ Rules:
 - `tracestate` carries tenant and residency hints so Xceedance Tempo applies correct routing.
 - Sampling decisions made at customer site are honoured downstream (`parentbased_traceidratio`).
 
-## 7. Per-Customer-Site DR
+## 26.7 Per-Customer-Site DR
 | Pattern | Use Case | RTO | RPO |
 |---|---|---|---|
 | **Local snapshot + restore** | Customer-site standalone | ≤ 4 h | ≤ 1 h |
@@ -159,7 +159,7 @@ Rules:
 
 DR runbook per customer site is templated and parameterised in [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md).
 
-## 8. Operational Boundaries (Who Operates What)
+## 26.8 Operational Boundaries (Who Operates What)
 | Component | Customer site | Xceedance shared |
 |---|---|---|
 | Compose stack lifecycle | Xceedance Platform Engineering (with customer change-window approval) | Xceedance Platform Engineering |
@@ -169,7 +169,7 @@ DR runbook per customer site is templated and parameterised in [Chapter 7. IaC f
 | On-call | Xceedance follow-the-sun; customer escalation contact | Xceedance |
 | Audit / access review | Customer infosec quarterly review | Xceedance ARB quarterly |
 
-## 9. Tenant Onboarding Checklist
+## 26.9 Tenant Onboarding Checklist
 | Step | Owner |
 |---|---|
 | Tenant registered (ID, class, region, residency) | Platform Engineering |
@@ -181,7 +181,7 @@ DR runbook per customer site is templated and parameterised in [Chapter 7. IaC f
 | First service onboarded per [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) | Service Owner |
 | Tenant-scoped dashboard reviewed with customer | Customer Operations + Customer |
 
-## 10. Cross-References
+## 26.10 Cross-References
 - [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — base topology.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — required tenant attributes on telemetry.
 - [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — `tenant_class`, `tenant_id` namespace.

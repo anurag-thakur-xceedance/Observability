@@ -19,11 +19,11 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 28.1 Purpose
 
 This policy governs the **long-term archival** (greater than 1 year) of observability telemetry — distinct from the operational retention tiers (hot / warm / cold) defined in [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md). It defines what is archived, in what form, for how long, where, who can access it, and how it is eventually destroyed.
 
-## 2. Scope
+## 28.2 Scope
 
 - All telemetry classes (metrics, logs, traces, events, profiles) that have a regulatory, contractual, legal, or forensic retention obligation extending beyond the operational cold tier.
 - Audit logs and security telemetry that must satisfy SOC 2, ISO 27001, GDPR, and sector-specific obligations (HIPAA, PCI DSS, NIS2, DORA, where applicable).
@@ -31,7 +31,7 @@ This policy governs the **long-term archival** (greater than 1 year) of observab
 
 Out-of-scope: short-term operational retention (covered by Chapter 8) and live backup/replication for HA/DR (covered by [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md)).
 
-## 3. Archival Categories
+## 28.3 Archival Categories
 
 | Category | Description | Default Archive Period | Trigger |
 |---|---|---|---|
@@ -42,7 +42,7 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 | **Operational Reference** | Pre-/post-major-change reference data (e.g. capacity baselines) | 3 years | Platform / Capacity team |
 | **AI / ML** | Training data, AI inference logs, model lineage | 5 years (or per regulator) | Model deployment |
 
-## 4. Retention Schedule (Worked View)
+## 28.4 Retention Schedule (Worked View)
 
 | Telemetry Class | Operational Cold End | Archive Period | Total Retention | Destruction Method |
 |---|---|---|---|---|
@@ -54,11 +54,11 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 | AI inference logs | 1 year | 4 years | 5 years | Cryptographic erasure |
 | Customer-site telemetry | per customer contract | per customer contract | per customer contract | Customer-specified |
 
-> Worked example continues from [Chapter 8. Observability Data Governance and Retention Policy -> Section 4. Worked Example: Applying Retention Policy](08-observability-data-governance-and-retention-policy.md#4-worked-example-applying-retention-policy).
+> Worked example continues from [Chapter 8. Observability Data Governance and Retention Policy -> Section 8.4 Worked Example: Applying Retention Policy](08-observability-data-governance-and-retention-policy.md#84-worked-example-applying-retention-policy).
 
-## 5. Storage Architecture
+## 28.5 Storage Architecture
 
-### 5.1 Archive Storage Tiers
+### 28.5.1 Archive Storage Tiers
 
 | Tier | Provider Example | Retrieval SLA | Use |
 |---|---|---|---|
@@ -67,13 +67,13 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 | **Archive-Deep** | S3 Glacier Deep Archive | up to 48 hours | Maximum-retention, lowest-cost class |
 | **On-prem WORM** | Hardware WORM appliance (customer-site) | seconds–minutes | Customer-site sovereignty requirements |
 
-### 5.2 Format & Portability
+### 28.5.2 Format & Portability
 
 - Archive format: **OpenTelemetry-native JSON or Parquet**, gzip- or zstd-compressed. No vendor-proprietary formats.
 - Metadata sidecar (JSON) per archive batch: schema version, source service, classification, retention category, hash, signing certificate fingerprint, original-write timestamp range.
 - Schema versioning: OpenTelemetry Semantic Conventions version recorded in the sidecar so future readers can apply correct interpretation.
 
-### 5.3 Integrity & Tamper Evidence
+### 28.5.3 Integrity & Tamper Evidence
 
 | Control | Mechanism |
 |---|---|
@@ -83,15 +83,15 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 | Bit-rot detection | Annual end-to-end checksum sweep on Archive-Deep tier |
 | Immutability | WORM lock (object-lock or vendor-equivalent) for the full retention period |
 
-### 5.4 Encryption
+### 28.5.4 Encryption
 
 - At rest: AES-256, customer-managed key (CMK) where data residency requires; tenant-isolated keys for multi-tenant deployments.
 - In transit: TLS 1.3 to the archive endpoint; mTLS where backend supports.
 - Key rotation: annual; old keys retained for the lifetime of objects encrypted with them (then cryptographically erased — see Section 6.3).
 
-## 6. Data Lifecycle
+## 28.6 Data Lifecycle
 
-### 6.1 Promotion to Archive
+### 28.6.1 Promotion to Archive
 
 Promotion is automated by an archival worker that runs daily:
 
@@ -102,33 +102,33 @@ Promotion is automated by an archival worker that runs daily:
 5. Records the promotion in the archive ledger (immutable).
 6. Deletes from the cold store after sidecar signing and ledger commit.
 
-### 6.2 Restore From Archive
+### 28.6.2 Restore From Archive
 
 - Restore is a controlled operation; not self-service for users.
 - Restore SLAs: Archive-Standard ≤ 4 h; Archive-Cold ≤ 12 h; Archive-Deep ≤ 48 h.
 - Restore requires:
   - Ticket with documented business / legal reason.
-  - Approval per RACI matrix (see [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.1. RACI Matrix](15-observability-governance-charter-and-arb-pack.md#41-raci-matrix)).
+  - Approval per RACI matrix (see [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.1 RACI Matrix](15-observability-governance-charter-and-arb-pack.md#1541-raci-matrix)).
   - Signature verification before re-ingest.
   - Audit-log entry on completion.
 
-### 6.3 Destruction
+### 28.6.3 Destruction
 
 - Cryptographic erasure (key deletion) is the primary destruction method for cloud-backed archives.
 - Physical media destruction certificate retained for on-prem / customer-site archives.
 - Destruction certificate retained for **2 years** after destruction event.
 - Destruction is blocked while any legal hold is active on the record.
 
-## 7. Privacy Treatment Before Archival
+## 28.7 Privacy Treatment Before Archival
 
 | Treatment | When Applied | Method |
 |---|---|---|
 | **Verbatim retention** | Audit, security, contractual evidence | None — full fidelity |
-| **PII redaction** | Application telemetry retained for operational reference | Field-level redaction per [Chapter 17. Application Telemetry Standard -> Section 6. PII & Data Classification](17-application-telemetry-standard.md#6-pii-data-classification) |
+| **PII redaction** | Application telemetry retained for operational reference | Field-level redaction per [Chapter 17. Application Telemetry Standard -> Section 17.6 PII & Data Classification](17-application-telemetry-standard.md#176-pii-data-classification) |
 | **De-identification** | Long-term trend / analytics data | k-anonymity (k≥5), pseudonymisation |
 | **Aggregation** | Cost / capacity baselines | Hourly / daily roll-ups; raw events not retained |
 
-## 8. Access Control
+## 28.8 Access Control
 
 | Role | Read | Restore | Approve Restore | Destroy |
 |---|---|---|---|---|
@@ -141,14 +141,14 @@ Promotion is automated by an archival worker that runs daily:
 
 Access is governed by [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) and reviewed quarterly.
 
-## 9. Legal Hold
+## 28.9 Legal Hold
 
 - Trigger: written instruction from Legal Counsel naming records, custodians, and scope.
 - Effect: archive worker tags affected records as `legal_hold=true`; destruction is blocked regardless of retention category.
 - Duration: until written release from Legal Counsel.
 - Audit: every legal-hold application and release is logged immutably.
 
-## 10. Right to Erasure (GDPR Art. 17)
+## 28.10 Right to Erasure (GDPR Art. 17)
 
 - Erasure requests are received by the Data Protection Officer.
 - DPO determines whether the record qualifies (e.g. exemption under GDPR Art. 17(3) for legal obligation or public interest).
@@ -156,7 +156,7 @@ Access is governed by [Chapter 23. Observability Platform Security Architecture]
 - Aggregated and pseudonymised records are exempt where re-identification is no longer feasible (see Section 7).
 - Erasure certificate retained for 2 years.
 
-## 11. Chain of Custody (Forensic / Legal)
+## 28.11 Chain of Custody (Forensic / Legal)
 
 For records tagged Forensic or Legal Hold:
 
@@ -165,7 +165,7 @@ For records tagged Forensic or Legal Hold:
 3. Restored copies are produced as **sealed packages** (tar + signature + chain-of-custody manifest).
 4. Recipient acknowledgement is captured; recipient must destroy or return on completion of legal proceedings.
 
-## 12. Cost Model
+## 28.12 Cost Model
 
 Archival cost is tracked separately from operational FinOps (see [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)).
 
@@ -176,14 +176,14 @@ Archival cost is tracked separately from operational FinOps (see [Chapter 9. Obs
 | Egress cost per restore | Tracked; alerts on outlier |
 | Tier rebalancing | Annual review — promote rarely-touched data to deeper tier |
 
-## 13. Data Residency
+## 28.13 Data Residency
 
 - Archive location must satisfy the data-classification residency requirement of the source telemetry.
 - EU-origin personal data archives in EU region only.
 - Customer-site telemetry archives at the customer site by default unless contract permits otherwise.
 - Region for each archive batch recorded in sidecar metadata.
 
-## 14. Roles & Responsibilities (Summary)
+## 28.14 Roles & Responsibilities (Summary)
 
 | Role | Responsibility |
 |---|---|
@@ -194,9 +194,9 @@ Archival cost is tracked separately from operational FinOps (see [Chapter 9. Obs
 | Internal Audit | Periodic verification of archive integrity & retention adherence |
 | ARB | Approves changes to this policy |
 
-Full RACI in [Chapter 15. Observability Governance Charter and ARB Pack -> Section 4.1. RACI Matrix](15-observability-governance-charter-and-arb-pack.md#41-raci-matrix).
+Full RACI in [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.4.1 RACI Matrix](15-observability-governance-charter-and-arb-pack.md#1541-raci-matrix).
 
-## 15. KPIs
+## 28.15 KPIs
 
 | KPI | Target |
 |---|---|
@@ -207,12 +207,12 @@ Full RACI in [Chapter 15. Observability Governance Charter and ARB Pack -> Secti
 | Audit findings on archive controls | 0 critical, 0 high |
 | Carbon impact per TB archived (sustainability) | Tracked, trended |
 
-## 16. Cross-References
+## 28.16 Cross-References
 
 - [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — operational retention (precedes archive).
 - [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — cost-management context.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — control evidence mapping.
-- [Chapter 17. Application Telemetry Standard -> Section 6. PII & Data Classification](17-application-telemetry-standard.md#6-pii-data-classification) — PII classification used for privacy treatment.
+- [Chapter 17. Application Telemetry Standard -> Section 17.6 PII & Data Classification](17-application-telemetry-standard.md#176-pii-data-classification) — PII classification used for privacy treatment.
 - [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — distinction from backup/DR.
 - [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — encryption, access control, audit logging.
 - [Chapter 27. Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md) — archival NFRs (NFR-REC-03, NFR-PRV-03, NFR-CMP-03, etc.).

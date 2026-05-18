@@ -19,10 +19,10 @@ status: Draft
 
 ---
 
-## 1. Scope and Intent
+## 1.1 Scope and Intent
 The single source of truth for telemetry standards across Xceedance — what is measured, named, and labelled, and the thresholds for healthy / warning / critical states. All other artifacts (runbooks, alerting policy, dashboards, AIOps) reference this catalog rather than redefining values locally.
 
-## 2. The Five Pillars of Telemetry
+## 1.2 The Five Pillars of Telemetry
 Telemetry is standardised so that systems generate consistent information, enabling a holistic view of the stack.
 
 | Pillar | Definition | Primary Use |
@@ -33,13 +33,13 @@ Telemetry is standardised so that systems generate consistent information, enabl
 | Changes | Configuration / infrastructure changes tracked across services (e.g. Azure Change Analysis) | Correlate modifications with system behaviour |
 | Profiles | Stack-trace–based code profiling (emerging "fifth pillar", e.g. Pyroscope) | Code-level performance issues |
 
-## 3. Naming and Labelling Standards
+## 1.3 Naming and Labelling Standards
 - A standard telemetry schema is maintained (naming conventions for metrics, labels, log fields, and trace attributes).
 - Data quality checks (missing labels, malformed logs, excessive cardinality) are implemented in the telemetry pipeline.
 - Services must meet minimum instrumentation standards before production promotion.
 - High-cardinality labels are removed or bucketed after defined retention windows.
 
-### 3.1 Required Resource Attributes (every signal)
+### 1.3.1 Required Resource Attributes (every signal)
 Every metric, log line, and trace span must carry these resource attributes:
 
 | Attribute | Source | Example |
@@ -49,7 +49,7 @@ Every metric, log line, and trace span must carry these resource attributes:
 | `deployment.environment` | Deploy pipeline | `prod` / `uat` / `dev` |
 | `team` | Service catalog | `quote-platform` |
 | `tier` | Service catalog | `T1` / `T2` / `T3` / `T4` (service criticality class) |
-| `tenant_id` | Auth context (per [Chapter 26, Section 2 — Tenant Identity Model](26-multi-tenant-and-customer-site-deployment-model.md#2-tenant-identity-model)) | `customer-acme` (stable identifier of the customer the telemetry belongs to. Set by the gateway from the authenticated session, never trusted from the client) |
+| `tenant_id` | Auth context (per [Chapter 26. Multi-Tenant and Customer-Site Deployment Model -> Section 26.2 Tenant Identity Model](26-multi-tenant-and-customer-site-deployment-model.md#262-tenant-identity-model)) | `customer-acme` (stable identifier of the customer the telemetry belongs to. Set by the gateway from the authenticated session, never trusted from the client) |
 | `tenant_class` | Service catalog | `enterprise` / `mid` (mid-market) / `smb` (small and medium business) |
 | `region` | Deploy pipeline | `eu-west-1` |
 | `host.name` | Auto-detected | `xc-host-001` |
@@ -67,24 +67,24 @@ Every metric, log line, and trace span must carry these resource attributes:
 | Azure API Management | Inject on inbound policy; emit `correlation.id` to backends. |
 | Azure App Service / Functions / AKS Ingress | Fallback origin only when no upstream edge exists (internal-only services). |
 
-Every signal emitted downstream MUST carry `trace_id` and `span_id` derived from this `traceparent`. Services that drop or regenerate `traceparent` are non-conformant. See [Chapter 17, Section 3.1 — Required Trace Attributes (Pre-Login)](17-application-telemetry-standard.md#31-required-trace-attributes-pre-login) for the application-side contract.
+Every signal emitted downstream MUST carry `trace_id` and `span_id` derived from this `traceparent`. Services that drop or regenerate `traceparent` are non-conformant. See [Chapter 17. Application Telemetry Standard -> Section 17.3.1 Required Trace Attributes (Pre-Login)](17-application-telemetry-standard.md#1731-required-trace-attributes-pre-login) for the application-side contract.
 
-### 3.2 Metric Naming Convention
+### 1.3.2 Metric Naming Convention
 - Lowercase, snake-case.
 - Format: `<domain>_<entity>_<metric>_<unit>`.
 - Examples: `http_request_duration_seconds`, `db_query_duration_seconds`, `quote_engine_calls_total`.
 - Counters end in `_total`; histograms include the unit (`_seconds`, `_bytes`).
 - Use OpenTelemetry semantic conventions where applicable; only invent custom names when convention does not cover the case.
 
-### 3.3 Log Field Convention
+### 1.3.3 Log Field Convention
 - JSON-structured.
 - Required fields: `ts`, `level`, `msg`, `service`, `trace_id`, `span_id`, `tenant_id`.
-- PII fields prohibited at source (see [Chapter 23 Section 4. PII Redaction (Concrete Mechanisms)](23-observability-platform-security-architecture.md#4-pii-redaction-concrete-mechanisms)).
+- PII fields prohibited at source (see [Chapter 23. Observability Platform Security Architecture -> Section 23.4 PII Redaction (Concrete Mechanisms)](23-observability-platform-security-architecture.md#234-pii-redaction-concrete-mechanisms)).
 
-### 3.4 Cardinality Governance
+### 1.3.4 Cardinality Governance
 Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce three layers:
 
-#### 3.4.1 Per-Service Cardinality Budget (from [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget))
+#### 1.3.4.1 Per-Service Cardinality Budget (from [Chapter 22. Capacity and Scale Model -> Section 22.8 Cardinality Budget](22-capacity-and-scale-model.md#228-cardinality-budget))
 
 | Tier | Max Active Series per Service | Max Distinct Label Combos per Metric |
 |---|---|---|
@@ -93,7 +93,7 @@ Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce t
 | T3 | 10,000 | 200 |
 | T4 | 5,000 | 100 |
 
-#### 3.4.2 Forbidden Label Patterns
+#### 1.3.4.2 Forbidden Label Patterns
 - User identifiers (`user_id`, `email`, `session_id`).
 - Free-form strings (request paths with IDs, raw URLs).
 - Timestamps as labels.
@@ -102,19 +102,19 @@ Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce t
 
 Any of the above must be **bucketed** (e.g., path templates instead of paths) or **dropped** before ingestion.
 
-#### 3.4.3 Enforcement Mechanisms
+#### 1.3.4.3 Enforcement Mechanisms
 1. **At source:** SDK-side label allow-list per kit (see [Chapter 25](25-service-onboarding-and-instrumentation-kits.md)).
 2. **At collector:** `metric_relabel_configs` to drop forbidden labels.
 3. **At backend:** `limits.max_label_names_per_series`, `limits.max_series_per_user` configured in Prometheus / Mimir.
 4. **Recording rule:** `count by (__name__)({__name__=~".+"})` to track per-metric cardinality; alert when a service breaches its budget.
 5. **Emergency switch:** A pre-tested `metric_relabel_config` block-list deployed via Git PR within 30 minutes when an incident demands it.
 
-#### 3.4.4 Cardinality KPIs
+#### 1.3.4.4 Cardinality KPIs
 - Per-service cardinality vs budget — dashboard in [Chapter 5](05-grafana-platform-standard-and-visualization-playbook.md).
 - New high-cardinality metrics introduced per release.
 - Time from cardinality breach to remediation.
 
-## 4. Infrastructure Telemetry Standards
+## 1.4 Infrastructure Telemetry Standards
 
 | Metric | Unit | Healthy | Acceptable | Concerning | Notes |
 |---|---|---|---|---|---|
@@ -126,11 +126,11 @@ Any of the above must be **bucketed** (e.g., path templates instead of paths) or
 | Service Restart Events (Compose) | count/day | 0–1 | 1–5 | > 10/day | Frequent restarts → review healthchecks / config |
 | Container Start Time | seconds | < 5 s | 5–15 s | > 30 s | Long start times slow recovery and updates |
 
-### 4.1 Service Tiering Model
+### 1.4.1 Service Tiering Model
 
 The tier of a service determines instrumentation depth, SLO strictness, retention, alerting policy, and on-call coverage.
 
-#### 4.1.1 Tier Definitions
+#### 1.4.1.1 Tier Definitions
 
 | Tier | Definition | Examples |
 |---|---|---|
@@ -139,7 +139,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | **T3 — Supporting** | Internal or periodic; outage = inconvenience | Reporting, BI, internal analytics |
 | **T4 — Standard** | Internal-only or non-business-critical | Corporate IT, internal tooling |
 
-#### 4.1.2 Per-Tier Policy Deltas
+#### 1.4.1.2 Per-Tier Policy Deltas
 
 | Dimension | T1 | T2 | T3 | T4 |
 |---|---|---|---|---|
@@ -156,12 +156,12 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | On-call response | ≤ 5 min ack | ≤ 15 min ack | ≤ 1 h | NBD |
 | RTO / RPO | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) | per [Chapter 20](20-business-capability-and-value-stream-mapping.md) |
 
-#### 4.1.3 Tier Assignment
+#### 1.4.1.3 Tier Assignment
 - Tier is assigned at service registration in the catalog.
 - Tier changes require ARB approval and an ADR (see [Chapter 16](16-observability-adr-decision-register.md)).
 - The tier label is mandatory on every signal (per Section 3.4).
 
-## 5. Application Telemetry Standards (Pre-Login)
+## 1.5 Application Telemetry Standards (Pre-Login)
 
 | Metric | Healthy | Warning | Critical | Notes |
 |---|---|---|---|---|
@@ -170,7 +170,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | MFA Failures | < 0.5% | 0.5–2% sustained | > 2% sustained or MFA outage | Often third-party dependency |
 | API Gateway Response Time | P95 < 500 ms | P95 > 800 ms ≥ 5 min | P95 > 1200 ms sustained | Includes upstream services |
 
-## 6. Application Telemetry Standards (Post-Login)
+## 1.6 Application Telemetry Standards (Post-Login)
 
 | Metric | Healthy | Warning | Critical | Notes |
 |---|---|---|---|---|
@@ -179,7 +179,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | Dependency Latency | < 200 ms | 200–400 ms sustained | > 400 ms sustained or timeouts | DB/cache/API dependencies |
 | User-Journey Trace Success Rate | ≥ 98% | 95–98% | < 95% | Track per major journey |
 
-## 7. Database Telemetry Standards
+## 1.7 Database Telemetry Standards
 
 | Metric | Healthy | Warning | Critical | Notes |
 |---|---|---|---|---|
@@ -189,7 +189,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | Replication Lag | < 1 s | 2–5 s sustained | > 10 s sustained or rising | Critical for fresh-read deps |
 | Query Latency (Overall) | P95 < 100 ms | 100–200 ms sustained | > 200 ms sustained or > 300 ms jump | Keep P95 ≤ 100 ms |
 
-## 8. Network & Latency Telemetry Standards
+## 1.8 Network & Latency Telemetry Standards
 
 | Metric | Healthy | Warning | Critical | Notes |
 |---|---|---|---|---|
@@ -199,7 +199,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | Inter-Service Errors | < 0.2% | 0.2–1% ≥ 5 min | > 1% ≥ 2 min or backend outage | App-layer 4xx/5xx between services. Keep < 0.2%; review retries if climbing. |
 | TCP Retransmissions | < 0.5% | 0.5–1% ≥ 5 min | > 1% ≥ 2 min or > 2% spike | Congestion / packet loss |
 
-## 9. Scaling & Performance Telemetry Standards
+## 1.9 Scaling & Performance Telemetry Standards
 
 | Metric | Purpose | Healthy | Warning | Critical |
 |---|---|---|---|---|
@@ -209,7 +209,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | Container Startup Time | Recovery efficiency | < 10 s | 10–30 s | > 30 s sustained or repeated start failure |
 | Cold Start Latency | Autoscaling tuning | < 300 ms FaaS / < 2 s container | 300–800 ms / 2–5 s | > 800 ms / > 5 s sustained |
 
-## 10. Grafana Visualization Layer Standards
+## 1.10 Grafana Visualization Layer Standards
 
 | Layer | Metric | Healthy | Warning | Critical |
 |---|---|---|---|---|
@@ -223,7 +223,7 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | Business | Payment Success Rate | ≥ 98% | 96–98% sustained | < 96% > 2 min |
 | Business | Checkout Latency | P95 < 2 s | 2–3 s sustained | > 3 s > 2 min |
 
-## 11. AI-Driven Telemetry Standards
+## 1.11 AI-Driven Telemetry Standards
 
 | Category | Metric | Healthy | Warning | Critical |
 |---|---|---|---|---|
@@ -234,10 +234,10 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 
 Targets: false-positive rate < 5%, detection latency < 2 min from anomaly onset, anomaly precision ≥ 90%, recall ≥ 85%.
 
-## 12. Calibration Guidance
+## 1.12 Calibration Guidance
 Safe baselines. After several weeks of telemetry, calibrate so **Warning ≈ 95th percentile of normal behaviour** and **Critical ≈ user impact or SLA breach**.
 
-## 13. Cross-References
+## 1.13 Cross-References
 - [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
 - [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
 - [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md): How standards render in Grafana dashboards.

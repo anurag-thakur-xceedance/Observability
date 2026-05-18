@@ -19,10 +19,10 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 9.1 Purpose
 Lifecycle policies manage cost and performance of observability platforms. This standard defines the cost-management mechanics that operationalise the retention authorisations in [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md).
 
-## 2. Storage Tier Model
+## 9.2 Storage Tier Model
 
 | Tier | Contents | Typical Window | Media |
 |---|---|---|---|
@@ -30,34 +30,34 @@ Lifecycle policies manage cost and performance of observability platforms. This 
 | **Warm** | Down-sampled metrics and compressed logs retained beyond hot windows | Weeks–Months | Mid-cost storage |
 | **Cold / Archive** | Long-term RCA documents, audit reports, and selected aggregates | Months–Years | Object storage |
 
-## 3. Down-Sampling and Aggregation
+## 9.3 Down-Sampling and Aggregation
 - **Metrics down-sampling:** raw → 1-minute → 5-minute aggregates after the hot period.
 - **High-cardinality labels** removed or bucketed after a defined retention window.
 - These measures reduce storage overhead while preserving trend and SLO visibility.
 
-## 4. Cost Levers
+## 9.4 Cost Levers
 - Hot/warm/cold tiering windows.
 - Sampling strategy (head/tail) for traces.
 - Cardinality controls (label bucketing, drop high-cardinality dimensions).
 - Compression and codec selection for logs.
 - Retention windows per service criticality.
 
-## 5. Cost KPIs
+## 9.5 Cost KPIs
 - **Reduce observability tooling costs by 20–25%** in 12 months (executive target — see [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md)).
 - Storage cost **per service over time** trending downward while maintaining required visibility.
 - **Tool coverage rate > 90%** for unified stack despite cost reduction.
 
-## 6. Value Tracking
+## 9.6 Value Tracking
 - Cost-per-incident-resolved.
 - Cost-per-instrumented-service.
 - Storage cost vs. retention SLO compliance.
 - Tool count consolidation (reduction of 30–40% over 12 months).
 
-### 6.1 Unit Economics
+### 9.6.1 Unit Economics
 
 The platform's cost story is told in **unit economics**: cost per signal, per service, per tier, per tenant. Aggregated cost numbers are necessary but not sufficient — only unit economics let the business decide where to invest, where to cut, and where to charge back.
 
-### 6.1.1 Unit Cost Model
+### 9.6.2 Unit Cost Model
 
 The total monthly platform cost **C** is decomposed by signal:
 
@@ -71,11 +71,11 @@ Each signal cost is further decomposed into ingest, storage (hot + warm + cold),
 C_signal = C_ingest + C_storage_hot + C_storage_warm + C_storage_cold + C_query
 ```
 
-### 6.1.2 Unit Cost Definitions
+### 9.6.3 Unit Cost Definitions
 
 | Unit | Definition | Reporting Cadence | Used By |
 |---|---|---|---|
-| **$/active series/month** | Prometheus active series cost ÷ active series count | Monthly | Cardinality reviews ([Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance)) |
+| **$/active series/month** | Prometheus active series cost ÷ active series count | Monthly | Cardinality reviews ([Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance)) |
 | **$/GB-day metrics (hot)** | Hot metrics storage cost ÷ GB-days | Monthly | Tier-window calibration |
 | **$/GB ingested logs** | Loki ingest cost ÷ GB ingested | Monthly | Log-volume conversations with service teams |
 | **$/GB-day logs (hot)** | Hot logs storage cost ÷ GB-days | Monthly | Tier-window calibration |
@@ -89,7 +89,7 @@ C_signal = C_ingest + C_storage_hot + C_storage_warm + C_storage_cold + C_query
 | **$/tenant/month** | Per-tenant attributed cost | Monthly | Multi-tenant chargeback ([Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md)) |
 | **$/engineer/month** | Total cost ÷ engineers using the platform | Monthly | Platform productivity metric |
 
-### 6.1.3 Indicative Unit-Cost Benchmarks
+### 9.6.4 Indicative Unit-Cost Benchmarks
 
 The figures below are **indicative starting points** for an enterprise stack at moderate scale (low hundreds of services, multi-million active series). Calibrate to your environment after one billing cycle.
 
@@ -101,7 +101,7 @@ The figures below are **indicative starting points** for an enterprise stack at 
 | $/service/month (T1) | $200 – $600 | Investigate dominant signal; cardinality + sampling levers |
 | $/service/month (T4) | $20 – $80 | Verify the service is on baseline kit, not over-instrumented |
 
-### 6.1.4 Cost Attribution
+### 9.6.5 Cost Attribution
 
 Every cost is attributable to a `service.name` and `tenant.id`:
 - **Metrics:** active series labelled with `service` map cleanly; recording rules and federation must preserve service label.
@@ -111,7 +111,7 @@ Every cost is attributable to a `service.name` and `tenant.id`:
 
 The attribution model is the basis for **chargeback / showback** in Section 6.2.
 
-### 6.1.5 Showback vs. Chargeback Decision
+### 9.6.6 Showback vs. Chargeback Decision
 
 | Mode | Description | When to Use |
 |---|---|---|
@@ -120,11 +120,11 @@ The attribution model is the basis for **chargeback / showback** in Section 6.2.
 
 The decision to move from showback to chargeback is an ARB decision recorded in [Chapter 16](16-observability-adr-decision-register.md).
 
-### 6.2 Optimisation Playbook
+### 9.6.7 Optimisation Playbook
 
 A repeatable set of moves the FinOps + Platform Ops team executes when a unit cost trends adverse. Every move is **measured against the unit cost** to confirm impact.
 
-### 6.2.1 The Top-5 Levers (in order of impact)
+### 9.6.8 The Top-5 Levers (in order of impact)
 
 | Lever | Typical Saving | Risk | Owner |
 |---|---|---|---|
@@ -134,7 +134,7 @@ A repeatable set of moves the FinOps + Platform Ops team executes when a unit co
 | **4. Hot-tier window shortening** | 10–20% on storage cost | Slower investigation of older data | Platform Ops |
 | **5. Tier-aware retention** (T4 services have shorter windows) | 5–15% overall | Per-service negotiation | Service Owner + Governance |
 
-### 6.2.2 Optimisation Cycle
+### 9.6.9 Optimisation Cycle
 
 ```
 Monthly review:
@@ -146,30 +146,30 @@ Monthly review:
   6. Measure unit cost in next cycle; rollback if no improvement
 ```
 
-### 6.2.3 Optimisation Anti-Patterns
+### 9.6.10 Optimisation Anti-Patterns
 
 - **Cutting retention without consulting incident response.** Long incidents need long telemetry windows; rule of thumb: retain hot ≥ p95 incident duration + 50%.
 - **Aggressive head-sampling in T1.** Misses rare-but-important patterns; prefer tail-sampling that preserves errors and slow traces.
 - **Removing labels without measuring.** Always model cardinality reduction before applying — some labels look high-cardinality but contribute little to cost (sparse).
-- **Optimising during incident.** Freeze optimisation activity during active incidents and during the change-freeze windows in [Chapter 7. IaC for Observability Standard -> Section 7.1. Change Management](07-iac-for-observability-standard.md#71-change-management).
+- **Optimising during incident.** Freeze optimisation activity during active incidents and during the change-freeze windows in [Chapter 7. IaC for Observability Standard (Docker Compose + PowerShell) -> Section 7.7.1 Change Management](07-iac-for-observability-standard.md#771-change-management).
 - **One-off "spring cleaning"**. Optimisation must be cyclical (Section 6.2.2) — single events drift back within a quarter.
 
-### 6.3 Forecast and Budget Model
+### 9.6.11 Forecast and Budget Model
 
 Inputs and outputs of the FinOps planning cycle.
 
-### 6.3.1 Forecast Inputs
+### 9.6.12 Forecast Inputs
 
 | Input | Source | Update Cadence |
 |---|---|---|
 | Service onboarding pipeline | [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) | Monthly |
-| Service tier distribution | [Chapter 1. Enterprise Observability Standards Catalog -> Section 4.1. Service Tiering Model](01-enterprise-observability-standards-catalog.md#41-service-tiering-model) | Quarterly |
-| Cardinality budget headroom | [Chapter 1. Enterprise Observability Standards Catalog -> Section 3.4. Cardinality Governance](01-enterprise-observability-standards-catalog.md#34-cardinality-governance) | Monthly |
+| Service tier distribution | [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.4.1 Service Tiering Model](01-enterprise-observability-standards-catalog.md#141-service-tiering-model) | Quarterly |
+| Cardinality budget headroom | [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance) | Monthly |
 | Capacity sizing model | [Chapter 22](22-capacity-and-scale-model.md) | Quarterly |
 | Tenant onboarding pipeline | [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md) | Monthly |
 | Vendor unit-rate changes | Contracts | As-changed |
 
-### 6.3.2 Budget Envelope
+### 9.6.13 Budget Envelope
 
 Three rolling envelopes are tracked:
 
@@ -177,7 +177,7 @@ Three rolling envelopes are tracked:
 - **Quarterly envelope.** Annual envelope ÷ 4, ±10% flex for seasonal variation.
 - **Monthly envelope.** Quarterly envelope ÷ 3; breach triggers FinOps review.
 
-### 6.3.3 Variance Response
+### 9.6.14 Variance Response
 
 | Variance | Response |
 |---|---|
@@ -185,13 +185,13 @@ Three rolling envelopes are tracked:
 | +5% to +10% | FinOps review; identify drivers; activate top-1 optimisation lever |
 | +10% to +20% | ARB notification; activate top-3 levers; consider Normal-class change freeze |
 | > +20% | Emergency ARB; escalate to executive; consider service onboarding freeze |
-| Negative variance > 10% | Investigate under-instrumentation (false economy); review against telemetry quality SLIs ([Chapter 11. Observability KPI Scorecard -> Section 6.1. Telemetry Data Quality SLIs](11-observability-kpi-scorecard.md#61-telemetry-data-quality-slis)) |
+| Negative variance > 10% | Investigate under-instrumentation (false economy); review against telemetry quality SLIs ([Chapter 11. Observability KPI Scorecard -> Section 11.6.1 Telemetry Data Quality SLIs](11-observability-kpi-scorecard.md#1161-telemetry-data-quality-slis)) |
 
-### 6.4 Twelve-Month Worked Cost Model
+### 9.6.15 Twelve-Month Worked Cost Model
 
-This worked model takes the **Medium reference deployment** (see [Chapter 22, Section 3.2 — Worked Example B (Medium)](22-capacity-and-scale-model.md#3-worked-sizing-examples)) and projects 12 months of cost evolution including organic growth, optimisation interventions, and budget variance. Numbers are illustrative for Azure West Europe pricing class (2026-Q1) and must be re-baselined per estate.
+This worked model takes the **Medium reference deployment** (see [Chapter 22. Capacity and Scale Model -> Section 22.3 Worked Sizing Examples](22-capacity-and-scale-model.md#223-worked-sizing-examples)) and projects 12 months of cost evolution including organic growth, optimisation interventions, and budget variance. Numbers are illustrative for Azure West Europe pricing class (2026-Q1) and must be re-baselined per estate.
 
-### 6.4.1 Starting Position (Month 0)
+### 9.6.16 Starting Position (Month 0)
 
 | Dimension | Month 0 |
 |---|---|
@@ -204,7 +204,7 @@ This worked model takes the **Medium reference deployment** (see [Chapter 22, Se
 | Monthly spend | $1,280 |
 | Service tier targets (annual envelope) | T1 $400, T2 $200, T3 $80, T4 $30 |
 
-### 6.4.2 Planning Assumptions
+### 9.6.17 Planning Assumptions
 
 | Assumption | Value | Source |
 |---|---|---|
@@ -219,7 +219,7 @@ This worked model takes the **Medium reference deployment** (see [Chapter 22, Se
 | Quarterly envelope | $4,500 (with ±10% flex → $4,050–$4,950) | Annual / 4 |
 | Monthly envelope | $1,500 | Quarterly / 3 |
 
-### 6.4.3 Month-by-Month Projection
+### 9.6.18 Month-by-Month Projection
 
 Notation: **growth** = baseline growth without intervention; **intervention** = month an optimisation lever is applied; **net spend** = actual monthly cost after intervention; **cum.** = year-to-date cumulative.
 
@@ -240,7 +240,7 @@ Notation: **growth** = baseline growth without intervention; **intervention** = 
 
 **Year-end position:** $17,650 cumulative against the $18,000 annual envelope → **−1.9% variance**. Achieved while growing service count by 64% (150 → 246) and active series by 48% (1.46M → 2.16M).
 
-### 6.4.4 Cost Decomposition (Month 12)
+### 9.6.19 Cost Decomposition (Month 12)
 
 | Signal | Ingest | Storage Hot | Storage Warm | Storage Cold | Query | Total | Share |
 |---|---|---|---|---|---|---|---|
@@ -258,7 +258,7 @@ Observations:
 - **Storage outweighs ingest** ($785 vs. $450) — primary FinOps focus should remain tier-window and retention, not ingest throttling.
 - **Egress at 4%** is healthy; would rise if cross-region replication were added (currently single-region per [Chapter 21](21-observability-platform-ha-and-dr-design.md)).
 
-### 6.4.5 Unit Cost Trajectory
+### 9.6.20 Unit Cost Trajectory
 
 | Unit | M0 | M4 (post-int. 1) | M7 (post-int. 2) | M10 (post-int. 3) | M12 | Trend |
 |---|---|---|---|---|---|---|
@@ -271,14 +271,14 @@ Observations:
 
 Every unit cost trends downward while absolute spend grows — the canonical FinOps signature of a healthy maturing platform.
 
-### 6.4.6 Variance Response Triggered
+### 9.6.21 Variance Response Triggered
 
 Reviewing the projection against Section 6.3.3 variance bands:
 - **M12 at +8.3%** monthly variance falls in the +5% to +10% band → **FinOps review** at the M13 cycle to identify drivers and activate the top-1 optimisation lever (likely metrics hot-window shortening). No ARB escalation required.
 - No month breached the +10% band, so no ARB notification was triggered in-year.
 - No month showed negative variance > 10%, so no under-instrumentation false-economy investigation was triggered.
 
-### 6.4.7 Sensitivity Analysis
+### 9.6.22 Sensitivity Analysis
 
 How robust is the year-end position to assumption changes?
 
@@ -293,9 +293,9 @@ How robust is the year-end position to assumption changes?
 
 The model's largest risk is **deferring the optimisation cadence**: a single skipped intervention shifts year-end by ~3–5%; skipping all three pushes the platform into a guaranteed ARB-escalation path by mid-year.
 
-### 6.4.8 Reconciliation with Capacity Plan
+### 9.6.23 Reconciliation with Capacity Plan
 
-| Item | FinOps Month 12 | Capacity Plan ([Chapter 22, Section 3.2](22-capacity-and-scale-model.md#3-worked-sizing-examples)) | Comment |
+| Item | FinOps Month 12 | Capacity Plan ([Chapter 22. Capacity and Scale Model -> Section 22.3 Worked Sizing Examples](22-capacity-and-scale-model.md#223-worked-sizing-examples)) | Comment |
 |---|---|---|---|
 | Services | 246 | 150 (baseline) | Growth absorbed; capacity headroom still adequate per Ch 22 Step 10 |
 | Active series | 2.16M | 1.46M | Approaches Prometheus RAM trigger at ~73% → Mimir migration ADR due M14 |
@@ -304,14 +304,14 @@ The model's largest risk is **deferring the optimisation cadence**: a single ski
 
 The reconciliation surfaces the **Mimir migration trigger** earlier than calendar-driven planning would, justifying the FinOps + Capacity joint review cadence specified in Section 6.3.1.
 
-## 7. Deletion & Compaction Monitoring
-Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 8. Observability Data Governance and Retention Policy -> Section 7. Deletion and Retention Enforcement](08-observability-data-governance-and-retention-policy.md#7-deletion-and-retention-enforcement), [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md).
+## 9.7 Deletion & Compaction Monitoring
+Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 8. Observability Data Governance and Retention Policy -> Section 8.7 Deletion and Retention Enforcement](08-observability-data-governance-and-retention-policy.md#87-deletion-and-retention-enforcement), [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md).
 
-## 8. Cross-References
+## 9.8 Cross-References
 - [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — cardinality budgets and tier model that drive cost (Section 6.1, Section 6.2).
 - [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — retention policy this standard implements cost-side.
 - [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — compliance constraints on what can be deleted / archived.
-- [Chapter 11. Observability KPI Scorecard -> Section 6.1. Telemetry Data Quality SLIs](11-observability-kpi-scorecard.md#61-telemetry-data-quality-slis) — quality SLIs that bound cost cuts.
+- [Chapter 11. Observability KPI Scorecard -> Section 11.6.1 Telemetry Data Quality SLIs](11-observability-kpi-scorecard.md#1161-telemetry-data-quality-slis) — quality SLIs that bound cost cuts.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — governance approval for tiering and chargeback changes.
 - [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) — capacity inputs to Section 6.3 forecast.
 - [Chapter 25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md) — onboarding pipeline feeding Section 6.3 forecast.

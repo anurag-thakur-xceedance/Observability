@@ -40,12 +40,12 @@ This directory holds canonical Mermaid source for the architecture diagrams refe
 
 | Diagram | File | Consumed By |
 |---|---|---|
-| High-Level Architecture (Strategy) | `00-high-level-architecture.svg` | [Chapter 0. Observability Strategy -> Section 7. High-Level Architecture (One-Page View)](../../00-observability-strategy-revised.md#7-high-level-architecture-one-page-view) |
-| Observability Pipeline — End-to-End | `pipeline-end-to-end.mmd` | [Chapter 2. Observability Reference Architecture -> Section 2. High-Level Architecture (Logical View)](../../02-observability-reference-architecture.md#2-high-level-architecture-logical-view) |
-| Multi-Tenant Deployment Model       | `multi-tenant-deployment.mmd` | [Chapter 26. Multi-Tenant and Customer-Site Deployment Model -> Section 1. Deployment Topologies](../../26-multi-tenant-and-customer-site-deployment-model.md#1-deployment-topologies) |
-| AIOps Closed-Loop                   | `aiops-closed-loop.mmd`       | [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 1. Strategic Intent & Guardrails](../../06-aiops-guardrails-and-implementation-playbook.md#1-strategic-intent-guardrails) |
-| HA Topology (Single Region)         | `ha-topology.mmd`             | [Chapter 21. Observability Platform HA and DR Design -> Section 3. Reference HA Topology (Compose, Single Region)](../../21-observability-platform-ha-and-dr-design.md#3-reference-ha-topology-compose-single-region) |
-| DR Runbook (Region Loss)            | `dr-runbook.mmd`              | [Chapter 21. Observability Platform HA and DR Design -> Section 5. DR Patterns](../../21-observability-platform-ha-and-dr-design.md#5-dr-patterns) |
+| High-Level Architecture (Strategy) | `00-high-level-architecture.svg` | [Chapter 0. Xceedance Observability Strategy -> Section 0.4 High-Level Architecture (One-Page View)](../../00-observability-strategy.md#04-high-level-architecture-one-page-view) |
+| Observability Pipeline — End-to-End | `pipeline-end-to-end.mmd` | [Chapter 2. Observability Reference Architecture -> Section 2.2 High-Level Architecture (Logical View)](../../02-observability-reference-architecture.md#22-high-level-architecture-logical-view) |
+| Multi-Tenant Deployment Model       | `multi-tenant-deployment.mmd` | [Chapter 26. Multi-Tenant and Customer-Site Deployment Model -> Section 26.1 Deployment Topologies](../../26-multi-tenant-and-customer-site-deployment-model.md#261-deployment-topologies) |
+| AIOps Closed-Loop                   | `aiops-closed-loop.mmd`       | [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 6.1 Strategic Intent & Guardrails](../../06-aiops-guardrails-and-implementation-playbook.md#61-strategic-intent-guardrails) |
+| HA Topology (Single Region)         | `ha-topology.mmd`             | [Chapter 21. Observability Platform HA and DR Design -> Section 21.3 Reference HA Topology (Compose, Single Region)](../../21-observability-platform-ha-and-dr-design.md#213-reference-ha-topology-compose-single-region) |
+| DR Runbook (Region Loss)            | `dr-runbook.mmd`              | [Chapter 21. Observability Platform HA and DR Design -> Section 21.5 DR Patterns](../../21-observability-platform-ha-and-dr-design.md#215-dr-patterns) |
 
 ## 4. Rendering
 
@@ -59,7 +59,7 @@ CI renders all `.mmd` to `.svg` on every PR and uploads them as build artefacts.
 
 ## 5. Change Control
 
-Diagram edits follow the same change-control flow as chapter prose (see [Chapter 15. Observability Governance Charter and ARB Pack -> Section 3. Decision Rights](../../15-observability-governance-charter-and-arb-pack.md#3-decision-rights)). Material edits (adding / removing components, changing trust boundaries) require ARB review; cosmetic edits (label wording, colour) do not.
+Diagram edits follow the same change-control flow as chapter prose (see [Chapter 15. Observability Governance Charter and ARB Pack -> Section 15.3 Decision Rights](../../15-observability-governance-charter-and-arb-pack.md#153-decision-rights)). Material edits (adding / removing components, changing trust boundaries) require ARB review; cosmetic edits (label wording, colour) do not.
 
 ---
 

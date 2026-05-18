@@ -19,10 +19,10 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 13.1 Purpose
 The maturity roadmap traces the journey from reactive monitoring to proactive, AI-driven observability. This plan turns the executive view into milestones, owners, and dependencies.
 
-## 2. Phase 1 — Foundation (Months 1–3)
+## 13.2 Phase 1 — Foundation (Months 1–3)
 **Theme:** "Establish the Core — See What's Happening."
 
 **Outcome:** Transition from "we don't know what's broken" to "we can see when something breaks."
@@ -35,10 +35,10 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Define Baseline Metrics | Establish what "normal" looks like for key KPIs | Documented baselines: CPU, memory, latency, error rate |
 | Team Onboarding | Train ops + dev teams on dashboards | All relevant team members can navigate Grafana |
 
-### Phase 1 Targets (from [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md))
+### 13.2.1 Phase 1 Targets (from [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md))
 - MTTD < 15 min, MTTR in hours, services instrumented 20%, alert noise high (baseline), manual RCA 100%, automated tickets 0%.
 
-## 3. Phase 2 — Correlation & Alerting (Months 4–6)
+## 13.3 Phase 2 — Correlation & Alerting (Months 4–6)
 **Theme:** "Connect the Dots — Understand Why It's Happening."
 
 **Outcome:** From "something is broken" to "we understand why it broke and what else might be affected."
@@ -52,10 +52,10 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Distributed Tracing Rollout | Extend Tempo tracing to all production services | Full request-path visibility across microservices |
 | Cross-Team Dashboards | Shared views breaking down silos | Single pane of glass accessible to all stakeholders |
 
-### Phase 2 Targets (from [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md))
+### 13.3.1 Phase 2 Targets (from [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md))
 - MTTD < 5 min, MTTR ~ 30 min, services instrumented 70%, alert noise moderate, manual RCA 50%, automated tickets 50%.
 
-## 4. Phase 3 — AI-Driven Intelligence (Months 7–12)
+## 13.4 Phase 3 — AI-Driven Intelligence (Months 7–12)
 **Theme:** "Predict and Automate — Fix Before Users Notice."
 
 **Outcome:** Achieve the strategy vision — observability transforms from "technical overhead into a competitive advantage" where teams "spend less time rectifying issues and more time shipping high-value features."
@@ -70,22 +70,22 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Feedback Loop Integration | Humans validate AI decisions, improving model accuracy | AI accuracy improves month-over-month |
 | Business Impact Correlation | Link technical incidents to business KPIs (revenue, CX scores) | Executives receive business-context summaries |
 
-### Phase 3 Targets (from [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md))
+### 13.4.1 Phase 3 Targets (from [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md))
 - MTTD < 1 min, MTTR in minutes, services instrumented 100%, alert noise low (< 10% FP), manual RCA < 20%, automated tickets > 90%.
 
-## 5. Dependencies (Cross-Phase)
+## 13.5 Dependencies (Cross-Phase)
 - [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — required to instrument services consistently across phases.
 - [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — required before significant telemetry volume in Phase 2.
 - [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) — pre-condition for Phase 3 automation.
 - [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — change control for each phase gate.
 
-## 6. Risks (Initial)
+## 13.6 Risks (Initial)
 - Tool consolidation may surface migration debt.
 - AI false-positive rate may exceed 5% during Phase 3 ramp-up; mitigated by feedback-loop discipline ([Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)).
 - Cardinality / cost overruns mid-Phase 2 if [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md)/[Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) controls are not yet operational.
 
-## 7. Cross-References
+## 13.7 Cross-References
 - [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — KPI scorecard with phase targets.
 - [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md) — capability assessment framework.
 - [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) / [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) / [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) / [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — dependent standards / policies.

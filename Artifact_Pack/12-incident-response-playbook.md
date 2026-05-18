@@ -19,12 +19,12 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 12.1 Purpose
 How a telemetry anomaly becomes a diagnosed, communicated, remediated incident. Severities, alert rules, and AI guardrails come from [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) and [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md); runbooks from [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md). This playbook integrates them end-to-end.
 
-## 2. End-to-End Incident Sequence (Logical Flow)
+## 12.2 End-to-End Incident Sequence (Logical Flow)
 
-### 2.1 Lifecycle Flow (Mermaid Flowchart)
+### 12.2.1 Lifecycle Flow (Mermaid Flowchart)
 
 ```mermaid
 flowchart TD
@@ -49,7 +49,7 @@ flowchart TD
     class I,J review;
 ```
 
-### 2.2 Actor Sequence (Mermaid Sequence Diagram)
+### 12.2.2 Actor Sequence (Mermaid Sequence Diagram)
 
 ```mermaid
 sequenceDiagram
@@ -82,7 +82,7 @@ sequenceDiagram
     IC-->>SO: track never-repeat items (Ch 16 ADR if systemic)
 ```
 
-### 2.3 Step-by-Step Description
+### 12.2.3 Step-by-Step Description
 
 | # | Step | Owner | Cross-Reference |
 |---|---|---|---|
@@ -97,7 +97,7 @@ sequenceDiagram
 | 9 | Post-Incident Review (PIR) — structured RCA record | Incident Commander | [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) |
 | 10 | Feedback — ADR, model retraining, roadmap, KPI updates | Governance Body | [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md), [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md), [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) |
 
-## 3. Roles
+## 12.3 Roles
 | Role | Responsibility |
 |---|---|
 | On-Call Engineer | First responder; triage, diagnosis, communication. |
@@ -106,8 +106,8 @@ sequenceDiagram
 | Service Owner | Owns service-specific decisions (rollback, traffic shifting). |
 | Governance Body | Reviews PIR outcomes; ratifies systemic changes ([Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)). |
 
-## 4. Incident Severity Mapping
-Inherited from [Chapter 4. Alerting and Incident Severity Policy -> Section 3. Standard Severity Model](04-alerting-and-incident-severity-policy.md#3-standard-severity-model):
+## 12.4 Incident Severity Mapping
+Inherited from [Chapter 4. Alerting and Incident Severity Policy -> Section 4.3 Standard Severity Model](04-alerting-and-incident-severity-policy.md#43-standard-severity-model):
 
 | Severity | Response | Comms |
 |---|---|---|
@@ -115,27 +115,27 @@ Inherited from [Chapter 4. Alerting and Incident Severity Policy -> Section 3. S
 | Warning | Investigated within business hours | Internal channel post |
 | Critical | Page on-call immediately; commander engaged | Stakeholder updates per cadence |
 
-## 5. Diagnosis Aids
+## 12.5 Diagnosis Aids
 - **Grafana correlation panels** — dashboards link metrics ↔ logs ↔ traces via shared identifiers (see [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)).
 - **AI-generated RCA tickets** — pre-populated with context, impact assessment, and suggested remediation (see [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)).
 - **Domain runbooks** — see [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) for infra, application, DB, network, scaling.
 
-## 6. Post-Incident Review (PIR)
+## 12.6 Post-Incident Review (PIR)
 For each major incident, a structured RCA record is captured with:
 - Timeline of detection → mitigation → resolution.
 - Customer / business impact (revenue, sessions, SLA).
 - Root cause and contributing factors.
 - Corrective actions and **never-repeat** items.
 
-PIRs are stored in a central knowledge base for **at least 12 months** (per [Chapter 8. Observability Data Governance and Retention Policy -> Section 4. Worked Example: Applying Retention Policy (subsection 4.4)](08-observability-data-governance-and-retention-policy.md#4-worked-example-applying-retention-policy)).
+PIRs are stored in a central knowledge base for **at least 12 months** (per [Chapter 8. Observability Data Governance and Retention Policy -> Section 8.4 Worked Example: Applying Retention Policy](08-observability-data-governance-and-retention-policy.md#84-worked-example-applying-retention-policy)).
 
-## 7. Success Criteria
+## 12.7 Success Criteria
 - MTTD reduced per phase targets (see [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) / [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md)).
 - ≥ 90% incidents have an identified root cause.
 - > 90% automated ticket creation by Phase 3 maturity.
 - Demonstrable reuse of PIR records in subsequent reviews and risk assessments.
 
-## 8. Cross-References
+## 12.8 Cross-References
 - [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) — domain runbooks.
 - [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — severity policy & routing.
 - [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana correlation tooling.

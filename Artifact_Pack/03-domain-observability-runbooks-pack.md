@@ -19,17 +19,17 @@ status: Draft
 
 ---
 
-## 1. Purpose
+## 3.1 Purpose
 Operational runbooks that translate the standards in [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md). The deployment platform is described in [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) (Docker Compose + PowerShell).
 
 ---
 
-## 2. Infrastructure Observability Runbook
+## 3.2 Infrastructure Observability Runbook
 
-### 2.1 Signals
-CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time. Metric thresholds: see [Chapter 1. Enterprise Observability Standards Catalog -> Section 4. Infrastructure Telemetry Standards](01-enterprise-observability-standards-catalog.md#4-infrastructure-telemetry-standards).
+### 3.2.1 Signals
+CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time. Metric thresholds: see [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.4 Infrastructure Telemetry Standards](01-enterprise-observability-standards-catalog.md#14-infrastructure-telemetry-standards).
 
-### 2.2 Triage Flow
+### 3.2.2 Triage Flow
 1. Confirm scope: per host, per Compose service, per container.
 2. Correlate with recent changes (PowerShell deployments, image updates, config rollouts).
 3. If sustained > 80% CPU or > 85% memory → investigate runaway workload or resize host.
@@ -37,64 +37,64 @@ CPU, memory, disk I/O, container restarts, host failures, Compose service restar
 5. If host failures > 1/day → check hardware / VM-platform health and impact on dependent Compose services.
 6. If Compose health-checks failing → run `Test-StackHealth.ps1` and inspect `docker compose ps`.
 
-### 2.3 Visualization
+### 3.2.3 Visualization
 Stacked-area charts and heat maps for trend visibility. Combine gauges (current state) with time-series panels (trend). Per-host and per-service breakdowns required.
 
 ---
 
-## 3. Application Observability Runbook (Pre-Login & Post-Login Execution Steps)
+## 3.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)
 
 > Standards and field definitions live in [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md). This runbook covers operational execution.
 
-### 3.1 Pre-Login Operational Checks
+### 3.3.1 Pre-Login Operational Checks
 - **Authentication latency** rising → inspect upstream IdP, API gateway, certificate refresh events.
 - **Login failures** elevated → check for credential-system outages, rate limiting, recent auth config changes.
 - **MFA failures** elevated → verify third-party MFA provider status; failover to backup if available.
 - **API gateway response time** degrading → review upstream service latency and gateway resource saturation.
 
-### 3.2 Post-Login Operational Checks
+### 3.3.2 Post-Login Operational Checks
 - **Transaction latency** P95 > 800 ms → trace through user-journey spans in Tempo; identify slowest dependency.
 - **Service-call failures** rising → inspect retries, timeouts, 5xx counts by service; correlate with deployments.
 - **Dependency latency** > 400 ms → check DB, cache, external API health.
 - **User-journey success** < 98% → drill into specific journey (login, checkout, report-gen) and isolate failing step.
 
-### 3.3 Implementation Tips
+### 3.3.3 Implementation Tips
 - Always track **P95 / P99**, not just averages.
 - Correlate signals: high API latency + elevated error rates typically indicates backend or DB issue.
 
 ---
 
-## 4. Database Observability Runbook
+## 3.4 Database Observability Runbook
 
-### 4.1 Signals
-Slow queries, lock contention, connection-pool usage, replication lag, query latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 7. Database Telemetry Standards](01-enterprise-observability-standards-catalog.md#7-database-telemetry-standards).
+### 3.4.1 Signals
+Slow queries, lock contention, connection-pool usage, replication lag, query latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.7 Database Telemetry Standards](01-enterprise-observability-standards-catalog.md#17-database-telemetry-standards).
 
-### 4.2 Triage Flow
+### 3.4.2 Triage Flow
 1. **Slow queries > 1%** → review query plan, indexes, recent schema changes.
 2. **Lock contention > 50 ms avg wait** → review transaction design, long-running transactions, hot rows.
 3. **Connection pool > 80%** → check application connection leaks, pool sizing, DB CPU/IO.
 4. **Replication lag > 5 s** → check replica health, network between primary/replica, write throughput surge.
 5. **P95 query latency > 200 ms** → drill into slowest endpoints/queries, evaluate index coverage and parameter sniffing.
 
-### 4.3 Action Expectation
+### 3.4.3 Action Expectation
 - Warning crosses → investigate within hours; assess resource saturation or query regressions.
 - Critical crosses → immediate incident; probable user impact or system instability.
 
 ---
 
-## 5. Network & Latency Observability Runbook
+## 3.5 Network & Latency Observability Runbook
 
-### 5.1 Signals
-Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 8. Network & Latency Telemetry Standards](01-enterprise-observability-standards-catalog.md#8-network-latency-telemetry-standards).
+### 3.5.1 Signals
+Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.8 Network & Latency Telemetry Standards](01-enterprise-observability-standards-catalog.md#18-network-latency-telemetry-standards).
 
-### 5.2 Triage Flow
+### 3.5.2 Triage Flow
 1. **Packet drops > 0.5%** sustained → investigate host NIC, route saturation, or link errors.
 2. **Cross-service latency P95 > 100 ms** within a site → check network hops, host CPU saturation, or Docker bridge contention.
 3. **DNS failures > 0.5%** → validate caching, propagation, resolver health.
 4. **Inter-service errors > 1%** → inspect target service health, recent deployments, retry storms; check Compose network reachability between services.
 5. **TCP retransmissions > 1%** → congestion or packet loss; user-visible latency likely.
 
-### 5.3 Implementation Tips
+### 3.5.3 Implementation Tips
 - **Measure percentiles, not only averages.** Configure alerts on P95 / P99 latency.
 - **Correlate signals:**
   - Packet drops + TCP retransmits → physical / host-network congestion issue.
@@ -104,21 +104,21 @@ Packet drops, cross-service latency, DNS failures, inter-service errors, TCP ret
 
 ---
 
-## 6. Scaling & Performance Runbook
+## 3.6 Scaling & Performance Runbook
 
-### 6.1 Signals
-Queue length, request latency, error rate, container startup time, cold-start latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 9. Scaling & Performance Telemetry Standards](01-enterprise-observability-standards-catalog.md#9-scaling-performance-telemetry-standards).
+### 3.6.1 Signals
+Queue length, request latency, error rate, container startup time, cold-start latency. Thresholds: [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.9 Scaling & Performance Telemetry Standards](01-enterprise-observability-standards-catalog.md#19-scaling-performance-telemetry-standards).
 
-### 6.2 Outcome Posture
+### 3.6.2 Outcome Posture
 Scaling observability validates that capacity changes deliver the user-visible performance the strategy commits to. Posture: scaling must be **predictable, observable, and tied to user impact**, not internal metrics alone.
 
-### 6.3 Implementation Notes
+### 3.6.3 Implementation Notes
 - **Queue length + request latency** together → most effective real-time scaling signals. Both rising → add capacity (scale up the service replica count in Compose, add hosts, or right-size containers); both falling → scale-down opportunity.
 - **Error rate + latency spikes** together → service saturation; increase capacity or investigate dependency bottlenecks.
 - **Container startup time + cold-start latency** → feed into scaling-lag indicators; track over time to validate that planned capacity changes complete within their SLA window.
 - **Percentile-based latency (P95/P99)** with 5-minute moving averages → prevents false alerts caused by short-lived spikes.
 
-### 6.4 Triage Flow
+### 3.6.4 Triage Flow
 1. **Queue > 200 items rising** → capacity change likely needed; review service replica counts and host resource headroom.
 2. **P95 latency > 800 ms or P99 > 1 s** → SLA breach risk; correlate with replica count, container CPU/memory, and dependency latency.
 3. **Error rate > 1%** sustained → degraded service; combine with latency to detect cascade.
@@ -127,11 +127,11 @@ Scaling observability validates that capacity changes deliver the user-visible p
 
 ---
 
-## 7. Query Examples and Decision Trees (Per Domain)
+## 3.7 Query Examples and Decision Trees (Per Domain)
 
-This section provides concrete query examples (PromQL / LogQL / TraceQL) and decision trees for each of the five domain runbooks above. **Thresholds are reasonable defaults** — recalibrate per service per [Section 8](#8-calibration-note) once production baselines exist.
+This section provides concrete query examples (PromQL / LogQL / TraceQL) and decision trees for each of the five domain runbooks above. **Thresholds are reasonable defaults** — recalibrate per service per [Section 3.8 Calibration Note](#38-calibration-note) once production baselines exist.
 
-### 7.1. Infrastructure — PromQL
+### 3.7.1 Infrastructure — PromQL
 
 ```promql
 # CPU saturation (host) — per-host 5m average
@@ -147,7 +147,7 @@ predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"}[1h], 24*3600
 increase(container_oom_events_total[1h]) > 0
 ```
 
-### 7.2. Application — PromQL + LogQL + TraceQL
+### 3.7.2 Application — PromQL + LogQL + TraceQL
 
 ```promql
 # RED — Rate (req/s) per service+route
@@ -184,7 +184,7 @@ sum by (http_route) (rate({service_name="$service"} | json | http_response_statu
 { resource.service.name="checkout" && span.http.target=~"/api/payment.*" && status=error }
 ```
 
-### 7.3. Database — PromQL
+### 3.7.3 Database — PromQL
 
 ```promql
 # Connection-pool utilisation
@@ -200,7 +200,7 @@ sum by (db_system, db_name) (rate(db_client_operation_duration_seconds_bucket{le
 db_replication_lag_seconds > 30
 ```
 
-### 7.4. Network & Latency — PromQL + LogQL
+### 3.7.4 Network & Latency — PromQL + LogQL
 
 ```promql
 # Inter-service p95 latency from RED histogram
@@ -223,7 +223,7 @@ sum by (upstream) (
 )
 ```
 
-### 7.5. Scaling & Performance — PromQL
+### 3.7.5 Scaling & Performance — PromQL
 
 ```promql
 # Saturation — request queue length per service
@@ -238,7 +238,7 @@ rate(process_runtime_jvm_gc_duration_seconds_sum[5m])
   / rate(process_runtime_jvm_gc_duration_seconds_count[5m])
 ```
 
-### 7.6. Decision Tree — On-Call Triage
+### 3.7.6 Decision Tree — On-Call Triage
 
 ```mermaid
 flowchart TD
@@ -261,7 +261,7 @@ flowchart TD
     L --> M["PIR within 24h (Ch 12 Sec 6)"]
 ```
 
-### 7.7. Decision Tree — Symptom → Runbook Section
+### 3.7.7 Decision Tree — Symptom → Runbook Section
 
 ```mermaid
 flowchart LR
@@ -273,10 +273,10 @@ flowchart LR
     S1 -->|"under load only"| R5["Sec 6 Scaling — Sec 7.5 queries"]
 ```
 
-## 8. Calibration Note
+## 3.8 Calibration Note
 After a few weeks of production data, narrow each range so **Warning ≈ 95th percentile of normal** and **Critical ≈ approaching SLA breach**.
 
-## 9. Cross-References
+## 3.9 Cross-References
 - [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalog.
 - [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
 - [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana dashboard structure.

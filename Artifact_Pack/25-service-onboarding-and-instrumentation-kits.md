@@ -21,7 +21,7 @@ status: Draft
 
 ---
 
-## 1. Onboarding Workflow (Service Owner View)
+## 25.1 Onboarding Workflow (Service Owner View)
 
 ```
 [Day 0]   Service registered in catalog (owner, tier, value stream)
@@ -35,7 +35,7 @@ status: Draft
 [Day 30]  Service operational with full observability
 ```
 
-## 2. Production-Readiness Review (PRR) Gate
+## 25.2 Production-Readiness Review (PRR) Gate
 
 A service may not be promoted to production without a PASS on every item below.
 
@@ -52,11 +52,11 @@ A service may not be promoted to production without a PASS on every item below.
 | 9 | At least 1 burn-rate alert wired to on-call routing | Service Owner | Alert YAML |
 | 10 | Runbook document linked from every alert | Service Owner | Runbook URL |
 | 11 | PII redaction validated for any user-impacting fields | Dev + Security | Synthetic-PII canary results |
-| 12 | Cardinality budget per [Chapter 22. Capacity and Scale Model -> Section 8. Cardinality Budget](22-capacity-and-scale-model.md#8-cardinality-budget) respected | Platform Engineering | Cardinality report |
+| 12 | Cardinality budget per [Chapter 22. Capacity and Scale Model -> Section 22.8 Cardinality Budget](22-capacity-and-scale-model.md#228-cardinality-budget) respected | Platform Engineering | Cardinality report |
 | 13 | Tenant labels present where multi-tenant per [Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md) | Dev | Sample telemetry |
 | 14 | Capacity sizing reviewed against [Chapter 22](22-capacity-and-scale-model.md) reference deployment | Platform Engineering | Sizing note |
 
-## 3. Instrumentation Kits
+## 25.3 Instrumentation Kits
 
 Each kit is a Git template + README in the service-templates monorepo. The kit provides:
 - Pre-configured OTel SDK with resource detector.
@@ -67,7 +67,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 - Starter SLO YAML (Sloth format).
 - Sample runbook.
 
-### 3.1 Java (Spring Boot) Kit
+### 25.3.1 Java (Spring Boot) Kit
 - **OTel:** `opentelemetry-spring-boot-starter` + `opentelemetry-exporter-otlp`.
 - **Auto-instrumentation:** Java agent (`opentelemetry-javaagent.jar`) attached at JVM start.
 - **Metrics:** Micrometer → OTel bridge.
@@ -80,44 +80,44 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
   OTEL_TRACES_SAMPLER_ARG=0.1
   ```
 
-### 3.2 Node.js / TypeScript Kit
+### 25.3.2 Node.js / TypeScript Kit
 - **OTel:** `@opentelemetry/sdk-node` + auto-instrumentations (`@opentelemetry/auto-instrumentations-node`).
 - **Logs:** Pino with `pino-otel` for trace correlation.
 - **Metrics:** OTel API; histogram for HTTP duration.
 - **Tracing:** Auto for HTTP, gRPC, common DBs.
 
-### 3.3 .NET Kit
+### 25.3.3 .NET Kit
 - **OTel:** `OpenTelemetry.Extensions.Hosting` + `AutoInstrumentation`.
 - **Logs:** Serilog with OTel sink and trace correlation.
 - **Metrics:** `System.Diagnostics.Metrics`.
 - **Common ASP.NET Core middleware** for HTTP server / client / EF Core.
 
-### 3.4 Python Kit
+### 25.3.4 Python Kit
 - **OTel:** `opentelemetry-distro` + `opentelemetry-bootstrap` for auto-instrumentation.
 - **Logs:** Structured JSON via `python-json-logger`; trace context via OTel logging instrumentation.
 - **Frameworks covered:** Flask, FastAPI, Django, requests, urllib3, common DB drivers.
 
-### 3.5 Go Kit
+### 25.3.5 Go Kit
 - **OTel:** `go.opentelemetry.io/otel` + contrib instrumentations per framework.
 - **Logs:** `slog` with trace-aware handler.
 - **Note:** Go has fewer auto-instrumentation hooks; expect manual span creation around critical functions.
 
-### 3.6 Front-end (Browser) RUM Kit
+### 25.3.6 Front-end (Browser) RUM Kit
 - **OTel:** `@opentelemetry/sdk-trace-web` + browser auto-instrumentations.
 - **RUM signals:** Core Web Vitals (LCP, INP, CLS), custom user-journey spans.
 - **PII guard:** Strip URL params, form values; no DOM scraping.
 
-### 3.7 Mobile RUM (iOS / Android) Kit (deferred)
+### 25.3.7 Mobile RUM (iOS / Android) Kit (deferred)
 - Roadmap: Phase 3.
 
-### 3.8 Legacy / Unmodifiable Service (eBPF Kit)
+### 25.3.8 Legacy / Unmodifiable Service (eBPF Kit)
 - **Beyla** (or equivalent eBPF auto-instrumentation) for HTTP/gRPC visibility without code changes.
 - Useful for vendor-supplied or legacy components where SDK adoption isn't possible.
-- See [Chapter 2 Section 4.1. eBPF for Legacy and Non-Intrusive Instrumentation](02-observability-reference-architecture.md#41-ebpf-for-legacy-and-non-intrusive-instrumentation).
+- See [Chapter 2. Observability Reference Architecture -> Section 2.4.1 eBPF for Legacy and Non-Intrusive Instrumentation](02-observability-reference-architecture.md#241-ebpf-for-legacy-and-non-intrusive-instrumentation).
 
-## 4. Role-Based Training
+## 25.4 Role-Based Training
 
-### 4.1 Curriculum Map
+### 25.4.1 Curriculum Map
 | Role | Module | Format | Duration | Cadence |
 |---|---|---|---|---|
 | Developer | OTel basics + RED + tracing | Self-paced + lab | 4 h | On hire |
@@ -130,11 +130,11 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 | Compliance / Audit | Audit trail + retention policy + access review | Workshop | 2 h | Annually |
 | Security | Threat model + redaction + secrets | Workshop | 3 h | On hire + after incidents |
 
-### 4.2 Assessment and Certification
+### 25.4.2 Assessment and Certification
 - Per-module practical assessment (build a working alert; baseline an SLI; respond to a synthetic incident).
-- "Observability Champion" recognition for SMEs willing to support their team — see [Chapter 18 Section 4.1. Community of Practice](18-observability-operating-model-and-adoption-plan.md#41-community-of-practice).
+- "Observability Champion" recognition for SMEs willing to support their team — see [Chapter 18. Observability Operating Model and Adoption Plan -> Section 18.4.4 Community of Practice](18-observability-operating-model-and-adoption-plan.md#1844-community-of-practice).
 
-## 5. Knowledge Base
+## 25.5 Knowledge Base
 
 | Area | Content | Owner |
 |---|---|---|
@@ -143,7 +143,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 | Dashboard patterns | Three-layer dashboard examples (infra / app / business) | Platform Engineering |
 | FAQs | Onboarding, common pitfalls (cardinality, sampling, redaction) | Observability CoP |
 
-## 6. Adoption KPIs (rolling)
+## 25.6 Adoption KPIs (rolling)
 | KPI | Target |
 |---|---|
 | % T1 services with full kit applied | 100% by end Phase 1 |
@@ -153,7 +153,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 | Time from "service registered" to "PRR pass" | Median ≤ 21 days |
 | % PRRs passing first review | ≥ 70% |
 
-## 7. Cross-References
+## 25.7 Cross-References
 - [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
 - [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — pre/post-login standards.
 - [Chapter 18. Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md) — adoption governance.
