@@ -1,27 +1,25 @@
 ---
 title: Capacity and Scale Model
-chapter: 22
+chapter: 23
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 22. Capacity and Scale Model
+# 23. Capacity and Scale Model
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 > **Closes Gaps:** B3, F2.
 
 ---
 
-## 22.1 Capacity Drivers
+## 23.1 Capacity Drivers
 The four primary drivers of observability load:
 
 | Driver | Symbol | Typical Range (per host monitored) |
@@ -38,9 +36,9 @@ For Xceedance reference scale (target end-state):
 - ~50k spans/sec aggregated; tail-sampled to ~5k stored.
 - ~5GB profiles/day.
 
-## 22.2 Reference Deployment Sizes
+## 23.2 Reference Deployment Sizes
 
-### 22.2.1 Small (single Compose host)
+### 23.2.1 Small (single Compose host)
 | Component | CPU | RAM | Disk | Sustainable Limit |
 |---|---|---|---|---|
 | OTel Collector (gateway) | 2 vCPU | 4 GB | 50 GB local queue | 5k spans/s, 50MB/s logs |
@@ -51,7 +49,7 @@ For Xceedance reference scale (target end-state):
 | Alertmanager | 0.5 vCPU | 1 GB | minimal | ≤ 1000 alert rules |
 | **Host total** | **~12 vCPU** | **~40 GB** | **~600 GB SSD + object storage** | **Coverage: ≤ 30 monitored hosts; ≤ 50 services** |
 
-### 22.2.2 Medium (3-host HA Compose, per [Chapter 21](21-observability-platform-ha-and-dr-design.md))
+### 23.2.2 Medium (3-host HA Compose, per [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md))
 | Component | Total CPU | Total RAM | Disk | Sustainable Limit |
 |---|---|---|---|---|
 | OTel Collector gw × 2 | 8 vCPU | 16 GB | 200 GB | 30k spans/s, 200MB/s logs |
@@ -62,7 +60,7 @@ For Xceedance reference scale (target end-state):
 | Alertmanager × 3 | 1.5 vCPU | 3 GB | minimal | ≤ 5000 rules |
 | **Stack total** | **~45 vCPU** | **~155 GB** | **~2.2 TB SSD + object** | **Coverage: ≤ 100 monitored hosts; ≤ 200 services** |
 
-### 22.2.3 Large (Distributed Backends, off Compose)
+### 23.2.3 Large (Distributed Backends, off Compose)
 At this size, Compose is no longer the right primitive. Migrate to:
 - **Mimir** (or VictoriaMetrics cluster) for metrics with object-storage backend.
 - **Loki distributed** (distributor / ingester / querier components).
@@ -70,11 +68,11 @@ At this size, Compose is no longer the right primitive. Migrate to:
 - Container orchestration may revert to a managed service or remain Compose-per-component on dedicated hosts; decision is captured in an ADR at scale-out time.
 - Coverage: ≥ 200 monitored hosts; ≥ 500 services.
 
-## 22.3 Worked Sizing Examples
+## 23.3 Worked Sizing Examples
 
-These three worked examples take a concrete customer profile, drive it through the formulas in Section 5, and produce a per-component sizing and cost. Inputs are explicit so a reviewer can re-run the maths. All numbers are reference figures for Azure West Europe pricing class (2026-Q1); production sizing must re-baseline against measured load (see [Chapter 27. Observability Non-Functional Requirements Register -> Section 27.3 NFR Register](27-observability-non-functional-requirements.md#273-nfr-register)).
+These three worked examples take a concrete customer profile, drive it through the formulas in Section 6, and produce a per-component sizing and cost. Inputs are explicit so a reviewer can re-run the maths. All numbers are reference figures for Azure West Europe pricing class (2026-Q1); production sizing must re-baseline against measured load (see [Chapter 28. Observability Non-Functional Requirements Register -> Section 28.3 NFR Register](28-observability-non-functional-requirements.md#283-nfr-register)).
 
-### 22.3.1 Worked Example A — Small (single Compose host, pilot scale)
+### 23.3.1 Worked Example A — Small (single Compose host, pilot scale)
 
 **Customer profile (inputs)**
 | Input | Value |
@@ -132,7 +130,7 @@ GB/day       = 150 × 86400 × 700 B ≈ ~9 GB/day
 ```
 
 **Step 6 — Collector sizing**
-At 1,500 spans/s + 500 MB/day logs + 125k series scrape proxy, a single gateway collector at **2 vCPU / 4 GB RAM** sits at <40% CPU. No replica needed for capacity; a second replica is still recommended for availability (see [Chapter 21](21-observability-platform-ha-and-dr-design.md)).
+At 1,500 spans/s + 500 MB/day logs + 125k series scrape proxy, a single gateway collector at **2 vCPU / 4 GB RAM** sits at <40% CPU. No replica needed for capacity; a second replica is still recommended for availability (see [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
 
 **Step 7 — Final allocation (single host)**
 
@@ -156,7 +154,7 @@ A Standard_D8s_v5 (8 vCPU / 32 GB) is the closest VM SKU; bump to **D16s_v5** if
 - Egress (≤ 50 GB/mo): ~$5
 - **Total: ~$310/month**
 
-**Step 9 — Headroom check against scale-out triggers (Section 4)**
+**Step 9 — Headroom check against scale-out triggers (Section 5)**
 | Trigger | Threshold | Current | Headroom |
 |---|---|---|---|
 | Prometheus RAM utilisation | ≥ 70% of budget | ~38% | OK — 1.8× headroom |
@@ -169,7 +167,7 @@ Verdict: Small profile is the right starting point; first scale-out trigger like
 
 ---
 
-### 22.3.2 Worked Example B — Medium (3-host HA Compose)
+### 23.3.2 Worked Example B — Medium (3-host HA Compose)
 
 **Customer profile (inputs)**
 | Input | Value |
@@ -249,7 +247,7 @@ Negligible; bundle pyroscope into the existing Grafana stack at 1 vCPU / 4 GB.
 | Host OS + Docker + headroom (3 hosts) | 4.5 vCPU | 15 GB | 60 GB |
 | **Stack total** | **~37 vCPU** | **~130 GB** | **~2.3 TB SSD + ~580 GB object** |
 
-Spread across **3 × Standard_D16s_v5** (48 vCPU / 192 GB combined): ~77% CPU and ~67% RAM utilisation — within healthy band. Anti-affinity rules per [Chapter 21](21-observability-platform-ha-and-dr-design.md).
+Spread across **3 × Standard_D16s_v5** (48 vCPU / 192 GB combined): ~77% CPU and ~67% RAM utilisation — within healthy band. Anti-affinity rules per [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md).
 
 **Step 9 — Cost (per month, Azure WE, illustrative)**
 - 3 × D16s_v5 reserved 1-yr: ~$840
@@ -271,11 +269,11 @@ Spread across **3 × Standard_D16s_v5** (48 vCPU / 192 GB combined): ~77% CPU an
 | Alertmanager rules | ≥ 5,000 | ~600 | OK |
 | Grafana concurrent users | ≥ 160 | 120 | OK — 1.3× headroom (watch) |
 
-Verdict: Medium is tight on **Prometheus RAM** and on **Tempo ingest**; two of three triggers are within 30% of firing. The migration plan to Large should start no later than the next quarterly review (see Section 4).
+Verdict: Medium is tight on **Prometheus RAM** and on **Tempo ingest**; two of three triggers are within 30% of firing. The migration plan to Large should start no later than the next quarterly review (see Section 5).
 
 ---
 
-### 22.3.3 Worked Example C — Large (distributed backends, off Compose)
+### 23.3.3 Worked Example C — Large (distributed backends, off Compose)
 
 **Customer profile (inputs)**
 | Input | Value |
@@ -367,7 +365,7 @@ Span throughput 100k/s + log throughput 125 GB/day at the gateway requires:
 | Alertmanager × 5 | 5 | ~3 vCPU | ~5 GB | minimal |
 | **Stack total** | **87** | **~265 vCPU** | **~790 GB** | **~3.6 TB SSD + ~7.6 TB object** |
 
-At this scale, **Kubernetes (AKS) is the right orchestrator**, not Compose. The migration from Compose to AKS is the dominant change captured by ADR-008 (see [Chapter 16. Observability ADR Decision Register -> Section 16.4 ADR Bodies (Full Records)](16-observability-adr-decision-register.md#164-adr-bodies-full-records)). Node pool: **8 × Standard_D32s_v5** (256 vCPU / 1,024 GB combined) gives ~3.3× CPU and 1.3× RAM headroom; plus dedicated storage-class for ingester local SSDs.
+At this scale, **Kubernetes (AKS) is the right orchestrator**, not Compose. The migration from Compose to AKS is the dominant change captured by ADR-008 (see [Chapter 17. Observability ADR Decision Register -> Section 17.4 ADR Bodies (Full Records)](17-observability-adr-decision-register.md#174-adr-bodies-full-records)). Node pool: **8 × Standard_D32s_v5** (256 vCPU / 1,024 GB combined) gives ~3.3× CPU and 1.3× RAM headroom; plus dedicated storage-class for ingester local SSDs.
 
 **Step 9 — Cost (per month, Azure WE, illustrative)**
 - 8 × D32s_v5 reserved 1-yr (AKS node pool): ~$4,500
@@ -395,7 +393,7 @@ Verdict: Large profile fits the customer with headroom on metrics and logs, but 
 
 ---
 
-### 22.3.4 Cross-Example Comparison
+### 23.3.4 Cross-Example Comparison
 
 | Dimension | Small (Ex. A) | Medium (Ex. B) | Large (Ex. C) |
 |---|---|---|---|
@@ -409,11 +407,11 @@ Verdict: Large profile fits the customer with headroom on metrics and logs, but 
 | Orchestrator | Compose, single host | Compose, 3 hosts | AKS, 8 nodes |
 | Cost / month (Azure WE) | ~$310 | ~$1,280 | ~$6,440 |
 | Cost per active series (per month) | $0.0025 | $0.00088 | $0.00069 |
-| Cost per span stored (per month, 7–14 d ret) | n/a | n/a | n/a — see [Chapter 9](09-observability-finops-standard.md) |
+| Cost per span stored (per month, 7–14 d ret) | n/a | n/a | n/a — see [10. Observability FinOps Standard](10-observability-finops-standard.md) |
 
-The unit economic of cost-per-active-series falls ~3.6× from Small to Large; this is the primary FinOps argument for consolidating multiple small estates onto a shared Large platform once the operational complexity is justified (see [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md)).
+The unit economic of cost-per-active-series falls ~3.6× from Small to Large; this is the primary FinOps argument for consolidating multiple small estates onto a shared Large platform once the operational complexity is justified (see [10. Observability FinOps Standard](10-observability-finops-standard.md)).
 
-## 22.4 Scale-Out Triggers
+## 23.4 Scale-Out Triggers
 | Indicator | Threshold | Action |
 |---|---|---|
 | Prometheus active series | ≥ 70% of host memory budget | Add second Prometheus, shard by job/service; or migrate to Mimir |
@@ -425,7 +423,7 @@ The unit economic of cost-per-active-series falls ~3.6× from Small to Large; th
 | Alertmanager rule count | ≥ 5000 | Shard by team; review consolidation |
 | Grafana concurrent users | ≥ 80% of HA capacity | Add Grafana replicas; review heavy queries |
 
-## 22.5 Sizing Calculator (heuristic)
+## 23.5 Sizing Calculator (heuristic)
 
 **Active metric series:**
 ```
@@ -458,16 +456,16 @@ GB/day ≈ stored_spans/day × ~700 bytes/span (post-sampling)
 ```
 5k spans/s × 86400 × 700 ≈ ~300 GB/day; 7d retention → ~2.1 TB.
 
-## 22.6 Cost Projection (illustrative, Azure pricing class)
+## 23.6 Cost Projection (illustrative, Azure pricing class)
 | Size | Compute (per month) | Object storage (per month) | Postgres (per month) | Total / month |
 |---|---|---|---|---|
 | Small (1 host) | ~$300 | ~$50 | $0 | ~$350 |
 | Medium (3 host HA) | ~$1,200 | ~$300 | ~$150 | ~$1,650 |
 | Large (distributed) | ~$5,000+ | ~$1,500+ | ~$300 | ~$7,000+ |
 
-(Numbers are illustrative; actual figures must be modelled in [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md).)
+(Numbers are illustrative; actual figures must be modelled in [10. Observability FinOps Standard](10-observability-finops-standard.md).)
 
-## 22.7 Performance SLOs for the Platform Itself
+## 23.7 Performance SLOs for the Platform Itself
 | Platform SLI | Target |
 |---|---|
 | OTel Collector ingest success rate | ≥ 99.9% |
@@ -477,7 +475,7 @@ GB/day ≈ stored_spans/day × ~700 bytes/span (post-sampling)
 | Grafana dashboard load P95 | ≤ 3 s |
 | Alert latency (firing → notification) P95 | ≤ 90 s |
 
-## 22.8 Cardinality Budget
+## 23.8 Cardinality Budget
 Cardinality is a budget. Per-service quotas:
 | Tier | Max Active Series per Service | Max Distinct Label Combos per Metric |
 |---|---|---|
@@ -486,13 +484,13 @@ Cardinality is a budget. Per-service quotas:
 | T3 | 10,000 | 200 |
 | T4 | 5,000 | 100 |
 
-Enforcement is described in [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance).
+Enforcement is described in [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
 
-## 22.9 Cross-References
-- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md)
-- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — Compose configurations sized to these reference deployments.
-- [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) — cost modelling and unit economics.
-- [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — HA topology overlaid on these sizes.
+## 23.9 Cross-References
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md)
+- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — Compose configurations sized to these reference deployments.
+- [10. Observability FinOps Standard](10-observability-finops-standard.md) — cost modelling and unit economics.
+- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — HA topology overlaid on these sizes.
 
 ---
 

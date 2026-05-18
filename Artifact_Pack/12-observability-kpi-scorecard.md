@@ -1,28 +1,26 @@
 ---
 title: Observability KPI Scorecard
-chapter: 11
+chapter: 12
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 11. Observability KPI Scorecard
+# 12. Observability KPI Scorecard
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 ---
 
-## 11.1 Purpose
+## 12.1 Purpose
 The canonical place to track outcome KPIs for the observability strategy — rolling up technical, governance, and business metrics into one executive view.
 
-## 11.2 Core Outcome KPIs
+## 12.2 Core Outcome KPIs
 
 | Objective | KPI / Metric | Type | Target / Range | Success Criteria |
 |---|---|---|---|---|
@@ -34,7 +32,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 | Engineering Productivity | Time on Feature vs. Issue Rectification; Feature Delivery Velocity | Productivity / Innovation | ≥ 70% engineering time on new features; +15–20% delivery velocity in 9 months | Higher value output; sustained reduction in reactive work |
 | Data Standardization | % systems emitting consistent telemetry | Data Integrity | 100% of critical services on OpenTelemetry | Unified single pane of glass |
 
-## 11.3 Resilience & Coverage KPIs
+## 12.3 Resilience & Coverage KPIs
 
 | Objective | KPI / Metric | Type | Target | Success Criteria |
 |---|---|---|---|---|
@@ -46,14 +44,14 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 | Data Completeness | Telemetry Coverage % | Observability Accuracy | ≥ 95% services standardised | Full visibility across product/infra |
 | Compliance & Auditability | Compliance Audit Pass Rate | Governance | 100% adherence | No audit failures or violations |
 
-## 11.4 Governance Success KPIs (from Governance & Data Strategy)
+## 12.4 Governance Success KPIs (from Governance & Data Strategy)
 - 100% of production services emit telemetry that conforms to the approved schema.
 - Retention policy adherence rate ≥ 99% across metrics, logs, traces, and RCA repositories.
 - No audit failures attributable to observability data handling.
 - Reduction in storage cost per service over time while maintaining required visibility.
 - Demonstrable reuse of RCA summaries in post-incident reviews and risk assessments.
 
-## 11.5 Platform KPIs Roll-Up (from IaC Standard — Docker Compose + PowerShell)
+## 12.5 Platform KPIs Roll-Up (from IaC Standard — Docker Compose + PowerShell)
 - Collector Deployment Success Rate ≥ 99%.
 - Service Telemetry Coverage (OTel SDK) ≥ 95%.
 - Cross-Host Config Parity ≥ 95%.
@@ -61,7 +59,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 - Stack Update Time (image pull + restart) ≤ 2 min per service.
 - Health-Check Pass Rate post-deployment = 100%.
 
-## 11.6 Maturity Phase Targets (from Capability Assessment / Roadmap)
+## 12.6 Maturity Phase Targets (from Capability Assessment / Roadmap)
 
 | Metric | Phase 1 Target | Phase 2 Target | Phase 3 Target |
 |---|---|---|---|
@@ -72,11 +70,11 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 | Manual RCA Required | 100% | 50% | < 20% |
 | Automated Ticket Creation | 0% | 50% | > 90% |
 
-### 11.6.1 Telemetry Data Quality SLIs
+### 12.6.1 Telemetry Data Quality SLIs
 
-The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance), [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md), and [Chapter 21. Observability Platform HA and DR Design -> Section 21.7 Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#217-self-monitoring-meta-monitor).
+The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance), [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), and [Chapter 22. Observability Platform HA and DR Design -> Section 22.7 Self-Monitoring (Meta-Monitor)](22-observability-platform-ha-and-dr-design.md#227-self-monitoring-meta-monitor).
 
-### 11.6.2 Ingest Quality SLIs
+### 12.6.2 Ingest Quality SLIs
 
 | SLI | Definition | Target | Measurement |
 |---|---|---|---|
@@ -86,7 +84,7 @@ The observability platform is itself a tier-1 service whose **inputs** (the tele
 | **Schema-conformance rate** | Spans/metrics with all required attributes ÷ total | ≥ 99% | Pipeline validator |
 | **PII-leakage rate (post-redaction)** | Items containing redaction-pattern hits after pipeline | 0 | Sampled audit scan |
 
-### 11.6.3 Storage Quality SLIs
+### 12.6.3 Storage Quality SLIs
 
 | SLI | Definition | Target | Measurement |
 |---|---|---|---|
@@ -96,7 +94,7 @@ The observability platform is itself a tier-1 service whose **inputs** (the tele
 | **Index integrity** | Successful query rate for known-good queries | 100% | Synthetic canary queries |
 | **Backup currency** | Hours since last successful backup | ≤ 24 hours | Backup job timestamps |
 
-### 11.6.4 Query Quality SLIs
+### 12.6.4 Query Quality SLIs
 
 | SLI | Definition | Target | Measurement |
 |---|---|---|---|
@@ -105,7 +103,7 @@ The observability platform is itself a tier-1 service whose **inputs** (the tele
 | **Cross-signal correlation success** | Trace IDs that resolve a trace + linked logs | ≥ 95% | Sampled correlation probe |
 | **Exemplar availability** | Metric series with attached trace exemplars ÷ targeted series | ≥ 80% | Prometheus exemplar API |
 
-### 11.6.5 Data Freshness SLIs
+### 12.6.5 Data Freshness SLIs
 
 | SLI | Definition | Target | Measurement |
 |---|---|---|---|
@@ -114,33 +112,33 @@ The observability platform is itself a tier-1 service whose **inputs** (the tele
 | **Trace freshness** | Lag between span finish and trace assembly | ≤ 60 s | Synthetic probe |
 | **Dashboard freshness** | "Last update" timestamp shown on every dashboard | Visible on every panel | Grafana template |
 
-### 11.6.6 Error Budget for Telemetry Quality
+### 12.6.6 Error Budget for Telemetry Quality
 
-The platform itself runs SLOs against Section 6.1.1–6.1.4 SLIs, with a **30-day error budget**, modelled per [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md). When the platform's own error budget burns:
-- **50% burn**: Platform Ops freezes all Normal-class changes ([Chapter 7. IaC for Observability Standard (Docker Compose + PowerShell) -> Section 7.7.1 Change Management](07-iac-for-observability-standard.md#771-change-management)).
+The platform itself runs SLOs against Section 7.1.1–6.1.4 SLIs, with a **30-day error budget**, modelled per [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md). When the platform's own error budget burns:
+- **50% burn**: Platform Ops freezes all Normal-class changes ([Chapter 8. IaC for Observability Standard (Docker Compose + PowerShell) -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management)).
 - **75% burn**: ARB notified; emergency review.
 - **100% burn**: All non-Emergency changes paused until budget recovers.
 
 This binds platform reliability to platform feature velocity in exactly the same way services are bound — the platform team eats its own dog food.
 
-### 11.6.7 Reporting
+### 12.6.7 Reporting
 
-Section 6.1 SLIs appear on the **Platform Health** dashboard, viewable to all engineers, and on the executive scorecard with a single "Telemetry Quality" composite (worst-of approach: the composite shows the worst-performing SLI category to avoid masking issues by averaging).
+Section 7.1 SLIs appear on the **Platform Health** dashboard, viewable to all engineers, and on the executive scorecard with a single "Telemetry Quality" composite (worst-of approach: the composite shows the worst-performing SLI category to avoid masking issues by averaging).
 
-## 11.7 Reporting Cadence
-- KPI scorecard reviewed **monthly** at the observability governance body (see [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md)).
+## 12.7 Reporting Cadence
+- KPI scorecard reviewed **monthly** at the observability governance body (see [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)).
 - Phase-target progress reviewed at **quarterly** ARB.
-- Incident-driven adjustments raised through [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) (ADRs).
+- Incident-driven adjustments raised through [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) (ADRs).
 
-## 11.8 Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance) — feeds Section 6.1.2 cardinality SLI.
-- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
-- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) / [Chapter 9. Observability FinOps Standard](09-observability-finops-standard.md) / [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.
-- [Chapter 13. Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md) — roadmap phase plan that drives phase targets.
-- [Chapter 14. Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md) — capability assessment framework feeding maturity scoring.
-- [Chapter 18. Observability Operating Model and Adoption Plan -> Section 18.7.1 Adoption KPIs](18-observability-operating-model-and-adoption-plan.md#1871-adoption-kpis) — adoption KPIs sourced into this scorecard.
-- [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — self-monitoring drives Section 6.1 measurements.
-- [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md) — framework for Section 6.1.5 platform error budget.
+## 12.8 Cross-References
+- [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) — feeds Section 7.1.2 cardinality SLI.
+- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
+- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) / [10. Observability FinOps Standard](10-observability-finops-standard.md) / [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.
+- [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — roadmap phase plan that drives phase targets.
+- [15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) — capability assessment framework feeding maturity scoring.
+- [Chapter 19. Observability Operating Model and Adoption Plan -> Section 19.7.1 Adoption KPIs](19-observability-operating-model-and-adoption-plan.md#1971-adoption-kpis) — adoption KPIs sourced into this scorecard.
+- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — self-monitoring drives Section 7.1 measurements.
+- [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — framework for Section 7.1.5 platform error budget.
 
 ---
 

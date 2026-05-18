@@ -1,25 +1,23 @@
 ---
 title: IaC for Observability Standard (Docker Compose + PowerShell)
-chapter: 7
+chapter: 8
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 7. IaC for Observability Standard (Docker Compose + PowerShell)
+# 8. IaC for Observability Standard (Docker Compose + PowerShell)
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 ---
 
-## 7.1 Strategic Policy Position
+## 8.1 Strategic Policy Position
 Observability deployment must be **reproducible, version-controlled, host-portable, and measurable**. The selected delivery model is:
 
 - **Docker Compose** — declarative definition of the observability stack (Collector, Prometheus, Loki, Tempo, Grafana, exporters).
@@ -27,7 +25,7 @@ Observability deployment must be **reproducible, version-controlled, host-portab
 
 All Compose files, PowerShell scripts, exporter configs, dashboards, alert rules, and SLO definitions are **version-controlled in Git** (GitOps-style change control).
 
-## 7.2 Scope
+## 8.2 Scope
 - Deployment of the **OpenTelemetry Collector** as a Compose service.
 - Configuration of **exporters, pipelines, sampling, processors**.
 - Deployment of the full observability stack: **Prometheus, Loki, Tempo, Grafana** as Compose services.
@@ -35,9 +33,9 @@ All Compose files, PowerShell scripts, exporter configs, dashboards, alert rules
 - Application-side **OpenTelemetry SDK** wiring in services running on the same host or reachable over the network.
 - PowerShell-driven **provisioning, lifecycle, validation, and reporting**.
 
-## 7.3 Implementation Patterns
+## 8.3 Implementation Patterns
 
-### 7.3.1 Repository Layout (Recommended)
+### 8.3.1 Repository Layout (Recommended)
 ```
 observability-platform/
 ├─ compose/
@@ -61,7 +59,7 @@ observability-platform/
    └─ Pester/                         # PowerShell Pester tests
 ```
 
-### 7.3.2 PowerShell Responsibilities
+### 8.3.2 PowerShell Responsibilities
 - **Provisioning** — install/verify Docker Engine + Compose plugin, prepare data directories, file permissions.
 - **Configuration rendering** — substitute env-specific values into Compose / config templates.
 - **Lifecycle** — `docker compose up -d`, `docker compose pull`, `docker compose down`, rolling updates per service.
@@ -70,7 +68,7 @@ observability-platform/
 - **Telemetry export** — emit deploy success / failure / duration counters to the Collector for Grafana visualisation.
 - **Idempotency** — scripts safe to re-run; converge to declared state.
 
-### 7.3.3 Docker Compose Conventions
+### 8.3.3 Docker Compose Conventions
 - One compose project per environment; environment selected via `COMPOSE_PROJECT_NAME` and `--env-file`.
 - All services define **`healthcheck`** stanzas; PowerShell waits on `Healthy` before continuing.
 - All services define **`restart: unless-stopped`** (or stricter in production).
@@ -78,16 +76,16 @@ observability-platform/
 - Internal-only services bound to a **dedicated Docker network**; only Grafana is exposed externally.
 - Image versions are **pinned by digest or immutable tag** — no `:latest` in production.
 
-### 7.3.4 Host & Workload Telemetry
+### 8.3.4 Host & Workload Telemetry
 - **Host metrics:** Node Exporter on every host; scraped by Prometheus.
 - **Container metrics:** cAdvisor (or equivalent) for container CPU / memory / I/O.
 - **Database telemetry:** Postgres / MySQL exporter Compose services pointed at managed DBs.
 - **Application telemetry:** OpenTelemetry SDK in each service exporting OTLP to the Collector endpoint.
 
-## 7.4 Platform KPIs (Deployment via PowerShell + Docker Compose)
+## 8.4 Platform KPIs (Deployment via PowerShell + Docker Compose)
 
 | Category | Metric | Healthy | Warning | Critical | Notes |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | Stack Deployment | Deploy OpenTelemetry Collector | 100% success | < 99% one env | < 95% / repeated failures | Failures imply config drift or PowerShell error. |
 | Stack Deployment | Configure Exporters | ≥ 99% valid | 97–99% sustained | < 97% / repeated misconfig | Misconfigured exporters cause data gaps. |
 | Stack Deployment | Stack Provision Time (cold start) | ≤ 5 min per host | 5–10 min | > 10 min or errors > 1 | Measured from `Deploy-Stack.ps1` invocation to all services `Healthy`. |
@@ -100,8 +98,8 @@ observability-platform/
 | Host Portability | Image / Compose Version Alignment | 100% | 95–99% | < 95% mismatch | Same digests across hosts of the same tier. |
 | Validation | Health-Check Pass Rate | 100% | < 99% one service | Any service `Unhealthy` > 5 min | PowerShell `Test-StackHealth.ps1`. |
 
-## 7.5 Severity Policy (Deployment-Specific)
-Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4.4.7 IaC / OpenTelemetry Deployment](04-alerting-and-incident-severity-policy.md#447-iac-opentelemetry-deployment). Summary:
+## 8.5 Severity Policy (Deployment-Specific)
+Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4.7 IaC / OpenTelemetry Deployment](05-alerting-and-incident-severity-policy.md#547-iac-opentelemetry-deployment). Summary:
 
 | Severity | Trigger | Action |
 |---|---|---|
@@ -109,9 +107,9 @@ Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4.4.7 IaC 
 | Warning | Sustained breach ≥ 5 min, or 1 deployment failure | Review PowerShell logs, Compose definitions, exporter configs; correct drift. |
 | Critical | Critical breach, or repeated deployment failures within 3 runs | Trigger incident or rollback; high chance of data loss / missing telemetry. |
 
-## 7.6 Implementation & Visualization
+## 8.6 Implementation & Visualization
 
-**In Grafana (see also [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)):**
+**In Grafana (see also [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)):**
 - **Deployment dashboards** → status of each Compose service per host (image tag, uptime, healthcheck state).
 - **Coverage dashboards** → per-host exporter scrape success and OTel service emission coverage.
 - **Performance dashboards** → stack provision time and update time trends, sourced from PowerShell-emitted metrics.
@@ -127,25 +125,25 @@ Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4.4.7 IaC 
 - Pester tests covering Compose file rendering, PowerShell cmdlets, and post-deploy probes.
 - Each PowerShell deployment writes a structured success/failure record (JSON) consumed by an OTel exporter and surfaced in Grafana.
 
-## 7.7 Calibration
+## 8.7 Calibration
 After a few cycles, refine thresholds:
 - **Critical** = "any misconfiguration that causes Collector telemetry gaps, or any deployment failure that leaves a service `Unhealthy`."
 - **Warning** = "deployment slower than the per-host SLA window, or single-run failure recoverable by re-run."
 
-### 7.7.1 Change Management
+### 8.7.1 Change Management
 
-Changes to the observability platform are themselves a **change-managed** activity, distinct from changes by service teams to their service-level dashboards/alerts (covered by [Chapter 5. Grafana Platform Standard and Visualization Playbook -> Section 5.7.1 Dashboards-as-Code](05-grafana-platform-standard-and-visualization-playbook.md#571-dashboards-as-code)).
+Changes to the observability platform are themselves a **change-managed** activity, distinct from changes by service teams to their service-level dashboards/alerts (covered by [Chapter 6. Grafana Platform Standard and Visualization Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualization-playbook.md#671-dashboards-as-code)).
 
-### 7.7.2 Change Classes
+### 8.7.2 Change Classes
 
 | Class | Examples | Approval | Window | Rollback Required |
 |---|---|---|---|---|
 | **Standard** | Image bump within minor version; config tweak with no schema change; new exporter for an existing target | PR review (2 approvers, one Platform Ops) | Anytime | Documented in PR |
 | **Normal** | New backend (e.g. add Pyroscope); pipeline schema change; SDK upgrade across services | Platform Ops lead + ARB endorsement; ADR optional | Business-hours change window | Tested rollback in non-prod |
-| **Major** | Backend replacement (e.g. swap Prometheus for VictoriaMetrics); cross-cloud migration; new T1 tenant | ARB-ratified ADR ([Chapter 16](16-observability-adr-decision-register.md)) | Approved release train | Full DR-style rollback rehearsed |
+| **Major** | Backend replacement (e.g. swap Prometheus for VictoriaMetrics); cross-cloud migration; new T1 tenant | ARB-ratified ADR ([17. Observability ADR Decision Register](17-observability-adr-decision-register.md)) | Approved release train | Full DR-style rollback rehearsed |
 | **Emergency** | Hot-fix during incident; cardinality emergency; security CVE patch | On-call SRE may apply; post-hoc PR within 24h; review at next CoP | Any time | Best-effort; documented in PIR |
 
-### 7.7.3 Change Workflow
+### 8.7.3 Change Workflow
 
 ```
 [Idea] → [Design / RFC if Normal+] → [PR opened]
@@ -155,23 +153,23 @@ Changes to the observability platform are themselves a **change-managed** activi
                                         ├─ Canary host (production, 1 host)
                                         │     └─ 30-min soak; auto-rollback on health regression
                                         └─ Progressive rollout (waves of 25% / 50% / 100%)
-                                              └─ Each wave gated on platform KPIs (Section 4)
+                                              └─ Each wave gated on platform KPIs (Section 5)
 ```
 
 A change passes a wave gate if **all** of the following hold during the wave's soak window:
 - Collector deploy success ≥ 99% across the wave's hosts.
 - Exporter health ≥ 98% across the wave.
-- No critical-severity self-monitoring alert ([Chapter 21. Observability Platform HA and DR Design -> Section 21.7 Self-Monitoring (Meta-Monitor)](21-observability-platform-ha-and-dr-design.md#217-self-monitoring-meta-monitor)).
-- Cardinality budget ([Chapter 1. Enterprise Observability Standards Catalog -> Section 1.3.4 Cardinality Governance](01-enterprise-observability-standards-catalog.md#134-cardinality-governance)) within ±5% of pre-change baseline.
+- No critical-severity self-monitoring alert ([Chapter 22. Observability Platform HA and DR Design -> Section 22.7 Self-Monitoring (Meta-Monitor)](22-observability-platform-ha-and-dr-design.md#227-self-monitoring-meta-monitor)).
+- Cardinality budget ([Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) within ±5% of pre-change baseline.
 
-### 7.7.4 Rollback Standards
+### 8.7.4 Rollback Standards
 
 Every change has a **named rollback path** documented in the PR description:
 - **Compose-level**: `git revert <sha>` + `Deploy-Stack.ps1 -Environment prod -Wave full` is the **default** rollback.
 - **Schema-changing**: Forward-only schema migrations require a **forward fix** plan (rollback would lose data); explicit ARB approval needed for any such change (Major class).
 - **Stateful**: Backend version downgrades that cross a storage-format boundary are **not** rollback-safe; treated as Major class with full DR rehearsal.
 
-### 7.7.5 Change Calendar and Freezes
+### 8.7.5 Change Calendar and Freezes
 
 | Period | Policy |
 |---|---|
@@ -182,24 +180,24 @@ Every change has a **named rollback path** documented in the PR description:
 
 The change calendar is published in Grafana and reviewed at every CoP session.
 
-### 7.7.6 Post-Change Validation
+### 8.7.6 Post-Change Validation
 
 Every Normal+ change requires a post-change validation report within 48 hours:
 - KPI movement (deploy success, exporter health, cardinality, ingest rate).
 - Any incidents triggered.
 - Lessons learned, captured in CoP RFC log if relevant.
 
-The post-change report is the auditable evidence under **OBS-C-02** ([Chapter 10](10-compliance-and-audit-control-matrix.md)).
+The post-change report is the auditable evidence under **OBS-C-02** ([11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
 
-## 7.8 Cross-References
-- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — reference architecture deployed by these scripts.
-- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook -> Section 5.7.1 Dashboards-as-Code](05-grafana-platform-standard-and-visualization-playbook.md#571-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
-- [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — OBS-C-02 audits change records produced by Section 7.1.
-- [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — platform KPI roll-up to executive scorecard.
-- [Chapter 15. Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) — change control / ARB approvals for stack changes.
-- [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) — ADR for choice of Docker Compose + PowerShell.
-- [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — self-monitoring signals gating Section 7.1 wave promotion.
+## 8.8 Cross-References
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — reference architecture deployed by these scripts.
+- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
+- [Chapter 6. Grafana Platform Standard and Visualization Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualization-playbook.md#671-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
+- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits change records produced by Section 8.1.
+- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — platform KPI roll-up to executive scorecard.
+- [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — change control / ARB approvals for stack changes.
+- [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADR for choice of Docker Compose + PowerShell.
+- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — self-monitoring signals gating Section 8.1 wave promotion.
 
 ---
 

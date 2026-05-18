@@ -1,27 +1,25 @@
 ---
 title: SLO and Error-Budget Framework
-chapter: 24
+chapter: 25
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 24. SLO and Error-Budget Framework
+# 25. SLO and Error-Budget Framework
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 > **Closes Gaps:** D1, D2 (partial).
 
 ---
 
-## 24.1 Why an SLO Framework
+## 25.1 Why an SLO Framework
 Without a formal SLO methodology, "reliability targets" are aspirational. With it, every service has:
 1. A handful of SLIs that approximate user happiness.
 2. SLOs the organisation has actually agreed to honour.
@@ -29,7 +27,7 @@ Without a formal SLO methodology, "reliability targets" are aspirational. With i
 4. Burn-rate alerts that page only when the error budget is being consumed at an unsustainable rate.
 5. A policy that turns budget exhaustion into action (freeze, escalate, prioritise reliability work).
 
-## 24.2 SLI Categories (Choose 1–3 per Service)
+## 25.2 SLI Categories (Choose 1–3 per Service)
 
 | Category | Definition | Example SLI |
 |---|---|---|
@@ -41,9 +39,9 @@ Without a formal SLO methodology, "reliability targets" are aspirational. With i
 | **Coverage** | Fraction of requests instrumented properly | `tracecov = traces_with_span_count_ge_min / total_traces` |
 | **Durability** | Fraction of writes acknowledged and recoverable | DB-replication freshness SLI |
 
-## 24.3 SLO Target Derivation
+## 25.3 SLO Target Derivation
 
-| Service Tier (per [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.4.1 Service Tiering Model](01-enterprise-observability-standards-catalog.md#141-service-tiering-model)) | Availability SLO | Latency SLO | Window |
+| Service Tier (per [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model)) | Availability SLO | Latency SLO | Window |
 |---|---|---|---|
 | T1 | 99.9% | 99% requests under tier-specific target (e.g., P99 ≤ 800 ms) | 30-day rolling |
 | T2 | 99.5% | 95% requests under target | 30-day rolling |
@@ -55,7 +53,7 @@ Targets must be:
 - **Achievable** without "nines theatre" (don't promise more than the dependencies offer).
 - **Reviewed quarterly** as part of the SLO governance cadence.
 
-## 24.4 Error Budget
+## 25.4 Error Budget
 
 ```
 Error Budget = (1 - SLO) × total_events_in_window
@@ -67,22 +65,22 @@ Examples:
 
 Budget consumption is tracked on a dashboard per service.
 
-## 24.5 Multi-Window Multi-Burn-Rate Alerting
+## 25.5 Multi-Window Multi-Burn-Rate Alerting
 
 Single-threshold alerts ("error rate > X for 5 min") are noisy. The Google SRE pattern uses two windows simultaneously: a **long window** to confirm the trend and a **short window** to catch fast burns.
 
-### 24.5.1 Burn-Rate Math
+### 25.5.1 Burn-Rate Math
 A burn rate of **N** means the budget would be consumed in **(window / N)** time. To page on a burn that would exhaust a 30-day budget in 1 hour, burn rate = 30×24 = 720 (extreme); typical critical alert at burn rate ~14.4 (consumes budget in ~2 days).
 
-### 24.5.2 Standard Burn-Rate Alert Bundle (per service)
+### 25.5.2 Standard Burn-Rate Alert Bundle (per service)
 | Severity | Long Window | Short Window | Burn Rate | Budget Consumed (long window) | Page? |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | **Critical fast burn** | 1 h | 5 min | 14.4 | 2% | Yes — page on-call |
 | **Critical slow burn** | 6 h | 30 min | 6 | 5% | Yes — page on-call |
 | **Warning** | 24 h | 2 h | 3 | 10% | No — ticket |
 | **Notice** | 72 h | 6 h | 1 | 10% | No — dashboard only |
 
-### 24.5.3 PromQL Template (Availability SLO 99.9%)
+### 25.5.3 PromQL Template (Availability SLO 99.9%)
 ```promql
 # Window error rates (slo: 0.001 means error budget = 0.1%)
 - record: slo:errors:ratio_rate1h
@@ -113,7 +111,7 @@ A burn rate of **N** means the budget would be consumed in **(window / N)** time
     runbook_url: "https://runbooks.xc/runbooks/quote-slo-burn"
 ```
 
-### 24.5.4 Latency SLI Variant
+### 25.5.4 Latency SLI Variant
 ```promql
 - record: slo:latency:good_ratio_rate5m
   expr: |
@@ -126,7 +124,7 @@ A burn rate of **N** means the budget would be consumed in **(window / N)** time
   labels: { severity: critical, service: quote, slo: latency }
 ```
 
-## 24.6 Error-Budget Policy
+## 25.6 Error-Budget Policy
 
 | Budget State | Trigger | Policy Response |
 |---|---|---|
@@ -135,18 +133,18 @@ A burn rate of **N** means the budget would be consumed in **(window / N)** time
 | Exhausted (≤ 10% remaining) | Sustained burn for 24h | **Feature freeze on this service**; only reliability/bugfix changes |
 | Breached (< 0%) | Budget gone before window end | Service owner + Director SRE on-call; incident review; explicit ARB unfreeze required |
 
-Exception process: written waiver from Director SRE + Service Owner with stated remediation timeline; logged in [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md).
+Exception process: written waiver from Director SRE + Service Owner with stated remediation timeline; logged in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
-## 24.7 SLO Authoring Workflow
+## 25.7 SLO Authoring Workflow
 1. Service owner identifies user journeys.
 2. Owner picks 1–3 SLIs (avoid > 3 — focus is the point).
 3. Owner observes 30 days of telemetry to baseline current performance.
 4. Proposed SLO = current_performance − 0.5σ (rounded down to a comfortable target).
 5. Reviewed by SRE; approved by Director SRE; recorded in service catalog.
-6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [Chapter 7](07-iac-for-observability-standard.md)).
+6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md)).
 7. Quarterly review.
 
-## 24.8 Tooling Decision
+## 25.8 Tooling Decision
 | Option | Pros | Cons | Decision |
 |---|---|---|---|
 | Sloth (`slok8s/sloth`) | Generates Prom rules from declarative SLO YAML; widely adopted | Originally Kubernetes-flavoured but works as a CLI | **Recommended** — fits Compose model; ADR-008 candidate |
@@ -155,7 +153,7 @@ Exception process: written waiver from Director SRE + Service Owner with stated 
 
 ADR-008 (proposed): "Adopt Sloth as SLO-rule generator."
 
-## 24.9 Alert Quality Scorecard (per service)
+## 25.9 Alert Quality Scorecard (per service)
 | Metric | Target |
 |---|---|
 | Pages per week | ≤ 5 |
@@ -166,14 +164,14 @@ ADR-008 (proposed): "Adopt Sloth as SLO-rule generator."
 | % alerts whose threshold was changed in last 90d | tracks alert-tuning hygiene |
 | False-positive rate | < 5% |
 
-This rolls up to the alerting KPIs in [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md).
+This rolls up to the alerting KPIs in [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).
 
-## 24.10 Cross-References
-- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — severity model that burn-rate alerts plug into.
-- [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — outcome KPIs derived from SLO posture.
-- [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — what happens when a burn alert fires.
-- [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — required SLI labels in app telemetry.
-- [Chapter 20. Business Capability and Value-Stream Mapping](20-business-capability-and-value-stream-mapping.md) — outcome → SLO traceability.
+## 25.10 Cross-References
+- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity model that burn-rate alerts plug into.
+- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — outcome KPIs derived from SLO posture.
+- [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — what happens when a burn alert fires.
+- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — required SLI labels in app telemetry.
+- [21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) — outcome → SLO traceability.
 
 ---
 

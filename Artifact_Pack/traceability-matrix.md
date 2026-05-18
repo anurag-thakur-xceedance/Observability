@@ -4,8 +4,7 @@ chapter: Traceability Matrix
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
@@ -13,10 +12,9 @@ status: Draft
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 > Generated as part of the observability strategy decomposition.
 > **Source:** `Observability-Strategy.docx` v0.1 (27 April 2026), annotations from `Observability-Strategy_Annotated_v2.docx`.
 > **Mapping basis:** `Observability_Extraction_Plan.xlsx` (`Section Mapping` sheet) and `Observability_Extraction_Table.md`.
@@ -31,60 +29,60 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 |---:|---|---|---|---|
 | 1 | Executive Summary | KEEP | — | Stays in strategy doc. |
 | 2 | Business Objectives & KPI's | MIXED | 11 | Narrative kept; metric definitions/thresholds/scorecard mechanics → artifact 11. |
-| 3 | Standardise Telemetry Data — The 5 Pillars | EXTRACT | 1 | Pillar definitions in artifact 1 Section 2. |
+| 3 | Standardise Telemetry Data — The 5 Pillars | EXTRACT | 1 | Pillar definitions in artifact 1 Section 3. |
 | 4 | Build the Technical Foundation | MIXED | 2 | Strategic intent kept; architecture mechanics → artifact 2. |
 | 5 | Foster an Observability Culture | EXTRACT | 18 | Culture/operating model. |
 | 6 | Continuous Improvement | MIXED | 18, 11 | Process cadence → artifact 18; measurement model → artifact 11. |
 | 7 | Observability Strategy – High Level Architecture | MIXED | 2 | One-page view kept; detailed architecture → artifact 2. |
-| 8 | Core Open-Source Observability Stack | EXTRACT | 2 | Stack table in artifact 2 Section 4. |
-| 9 | Telemetry Collection Layers | EXTRACT | 2 | Collection layer model in artifact 2 Section 5. |
-| 10 | Infrastructure Observability | EXTRACT | 3 | Runbook in artifact 3 Section 2. |
+| 8 | Core Open-Source Observability Stack | EXTRACT | 2 | Stack table in artifact 2 Section 5. |
+| 9 | Telemetry Collection Layers | EXTRACT | 2 | Collection layer model in artifact 2 Section 6. |
+| 10 | Infrastructure Observability | EXTRACT | 3 | Runbook in artifact 3 Section 3. |
 | 11 | Application Telemetry (Pre/Post-Login) | MIXED | 17 | High-level requirement summary kept; standards → artifact 17. |
-| 12 | Pre-Login Telemetry | EXTRACT | 17, 3 | Standards → artifact 17 Section 3; runbook → artifact 3 Section 3.1. |
-| 13 | Post-Login Telemetry | EXTRACT | 17, 3 | Standards → artifact 17 Section 4; runbook → artifact 3 Section 3.2. |
+| 12 | Pre-Login Telemetry | EXTRACT | 17, 3 | Standards → artifact 17 Section 4; runbook → artifact 3 Section 4.1. |
+| 13 | Post-Login Telemetry | EXTRACT | 17, 3 | Standards → artifact 17 Section 5; runbook → artifact 3 Section 4.2. |
 | 14 | Alerting Guidelines | EXTRACT | 4 | Policy in artifact 4. |
-| 15 | Database Observability | EXTRACT | 3 | Runbook in artifact 3 Section 4. |
-| 16 | Database Observability Metrics and Ranges | EXTRACT | 1, 3 | Standards in artifact 1 Section 7; runbook usage in artifact 3 Section 4. |
+| 15 | Database Observability | EXTRACT | 3 | Runbook in artifact 3 Section 5. |
+| 16 | Database Observability Metrics and Ranges | EXTRACT | 1, 3 | Standards in artifact 1 Section 8; runbook usage in artifact 3 Section 5. |
 | 17 | Suggested Alerting Policy Guidelines | EXTRACT | 4 | Consolidated in artifact 4. |
-| 18 | Network and Latency Observability | EXTRACT | 3 | Runbook in artifact 3 Section 5. |
-| 19 | Network & Latency Observability Metrics | EXTRACT | 1, 3 | Standards in artifact 1 Section 8; runbook in artifact 3 Section 5. |
-| 20 | Severity Policy (Network) | EXTRACT | 4 | Artifact 4 Section 4.3. |
-| 21 | Implementation Tips (Network) | EXTRACT | 3 | Artifact 3 Section 5.3. |
-| 22 | Scaling and Performance Observability | MIXED | 3 | Posture kept; implementation → artifact 3 Section 6. |
-| 23 | Scaling and Performance Observability Metrics | EXTRACT | 1, 3 | Standards in artifact 1 Section 9; runbook in artifact 3 Section 6. |
-| 24 | Severity / Action Policy (Scaling) | EXTRACT | 4 | Artifact 4 Section 4.4. |
-| 25 | Implementation Notes (Scaling) | EXTRACT | 3 | Artifact 3 Section 6.3. |
+| 18 | Network and Latency Observability | EXTRACT | 3 | Runbook in artifact 3 Section 6. |
+| 19 | Network & Latency Observability Metrics | EXTRACT | 1, 3 | Standards in artifact 1 Section 9; runbook in artifact 3 Section 6. |
+| 20 | Severity Policy (Network) | EXTRACT | 4 | Artifact 4 Section 5.3. |
+| 21 | Implementation Tips (Network) | EXTRACT | 3 | Artifact 3 Section 6.3. |
+| 22 | Scaling and Performance Observability | MIXED | 3 | Posture kept; implementation → artifact 3 Section 7. |
+| 23 | Scaling and Performance Observability Metrics | EXTRACT | 1, 3 | Standards in artifact 1 Section 10; runbook in artifact 3 Section 7. |
+| 24 | Severity / Action Policy (Scaling) | EXTRACT | 4 | Artifact 4 Section 5.4. |
+| 25 | Implementation Notes (Scaling) | EXTRACT | 3 | Artifact 3 Section 7.3. |
 | 26 | Grafana Observability Layer | MIXED | 5 | Strategic role kept; platform standards → artifact 5. |
-| 27 | Key Metrics and Suggested Ranges (Grafana) | EXTRACT | 1, 5 | Standards in artifact 1 Section 10; viz in artifact 5 Section 4. |
-| 28 | Recommended Alerting Policy (Grafana) | EXTRACT | 4, 5 | Policy in artifact 4; Grafana implementation in artifact 5 Section 5. |
-| 29 | Implementation & Visualization Tips (Grafana) | EXTRACT | 5 | Artifact 5 Section 6. |
+| 27 | Key Metrics and Suggested Ranges (Grafana) | EXTRACT | 1, 5 | Standards in artifact 1 Section 11; viz in artifact 5 Section 5. |
+| 28 | Recommended Alerting Policy (Grafana) | EXTRACT | 4, 5 | Policy in artifact 4; Grafana implementation in artifact 5 Section 6. |
+| 29 | Implementation & Visualization Tips (Grafana) | EXTRACT | 5 | Artifact 5 Section 7. |
 | 30 | AI-Driven Observability Layer | MIXED | 6 | Intent + guardrails kept; implementation → artifact 6. |
-| 31 | AI-Driven Observability Key Metrics and Ranges | EXTRACT | 6, 1 | Artifact 6 Section 2; aligned in artifact 1 Section 11. |
-| 32 | AI-Driven Observability Metrics | EXTRACT | 6 | Embedded in artifact 6 Section 2. |
-| 33 | Interpreting the AI-Driven Metrics | EXTRACT | 6 | Artifact 6 Section 3. |
-| 34 | Severity Policy for AI-Detected Events | EXTRACT | 4, 6 | Artifact 4 Section 4.6; artifact 6 Section 4. |
-| 35 | Implementation Recommendations (AI) | EXTRACT | 6 | Artifact 6 Section 5. |
+| 31 | AI-Driven Observability Key Metrics and Ranges | EXTRACT | 6, 1 | Artifact 6 Section 3; aligned in artifact 1 Section 12. |
+| 32 | AI-Driven Observability Metrics | EXTRACT | 6 | Embedded in artifact 6 Section 3. |
+| 33 | Interpreting the AI-Driven Metrics | EXTRACT | 6 | Artifact 6 Section 4. |
+| 34 | Severity Policy for AI-Detected Events | EXTRACT | 4, 6 | Artifact 4 Section 5.6; artifact 6 Section 5. |
+| 35 | Implementation Recommendations (AI) | EXTRACT | 6 | Artifact 6 Section 6. |
 | 36 | IaC Role in OpenTelemetry Deployment | MIXED | 7 | Strategic policy kept; patterns/controls → artifact 7. |
-| 37 | Key Metrics for IaC Role in OTel Deployments | EXTRACT | 7, 11 | Platform KPIs in artifact 7 Section 4; roll-up in artifact 11 Section 5. |
-| 38 | Severity Policy (IaC) | EXTRACT | 4 | Artifact 4 Section 4.7. |
-| 39 | Implementation & Visualization Tips (IaC) | EXTRACT | 7 | Artifact 7 Section 6. |
-| 40 | Multi-Cloud Observability Design | MIXED | 2 | Superseded by host-portable Compose model in artifact 2 Section 6; multi-cloud K8s posture retired. |
+| 37 | Key Metrics for IaC Role in OTel Deployments | EXTRACT | 7, 11 | Platform KPIs in artifact 7 Section 5; roll-up in artifact 11 Section 6. |
+| 38 | Severity Policy (IaC) | EXTRACT | 4 | Artifact 4 Section 5.7. |
+| 39 | Implementation & Visualization Tips (IaC) | EXTRACT | 7 | Artifact 7 Section 7. |
+| 40 | Multi-Cloud Observability Design | MIXED | 2 | Superseded by host-portable Compose model in artifact 2 Section 7; multi-cloud K8s posture retired. |
 | 41 | Observability Data Model | EXTRACT | 19 | Data model spec in artifact 19. |
 | 42 | Governance and Data Strategy | MIXED | 8, 15 | Narrative kept; data controls → artifact 8; governance model → artifact 15. |
-| 43 | Telemetry retention tiers | EXTRACT | 8 | Artifact 8 Section 3. |
-| 44 | Worked Example: Applying Retention Policy | EXTRACT | 8 | Artifact 8 Section 4. |
-| 45 | Governance Model | EXTRACT | 15 | Artifact 15 Section 3, Section 6. |
-| 46 | Lifecycle Management and Cost Optimisation | EXTRACT | 9 | Artifact 9 Section 2–Section 4. |
-| 47 | 11.5 Compliance and Auditability | EXTRACT | 10 | Artifact 10 Section 2–Section 5. |
-| 48 | Success Criteria for Governance and Data Strategy | EXTRACT | 11 | Artifact 11 Section 4. |
-| 49 | End-to-End Incident Sequence | EXTRACT | 12 | Artifact 12 Section 2. |
+| 43 | Telemetry retention tiers | EXTRACT | 8 | Artifact 8 Section 4. |
+| 44 | Worked Example: Applying Retention Policy | EXTRACT | 8 | Artifact 8 Section 5. |
+| 45 | Governance Model | EXTRACT | 15 | Artifact 15 Section 4, Section 7. |
+| 46 | Lifecycle Management and Cost Optimisation | EXTRACT | 9 | Artifact 9 Section 3–Section 5. |
+| 47 | 11.5 Compliance and Auditability | EXTRACT | 10 | Artifact 10 Section 3–Section 6. |
+| 48 | Success Criteria for Governance and Data Strategy | EXTRACT | 11 | Artifact 11 Section 5. |
+| 49 | End-to-End Incident Sequence | EXTRACT | 12 | Artifact 12 Section 3. |
 | 50 | Maturity Roadmap | MIXED | 13 | Executive view kept; milestones → artifact 13. |
-| 51 | Phase 1: Foundation (Months 1–3) | EXTRACT | 13 | Artifact 13 Section 2. |
-| 52 | Phase 2: Correlation & Alerting (Months 4–6) | EXTRACT | 13 | Artifact 13 Section 3. |
-| 53 | Phase 3: AI-Driven Intelligence (Months 7–12) | EXTRACT | 13 | Artifact 13 Section 4. |
-| 54 | Maturity Assessment Framework | EXTRACT | 14 | Artifact 14 Section 2–Section 3. |
+| 51 | Phase 1: Foundation (Months 1–3) | EXTRACT | 13 | Artifact 13 Section 3. |
+| 52 | Phase 2: Correlation & Alerting (Months 4–6) | EXTRACT | 13 | Artifact 13 Section 4. |
+| 53 | Phase 3: AI-Driven Intelligence (Months 7–12) | EXTRACT | 13 | Artifact 13 Section 5. |
+| 54 | Maturity Assessment Framework | EXTRACT | 14 | Artifact 14 Section 3–Section 4. |
 | 55 | Final Architecture Summary | KEEP | — | Stays in strategy. |
-| 56 | Architecture Governance and Review | MIXED | 15 | Narrative kept; mechanics → artifact 15 Section 4. |
+| 56 | Architecture Governance and Review | MIXED | 15 | Narrative kept; mechanics → artifact 15 Section 5. |
 | 57 | Decision Log | EXTRACT | 16 | Register in artifact 16. |
 | 58 | Appendix | MIXED | 1, 3, 5, 6, 8 | Glossary kept; heavy tables distributed. |
 
@@ -94,35 +92,35 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 
 | # | Artifact | Source Sections (by # above) |
 |---:|---|---|
-| 1 | [Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) | 3 (5 Pillars), 16, 19, 23, 27 (also referenced in 31), 58 (Appendix tables) |
-| 2 | [Observability Reference Architecture](02-observability-reference-architecture.md) | 4, 7, 8, 9, 40 |
-| 3 | [Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) | 10, 12, 13, 15, 16, 18, 19, 21, 22, 23, 25, 58 |
-| 4 | [Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) | 14, 17, 20, 24, 28, 34, 38 |
-| 5 | [Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) | 26, 27, 28, 29, 58 |
-| 6 | [AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) | 30, 31, 32, 33, 34, 35, 58 |
-| 7 | [IaC for Observability Standard (Docker Compose + PowerShell)](07-iac-for-observability-standard.md) | 36, 37, 39 |
-| 8 | [Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) | 42, 43, 44, 58 |
-| 9 | [Observability FinOps Standard](09-observability-finops-standard.md) | 46 |
-| 10 | [Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) | 47 |
-| 11 | [Observability KPI Scorecard](11-observability-kpi-scorecard.md) | 2, 6, 37, 48, 54 |
-| 12 | [Incident Response Playbook](12-incident-response-playbook.md) | 49 |
-| 13 | [Observability Roadmap Delivery Plan](13-observability-roadmap-delivery-plan.md) | 50, 51, 52, 53 |
-| 14 | [Observability Capability Assessment Framework](14-observability-capability-assessment-framework.md) | 54 |
-| 15 | [Observability Governance Charter and ARB Pack](15-observability-governance-charter-and-arb-pack.md) | 42, 45, 56 |
-| 16 | [Observability ADR Decision Register](16-observability-adr-decision-register.md) | 57 |
-| 17 | [Application Telemetry Standard](17-application-telemetry-standard.md) | 11, 12, 13 |
-| 18 | [Observability Operating Model and Adoption Plan](18-observability-operating-model-and-adoption-plan.md) | 5, 6 |
-| 19 | [Observability Data Model Specification](19-observability-data-model-specification.md) | 41 |
-| 20 | [Business Capability and Value-Stream Mapping](20-business-capability-and-value-stream-mapping.md) | New (gap-fill) — not sourced from v0.1; aligns with Section 1, Section 2, and outcome KPIs in Section 11. |
-| 21 | [Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) | New (gap-fill) — extends Section 7, Section 40 with explicit HA / DR mechanics. |
-| 22 | [Capacity and Scale Model](22-capacity-and-scale-model.md) | New (gap-fill) — supports Section 37 platform KPIs with sizing model. |
-| 23 | [Observability Platform Security Architecture](23-observability-platform-security-architecture.md) | New (gap-fill) — extends Section 42, Section 47 with STRIDE, mTLS, supply-chain controls. |
-| 24 | [SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md) | New (gap-fill) — extracts from Section 2 and standardises burn-rate alerting referenced in Section 14. |
-| 25 | [Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md) | New (gap-fill) — operationalises Section 11–Section 13 with PRR gate. |
-| 26 | [Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) | New (gap-fill) — extends Section 40 host-portable Compose model to multi-tenant context. |
-| 27 | [Observability Non-Functional Requirements Register](27-observability-non-functional-requirements.md) | New (P1 gap-fill) — consolidates platform NFRs scattered across Sections 4, 7, 22, 42, 46, 47. |
-| 28 | [Observability Long-Term Archival Policy](28-observability-long-term-archival-policy.md) | New (P1 gap-fill) — extends Section 43 (retention tiers) and Section 47 (compliance) for archival >1 year. |
-| 23A | [Threat Model (STRIDE) — Appendix to Chapter 23](23-appendix-a-threat-model.md) | New (P1 gap-fill) — deepens Chapter 23 Section 1 STRIDE summary with per-component matrix and residual-risk register. |
+| 1 | [Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) | 3 (5 Pillars), 16, 19, 23, 27 (also referenced in 31), 58 (Appendix tables) |
+| 2 | [3. Observability Reference Architecture](03-observability-reference-architecture.md) | 4, 7, 8, 9, 40 |
+| 3 | [Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) | 10, 12, 13, 15, 16, 18, 19, 21, 22, 23, 25, 58 |
+| 4 | [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) | 14, 17, 20, 24, 28, 34, 38 |
+| 5 | [Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) | 26, 27, 28, 29, 58 |
+| 6 | [AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) | 30, 31, 32, 33, 34, 35, 58 |
+| 7 | [IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) | 36, 37, 39 |
+| 8 | [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) | 42, 43, 44, 58 |
+| 9 | [Observability FinOps Standard](10-observability-finops-standard.md) | 46 |
+| 10 | [Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) | 47 |
+| 11 | [Observability KPI Scorecard](12-observability-kpi-scorecard.md) | 2, 6, 37, 48, 54 |
+| 12 | [Incident Response Playbook](13-incident-response-playbook.md) | 49 |
+| 13 | [Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) | 50, 51, 52, 53 |
+| 14 | [15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) | 54 |
+| 15 | [Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) | 42, 45, 56 |
+| 16 | [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) | 57 |
+| 17 | [Application Telemetry Standard](18-application-telemetry-standard.md) | 11, 12, 13 |
+| 18 | [Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) | 5, 6 |
+| 19 | [Observability Data Model Specification](20-observability-data-model-specification.md) | 41 |
+| 20 | [Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) | New (gap-fill) — not sourced from v0.1; aligns with Section 2, Section 3, and outcome KPIs in Section 12. |
+| 21 | [Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) | New (gap-fill) — extends Section 8, Section 41 with explicit HA / DR mechanics. |
+| 22 | [Capacity and Scale Model](23-capacity-and-scale-model.md) | New (gap-fill) — supports Section 38 platform KPIs with sizing model. |
+| 23 | [Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | New (gap-fill) — extends Section 43, Section 48 with STRIDE, mTLS, supply-chain controls. |
+| 24 | [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) | New (gap-fill) — extracts from Section 3 and standardises burn-rate alerting referenced in Section 15. |
+| 25 | [Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) | New (gap-fill) — operationalises Section 12–Section 14 with PRR gate. |
+| 26 | [Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | New (gap-fill) — extends Section 41 host-portable Compose model to multi-tenant context. |
+| 27 | [28. Observability Non-Functional Requirements Register](28-observability-non-functional-requirements.md) | New (P1 gap-fill) — consolidates platform NFRs scattered across Sections 4, 7, 22, 42, 46, 47. |
+| 28 | [29. Observability Long-Term Archival Policy](29-observability-long-term-archival-policy.md) | New (P1 gap-fill) — extends Section 44 (retention tiers) and Section 48 (compliance) for archival >1 year. |
+| 23A | [Threat Model (STRIDE) — Appendix to Chapter 23](24-appendix-a-threat-model.md) | New (P1 gap-fill) — deepens Chapter 23 Section 2 STRIDE summary with per-component matrix and residual-risk register. |
 
 ---
 
@@ -132,20 +130,20 @@ Artifacts 20–28 (including Chapter 23 Appendix A) and Annexure B / README do n
 
 | New Artifact | Logical Source / Trigger | Cross-References |
 |---|---|---|
-| 20 — Business Capability & Value-Stream | KEEP-section 1 narrative; outcome KPIs (Section 2) | Outcome ↔ KPI ↔ SLO chain consumed by 11, 24 |
-| 21 — HA & DR Design | High-Level Architecture (Section 7); Multi-Cloud (Section 40, retired) | Self-monitoring SLIs feed Chapter 11 Section 6.1 |
-| 22 — Capacity & Scale | IaC platform KPIs (Section 37); Stack Provision Time | Cardinality budget shared with Chapter 1 Section 3.1 |
-| 23 — Security Architecture | Governance & Data Strategy (Section 42); Compliance (Section 47) | Controls evidenced in Chapter 10 Sections 5–6 |
-| 24 — SLO & Error-Budget | Business Objectives (Section 2); Continuous Improvement (Section 6) | Burn-rate alerts referenced by 4, 5, 11 |
-| 25 — Service Onboarding & Kits | Pre/Post-Login Telemetry (Sections 11–13); Telemetry Standards (Section 3) | PRR gate enforced by Chapter 15 Section 3 |
-| 26 — Multi-Tenant Model | Multi-Cloud Observability (Section 40, retired) — repurposed for tenant context | Tenant isolation evidenced in 10 OBS-C-12 |
-| 27 — NFR Register | Cross-cutting (Sections 4, 7, 22, 42, 46, 47) — no single source section | Verification owners feed Chapter 11 Section 6.1; controls cross-link Chapter 10 |
-| 28 — Long-Term Archival Policy | Telemetry retention tiers (Section 43); Compliance (Section 47) | Extends Chapter 8 hot/warm/cold with >1y archival; cost model feeds Chapter 9 |
-| 23A — Threat Model (STRIDE) Appendix | Governance & Data Strategy (Section 42); Compliance (Section 47) | Deepens Chapter 23 Section 1; residual risks tracked against Chapter 27 NFR-SEC-* |
-| Annexure B — Concepts Glossary | Appendix glossary (Section 58) | Augments Annexure A acronyms |
+| 20 — Business Capability & Value-Stream | KEEP-section 1 narrative; outcome KPIs (Section 3) | Outcome ↔ KPI ↔ SLO chain consumed by 11, 24 |
+| 21 — HA & DR Design | High-Level Architecture (Section 8); Multi-Cloud (Section 41, retired) | Self-monitoring SLIs feed Chapter 11 Section 7.1 |
+| 22 — Capacity & Scale | IaC platform KPIs (Section 38); Stack Provision Time | Cardinality budget shared with Chapter 1 Section 4.1 |
+| 23 — Security Architecture | Governance & Data Strategy (Section 43); Compliance (Section 48) | Controls evidenced in Chapter 10 Sections 5–6 |
+| 24 — SLO & Error-Budget | Business Objectives (Section 3); Continuous Improvement (Section 7) | Burn-rate alerts referenced by 4, 5, 11 |
+| 25 — Service Onboarding & Kits | Pre/Post-Login Telemetry (Sections 11–13); Telemetry Standards (Section 4) | PRR gate enforced by Chapter 15 Section 4 |
+| 26 — Multi-Tenant Model | Multi-Cloud Observability (Section 41, retired) — repurposed for tenant context | Tenant isolation evidenced in 10 OBS-C-12 |
+| 27 — NFR Register | Cross-cutting (Sections 4, 7, 22, 42, 46, 47) — no single source section | Verification owners feed Chapter 11 Section 7.1; controls cross-link Chapter 10 |
+| 28 — Long-Term Archival Policy | Telemetry retention tiers (Section 44); Compliance (Section 48) | Extends Chapter 8 hot/warm/cold with >1y archival; cost model feeds Chapter 9 |
+| 23A — Threat Model (STRIDE) Appendix | Governance & Data Strategy (Section 43); Compliance (Section 48) | Deepens Chapter 23 Section 2; residual risks tracked against Chapter 27 NFR-SEC-* |
+| Annexure B — Concepts Glossary | Appendix glossary (Section 59) | Augments Annexure A acronyms |
 | README | New onboarding aid | Persona-based entry to all artifacts |
-| `schemas/` (5 JSON Schemas) | P2 Phase 3 deepening of Chapter 19 stub | Indexed in [Chapter 19. Observability Data Model Specification -> Section 19.8.1 JSON Schema Index](19-observability-data-model-specification.md#1981-json-schema-index); shared `resource` definition |
-| `assets/diagrams/` (5 Mermaid diagrams + index) | P2 Phase 4 — canonical diagrams replacing ASCII boxes | Consumed by Ch 2 Section 2 (pipeline), Ch 6 Section 1 (AIOps loop), Ch 21 Sections 3 + 5 (HA + DR), Ch 26 Section 1 (multi-tenant) |
+| `schemas/` (5 JSON Schemas) | P2 Phase 3 deepening of Chapter 19 stub | Indexed in [Chapter 20. Observability Data Model Specification -> Section 20.8.1 JSON Schema Index](20-observability-data-model-specification.md#2081-json-schema-index); shared `resource` definition |
+| `assets/diagrams/` (5 Mermaid diagrams + index) | P2 Phase 4 — canonical diagrams replacing ASCII boxes | Consumed by Ch 2 Section 3 (pipeline), Ch 6 Section 2 (AIOps loop), Ch 21 Sections 3 + 5 (HA + DR), Ch 26 Section 2 (multi-tenant) |
 | `tools/verify_links.ps1`, `tools/verify_frontmatter.ps1`, `tools/regen_toc.ps1` | P2 Phase 1 verifier tooling | Phase-5 sweep gate; PR-required green |
 | Root `AGENTS.md` | P2 — durable agent rules | Banned characters, slug rules, file-I/O, verifier discipline |
 
@@ -183,25 +181,25 @@ Verifier baseline at v0.1 close: **1,296 internal links / 0 broken; front-matter
 | K1 | Tamper-evident archival (WORM, Immutable Blob / Object Lock Compliance mode) + cryptographic-erasure attestation procedure and certificate template | Chapter 28, new section | Planned |
 | K2 | Master data-classification × retention × archive-tier × deletion-method × legal-basis matrix | Chapter 8, new section; cross-links to Chapter 10, Chapter 23, Chapter 28 | Planned |
 | K3 | Reference implementations directory containing IaC (Terraform / Bicep / Docker Compose), OTel Collector configurations (agent / gateway / edge profiles), and alert/recording-rule libraries (Prometheus / Loki / Tempo) | New top-level directory `reference-implementations/` inside pack repo | Planned |
-| K4 | Consolidated programme risk register at portfolio level (risk ID, description, likelihood, impact, owner, mitigation, residual, review date) | New Chapter 29 `29-observability-programme-risk-register.md` | **Delivered (P3, v0.1 handover scope)** — see [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md). Quality caveat: synthesis-grade; SME validation required pre-prod (tracked as R-01 / R-08 / R-10 / R-15 within the register itself). |
+| K4 | Consolidated programme risk register at portfolio level (risk ID, description, likelihood, impact, owner, mitigation, residual, review date) | New Chapter 29 `30-observability-programme-risk-register.md` | **Delivered (P3, v0.1 handover scope)** — see [30. Observability Programme Risk Register](30-observability-programme-risk-register.md). Quality caveat: synthesis-grade; SME validation required pre-prod (tracked as R-01 / R-08 / R-10 / R-15 within the register itself). |
 | K5 | Meta-observability ("watching the watcher") runbook — dead-man's-switch alerting, independent monitor stack, runbook for Prometheus / Alertmanager / OTel Collector outages | New section in Chapter 21 | Planned |
 
 ### D.2 P3 — High-priority gaps (H-list)
 
 | ID | Gap | Target Location | Status |
 |---|---|---|---|
-| S1 | OpenTelemetry Semantic Convention crosswalk (stable / experimental / deprecated attributes, version pin) | Chapter 19, new section | **Delivered (P2 Phase 3)** — see [Chapter 19. Observability Data Model Specification -> Section 19.8.5 OpenTelemetry Semantic-Convention Crosswalk](19-observability-data-model-specification.md#1985-opentelemetry-semantic-convention-crosswalk) |
+| S1 | OpenTelemetry Semantic Convention crosswalk (stable / experimental / deprecated attributes, version pin) | Chapter 19, new section | **Delivered (P2 Phase 3)** — see [Chapter 20. Observability Data Model Specification -> Section 20.8.5 OpenTelemetry Semantic-Convention Crosswalk](20-observability-data-model-specification.md#2085-opentelemetry-semantic-convention-crosswalk) |
 | S2 | Log severity standard (OTel SeverityNumber 1–24 ↔ syslog ↔ application levels, with retention-by-severity policy) | Chapter 1 or Chapter 17, new section | Planned |
 | S6 | Frontend / Real User Monitoring (RUM) standard — Core Web Vitals, W3C `traceparent` browser-to-backend correlation, session-replay PII redaction | New Chapter (proposed 30) | Planned |
 | A1 | Archival format specification (Parquet/Iceberg/Delta), schema-evolution policy, compaction cadence, and rehydration / restore-from-archive procedure with SLO | Chapter 28, new sections | Planned |
 | A2 | Legal-hold workflow (placement, release, evidence) integrated with GDPR Art. 17 erasure carve-out | Chapter 28 + Chapter 10, new sections | Planned |
-| N1 | NFR verification methods column (per NFR: how measured, evidence artefact, owner, cadence) | Chapter 27 verification matrix | **Delivered (P2 Phase 2.6)** — see [Chapter 27. Observability Non-Functional Requirements Register -> Section 27.4 Verification Methods (Per NFR)](27-observability-non-functional-requirements.md#274-verification-methods-per-nfr) |
+| N1 | NFR verification methods column (per NFR: how measured, evidence artefact, owner, cadence) | Chapter 27 verification matrix | **Delivered (P2 Phase 2.6)** — see [Chapter 28. Observability Non-Functional Requirements Register -> Section 28.4 Verification Methods (Per NFR)](28-observability-non-functional-requirements.md#284-verification-methods-per-nfr) |
 | N5 | Privacy-by-design NFRs (GDPR Art. 25 — DPIA threshold, DSAR SLA, cross-border transfer mechanism / SCCs) | Chapter 27 + Chapter 10 | Planned |
 | G1 | Observability domain RACI matrix (capability × role: Platform Engineering, Service Owner, AIOps Lead, FinOps, ARB, Security, Compliance) | Chapter 18 or Chapter 15, new section | Planned |
 | O4 | Supply-chain security — SBOM requirement (CycloneDX / SPDX), signed-image policy (Sigstore / Cosign), vulnerability-scan cadence on observability stack images | Chapter 23, new section | Planned |
 | E4 | Edge / customer-site collection patterns — offline buffering, store-and-forward, identity bootstrap, tenant isolation at edge | Chapter 26, new section | Planned |
-| D1 | JSON Schemas (draft 2020-12) for metrics / logs / traces / events / profiles | `Artifact_Pack/schemas/` | **Delivered (P2 Phase 3)** — five schemas under `Artifact_Pack/schemas/`, indexed in [Chapter 19. Observability Data Model Specification -> Section 19.8.1 JSON Schema Index](19-observability-data-model-specification.md#1981-json-schema-index) |
-| D9 | LLM prompt-sanitisation standard + prompt-template registry | Chapter 6 or new Chapter 31 | **Delivered (P2 Phase 2.7/2.8)** — see [Chapter 6. AIOps Guardrails and Implementation Playbook -> Section 6.9 Worked Examples — Filled Model Cards and Prompt Registry](06-aiops-guardrails-and-implementation-playbook.md#69-worked-examples-filled-model-cards-and-prompt-registry) |
+| D1 | JSON Schemas (draft 2020-12) for metrics / logs / traces / events / profiles | `Artifact_Pack/schemas/` | **Delivered (P2 Phase 3)** — five schemas under `Artifact_Pack/schemas/`, indexed in [Chapter 20. Observability Data Model Specification -> Section 20.8.1 JSON Schema Index](20-observability-data-model-specification.md#2081-json-schema-index) |
+| D9 | LLM prompt-sanitisation standard + prompt-template registry | Chapter 6 or new Chapter 31 | **Delivered (P2 Phase 2.7/2.8)** — see [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.9 Worked Examples — Filled Model Cards and Prompt Registry](07-aiops-guardrails-and-implementation-playbook.md#79-worked-examples-filled-model-cards-and-prompt-registry) |
 
 ### D.3 P3 — Subsumed gaps
 
@@ -215,7 +213,7 @@ The following M-rated gaps from the expert review are absorbed by the items abov
 
 ### D.4 P3 — Sequencing and scope realisation
 
-P3 was scoped as a **handover-grade close-out** rather than full engineering delivery. The adopted P3 scope covers item **K4 (Chapter 29 risk register)** plus the supporting documentation sweep (handover-report Section 3 framing, readme maturity note, Chapter 10 Section 6.1 regulatory-mapping sub-table). Items **K1 (tamper-evident archival)**, **K2 (master classification × retention matrix)**, **K3 (reference implementations directory)**, and **K5 (meta-observability runbook)** are deferred to the engineering-implementation phase along with the H-list. Rationale and dependencies are recorded in [Handover Report -> Section 3.2 Known Gaps for Engineering Phase](handover-report.md#32-known-gaps-for-engineering-phase) and in [Chapter 29. Observability Programme Risk Register](29-observability-programme-risk-register.md) (risks R-02, R-03, R-04, R-05, R-09, R-11, R-12, R-13, R-14).
+P3 was scoped as a **handover-grade close-out** rather than full engineering delivery. The adopted P3 scope covers item **K4 (Chapter 29 risk register)** plus the supporting documentation sweep (handover-report Section 4 framing, readme maturity note, Chapter 10 Section 7.1 regulatory-mapping sub-table). Items **K1 (tamper-evident archival)**, **K2 (master classification × retention matrix)**, **K3 (reference implementations directory)**, and **K5 (meta-observability runbook)** are deferred to the engineering-implementation phase along with the H-list. Rationale and dependencies are recorded in [Handover Report -> Section 4.2 Known Gaps for Engineering Phase](handover-report.md#32-known-gaps-for-engineering-phase) and in [30. Observability Programme Risk Register](30-observability-programme-risk-register.md) (risks R-02, R-03, R-04, R-05, R-09, R-11, R-12, R-13, R-14).
 
 ### D.5 P3 — Deferred (out of P3 scope)
 

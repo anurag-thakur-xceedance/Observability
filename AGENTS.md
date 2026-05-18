@@ -9,9 +9,9 @@ This file captures durable working rules for any AI agent (OpenCode, Copilot, et
 ### 1.1 Cross-references — never use the section-sign character
 Do **not** use the Unicode section-sign character (U+00A7) anywhere in the pack — neither in prose, nor in tables, nor in Mermaid node labels, nor (especially) inside link labels. The character is banned at any nesting level, including inside backticks and code fences in this rule-file itself.
 
-- In link labels, use the full readable form: `[Chapter 22, Section 3.2 — Worked Example B](22-capacity-and-scale-model.md#3-worked-sizing-examples)`.
-- In prose, write `Section 3.2`, never the section-sign + number form, and never `Sec 3.2`.
-- In Mermaid node labels where space is tight, use `Sec 7.2` (3 chars).
+- In link labels, use the full readable form: `[Chapter 22, Section 4.2 — Worked Example B](23-capacity-and-scale-model.md#3-worked-sizing-examples)`.
+- In prose, write `Section 4.2`, never the section-sign + number form, and never `Sec 4.2`.
+- In Mermaid node labels where space is tight, use `Sec 8.2` (3 chars).
 - For chapter shorthand inside prose tables or diagrams, `Ch 22` is acceptable; `Chapter 22` is preferred in prose.
 
 ### 1.2 No leftover scaffolding
@@ -97,7 +97,7 @@ Three verifiers live under `tools/`. Run them after **every** content change tha
 
 Before declaring P2 done, run:
 
-1. `Get-ChildItem Artifact_Pack -Filter *.md -Recurse | Select-String -Pattern 'TEMP|TODO|FIXME|XXX|PLACEHOLDER'` plus a separate scan for the U+00A7 character (see Section 1.1) → both must return zero hits except `TBD` in `owner:` fields.
+1. `Get-ChildItem Artifact_Pack -Filter *.md -Recurse | Select-String -Pattern 'TEMP|TODO|FIXME|XXX|PLACEHOLDER'` plus a separate scan for the U+00A7 character (see Section 2.1) → both must return zero hits except `TBD` in `owner:` fields.
 2. `tools/verify_links.ps1` → 0 broken.
 3. `tools/verify_frontmatter.ps1` → 0 errors.
 4. `tools/regen_toc.ps1` then diff `toc.md` — manual TOC should match generated.
@@ -110,6 +110,6 @@ Before declaring P2 done, run:
 Two recurring failure modes in earlier sessions:
 
 - A "TEMP TEST LINK" probe was left in Chapter 1 across multiple commits.
-- The section-sign shorthand (U+00A7 followed by a section number) crept into cross-reference link labels (e.g. `[Chapter 27, Section 3 — NFR Register](...)` written incorrectly with the section-sign character) and tables, inconsistent with the pack's own `Section N` style.
+- The section-sign shorthand (U+00A7 followed by a section number) crept into cross-reference link labels (e.g. `[Chapter 27, Section 4 — NFR Register](...)` written incorrectly with the section-sign character) and tables, inconsistent with the pack's own `Section N` style.
 
 Both were caught by the user, not by the agent. This file is the durable record of those corrections.

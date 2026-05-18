@@ -1,29 +1,27 @@
 ---
 title: Multi-Tenant and Customer-Site Deployment Model
-chapter: 26
+chapter: 27
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 26. Multi-Tenant and Customer-Site Deployment Model
+# 27. Multi-Tenant and Customer-Site Deployment Model
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 > **Closes Gaps:** J1, J2.
 
 ---
 
-## 26.1 Deployment Topologies
+## 27.1 Deployment Topologies
 
-### 26.1.1 Topology A — Single-Tenant On-Premise at Customer Site
+### 27.1.1 Topology A — Single-Tenant On-Premise at Customer Site
 ```
 [Customer-managed network]
    ┌──────────────────────────────────────────┐
@@ -52,7 +50,7 @@ status: Draft
 - Only redacted, aggregated signals flow upstream if contractually allowed.
 - Customer holds the keys (encryption-at-rest with customer-managed KMS).
 
-### 26.1.2 Topology B — Xceedance-Hosted Multi-Tenant (Shared Stack)
+### 27.1.2 Topology B — Xceedance-Hosted Multi-Tenant (Shared Stack)
 ```
 [Xceedance shared cloud / colo]
    ┌──────────────────────────────────────────┐
@@ -72,12 +70,12 @@ status: Draft
 - Storage backends are tenant-aware (`X-Scope-OrgID` for Loki/Mimir/Tempo).
 - Cross-tenant queries are blocked at Grafana data-source level.
 
-### 26.1.3 Topology C — Hybrid (Customer-Site + Xceedance Aggregation)
+### 27.1.3 Topology C — Hybrid (Customer-Site + Xceedance Aggregation)
 - Customer-site stack handles all PII-bearing telemetry.
 - Per-tenant redacted aggregates are forwarded (Prometheus remote-write, Loki Promtail with redaction, sampled traces).
 - Xceedance central tier is a "service-of-services" view across the customer estate.
 
-## 26.2 Tenant Identity Model
+## 27.2 Tenant Identity Model
 
 | Element | Definition | Example |
 |---|---|---|
@@ -94,9 +92,9 @@ Required resource attributes on every span / metric / log:
 service.name, service.version, deployment.environment, team, tier, tenant_id, tenant_class, region
 ```
 
-## 26.3 Tenant Labelling Enforcement
+## 27.3 Tenant Labelling Enforcement
 Three layers of defence:
-1. **SDK / kit defaults** ([Chapter 25](25-service-onboarding-and-instrumentation-kits.md)) inject required attributes from environment.
+1. **SDK / kit defaults** ([26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) inject required attributes from environment.
 2. **Edge OTel Collector** rejects telemetry missing required attributes (using `attributes/required` processor pattern).
 3. **Gateway OTel Collector** overrides client-supplied tenant_id with the tenant ID derived from the authenticated bearer token / mTLS cert (defence against client-side tampering).
 
@@ -111,7 +109,7 @@ processors:
         action: upsert  # forces server-side value
 ```
 
-## 26.4 Per-Tenant Data Isolation Guarantees
+## 27.4 Per-Tenant Data Isolation Guarantees
 
 | Layer | Mechanism | Guarantee |
 |---|---|---|
@@ -123,13 +121,13 @@ processors:
 | Encryption | Tenant-specific KMS key for restricted classifications | Cryptographic isolation |
 | Audit | Audit events tagged with tenant_id | Auditable per tenant |
 
-## 26.5 Data-Residency
+## 27.5 Data-Residency
 - Telemetry stores in tenant region by default.
 - Cross-region replication only for DR within the same residency boundary unless contractually allowed.
 - Customer-site Topology A is the strongest residency posture.
-- Egress allow-list ([Chapter 23. Observability Platform Security Architecture -> Section 23.8 Egress and Data-Residency Controls](23-observability-platform-security-architecture.md#238-egress-and-data-residency-controls)) blocks unauthorised cross-border transfer.
+- Egress allow-list ([Chapter 24. Observability Platform Security Architecture -> Section 24.8 Egress and Data-Residency Controls](24-observability-platform-security-architecture.md#248-egress-and-data-residency-controls)) blocks unauthorised cross-border transfer.
 
-## 26.6 Trace Continuity Across Customer / Xceedance Boundary
+## 27.6 Trace Continuity Across Customer / Xceedance Boundary
 
 W3C Trace Context (`traceparent`, `tracestate`) is propagated across the boundary, but with redaction.
 
@@ -150,16 +148,16 @@ Rules:
 - `tracestate` carries tenant and residency hints so Xceedance Tempo applies correct routing.
 - Sampling decisions made at customer site are honoured downstream (`parentbased_traceidratio`).
 
-## 26.7 Per-Customer-Site DR
+## 27.7 Per-Customer-Site DR
 | Pattern | Use Case | RTO | RPO |
 |---|---|---|---|
 | **Local snapshot + restore** | Customer-site standalone | ≤ 4 h | ≤ 1 h |
 | **Cross-region within residency** | Regulated tenants requiring HA | ≤ 30 min | ≤ 5 min |
 | **Forward-only to Xceedance central** | Loss-tolerant tenants | ≤ 24 h (rebuild from last forward) | varies |
 
-DR runbook per customer site is templated and parameterised in [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md).
+DR runbook per customer site is templated and parameterised in [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md).
 
-## 26.8 Operational Boundaries (Who Operates What)
+## 27.8 Operational Boundaries (Who Operates What)
 | Component | Customer site | Xceedance shared |
 |---|---|---|
 | Compose stack lifecycle | Xceedance Platform Engineering (with customer change-window approval) | Xceedance Platform Engineering |
@@ -169,7 +167,7 @@ DR runbook per customer site is templated and parameterised in [Chapter 7. IaC f
 | On-call | Xceedance follow-the-sun; customer escalation contact | Xceedance |
 | Audit / access review | Customer infosec quarterly review | Xceedance ARB quarterly |
 
-## 26.9 Tenant Onboarding Checklist
+## 27.9 Tenant Onboarding Checklist
 | Step | Owner |
 |---|---|
 | Tenant registered (ID, class, region, residency) | Platform Engineering |
@@ -178,16 +176,16 @@ DR runbook per customer site is templated and parameterised in [Chapter 7. IaC f
 | Per-tenant retention overrides recorded | Data Governance |
 | Per-tenant KMS key provisioned (if required) | Security |
 | Per-tenant runbook escalation contacts captured | SRE |
-| First service onboarded per [Chapter 25](25-service-onboarding-and-instrumentation-kits.md) | Service Owner |
+| First service onboarded per [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) | Service Owner |
 | Tenant-scoped dashboard reviewed with customer | Customer Operations + Customer |
 
-## 26.10 Cross-References
-- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — base topology.
-- [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — required tenant attributes on telemetry.
-- [Chapter 19. Observability Data Model Specification](19-observability-data-model-specification.md) — `tenant_class`, `tenant_id` namespace.
-- [Chapter 21. Observability Platform HA and DR Design](21-observability-platform-ha-and-dr-design.md) — DR patterns, including customer-site DR.
-- [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — auth, encryption, egress controls.
-- [Chapter 25. Service Onboarding and Instrumentation Kits](25-service-onboarding-and-instrumentation-kits.md) — kit injection of tenant attributes.
+## 27.10 Cross-References
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — base topology.
+- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — required tenant attributes on telemetry.
+- [20. Observability Data Model Specification](20-observability-data-model-specification.md) — `tenant_class`, `tenant_id` namespace.
+- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — DR patterns, including customer-site DR.
+- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth, encryption, egress controls.
+- [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) — kit injection of tenant attributes.
 
 ---
 

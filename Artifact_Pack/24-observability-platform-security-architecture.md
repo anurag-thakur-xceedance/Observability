@@ -1,27 +1,25 @@
 ---
 title: Observability Platform Security Architecture
-chapter: 23
+chapter: 24
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 23. Observability Platform Security Architecture
+# 24. Observability Platform Security Architecture
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 > **Closes Gaps:** C1, C2, C3, C4.
 
 ---
 
-## 23.1 Threat Model (STRIDE)
+## 24.1 Threat Model (STRIDE)
 
 | Threat | Asset | Vector | Mitigation |
 |---|---|---|---|
@@ -29,8 +27,8 @@ status: Draft
 | **S**poofing | Grafana login | Stolen creds | OIDC / SAML SSO + MFA; no local accounts in production |
 | **T**ampering | Prometheus rules / dashboards | Direct edit on host bypassing Git | Read-only mounts; provisioning from Git only; audit log on changes |
 | **T**ampering | In-transit telemetry | MITM | TLS 1.2+ everywhere; certificate pinning at gateway |
-| **R**epudiation | Configuration changes | No actor attribution | Audit-event schema (Section 5); SIEM forwarding |
-| **I**nformation Disclosure | Logs containing PII | Unredacted log lines stored | OTel Collector `attributes/redact` + `transform` processors; pattern catalog (Section 4); Loki line filters |
+| **R**epudiation | Configuration changes | No actor attribution | Audit-event schema (Section 6); SIEM forwarding |
+| **I**nformation Disclosure | Logs containing PII | Unredacted log lines stored | OTel Collector `attributes/redact` + `transform` processors; pattern catalog (Section 5); Loki line filters |
 | **I**nformation Disclosure | Dashboards exposing customer data | Cross-tenant view | RBAC + tenant-scoped data sources; per-org Grafana folders |
 | **I**nformation Disclosure | Telemetry sent to vendor SaaS | Egress without controls | Egress allow-list; redaction before export; data-residency enforcement |
 | **D**enial of Service | Telemetry pipeline | Cardinality bomb / log flood | Cardinality limits (memory_limiter); per-tenant rate limits; circuit-breaker on collector |
@@ -38,9 +36,9 @@ status: Draft
 | **E**levation of Privilege | Grafana plugin install | Malicious plugin | Disabled by default; allow-list of signed plugins only |
 | **E**levation of Privilege | Container runtime | Privileged container escape | Non-root containers; read-only root FS; seccomp profiles |
 
-## 23.2 Authentication and Authorisation
+## 24.2 Authentication and Authorisation
 
-### 23.2.1 Identity Sources
+### 24.2.1 Identity Sources
 | User Class | Identity Source | Authentication |
 |---|---|---|
 | Human users (Dev / SRE / Ops / Exec) | Corporate IdP (Azure AD / Okta) | OIDC + MFA |
@@ -48,9 +46,9 @@ status: Draft
 | Collector → Backend (Prom / Loki / Tempo) | Service account | mTLS or bearer token |
 | Operator (CLI) | Workload identity | Short-lived token (1 h) |
 
-### 23.2.2 Authorisation Model (RBAC)
+### 24.2.2 Authorisation Model (RBAC)
 | Role | Grafana | Prometheus | Loki | Tempo | Alertmanager |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | Viewer | Read all (org-scoped) | Read | Read | Read | Read |
 | Editor (per team) | CRUD own folder | — | — | — | Silence own |
 | Admin (per team) | CRUD own folder + datasources | — | — | — | Edit own rules |
@@ -59,12 +57,12 @@ status: Draft
 | Auditor | Read all (incl. audit log) | Read | Read (incl. audit) | Read | Read |
 | External (customer-facing) | Read of customer-org folder only | — | — | — | — |
 
-### 23.2.3 Per-Tenant Isolation
+### 24.2.3 Per-Tenant Isolation
 - Grafana org per customer where required by contract.
 - Loki and Mimir/Prometheus tenancy via `X-Scope-OrgID` header injected by gateway based on authenticated identity.
-- See [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md).
+- See [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md).
 
-## 23.3 Encryption
+## 24.3 Encryption
 
 | Channel | Standard |
 |---|---|
@@ -76,9 +74,9 @@ status: Draft
 | Grafana → Postgres | TLS |
 | Backups (object storage) | Provider-side encryption + customer-managed key (CMK) for restricted classification |
 
-## 23.4 PII Redaction (Concrete Mechanisms)
+## 24.4 PII Redaction (Concrete Mechanisms)
 
-### 23.4.1 OTel Collector Processor Pattern
+### 24.4.1 OTel Collector Processor Pattern
 ```yaml
 processors:
   attributes/redact:
@@ -104,7 +102,7 @@ processors:
           - replace_pattern(body, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}", "***@***.***")
 ```
 
-### 23.4.2 Insurance-Specific Redaction Pattern Catalogue
+### 24.4.2 Insurance-Specific Redaction Pattern Catalogue
 | Field | Pattern | Action |
 |---|---|---|
 | US SSN | `\b\d{3}-\d{2}-\d{4}\b` | Mask (`***-**-****`) |
@@ -119,14 +117,14 @@ processors:
 | Authorization headers | header allow-list | Drop |
 | URL query parameters | per-key allow/deny list | Strip |
 
-### 23.4.3 Verification
+### 24.4.3 Verification
 - Unit tests for each redaction pattern with positive and negative cases.
 - Synthetic-PII canary records injected weekly; alert if they survive to backend.
 - Periodic Loki query for known PII patterns; anything found is an incident.
 
-## 23.5 Audit Trail
+## 24.5 Audit Trail
 
-### 23.5.1 Audit-Event Schema (JSON)
+### 24.5.1 Audit-Event Schema (JSON)
 ```json
 {
   "ts": "2026-05-07T10:14:32Z",
@@ -145,19 +143,19 @@ processors:
 }
 ```
 
-### 23.5.2 Sources
+### 24.5.2 Sources
 - Grafana audit log (built-in, enable provisioning audit).
 - Alertmanager / Prometheus reload events.
 - Git commit log (configuration changes).
 - OTel Collector self-telemetry.
 - Host-level access logs.
 
-### 23.5.3 Retention and Forwarding
+### 24.5.3 Retention and Forwarding
 - Audit events retained ≥ 1 year locally.
 - Forwarded to enterprise SIEM in real time.
-- Tamper-evident: hashed and chained per [Chapter 10. Compliance and Audit Control Matrix -> Section 10.5 Control Matrix (Initial)](10-compliance-and-audit-control-matrix.md#105-control-matrix-initial).
+- Tamper-evident: hashed and chained per [Chapter 11. Compliance and Audit Control Matrix -> Section 11.5 Control Matrix (Initial)](11-compliance-and-audit-control-matrix.md#115-control-matrix-initial).
 
-## 23.6 Secrets Management
+## 24.6 Secrets Management
 | Secret Class | Storage | Rotation |
 |---|---|---|
 | Backend credentials (Loki/Tempo/Mimir auth) | Azure Key Vault / HashiCorp Vault | 90 days |
@@ -169,20 +167,20 @@ processors:
 
 Compose files reference secrets by `${VAR}` resolved at deploy by PowerShell IaC; secrets never committed to Git.
 
-## 23.7 Supply-Chain Security
+## 24.7 Supply-Chain Security
 - Container images: pinned digests, not floating tags.
 - Image source: verified vendors (`grafana/*`, `prom/*`, `otel/*`); mirrored to private registry.
 - SBOM generated per image; scanned with Trivy/Grype on every build.
 - Signed images (cosign); verification at deploy time.
 - Vulnerability SLA: Critical ≤ 7 days, High ≤ 30 days, Medium ≤ 90 days.
 
-## 23.8 Egress and Data-Residency Controls
+## 24.8 Egress and Data-Residency Controls
 - Per-environment egress allow-list (Grafana Cloud, paging providers).
 - Data-residency: customer-site telemetry stays in-country unless contract allows.
 - Cross-border telemetry export requires PII redaction + tenant-aware routing rules.
 - Auditable egress log (firewall + LB).
 
-## 23.9 Hardening Baseline
+## 24.9 Hardening Baseline
 - Containers run as non-root.
 - Read-only root filesystem; explicit writable volumes only.
 - Drop all Linux capabilities except those required.
@@ -190,13 +188,13 @@ Compose files reference secrets by `${VAR}` resolved at deploy by PowerShell IaC
 - Resource limits set on every service (CPU + memory).
 - Host-level: minimal base OS, automated patching, host-based IDS.
 
-## 23.10 Cross-References
-- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — pipeline detail.
-- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — Compose hardening configs.
-- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — data classification.
-- [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — SOC 2 / ISO 27001 mapping.
-- [Chapter 17. Application Telemetry Standard](17-application-telemetry-standard.md) — what services must (not) emit.
-- [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — per-tenant boundaries.
+## 24.10 Cross-References
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline detail.
+- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — Compose hardening configs.
+- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data classification.
+- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — SOC 2 / ISO 27001 mapping.
+- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — what services must (not) emit.
+- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — per-tenant boundaries.
 
 ---
 

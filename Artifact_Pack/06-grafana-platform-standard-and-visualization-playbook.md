@@ -1,31 +1,29 @@
 ---
 title: Grafana Platform Standard and Visualization Playbook
-chapter: 5
+chapter: 6
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 5. Grafana Platform Standard and Visualization Playbook
+# 6. Grafana Platform Standard and Visualization Playbook
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 ---
 
-## 5.1 Purpose
+## 6.1 Purpose
 Defines how Grafana is operated as the primary visualization and alerting platform, and how dashboards deliver the strategy's "single pane of glass".
 
-## 5.2 Role of Grafana in the Strategy
+## 6.2 Role of Grafana in the Strategy
 Grafana visualizes and alerts against Prometheus (metrics), Loki (logs), and Tempo (traces). Dashboards, ad-hoc queries, and alerts present a unified, single-pane-of-glass view of system health, performance, and reliability.
 
-## 5.3 Dashboard Structure (Three-Layer Model)
+## 6.3 Dashboard Structure (Three-Layer Model)
 
 | Layer | Scope | Audience |
 |---|---|---|
@@ -33,8 +31,8 @@ Grafana visualizes and alerts against Prometheus (metrics), Loki (logs), and Tem
 | **Application** | Service health and trace-driven metrics — latency, errors, throughput | App engineering, on-call |
 | **Business** | Customer-impact KPIs — login/payment success rates, conversion latencies | Product, Operations leadership |
 
-## 5.4 Key Metrics & Suggested Ranges (Visualization)
-Full thresholds in [Chapter 1. Enterprise Observability Standards Catalog -> Section 1.10 Grafana Visualization Layer Standards](01-enterprise-observability-standards-catalog.md#110-grafana-visualization-layer-standards). Summary:
+## 6.4 Key Metrics & Suggested Ranges (Visualization)
+Full thresholds in [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.10 Grafana Visualization Layer Standards](02-enterprise-observability-standards-catalog.md#210-grafana-visualization-layer-standards). Summary:
 
 | Layer | Metric | Healthy | Warning | Critical |
 |---|---|---|---|---|
@@ -48,13 +46,13 @@ Full thresholds in [Chapter 1. Enterprise Observability Standards Catalog -> Sec
 | Business | Payment Success | ≥ 98% | 96–98% sustained | < 96% > 2 min |
 | Business | Checkout Latency (P95) | < 2 s | 2–3 s sustained | > 3 s > 2 min |
 
-## 5.5 Recommended Alerting Policy (Grafana Implementation)
-Severity model is owned by [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md). Grafana implementation specifics:
+## 6.5 Recommended Alerting Policy (Grafana Implementation)
+Severity model is owned by [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). Grafana implementation specifics:
 
 - Alert rules are defined as code (GitOps) and version-controlled.
 - Severity-based routing via contact points & notification policies.
 - Group, dedupe, and silence rules tuned to preserve signal-to-noise ≥ 80%.
-- Each alert references a runbook URL (linking to [Chapter 3. Domain Observability Runbooks Pack](03-domain-observability-runbooks-pack.md) / [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md)).
+- Each alert references a runbook URL (linking to [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) / [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
 
 | Severity | Trigger Definition | Response Expectation |
 |---|---|---|
@@ -62,22 +60,22 @@ Severity model is owned by [Chapter 4. Alerting and Incident Severity Policy](04
 | Warning | Above warning threshold for ≥ 5 min rolling window | Investigate within normal support hours; check dependency or resource limits. |
 | Critical | Above critical threshold for ≥ 2 min or repeated within 10 min | Immediate incident response; probable user or business impact. |
 
-## 5.6 Implementation & Visualization Tips
+## 6.6 Implementation & Visualization Tips
 - **Dashboards structure:** Infra → Application → Business (top-down).
 - **Percentile-based latency.** Always track **P95 and P99**, never rely solely on averages.
 - **Correlate metrics.** High API latency + elevated error rates typically indicates backend/DB issue. High API latency + healthy DB latency typically indicates app-side or runtime contention.
 - **Use panels.** Combine **gauges** (current state) with **time-series** panels (trend).
-- **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md)).
+- **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
 - **Standardise dashboard library.** Per-domain template dashboards (Infra/App/DB/Network/Scaling/AI) cloned per service rather than hand-built.
 
-## 5.7 Calibration
+## 6.7 Calibration
 Industry-standard starting ranges. After a few weeks of live data, calibrate: warning ≈ 95th-percentile normal; critical ≈ user impact / SLA breach.
 
-### 5.7.1 Dashboards-as-Code
+### 6.7.1 Dashboards-as-Code
 
-All Grafana dashboards, alert rules, and notification policies are managed **as code**. No production dashboard is hand-edited in the UI; UI changes are exported and committed via PR. This is enforced by **OBS-C-02** in [Chapter 10. Compliance and Audit Control Matrix -> Section 10.5 Control Matrix (Initial)](10-compliance-and-audit-control-matrix.md#105-control-matrix-initial).
+All Grafana dashboards, alert rules, and notification policies are managed **as code**. No production dashboard is hand-edited in the UI; UI changes are exported and committed via PR. This is enforced by **OBS-C-02** in [Chapter 11. Compliance and Audit Control Matrix -> Section 11.5 Control Matrix (Initial)](11-compliance-and-audit-control-matrix.md#115-control-matrix-initial).
 
-#### 5.7.1.1 Repository Layout
+#### 6.7.1.1 Repository Layout
 
 ```
 observability-grafana/
@@ -110,7 +108,7 @@ observability-grafana/
     └── deploy.yml                      # CI: lint → test → plan → apply
 ```
 
-#### 5.7.1.2 Toolchain
+#### 6.7.1.2 Toolchain
 
 | Tool | Purpose | Notes |
 |---|---|---|
@@ -121,7 +119,7 @@ observability-grafana/
 | **`promtool test rules`** | Unit-test alert rules | Required for every alert rule |
 | **`amtool`** | Test notification routing | Validates `policies/` |
 
-#### 5.7.1.3 PR Workflow
+#### 6.7.1.3 PR Workflow
 
 ```
 PR opened → CI runs:
@@ -135,9 +133,9 @@ PR opened → CI runs:
 → CI deploys to staging Grafana → smoke test → deploys to prod Grafana
 ```
 
-A **break-glass** path exists for severity-Critical incident-response dashboard fixes: a designated SRE may apply a hot-fix via grizzly direct to prod with a follow-up PR within 24 hours. The break-glass action is logged and reviewed at the next CoP ([Chapter 18. Observability Operating Model and Adoption Plan -> Section 18.4.4 Community of Practice](18-observability-operating-model-and-adoption-plan.md#1844-community-of-practice)).
+A **break-glass** path exists for severity-Critical incident-response dashboard fixes: a designated SRE may apply a hot-fix via grizzly direct to prod with a follow-up PR within 24 hours. The break-glass action is logged and reviewed at the next CoP ([Chapter 19. Observability Operating Model and Adoption Plan -> Section 19.4.4 Community of Practice](19-observability-operating-model-and-adoption-plan.md#1944-community-of-practice)).
 
-#### 5.7.1.4 Service Dashboard Template (RED)
+#### 6.7.1.4 Service Dashboard Template (RED)
 
 Every service inherits the same RED dashboard skeleton, parameterised by service name. Pseudocode:
 
@@ -161,9 +159,9 @@ Every service inherits the same RED dashboard skeleton, parameterised by service
 }
 ```
 
-Service teams provide only `serviceName` and `tier`; the dashboard itself is generated. This is the single largest lever for the **dashboard self-service rate** KPI in [Chapter 18. Observability Operating Model and Adoption Plan -> Section 18.7.1 Adoption KPIs](18-observability-operating-model-and-adoption-plan.md#1871-adoption-kpis).
+Service teams provide only `serviceName` and `tier`; the dashboard itself is generated. This is the single largest lever for the **dashboard self-service rate** KPI in [Chapter 19. Observability Operating Model and Adoption Plan -> Section 19.7.1 Adoption KPIs](19-observability-operating-model-and-adoption-plan.md#1971-adoption-kpis).
 
-#### 5.7.1.5 Drift Detection
+#### 6.7.1.5 Drift Detection
 
 A scheduled job exports the live Grafana state and `diff`s it against the repository. Any drift opens an issue automatically. Common causes:
 - Hot-fix without follow-up PR (break-glass).
@@ -172,15 +170,15 @@ A scheduled job exports the live Grafana state and `diff`s it against the reposi
 
 Drift > 7 days is a finding under **OBS-C-02**.
 
-## 5.8 Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
-- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — Grafana's role in the reference architecture.
-- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — enterprise severity policy.
-- [Chapter 6. AIOps Guardrails and Implementation Playbook](06-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.
-- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — IaC standard the Section 7.1 workflow conforms to.
-- [Chapter 10. Compliance and Audit Control Matrix](10-compliance-and-audit-control-matrix.md) — OBS-C-02 audits the dashboards-as-code controls.
-- [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — KPI scorecard rendered through Grafana.
-- [Chapter 24. SLO and Error-Budget Framework](24-slo-and-error-budget-framework.md) — burn-rate panels embedded in Section 7.1.4 service dashboards.
+## 6.8 Cross-References
+- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — Grafana's role in the reference architecture.
+- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
+- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.
+- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — IaC standard the Section 8.1 workflow conforms to.
+- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits the dashboards-as-code controls.
+- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard rendered through Grafana.
+- [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — burn-rate panels embedded in Section 8.1.4 service dashboards.
 
 ---
 

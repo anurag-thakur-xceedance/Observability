@@ -1,25 +1,23 @@
 ---
 title: AIOps Guardrails and Implementation Playbook
-chapter: 6
+chapter: 7
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 6. AIOps Guardrails and Implementation Playbook
+# 7. AIOps Guardrails and Implementation Playbook
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 ---
 
-## 6.1 Strategic Intent & Guardrails
+## 7.1 Strategic Intent & Guardrails
 The Agentic AI layer turns observability from reactive to proactive — automated RCA, anomaly detection, and enriched ticketing against telemetry from Prometheus, Loki, and Tempo.
 
 **Guardrails (non-negotiable):**
@@ -29,16 +27,16 @@ The Agentic AI layer turns observability from reactive to proactive — automate
 - False-positive rate must remain below 5%; precision ≥ 90%; recall ≥ 85%.
 - Detection latency must remain below 2 minutes from anomaly onset.
 
-## 6.2 AI-Driven Observability Metrics
+## 7.2 AI-Driven Observability Metrics
 
 | Category | Metric | Healthy | Warning | Critical | Notes |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | Anomaly Detection | Abnormal Latency Spikes | ±10% baseline | 10–25% deviation > 5 min | > 25% deviation > 2 min | Model forecasts expected P95 latency; > 25% implies probable incident or dependency slowdown. FP rate target < 5%. |
 | Anomaly Detection | Unusual Traffic Patterns | ±15% | 15–30% deviation > 5 min | > 30% > 2 min or confidence > 95% | Early DDoS / load-imbalance detection. Precision ≥ 90%, recall ≥ 85%. |
 | Correlation Analysis | Deployment vs Error Spike | r < 0.3 (weak) | 0.3–0.6 (moderate) | r > 0.6 (strong) | Strong positive r → recent deployments contributing to errors. Feed back into deployment practices. |
 | Correlation Analysis | Scaling vs DB Saturation | r < 0.4 | 0.4–0.7 | r > 0.7 | Strong positive r → scaling events associated with DB saturation. Adjust scaling strategy / DB capacity. |
 
-## 6.3 Interpreting the AI-Driven Metrics
+## 7.3 Interpreting the AI-Driven Metrics
 
 | Element | Interpretation / Goal | Tuning Guidance |
 |---|---|---|
@@ -46,8 +44,8 @@ The Agentic AI layer turns observability from reactive to proactive — automate
 | **Deviation Thresholds** | Percentage change from historical / expected baseline | Compute baselines over rolling windows (24 hours or same-day-of-week). |
 | **Correlation Coefficient (r)** | Quantifies relationship between two event series (−1 to +1) | Use absolute value of r; higher means stronger correlation. Derive thresholds from historical data. |
 
-## 6.4 Severity Policy for AI-Detected Events
-Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4.4 Domain-Specific Triggers (Reference)](04-alerting-and-incident-severity-policy.md#44-domain-specific-triggers-reference). Summary:
+## 7.4 Severity Policy for AI-Detected Events
+Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4 Domain-Specific Triggers (Reference)](05-alerting-and-incident-severity-policy.md#54-domain-specific-triggers-reference). Summary:
 
 | Severity | Trigger | Action |
 |---|---|---|
@@ -55,38 +53,38 @@ Owned by [Chapter 4. Alerting and Incident Severity Policy -> Section 4.4 Domain
 | Warning | Deviation crosses warning AND confidence ≥ 80% | Validate with human triage; check recent deployments / infra changes. |
 | Critical | Critical threshold AND confidence ≥ 90%, OR correlation > 0.6 sustained | Automatic incident creation or rollback trigger. |
 
-## 6.5 Implementation Recommendations
+## 7.5 Implementation Recommendations
 
-### 6.5.1 Data Sources
+### 7.5.1 Data Sources
 - Latency, error, and throughput metrics ingested from OpenTelemetry.
 - External business event streams (deployments, scaling events, feature flags).
 
-### 6.5.2 AI Models
+### 7.5.2 AI Models
 - Moving-average methods.
 - Seasonal-trend decomposition.
 - ML-based outlier detection (e.g. **Prophet**, **Isolation Forest**).
 - Selection criteria: explainability, retraining cost, false-positive control.
 
-### 6.5.3 Visualization
-- Predicted-vs-actual curves overlaid in Grafana (see [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md)).
+### 7.5.3 Visualization
+- Predicted-vs-actual curves overlaid in Grafana (see [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)).
 - Anomaly deviation percentages and model confidence values shown on dashboards.
 
-### 6.5.4 Success Criteria
+### 7.5.4 Success Criteria
 - False-positive rate **< 5%**.
 - Detection latency **< 2 minutes** from anomaly onset.
 - Auto-correlation insights (e.g. deployment → error, scaling → load) routinely validated by operators for retraining.
 - Anomalies precision **≥ 90%**, recall **≥ 85%**.
 
-## 6.6 Feedback Loop & Continuous Improvement
+## 7.6 Feedback Loop & Continuous Improvement
 - Operator validation outcomes feed retraining queues.
-- AI accuracy is tracked month-over-month against operator feedback (see [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) Phase 3 targets).
+- AI accuracy is tracked month-over-month against operator feedback (see [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) Phase 3 targets).
 - Pre-approved auto-remediation actions are reviewed quarterly.
 
-## 6.7 MLOps Lifecycle for AIOps Models
+## 7.7 MLOps Lifecycle for AIOps Models
 
-Every AIOps model — anomaly detector, correlator, classifier, forecaster — follows the lifecycle below. The lifecycle is **mandatory**: no model reaches production without each stage's evidence. Lifecycle controls are audited under **OBS-C-14** in [Chapter 10. Compliance and Audit Control Matrix -> Section 10.5 Control Matrix (Initial)](10-compliance-and-audit-control-matrix.md#105-control-matrix-initial).
+Every AIOps model — anomaly detector, correlator, classifier, forecaster — follows the lifecycle below. The lifecycle is **mandatory**: no model reaches production without each stage's evidence. Lifecycle controls are audited under **OBS-C-14** in [Chapter 11. Compliance and Audit Control Matrix -> Section 11.5 Control Matrix (Initial)](11-compliance-and-audit-control-matrix.md#115-control-matrix-initial).
 
-### 6.7.1 Lifecycle Stages
+### 7.7.1 Lifecycle Stages
 
 | Stage | Purpose | Required Evidence | Owner |
 |---|---|---|---|
@@ -94,15 +92,15 @@ Every AIOps model — anomaly detector, correlator, classifier, forecaster — f
 | **2. Data preparation** | Curate training data from telemetry archive; document features | Feature spec; data card; PII scan result | AIOps Lead + Data Governance |
 | **3. Training** | Train on representative window (≥ 90 days for seasonality) | Training run logs; reproducibility hash; metrics on holdout | AIOps Lead |
 | **4. Evaluation** | Hold-out + cross-validation against precision ≥ 90% / recall ≥ 85% / FP < 5% | Evaluation report; confusion matrix; bias review | AIOps Lead |
-| **5. Model card** | Human-readable summary of intent, training data, evaluation, limits | Published model card (template Section 7.3) | AIOps Lead |
+| **5. Model card** | Human-readable summary of intent, training data, evaluation, limits | Published model card (template Section 8.3) | AIOps Lead |
 | **6. Shadow mode** | Run alongside existing detection without firing alerts | ≥ 14 days of shadow metrics; operator-comparison log | SRE + AIOps Lead |
-| **7. ARB approval** | Governance ratification | ADR entry in [Chapter 16](16-observability-adr-decision-register.md) | ARB |
+| **7. ARB approval** | Governance ratification | ADR entry in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) | ARB |
 | **8. Production deployment** | Promote to live alerting, with kill-switch | Deployment record; kill-switch verified | Platform Ops |
 | **9. Monitoring** | Continuous tracking of precision, recall, FP rate, drift | Monthly model-health report | AIOps Lead |
 | **10. Retraining** | Triggered by drift, feedback, or seasonal change | Retraining run record; before/after comparison | AIOps Lead |
 | **11. Retirement** | Decommission superseded or failed models | Retirement record; data-deletion confirmation | AIOps Lead |
 
-### 6.7.2 Promotion Gates
+### 7.7.2 Promotion Gates
 
 A model **cannot** be promoted between stages without the gate evidence:
 
@@ -112,7 +110,7 @@ A model **cannot** be promoted between stages without the gate evidence:
 - **Stage 7 → 8.** ADR ratified; kill-switch tested in non-prod.
 - **Stage 9 → 10.** Drift detected (precision drop > 10% week-on-week — risk **GOV-R-06**) OR scheduled (no later than 90 days for seasonal models).
 
-### 6.7.3 Model Card Template
+### 7.7.3 Model Card Template
 
 Every model in production has a model card stored alongside its IaC. Minimum sections:
 
@@ -155,11 +153,11 @@ Every model in production has a model card stored alongside its IaC. Minimum sec
 - Reviewers.
 ```
 
-## 6.8 AI Safety, Explainability, and LLM Data Leakage
+## 7.8 AI Safety, Explainability, and LLM Data Leakage
 
 This section covers **AI safety risks specific to observability** — both predictive AIOps models and any **generative AI / LLM** use within the platform (assistants, summarisers, RCA copilots).
 
-### 6.8.1 Safety Principles
+### 7.8.1 Safety Principles
 
 1. **Human-in-the-loop for irreversible action.** No AI-driven automation may take **irreversible** actions (data deletion, prod rollback in T1 services, customer-facing comms) without explicit human confirmation.
 2. **Explainability over precision.** A model with 80% precision and a clear explanation is preferred over a 95%-precision black box for any decision an operator must justify (e.g. severity escalation, page-the-on-call).
@@ -167,7 +165,7 @@ This section covers **AI safety risks specific to observability** — both predi
 4. **Bias review.** Models that influence prioritisation, routing, or resourcing undergo bias review before promotion (Stage 4 evidence).
 5. **Reversibility window.** Auto-remediation actions (Stage 8) must be reversible within a documented window (typically 5 minutes); irreversible actions require human approval.
 
-### 6.8.2 Explainability Requirements
+### 7.8.2 Explainability Requirements
 
 | Decision Class | Explainability Requirement | Acceptable Techniques |
 |---|---|---|
@@ -177,7 +175,7 @@ This section covers **AI safety risks specific to observability** — both predi
 | **Auto-remediation trigger** | Pre-approved runbook reference + decision rationale | Runbook ID; rule that fired; full audit log |
 | **LLM-generated summary or RCA hypothesis** | Cited source telemetry; uncertainty marker | Retrieval-augmented generation (RAG) with citations |
 
-### 6.8.3 LLM-Specific Risks and Controls
+### 7.8.3 LLM-Specific Risks and Controls
 
 LLMs introduced into the observability platform (assistant chatbots, RCA copilots, summary generators) inherit the principles above and add the following controls.
 
@@ -185,26 +183,26 @@ LLMs introduced into the observability platform (assistant chatbots, RCA copilot
 |---|---|---|---|
 | **Prompt injection** | Telemetry content (e.g. log line) crafted to manipulate LLM behaviour | Strict separation of system / user / context channels; treat all telemetry as untrusted; reject system-prompt overrides in retrieved content | AIOps Lead + Security |
 | **Data leakage to model provider** | Sensitive telemetry sent to a hosted LLM is logged/retained by the provider | Use a provider with **zero data retention** contract OR self-hosted model; PII redaction **before** the prompt; allow-list of fields permitted in prompts | Data Governance + AIOps Lead |
-| **Cross-tenant leakage** | LLM context window contains tenant A's data when serving tenant B | Per-tenant isolation of retrieval index; tenant ID enforced in retrieval filter; never share embeddings across tenants ([Chapter 26](26-multi-tenant-and-customer-site-deployment-model.md)) | Platform Ops |
+| **Cross-tenant leakage** | LLM context window contains tenant A's data when serving tenant B | Per-tenant isolation of retrieval index; tenant ID enforced in retrieval filter; never share embeddings across tenants ([27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) | Platform Ops |
 | **Hallucination of incident facts** | LLM invents service names, error counts, or timeline events | RAG only — no free-form generation about facts; every factual claim must cite a telemetry source; uncertainty marker on unsupported claims | AIOps Lead |
 | **Sensitive command execution** | LLM agent triggers actions (queries, runbooks) | Allow-list of commands; rate limits; full audit log; no `DELETE` / `DROP` / destructive runbook in scope | Platform Ops + Security |
 | **Training-data contamination** | Production telemetry inadvertently used to train a public model | Contractual prohibition with provider; outbound data-loss prevention scan on prompt egress | Data Governance |
 | **Model deprecation / version drift** | Provider silently changes model behaviour | Pin model version where supported; weekly regression test on a fixed eval set | AIOps Lead |
 | **Cost runaway** | Per-incident LLM token cost spirals during a major incident | Per-tenant token budget; circuit breaker at 5× normal hourly spend | FinOps |
 
-### 6.8.4 PII and Confidentiality in Prompts
+### 7.8.4 PII and Confidentiality in Prompts
 
-Telemetry sent to **any** LLM (hosted or self-hosted) must pass through the same redaction pipeline that governs telemetry storage ([Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md)). Specifically:
+Telemetry sent to **any** LLM (hosted or self-hosted) must pass through the same redaction pipeline that governs telemetry storage ([24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)). Specifically:
 
 1. **Allow-list, not block-list.** Only fields explicitly approved for LLM context are included in prompts. The default is **exclude**.
 2. **Redaction before prompt assembly.** PII patterns (email, phone, government IDs, account numbers, customer names) are stripped or tokenised at the **prompt-builder** layer, not at the model layer.
 3. **Trace IDs, not user IDs.** Operators interact with trace IDs and service identifiers; no end-user PII is ever in scope.
 4. **Egress monitoring.** All outbound traffic to LLM providers is monitored; payload-size anomalies trigger investigation.
-5. **Audit log of all prompts.** Every prompt and response is logged with the operator's identity, retained per [Chapter 8](08-observability-data-governance-and-retention-policy.md), and subject to the same RBAC as other telemetry.
+5. **Audit log of all prompts.** Every prompt and response is logged with the operator's identity, retained per [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), and subject to the same RBAC as other telemetry.
 
-### 6.8.5 AI Safety KPIs
+### 7.8.5 AI Safety KPIs
 
-Reported on the scorecard in [Chapter 11](11-observability-kpi-scorecard.md) and reviewed monthly by the AIOps Lead with the governance body.
+Reported on the scorecard in [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) and reviewed monthly by the AIOps Lead with the governance body.
 
 | KPI | Target | Source |
 |---|---|---|
@@ -216,11 +214,11 @@ Reported on the scorecard in [Chapter 11](11-observability-kpi-scorecard.md) and
 | LLM hallucination rate (incidents flagged by operator review) | < 2% | Operator feedback |
 | Model precision regression (week-on-week, > 10% drop) | 0 active | Model-health monitor |
 
-## 6.9 Worked Examples — Filled Model Cards and Prompt Registry
+## 7.9 Worked Examples — Filled Model Cards and Prompt Registry
 
 This section operationalises Sections 7 and 8 by providing **fully filled** reference artefacts. New detectors and new LLM-using features are expected to follow the same structure and depth. These references are also published under `reference-implementations/aiops/` for direct reuse.
 
-### 6.9.1 Worked Model Card — `latency-anomaly-detector-v1`
+### 7.9.1 Worked Model Card — `latency-anomaly-detector-v1`
 
 The reference anomaly detector for HTTP request latency. Used as the canonical example for ARB review.
 
@@ -231,7 +229,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
 - Decision the model supports: flag a service's P95 HTTP latency as anomalous so
   on-call can investigate before SLO burn-rate alerts fire.
 - SLI / KPI it influences: contributes to MTTD (Mean Time To Detect) on the
-  scorecard in Chapter 11; pre-empts the SLO burn-rate alert in Chapter 24.
+  scorecard in Chapter 11; pre-empts the SLO burn-rate alert in Chapter 25.
 - Cost of false positive: one on-call notification + ~15 minutes of triage. Acceptable.
 - Cost of false negative: SLO burn-rate alert still fires; we lose the ~5-minute
   head-start but do not miss the incident. Acceptable, bounded.
@@ -247,7 +245,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
   - `hour_of_week` (0-167) — derived; seasonality feature
   - `is_deployment_window` (0/1) — joined from change-calendar within ±30 min
 - Feature provenance: all features derived from OTel-conformant metrics
-  emitted by services via Micrometer / OTel SDK per Chapter 17.
+  emitted by services via Micrometer / OTel SDK per Chapter 18.
 - PII status: zero PII. No user identifiers, no request bodies. Confirmed by
   PII-scan job 2025-10-15 (evidence: audit/2025/q4/nfr-PRV-01/model-card-pii-scan.json).
 - Data exclusions:
@@ -321,7 +319,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
 - Next mandatory review: 2026-03-08 (90 days) or on drift trigger
 ```
 
-### 6.9.2 Worked Model Card — `deployment-error-correlator-v1`
+### 7.9.2 Worked Model Card — `deployment-error-correlator-v1`
 
 Brief filled card for the second canonical detector (deployment / error-spike correlation). Same structure, abbreviated for space.
 
@@ -335,28 +333,28 @@ Brief filled card for the second canonical detector (deployment / error-spike co
 | Monitoring | Operator-feedback recall measured weekly; correlation strength threshold tunable per service tier. |
 | Approvals | ADR-013 (Chapter 16). ARB approval 2025-12-08 with warning-only restriction. Next review 2026-03-08. |
 
-### 6.9.3 LLM Prompt-Sanitisation Standard
+### 7.9.3 LLM Prompt-Sanitisation Standard
 
-This section is the concrete implementation of the LLM controls in Section 8.3 and 8.4. It is the standard that the prompt registry (Section 9.4) must conform to. Audited under **OBS-C-14** in Chapter 10.
+This section is the concrete implementation of the LLM controls in Section 9.3 and 8.4. It is the standard that the prompt registry (Section 10.4) must conform to. Audited under **OBS-C-14** in Chapter 11.
 
-#### 6.9.3.1 Sanitisation Pipeline (Mandatory)
+#### 7.9.3.1 Sanitisation Pipeline (Mandatory)
 
 Every LLM prompt assembled by the platform passes through the following pipeline. The pipeline is implemented as a single library (`obs-llm-sanitiser`) and is the **only** sanctioned path from telemetry to prompt.
 
 ```
 Telemetry source
-  -> Field allow-list filter        (Section 9.3.2)
-  -> PII regex redactor             (Section 9.3.3, patterns from Chapter 23 Section 4)
-  -> Tenant-scope enforcer          (Section 9.3.4)
-  -> Token-budget guard             (Section 9.3.5)
-  -> System-prompt injector         (Section 9.3.6)
-  -> Audit logger                   (Section 9.3.7)
+  -> Field allow-list filter        (Section 10.3.2)
+  -> PII regex redactor             (Section 10.3.3, patterns from Chapter 23 Section 5)
+  -> Tenant-scope enforcer          (Section 10.3.4)
+  -> Token-budget guard             (Section 10.3.5)
+  -> System-prompt injector         (Section 10.3.6)
+  -> Audit logger                   (Section 10.3.7)
   -> LLM provider call
 ```
 
 The pipeline is **fail-closed**: any pipeline stage failure aborts the LLM call and surfaces an operator-visible error.
 
-#### 6.9.3.2 Field Allow-List
+#### 7.9.3.2 Field Allow-List
 
 Default policy is **exclude**; only fields on the allow-list may enter a prompt. The allow-list is per prompt template and version-controlled in `reference-implementations/aiops/prompts/`.
 
@@ -388,16 +386,16 @@ Universal **deny-list** (never allowed, even if appears in allow-listed field):
 |---|---|
 | `http.request.body`, `http.response.body` | May contain user data |
 | `http.url.query` | Often contains identifiers |
-| Any field matching the PII patterns in Section 9.3.3 | Defence in depth |
+| Any field matching the PII patterns in Section 10.3.3 | Defence in depth |
 | `user.id`, `user.email`, `user.name` | Customer PII |
 | `customer.id`, `account.id`, `policy.number` | Customer PII |
 | `db.statement` (raw SQL) | May contain identifiers / values |
 | Any header containing `authorization`, `cookie`, `x-api-key` | Credentials |
 | `aws.*.access_key`, `azure.*.client_secret`, `gcp.*.private_key` | Credentials |
 
-#### 6.9.3.3 PII Regex Redactor
+#### 7.9.3.3 PII Regex Redactor
 
-Patterns are sourced from Chapter 23 Section 4 (single source of truth). The redactor matches against the **entire string value** of every field that survives the allow-list, after JSON serialisation. Matches are replaced with a token of the form `<REDACTED:CATEGORY>` so the LLM can still reason about the structure.
+Patterns are sourced from Chapter 23 Section 5 (single source of truth). The redactor matches against the **entire string value** of every field that survives the allow-list, after JSON serialisation. Matches are replaced with a token of the form `<REDACTED:CATEGORY>` so the LLM can still reason about the structure.
 
 | Category | Regex (illustrative; canonical in `obs-llm-sanitiser`) | Replacement |
 |---|---|---|
@@ -416,7 +414,7 @@ Patterns are sourced from Chapter 23 Section 4 (single source of truth). The red
 
 Redactor **emits a metric** per category per template: `llm_prompt_redactions_total{category, template, tenant}`. NFR-PRV-01 verification consumes this metric.
 
-#### 6.9.3.4 Tenant-Scope Enforcer
+#### 7.9.3.4 Tenant-Scope Enforcer
 
 Every prompt assembly requires a `tenant_id` argument. The enforcer:
 
@@ -425,7 +423,7 @@ Every prompt assembly requires a `tenant_id` argument. The enforcer:
 - Logs the `tenant_id` to the audit record.
 - Cross-tenant calls (one tenant's data informing another's prompt) are **forbidden**; any attempt aborts and pages Security.
 
-#### 6.9.3.5 Token-Budget Guard
+#### 7.9.3.5 Token-Budget Guard
 
 | Parameter | Value | Rationale |
 |---|---|---|
@@ -435,7 +433,7 @@ Every prompt assembly requires a `tenant_id` argument. The enforcer:
 | Per-incident token budget | 50,000 | Bounds cost during major incidents |
 | Circuit-breaker threshold | 5× rolling-7-day average per hour | Page FinOps; auto-throttle non-prod calls |
 
-#### 6.9.3.6 System-Prompt Injector
+#### 7.9.3.6 System-Prompt Injector
 
 The system prompt is **not** user-influenceable. It is injected by the sanitiser from a version-controlled template. Telemetry content arrives in a **separate context channel** with a fixed prefix (`<<TELEMETRY_BEGIN>> ... <<TELEMETRY_END>>`) that the system prompt instructs the model to treat as untrusted data, never as instructions.
 
@@ -447,7 +445,7 @@ The system-prompt template includes:
 4. Uncertainty marker requirement ("If unsure, say so.").
 5. Refusal directives for known prompt-injection patterns.
 
-#### 6.9.3.7 Audit Logger
+#### 7.9.3.7 Audit Logger
 
 Every prompt + response pair is logged with:
 
@@ -466,13 +464,13 @@ Every prompt + response pair is logged with:
 | `full_prompt` | text | 90 days (rolling) |
 | `full_response` | text | 90 days (rolling) |
 
-Storage is the audit bucket per [Chapter 27. Observability Non-Functional Requirements Register -> Section 27.4.19 Verification Evidence Storage](27-observability-non-functional-requirements.md#27419-verification-evidence-storage). Full-text retention is 90 days for incident investigation; the hashes are retained for 7 years for non-repudiation. Restoring full text from archive follows the rehydration procedure in [Chapter 28. Observability Long-Term Archival Policy -> Section 28.6.2 Restore From Archive](28-observability-long-term-archival-policy.md#2862-restore-from-archive).
+Storage is the audit bucket per [Chapter 28. Observability Non-Functional Requirements Register -> Section 28.4.19 Verification Evidence Storage](28-observability-non-functional-requirements.md#28419-verification-evidence-storage). Full-text retention is 90 days for incident investigation; the hashes are retained for 7 years for non-repudiation. Restoring full text from archive follows the rehydration procedure in [Chapter 29. Observability Long-Term Archival Policy -> Section 29.6.2 Restore From Archive](29-observability-long-term-archival-policy.md#2962-restore-from-archive).
 
-### 6.9.4 Prompt Template Registry (Worked Entries)
+### 7.9.4 Prompt Template Registry (Worked Entries)
 
 The registry is the authoritative list of LLM prompt templates sanctioned for production use. Each entry is a YAML document under `reference-implementations/aiops/prompts/`. Three worked entries follow.
 
-#### 6.9.4.1 Template — `incident-summary-v1`
+#### 7.9.4.1 Template — `incident-summary-v1`
 
 ```yaml
 id: incident-summary-v1
@@ -533,7 +531,7 @@ review:
   reviewers: [AIOps Lead, SRE Lead, Security Architect]
 ```
 
-#### 6.9.4.2 Template — `rca-hypothesis-v1`
+#### 7.9.4.2 Template — `rca-hypothesis-v1`
 
 ```yaml
 id: rca-hypothesis-v1
@@ -602,7 +600,7 @@ shadow:
   min_shadow_days_before_promotion: 30
 ```
 
-#### 6.9.4.3 Template — `runbook-finder-v1`
+#### 7.9.4.3 Template — `runbook-finder-v1`
 
 ```yaml
 id: runbook-finder-v1
@@ -661,7 +659,7 @@ review:
   reviewers: [AIOps Lead, SRE Lead]
 ```
 
-### 6.9.5 Reference System Prompt — `incident-summary-v1.system.md`
+### 7.9.5 Reference System Prompt — `incident-summary-v1.system.md`
 
 The system prompt is content-hashed and version-pinned. The text below is the exact file referenced by `incident-summary-v1.system_prompt_file`.
 
@@ -697,9 +695,9 @@ If the telemetry is insufficient to write a meaningful summary, output the
 exact string: INSUFFICIENT_DATA — and nothing else.
 ```
 
-### 6.9.6 Operational Controls — KPI Targets
+### 7.9.6 Operational Controls — KPI Targets
 
-The following KPIs apply to the LLM stack and are reported on the scorecard in Chapter 11.
+The following KPIs apply to the LLM stack and are reported on the scorecard in Chapter 12.
 
 | KPI | Target | Source |
 |---|---|---|
@@ -712,19 +710,19 @@ The following KPIs apply to the LLM stack and are reported on the scorecard in C
 | Mean LLM call latency (P95) | ≤ 5 s | Provider telemetry |
 | LLM provider availability (rolling 30 days) | ≥ 99.5% | Provider telemetry |
 
-These KPIs are also referenced by NFR-PRV-01 (PII redaction verification), NFR-SEC-03 (cross-tenant boundary enforcement), and the AI safety KPIs in Section 8.5.
+These KPIs are also referenced by NFR-PRV-01 (PII redaction verification), NFR-SEC-03 (cross-tenant boundary enforcement), and the AI safety KPIs in Section 9.5.
 
-## 6.10 Cross-References
-- [Chapter 1. Enterprise Observability Standards Catalog](01-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
-- [Chapter 4. Alerting and Incident Severity Policy](04-alerting-and-incident-severity-policy.md) — enterprise severity policy.
-- [Chapter 5. Grafana Platform Standard and Visualization Playbook](05-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of AI overlays.
-- [Chapter 8. Observability Data Governance and Retention Policy](08-observability-data-governance-and-retention-policy.md) — retention rules for prompt audit logs.
-- [Chapter 10. Compliance and Audit Control Matrix -> Section 10.5 Control Matrix (Initial)](10-compliance-and-audit-control-matrix.md#105-control-matrix-initial) — OBS-C-14 audits the lifecycle in Section 7.
-- [Chapter 11. Observability KPI Scorecard](11-observability-kpi-scorecard.md) — Phase 3 KPI targets (MTTD < 1 min, automated tickets > 90%); AI safety KPIs from Section 8.5.
-- [Chapter 12. Incident Response Playbook](12-incident-response-playbook.md) — incident playbook integration with AI-generated tickets.
-- [Chapter 16. Observability ADR Decision Register](16-observability-adr-decision-register.md) — ADR-016 governs LLM use; lifecycle gate Stage 7.
-- [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — redaction pipeline applied to LLM prompts.
-- [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — tenant isolation for LLM retrieval.
+## 7.10 Cross-References
+- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
+- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
+- [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of AI overlays.
+- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention rules for prompt audit logs.
+- [Chapter 11. Compliance and Audit Control Matrix -> Section 11.5 Control Matrix (Initial)](11-compliance-and-audit-control-matrix.md#115-control-matrix-initial) — OBS-C-14 audits the lifecycle in Section 8.
+- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — Phase 3 KPI targets (MTTD < 1 min, automated tickets > 90%); AI safety KPIs from Section 9.5.
+- [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident playbook integration with AI-generated tickets.
+- [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADR-016 governs LLM use; lifecycle gate Stage 7.
+- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — redaction pipeline applied to LLM prompts.
+- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant isolation for LLM retrieval.
 
 ---
 

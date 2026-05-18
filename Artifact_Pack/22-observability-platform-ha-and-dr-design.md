@@ -1,33 +1,31 @@
 ---
 title: Observability Platform HA and DR Design
-chapter: 21
+chapter: 22
 version: 0.1
 owner: TBD
 classification: Internal
-last_reviewed: 2026-Q2
-next_review: 2026-Q3
+reviewed_date:
 status: Draft
 ---
 
-# 21. Observability Platform HA and DR Design
+# 22. Observability Platform HA and DR Design
 
 [↑ Back to TOC](toc.md)
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
+| Version | Owner | Classification | Reviewed Date | Status |
+|---|---|---|---|---|
+| 0.1 | TBD | Internal |  | Draft |
 > **Closes Gaps:** B2.
 
 ---
 
-## 21.1 HA / DR Posture
+## 22.1 HA / DR Posture
 The platform itself is **Tier 1**. Recovery objectives:
 - **RTO:** ≤ 30 minutes (faster than business Tier 1 RTO of 60 min, so platform is back before business systems need it).
 - **RPO:** ≤ 5 minutes for metrics/traces/logs in flight; ≤ 1 hour for dashboards/alert-rule state (recoverable from Git).
 - **Self-monitoring:** A meta-monitor (lightweight Prometheus + Alertmanager) monitors the primary observability platform.
 
-## 21.2 Component HA Matrix
+## 22.2 Component HA Matrix
 
 | Component | Single-Host Compose Limit | HA Pattern | Scale-Out Target | When to Migrate |
 |---|---|---|---|---|
@@ -40,7 +38,7 @@ The platform itself is **Tier 1**. Recovery objectives:
 | Alertmanager | Single instance ≠ HA | **Cluster mode:** 3 Alertmanager peers gossiping; deduplicates alerts | Already HA in cluster mode | Day 1 |
 | Pyroscope (profiles) | Single instance acceptable initially | Two instances with shared object storage | Pyroscope distributed | When profile ingest > 1GB/day |
 
-## 21.3 Reference HA Topology (Compose, Single Region)
+## 22.3 Reference HA Topology (Compose, Single Region)
 ```
                            ┌─────────────────────┐
                            │   L4/L7 Load Bal.   │  ← HAProxy / nginx / Azure LB
@@ -71,7 +69,7 @@ The platform itself is **Tier 1**. Recovery objectives:
                   └────────────────────┘
 ```
 
-## 21.4 Persistence and Backup
+## 22.4 Persistence and Backup
 | Asset | Source of Truth | Backup Mechanism | Restore Time | Test Cadence |
 |---|---|---|---|---|
 | Dashboards | Git repo (`grafana/dashboards/`) | Git + provisioning | < 5 min via re-provision | Quarterly |
@@ -83,43 +81,43 @@ The platform itself is **Tier 1**. Recovery objectives:
 | Grafana DB (Postgres) | Postgres | Logical backup (`pg_dump`) every 6h + WAL archive | ≤ 15 min | Monthly |
 | OTel Collector queue | Local disk (`file_storage` extension) | Implicit; survives restart; lost on host loss | N/A | N/A |
 
-## 21.5 DR Patterns
+## 22.5 DR Patterns
 
-### 21.5.1 Pattern A — Hot/Warm Cross-Region (recommended for Tier 1)
-- Primary region: full Compose stack as in Section 3.
+### 22.5.1 Pattern A — Hot/Warm Cross-Region (recommended for Tier 1)
+- Primary region: full Compose stack as in Section 4.
 - DR region: lightweight Compose stack (single host of each component) with object storage replicated cross-region.
 - Prometheus remote-write to a regional Mimir / VictoriaMetrics with cross-region replication.
 - DR Grafana provisioned identically; DNS / LB cutover for failover.
 - **RTO ≤ 30 min, RPO ≤ 5 min.**
 
-### 21.5.2 Pattern B — Cold-Backup
+### 22.5.2 Pattern B — Cold-Backup
 - Object-storage replication cross-region (Azure GRS / S3 cross-region replication).
-- DR site provisioned on demand from PowerShell IaC scripts in [Chapter 7](07-iac-for-observability-standard.md).
+- DR site provisioned on demand from PowerShell IaC scripts in [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md).
 - **RTO ≤ 4 h, RPO ≤ 1 h.** Acceptable for non-customer-facing observability tiers only.
 
-### 21.5.3 Pattern C — Customer-Site Local DR
-- Each customer site runs its own Compose stack (see [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md)).
-- DR is local snapshot + remote-write to central Xceedance aggregation (after PII redaction per [Chapter 23](23-observability-platform-security-architecture.md)).
+### 22.5.3 Pattern C — Customer-Site Local DR
+- Each customer site runs its own Compose stack (see [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).
+- DR is local snapshot + remote-write to central Xceedance aggregation (after PII redaction per [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)).
 
-## 21.6 Failure Modes and Mitigations
+## 22.6 Failure Modes and Mitigations
 | Failure | Detection | Mitigation | Owner |
 |---|---|---|---|
 | Single host loss | LB health check; meta-monitor alert | Other Compose host serves traffic; restore failed host from IaC | Platform Engineering |
 | Prometheus crash / OOM | Meta-monitor `up` check on Prometheus; Alertmanager-1 fires | Pair instance continues; restart via Compose `restart: always` | Platform Engineering |
 | Object-storage outage | Loki/Tempo write errors; meta-monitor | Local buffer in OTel Collector + Prometheus remote-write retry; degrade to short-term query only | Platform Engineering |
-| Alert storm (>100 alerts/min) | Alertmanager rate; meta-monitor | Inhibition rules; severity downgrade; emergency silence policy in [Chapter 4](04-alerting-and-incident-severity-policy.md) | On-call |
+| Alert storm (>100 alerts/min) | Alertmanager rate; meta-monitor | Inhibition rules; severity downgrade; emergency silence policy in [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) | On-call |
 | Cardinality explosion | Series-count rule on Prometheus; meta-monitor | Auto-drop labels via `metric_relabel_configs`; emergency block list | Platform Engineering |
 | Grafana DB corruption | Liveness probe failure | Restore from Postgres backup; provision dashboards from Git | Platform Engineering |
 | Region outage | Health-check failure across all primary endpoints | DNS / LB cutover to DR region (Pattern A) | Platform Engineering + Network |
 | OTel Collector queue full | Collector self-metric `otelcol_processor_dropped_spans` | Spill to disk via `file_storage`; backpressure to clients; scale gateway | Platform Engineering |
 
-## 21.7 Self-Monitoring (Meta-Monitor)
+## 22.7 Self-Monitoring (Meta-Monitor)
 A separate, deliberately small Prometheus + Alertmanager pair runs on a different host class (or a different cloud account / region) and:
 - Scrapes the primary stack's `/metrics` endpoints.
 - Fires on `up == 0`, scrape failures, ingest-rate drops > 30%, queue saturation, cardinality growth.
 - Pages observability on-call directly (bypassing the primary Alertmanager that is being monitored).
 
-## 21.8 DR Drill Cadence
+## 22.8 DR Drill Cadence
 | Drill | Frequency | Success Criteria |
 |---|---|---|
 | Dashboard re-provision | Quarterly | All dashboards restored from Git ≤ 5 min |
@@ -130,12 +128,12 @@ A separate, deliberately small Prometheus + Alertmanager pair runs on a differen
 | Region failover (Pattern A) | Semi-annually | RTO ≤ 30 min, RPO ≤ 5 min, no data loss in critical signals |
 | Cold-backup spin-up (Pattern B) | Annually | Stack reachable ≤ 4 h |
 
-## 21.9 Cross-References
-- [Chapter 2. Observability Reference Architecture](02-observability-reference-architecture.md) — base architecture.
-- [Chapter 7. IaC for Observability Standard](07-iac-for-observability-standard.md) — PowerShell + Compose provisioning.
-- [Chapter 22. Capacity and Scale Model](22-capacity-and-scale-model.md) — when to migrate from Compose to distributed.
-- [Chapter 23. Observability Platform Security Architecture](23-observability-platform-security-architecture.md) — auth & encryption between HA peers.
-- [Chapter 26. Multi-Tenant and Customer-Site Deployment Model](26-multi-tenant-and-customer-site-deployment-model.md) — customer-site DR patterns.
+## 22.9 Cross-References
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — base architecture.
+- [8. IaC for Observability Standard (Docker Compose + PowerShell)](08-iac-for-observability-standard.md) — PowerShell + Compose provisioning.
+- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — when to migrate from Compose to distributed.
+- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth & encryption between HA peers.
+- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — customer-site DR patterns.
 
 ---
 
