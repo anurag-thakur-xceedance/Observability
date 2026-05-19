@@ -15,22 +15,9 @@ Baseline compared against:
 
 ## Summary
 
-The deck is broadly aligned on OpenTelemetry, LGTM correlation, SLOs, and structured telemetry. Containerized deployment and AKS-oriented implementation are acceptable, but some implementation details still drift from the pack baseline. The main risks are tooling drift, schema drift, and retention drift.
+The deck is broadly aligned on OpenTelemetry, LGTM correlation, SLOs, and structured telemetry. The earlier deployment-model mismatch has been resolved. The main remaining risks are customer-site topology drift, schema drift, and retention drift.
 
 ## Findings
-
-### Medium: Deployment model tooling
-Deck position:
-Slides 4, 5, 10, and 15 describe `DaemonSet`, `Deployment`, `AKS namespace`, `OTel Operator`, `Helm`, `HPA 2-6`, and `PDB` (`ian_deck_extract.txt:74-84`, `119-142`, `283-320`, `522-537`).
-
-Pack baseline:
-The pack now permits containerized deployment with environment-specific automation and orchestration. The standard stays generic rather than requiring one runtime. Dashboard delivery remains Git-managed rather than operator-specific (`Artifact_Pack/03-observability-reference-architecture.md:24-27`, `94`, `174-187`; `Artifact_Pack/08-iac-for-observability-standard.md:20-35`; `Artifact_Pack/06-grafana-platform-standard-and-visualization-playbook.md:74-171`).
-
-Deviation / risk:
-AKS-style containerized deployment is acceptable. The main concern is over-specifying platform tooling such as `Helm` and operator-driven assumptions as if they were normative across all environments.
-
-Recommended correction:
-Keep the AKS/containerized framing, but make `Helm` and similar platform tooling clearly environment-specific rather than pack-mandated.
 
 ### High: Customer-site and tenancy model
 Deck position:
@@ -138,6 +125,5 @@ These parts are directionally aligned with the pack and can be retained after wo
 1. Decide whether this deck is meant to be:
    - an IAN-specific implementation example, or
    - a pack-aligned standard deck.
-2. If it is an example, add a scope note on slide 1 stating it is an AKS-oriented IAN implementation.
-3. If it is meant to be standard, rewrite slides 5, 10, 11, 14, and 15 to align with Chapters 3, 6, 8, 25, 26, 27, and 29, keeping the deployment language generic where possible.
-4. Normalize the schema terms first: `tenant_id`, health endpoint contract, retention windows, and SLO windows.
+2. If it is meant to be standard, update slides 10, 11, 14, and 15 to align with Chapters 6, 25, 26, 27, and 29.
+3. Normalize the schema terms first: `tenant_id`, health endpoint contract, retention windows, and SLO windows.

@@ -121,8 +121,8 @@ The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is
 | Network Monitoring | Host-level network metrics via Node Exporter; network probes / synthetic checks via Blackbox Exporter | Network reachability, latency, packet loss |
 | DB Observability | Postgres / MySQL exporter | DB query/latency/connection/error metrics |
 | Alerting | Grafana Alerting / Alertmanager | Alert rules, routing, notifications |
-| Deployment Unit | Docker Compose | Declarative stack definition |
-| Automation / IaC | PowerShell | Provisioning, lifecycle, validation, telemetry export |
+| Deployment Unit | Containerized deployment definition | Declarative stack definition aligned to the target runtime or orchestrator |
+| Automation / IaC | Environment-specific automation and IaC | Provisioning, lifecycle, validation, and deployment telemetry export |
 | Profiling | Pyroscope | Continuous CPU / memory / heap profiles (5th pillar) |
 | Synthetic Monitoring | Blackbox Exporter / k6 | Black-box probes for HTTP, TCP, DNS, ICMP, TLS |
 | Real User Monitoring (RUM) | OpenTelemetry Browser SDK | Front-end Core Web Vitals + user-journey spans |

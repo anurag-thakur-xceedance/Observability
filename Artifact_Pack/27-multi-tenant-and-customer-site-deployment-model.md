@@ -31,7 +31,7 @@ status: Draft
    │  └─────────────┬──────────────────────┘  │
    │                │ OTLP                    │
    │  ┌─────────────▼──────────────────────┐  │
-   │  │ Compose Stack (per [Chapter 2])    │  │
+   │  │ Observability Stack (per [Chapter 3]) │  │
    │  │ - OTel Collector edge + gateway    │  │
    │  │ - Prometheus, Loki, Tempo          │  │
    │  │ - Grafana                          │  │
@@ -59,7 +59,7 @@ status: Draft
    │       └──────┬─────────────┘             │
    │              │ OTLP + tenant token        │
    │  ┌───────────▼────────────────────────┐  │
-   │  │ Compose Stack — multi-tenant       │  │
+   │  │ Observability Stack — multi-tenant │  │
    │  │ - Gateway: tag X-Scope-OrgID       │  │
    │  │ - Loki / Mimir / Tempo: tenant-aware│ │
    │  │ - Grafana: per-tenant org/folder   │  │
