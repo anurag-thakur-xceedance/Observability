@@ -1,4 +1,17 @@
+---
+title: Architecture Review Board (ARB) Charter
+chapter: 0
+version: 0.1
+owner: TBD
+classification: Internal
+reviewed_date:
+next_review: 2026-Q3
+status: Draft
+---
+
 # Architecture Review Board (ARB) Charter
+
+**Operating Model: Federated Delivery — ARB as the Only Board**
 
 | Version | Owner | Classification | Last Reviewed | Next Review | Status |
 |---|---|---|---|---|---|
@@ -6,8 +19,7 @@
 
 > **Review assigned to:** Simon Armstrong
 > **Target publication:** SharePoint / Confluence (migration pending)
-> **Reference input:** EA CoE Terms of Reference (TOR)
-> **Pending input:** CoE deck slide 7 (to be incorporated when provided)
+> **Reference inputs:** EA CoE Terms of Reference (TOR); CoE deck slide 7 (ArchitectureCoE_V_2.0)
 
 ---
 

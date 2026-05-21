@@ -1,4 +1,15 @@
-# 2. Scope — What Goes to ARB
+---
+title: Scope — What Goes to ARB
+chapter: 2
+version: 0.1
+owner: TBD
+classification: Internal
+reviewed_date:
+next_review: 2026-Q3
+status: Draft
+---
+
+# Chapter 2. Scope — What Goes to ARB
 
 | Version | Owner | Classification | Last Reviewed | Next Review | Status |
 |---|---|---|---|---|---|
@@ -6,15 +17,17 @@
 
 ---
 
-## 1. Overview
+## 2.1 Overview
 
-The ARB reviews decisions that are **material** and **cross-domain**. The test is not technical complexity per se, but whether the decision has consequences beyond the team or domain that originated it. The categories below are definitive triggers; teams should also apply the materiality thresholds in [Chapter 4, Section 2 — Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md#2-materiality-thresholds) when a decision does not clearly fall into a named category.
+The ARB reviews decisions that are **material** and **cross-domain**. The test is not technical complexity per se, but whether the decision has consequences beyond the team or domain that originated it. The categories below are definitive triggers; teams should also apply the materiality thresholds in [Chapter 4, Section 4.2 — Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md#42-materiality-thresholds) when a decision does not clearly fall into a named category.
 
 ---
 
-## 2. Trigger Categories
+## 2.2 Trigger Categories
 
-### 2.1 Material Cross-Domain Architecture Decisions
+The five categories below map directly to the ARB scope defined in the CoE operating model (CoE deck, slide 7).
+
+### 2.2.1 Material Cross-Domain Architecture Decisions
 
 Any decision that establishes or alters how two or more domains interact at a structural level, including:
 
@@ -23,7 +36,7 @@ Any decision that establishes or alters how two or more domains interact at a st
 - Introduction or deprecation of shared infrastructure components (message buses, API gateways, identity providers, observability platforms).
 - Decisions that set a precedent likely to be adopted across multiple domains even if originating in one.
 
-### 2.2 New Platform or Technology Adoption
+### 2.2.2 New Platform or Technology Adoption
 
 Any proposal to introduce a net-new platform, runtime, database engine, messaging technology, or major framework that is not already on the approved technology radar, including:
 
@@ -32,7 +45,7 @@ Any proposal to introduce a net-new platform, runtime, database engine, messagin
 - Commercial software or SaaS products that will become part of the platform topology.
 - AI/ML platforms, LLM services, or agentic tooling with data residency or security implications.
 
-### 2.3 Interoperability and Integration Changes
+### 2.2.3 Interoperability and Integration Changes
 
 Structural changes to how the organisation's systems connect to one another or to external parties, including:
 
@@ -41,7 +54,7 @@ Structural changes to how the organisation's systems connect to one another or t
 - Introduction of new integration middleware or ETL/ELT pipelines with cross-domain reach.
 - External partner or third-party connectivity that introduces new network boundaries or data-sharing obligations.
 
-### 2.4 Resilience, DR, and SLA Impact
+### 2.2.4 Resilience, Disaster Recovery, and SLA Impact
 
 Decisions that materially alter the organisation's resilience posture or service-level commitments, including:
 
@@ -50,7 +63,7 @@ Decisions that materially alter the organisation's resilience posture or service
 - Modifications to disaster recovery topology (active-active, active-passive, pilot light, cold standby).
 - Changes to observability, alerting, or incident response architecture that affect SLA visibility across domains.
 
-### 2.5 Third-Party Technology Onboarding
+### 2.2.5 Third-Party Technology Onboarding
 
 Onboarding of any third-party vendor technology into the production environment where the technology:
 
@@ -61,7 +74,7 @@ Onboarding of any third-party vendor technology into the production environment 
 
 ---
 
-## 3. Boundary Cases
+## 2.3 Boundary Cases
 
 Where it is unclear whether a decision falls within ARB scope, the team should raise it with the EA CoE for a scope determination. The CoE will respond within **5 business days** with either a confirmation that the decision is in scope (and initiate the intake process) or a written statement that the decision may proceed at team level, which should be retained as a record.
 

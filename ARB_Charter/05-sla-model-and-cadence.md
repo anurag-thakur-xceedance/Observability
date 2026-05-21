@@ -1,4 +1,15 @@
-# 5. SLA Model and Cadence
+---
+title: SLA Model and Cadence
+chapter: 5
+version: 0.1
+owner: TBD
+classification: Internal
+reviewed_date:
+next_review: 2026-Q3
+status: Draft
+---
+
+# Chapter 5. SLA Model and Cadence
 
 | Version | Owner | Classification | Last Reviewed | Next Review | Status |
 |---|---|---|---|---|---|
@@ -6,7 +17,7 @@
 
 ---
 
-## 1. Standard Cadence
+## 5.1 Standard Cadence
 
 The ARB meets on a **fortnightly (every two weeks)** basis. The standard cadence is:
 
@@ -20,7 +31,7 @@ The ARB meets on a **fortnightly (every two weeks)** basis. The standard cadence
 
 ---
 
-## 2. Standard Track SLAs
+## 5.2 Standard Track SLAs
 
 From the point of intake confirmation:
 
@@ -35,9 +46,9 @@ If the submission arrives too late to make the next session, it is scheduled for
 
 ---
 
-## 3. Urgent Track SLA
+## 5.3 Urgent Track SLA
 
-The 48-hour urgent track is available for decisions that cannot wait for the standard cadence (see [Chapter 4, Section 4 — Fast-Track Intake for Urgent Matters](04-intake-criteria-and-materiality-thresholds.md#4-fast-track-intake-for-urgent-matters)).
+The 48-hour urgent track is available for decisions that cannot wait for the standard cadence (see [Chapter 4, Section 4.4 — Fast-Track Intake for Urgent Matters](04-intake-criteria-and-materiality-thresholds.md#44-fast-track-intake-for-urgent-matters)).
 
 | Milestone | SLA |
 |---|---|
@@ -51,13 +62,13 @@ The 48-hour clock runs from receipt of a complete intake form. Incomplete submis
 
 ---
 
-## 4. Non-Material Exception Recording
+## 5.4 Non-Material Exception Recording
 
-Decisions recorded by exception (see [Chapter 4, Section 3 — Non-Material Decisions](04-intake-criteria-and-materiality-thresholds.md#3-non-material-decisions--recording-by-exception)) are acknowledged by the EA CoE within **3 business days**. No formal ARB session is required.
+Decisions recorded by exception (see [Chapter 4, Section 4.3 — Non-Material Decisions](04-intake-criteria-and-materiality-thresholds.md#43-non-material-decisions-recording-by-exception)) are acknowledged by the EA CoE within **3 business days**. No formal ARB session is required.
 
 ---
 
-## 5. SLA Reporting
+## 5.5 SLA Reporting
 
 The EA CoE publishes a quarterly SLA compliance report to the ARB Chair and senior leadership, covering:
 

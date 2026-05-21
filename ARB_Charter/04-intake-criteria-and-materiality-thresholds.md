@@ -1,4 +1,15 @@
-# 4. Intake Criteria and Materiality Thresholds
+---
+title: Intake Criteria and Materiality Thresholds
+chapter: 4
+version: 0.1
+owner: TBD
+classification: Internal
+reviewed_date:
+next_review: 2026-Q3
+status: Draft
+---
+
+# Chapter 4. Intake Criteria and Materiality Thresholds
 
 | Version | Owner | Classification | Last Reviewed | Next Review | Status |
 |---|---|---|---|---|---|
@@ -6,7 +17,7 @@
 
 ---
 
-## 1. How to Raise a Decision for ARB Review
+## 4.1 How to Raise a Decision for ARB Review
 
 Any team, architect, or senior engineer may submit a decision for ARB review. The intake process is:
 
@@ -17,7 +28,7 @@ Any team, architect, or senior engineer may submit a decision for ARB review. Th
 
 ---
 
-## 2. Materiality Thresholds
+## 4.2 Materiality Thresholds
 
 A decision is **material** — and therefore within ARB scope — if it meets one or more of the following thresholds. These are minimum triggers; the ARB may determine that a decision below these thresholds warrants review based on strategic context.
 
@@ -36,13 +47,13 @@ A decision is **material** — and therefore within ARB scope — if it meets on
 
 ---
 
-## 3. Non-Material Decisions — Recording by Exception
+## 4.3 Non-Material Decisions — Recording by Exception
 
 Decisions that fall below materiality thresholds but sit close to the boundary should be **recorded by exception**. The team lead or domain architect emails the EA CoE with a brief summary; the CoE logs the decision in the non-material register and responds to confirm no ARB review is required. This record protects teams if the decision is later questioned.
 
 ---
 
-## 4. Fast-Track Intake for Urgent Matters
+## 4.4 Fast-Track Intake for Urgent Matters
 
 Where a decision cannot wait for the fortnightly cadence, teams may invoke the **48-hour urgent track**:
 

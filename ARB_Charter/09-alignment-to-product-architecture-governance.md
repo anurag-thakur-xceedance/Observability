@@ -1,4 +1,15 @@
-# 9. Alignment to Product Architecture Governance
+---
+title: Alignment to Product Architecture Governance
+chapter: 9
+version: 0.1
+owner: TBD
+classification: Internal
+reviewed_date:
+next_review: 2026-Q3
+status: Draft
+---
+
+# Chapter 9. Alignment to Product Architecture Governance
 
 | Version | Owner | Classification | Last Reviewed | Next Review | Status |
 |---|---|---|---|---|---|
@@ -6,7 +17,7 @@
 
 ---
 
-## 1. Context
+## 9.1 Context
 
 Praveen is drafting an initial **Product Architecture Review Board (PARB)** charter to govern product-level architecture decisions within the Product Engineering domain. This chapter defines how the PARB and the enterprise ARB relate to each other, where their scopes differ, and how decisions flow between them.
 
@@ -14,7 +25,7 @@ This alignment is drawn from the EA CoE Terms of Reference and the CoE governanc
 
 ---
 
-## 2. The Two-Level Model
+## 9.2 The Two-Level Model
 
 The organisation operates a two-level architecture governance model:
 
@@ -27,18 +38,18 @@ The two levels are complementary, not competitive. The PARB provides fast, domai
 
 ---
 
-## 3. Where the Scopes Align
+## 9.3 Where the Scopes Align
 
 The PARB and ARB scopes align in the following areas:
 
 - Both use ADR-based decision traceability.
 - Both are expected to apply the same technology radar and enterprise standards library maintained by the EA CoE.
-- PARB decisions that meet the ARB materiality thresholds (see [Chapter 4, Section 2 — Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md#2-materiality-thresholds)) must be elevated to the ARB for a binding enterprise decision before they can be treated as final.
+- PARB decisions that meet the ARB materiality thresholds (see [Chapter 4, Section 4.2 — Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md#42-materiality-thresholds)) must be elevated to the ARB for a binding enterprise decision before they can be treated as final.
 - The PARB Chair (or delegate) is expected to attend ARB sessions as an invited member when product architecture items are on the agenda.
 
 ---
 
-## 4. Where the Scopes Differ
+## 9.4 Where the Scopes Differ
 
 | Dimension | ARB | PARB |
 |---|---|---|
@@ -52,7 +63,7 @@ The PARB does not have authority over decisions that fall within ARB scope. Atte
 
 ---
 
-## 5. Decision Flow Between Levels
+## 9.5 Decision Flow Between Levels
 
 The following flow governs how decisions move between the PARB and ARB:
 
@@ -63,7 +74,7 @@ The following flow governs how decisions move between the PARB and ARB:
 
 ---
 
-## 6. Shared Artefacts
+## 9.6 Shared Artefacts
 
 Both bodies should use:
 

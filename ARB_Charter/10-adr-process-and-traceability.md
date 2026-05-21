@@ -1,4 +1,15 @@
-# 10. ADR Process and Traceability
+---
+title: ADR Process and Traceability
+chapter: 10
+version: 0.1
+owner: TBD
+classification: Internal
+reviewed_date:
+next_review: 2026-Q3
+status: Draft
+---
+
+# Chapter 10. ADR Process and Traceability
 
 | Version | Owner | Classification | Last Reviewed | Next Review | Status |
 |---|---|---|---|---|---|
@@ -6,7 +17,7 @@
 
 ---
 
-## 1. Purpose of the ADR Register
+## 10.1 Purpose of the ADR Register
 
 The enterprise ADR register is the organisation's durable record of significant architecture decisions. It answers the question "why does the system work this way?" for every team, including teams that were not present when the decision was made.
 
@@ -14,7 +25,7 @@ Without a maintained register, architectural knowledge lives only in the heads o
 
 ---
 
-## 2. ADR Lifecycle
+## 10.2 ADR Lifecycle
 
 ```
 Proposed --> Under Review --> Accepted
@@ -34,7 +45,7 @@ Proposed --> Under Review --> Accepted
 
 ---
 
-## 3. ADR Numbering and Naming
+## 10.3 ADR Numbering and Naming
 
 - Enterprise ADRs are numbered sequentially: **ADR-0001**, **ADR-0002**, etc.
 - Product-level ADRs (managed by the PARB) use a domain prefix: **ADR-PE-0001** for Product Engineering, etc.
@@ -43,7 +54,7 @@ Proposed --> Under Review --> Accepted
 
 ---
 
-## 4. ADR Template
+## 10.4 ADR Template
 
 All enterprise ADRs must use the following structure:
 
@@ -91,7 +102,7 @@ and why they were not chosen.]
 
 ## Related Decisions
 
-- [ADR-NNNN — Title](link)
+- [ADR-NNNN — Title](#)
 
 ## Review Date
 
@@ -100,7 +111,7 @@ and why they were not chosen.]
 
 ---
 
-## 5. Traceability Requirements
+## 10.5 Traceability Requirements
 
 To maintain meaningful traceability, each ADR must link outward and inward:
 
@@ -111,7 +122,7 @@ To maintain meaningful traceability, each ADR must link outward and inward:
 
 ---
 
-## 6. Access and Discoverability
+## 10.6 Access and Discoverability
 
 - The enterprise ADR register is maintained in the EA CoE Confluence space.
 - All ADRs are visible to all engineering staff (read access).
@@ -121,7 +132,7 @@ To maintain meaningful traceability, each ADR must link outward and inward:
 
 ---
 
-## 7. ADR Review and Expiry
+## 10.7 ADR Review and Expiry
 
 Architecture decisions do not last forever. The EA CoE conducts an annual review of all Accepted ADRs and flags for re-evaluation any that:
 
