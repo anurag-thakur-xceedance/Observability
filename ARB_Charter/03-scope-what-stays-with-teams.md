@@ -1,0 +1,53 @@
+# 3. Scope — What Stays With Teams
+
+| Version | Owner | Classification | Last Reviewed | Next Review | Status |
+|---|---|---|---|---|---|
+| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
+
+---
+
+## 1. Principle
+
+The ARB governs at the cross-domain and enterprise level. Everything else belongs with the team. Autonomy within a domain is a design goal, not a concession. Teams should not feel the need to seek ARB approval for decisions that are rightly theirs to make.
+
+---
+
+## 2. Decisions That Stay With Teams
+
+### 2.1 Routine Solution Design Within a Domain
+
+- Detailed design of components, services, and data models that do not extend beyond the team's domain boundary.
+- Choice of internal patterns (repository pattern, CQRS, saga, etc.) where the pattern is not mandated or prohibited by enterprise standards.
+- Decisions about internal data storage structure, caching strategy, or in-process concurrency that have no cross-domain visibility.
+
+### 2.2 Local Integration Within the Team's Own Platform
+
+- Integration between services that are owned and operated within the same domain.
+- Internal event schemas, topics, or queues that are not consumed by other domains.
+- Internal API contracts between a team's own microservices or modules, provided they do not form part of a published enterprise API.
+
+### 2.3 Team-Level Tooling and Framework Choices
+
+- Development tooling (IDEs, linters, build tools, test frameworks) that does not affect the production runtime or impose dependencies on other teams.
+- Selection of libraries within an approved language or runtime ecosystem, subject to licence compliance.
+- Choice of testing approach, coverage tooling, or CI pipeline implementation.
+- Local developer environment configuration and scaffolding.
+
+### 2.4 Sprint and Iteration Planning
+
+- Sequencing of work within a sprint or programme increment.
+- Tactical refactoring or technical debt remediation within a domain.
+- Feature flags or experiment configurations scoped to a single product area.
+- Performance tuning within a service boundary that does not alter external SLAs.
+
+---
+
+## 3. Recording Team-Level Decisions
+
+Teams are encouraged — though not required — to maintain their own ADRs for significant local architecture decisions. This builds institutional memory and simplifies future ARB intake if a local decision later grows to cross-domain scope.
+
+The EA CoE maintains a lightweight ADR template that teams may adopt. Using a consistent format makes it easier to promote a team ADR into an enterprise ADR if the decision is later elevated to ARB scope.
+
+---
+
+*Parent page: [ARB Charter](README.md)*
