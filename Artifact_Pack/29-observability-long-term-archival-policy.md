@@ -44,10 +44,11 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 
 | Telemetry Class | Operational Cold End | Archive Period | Total Retention | Destruction Method |
 |---|---|---|---|---|
-| Application logs (Tier-1) | 90 days | 6 years 9 months | 7 years | Cryptographic erasure |
-| Audit logs (security) | 1 year | 6 years | 7 years | Cryptographic erasure |
-| Metrics (aggregated, downsampled) | 13 months | 4 years 11 months | 6 years | Cryptographic erasure |
-| Traces (sampled) | 30 days | None by default; archive on incident | per incident | Cryptographic erasure |
+| Application logs (Tier-1) | up to 90 days | 6 years 9 months | 7 years | Cryptographic erasure |
+| Audit logs (security) | policy-controlled operational retention | 6 years | 7 years | Cryptographic erasure |
+| Metrics (aggregated, downsampled) | up to 90 days operational before archival / longer-horizon retention applies | 4 years 11 months | 6 years | Cryptographic erasure |
+| Traces (sampled) | 14–15 days operational | None by default; archive on incident | per incident | Cryptographic erasure |
+| Profiles | 14–90 days where enabled | Archive only where policy or investigation requires | policy-driven | Cryptographic erasure |
 | Incident / PIR records | 1 year | 6 years | 7 years | Cryptographic erasure |
 | AI inference logs | 1 year | 4 years | 5 years | Cryptographic erasure |
 | Customer-site telemetry | per customer contract | per customer contract | per customer contract | Customer-specified |

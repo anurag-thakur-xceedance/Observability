@@ -22,6 +22,8 @@ status: Draft
 ## 23.1 Capacity Drivers
 The four primary drivers of observability load:
 
+Capacity planning must account for the approved operational retention range selected per signal type, environment, service tier, and profiling posture.
+
 | Driver | Symbol | Typical Range (per host monitored) |
 |---|---|---|
 | Active metric series | S | 10k–500k per host |

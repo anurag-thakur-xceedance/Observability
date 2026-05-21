@@ -20,6 +20,8 @@ status: Draft
 ## 10.1 Purpose
 Lifecycle policies manage cost and performance of observability platforms. This standard defines the cost-management mechanics that operationalise the retention authorisations in [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md).
 
+Operational retention settings for logs, metrics, traces, and profiles are a direct FinOps driver and must be reviewed whenever approved retention ranges are widened beyond the baseline defaults.
+
 ## 10.2 Storage Tier Model
 
 | Tier | Contents | Typical Window | Media |

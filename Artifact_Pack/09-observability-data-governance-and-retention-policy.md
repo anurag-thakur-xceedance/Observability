@@ -30,31 +30,39 @@ A tiered retention model balances cost, performance, and investigatory needs —
 
 | Data Type | Typical Retention Window | Rationale |
 |---|---|---|
-| Metrics | 30–90 days | Trend analysis, capacity planning, SLO/SLA tracking |
-| Logs | 7–30 days | Near-term incident investigation and security analysis |
-| Traces | 7 days | High-resolution debugging of recent issues / performance hotspots |
+| Metrics | 30–90 days operational | Trend analysis, capacity planning, SLO/SLA tracking |
+| Logs | 15–90 days depending on class | Incident investigation, audit support, and security analysis |
+| Traces | 14–15 days | High-resolution debugging of recent issues / performance hotspots |
+| Profiles | 14–90 days where enabled | Performance diagnostics and regression analysis |
 | RCA summaries | 1 year (or longer per policy) | Long-term learning, auditability, governance reviews |
 
 ## 9.4 Worked Example: Applying Retention Policy
 
 **Scenario.** A customer-facing insurance platform processes policy quotes and claims 24/7. The platform must meet strict uptime SLAs, support operational analytics, and maintain auditability for at least 12 months.
 
-### 9.4.1 Metrics (30–90 days)
-- High-resolution scrapes (10–30 s) retained for **30 days**.
-- Down-sampled metrics (5–15 min roll-ups) retained for **90 days**.
-- **Purpose:** SLO breach analysis (30 days); capacity planning, seasonal trend analysis, cost optimisation (90 days).
+### 9.4.1 Metrics (30–90 days operational)
+- High-resolution metrics retained for **30 days** by default.
+- Down-sampled or longer-horizon metrics retained for up to **90 days** where reporting and trend analysis require it.
+- **Purpose:** SLO breach analysis, capacity planning, seasonal trend analysis, and cost optimisation.
 
-### 9.4.2 Logs (7–30 days)
-- Application + infrastructure logs in **hot storage 7–14 days**.
-- Security / audit-relevant logs optionally forwarded to **SIEM** with longer retention (e.g. 90–365 days as required by policy).
-- **Purpose:** RCA of recent incidents and deployments; short-term forensic visibility.
+### 9.4.2 Logs (15–90 days operational)
+- Application + infrastructure logs retained for **15–30 days** by default.
+- Selected classes of logs may be retained for up to **90 days** depending on environment, service criticality, and governance need.
+- Security and audit telemetry retention is governed by policy classification, SIEM routing, archival obligations, and legal/compliance controls, not only by operational hot/warm retention settings.
+- **Purpose:** RCA of recent incidents and deployments; short-term and medium-horizon forensic visibility.
 
-### 9.4.3 Traces (7 days)
-- Full-fidelity traces retained for **7 days**.
-- Beyond 7 days, only **trace-derived metrics** (span counts, latency percentiles by endpoint) retained via metrics backends.
-- **Purpose:** Deep end-to-end debugging recently after issues occur; manage high-volume trace storage cost.
+### 9.4.3 Traces (14–15 days)
+- Full-fidelity traces retained for **14 days** by default.
+- Selected services may retain traces for up to **15 days** where justified by investigation and incident patterns.
+- Beyond the operational trace window, only **trace-derived metrics** (span counts, latency percentiles by endpoint) are retained via metrics backends unless separately archived for incident or forensic reasons.
+- **Purpose:** Deep end-to-end debugging over a wider investigation window while still controlling trace storage cost.
 
-### 9.4.4 RCA Summaries (1 year)
+### 9.4.4 Profiles (14–90 days where enabled)
+- Profiles retained for **14 days** by default where profiling is enabled.
+- Selected services or environments may retain profiles for up to **90 days** where justified by performance analysis needs.
+- **Purpose:** Performance diagnostics, regression analysis, and hotspot comparison.
+
+### 9.4.5 RCA Summaries (1 year)
 - For each major incident, structured RCA records (timeline, impact, root cause, corrective actions) stored in a central knowledge base for **12 months or longer**.
 - **Purpose:** Compliance and audit reviews; trend analysis of recurring failure modes; "never-repeat" actions.
 
