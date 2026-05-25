@@ -9,19 +9,19 @@ next_review: 2026-Q3
 status: Draft
 ---
 
+ARB Charter — Document Index
 # Chapter 2. Scope — What Goes to ARB
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
----
+| **Document Owner** | Simon Armstrong, VP Chief Architect |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **Next Review Due** | 2026-08-01 |
 
 ## 2.1 Overview
 
-The ARB reviews decisions that are **material** and **cross-domain**. The test is not technical complexity per se, but whether the decision has consequences beyond the team or domain that originated it. The categories below are definitive triggers; teams should also apply the materiality thresholds in [Chapter 4, Section 4.2 — Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md#42-materiality-thresholds) when a decision does not clearly fall into a named category.
-
----
+The ARB reviews decisions that are **material** and **cross-domain**. The test is not technical complexity per se, but whether the decision has consequences beyond the team or domain that originated it. The categories below are definitive triggers; teams should also apply the materiality thresholds in [Chapter 4, Section 4.2 — Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md#42-materiality-thresholds), when a decision does not clearly fall into a named category.
 
 ## 2.2 Trigger Categories
 
@@ -31,10 +31,10 @@ The five categories below map directly to the ARB scope defined in the CoE opera
 
 Any decision that establishes or alters how two or more domains interact at a structural level, including:
 
-- Shared data models or canonical data structures used across domain boundaries.
+- Shared data models or canonical data structures are used across domain boundaries.
 - Changes to inter-domain APIs or event contracts that would require coordinated migration across consuming teams.
 - Introduction or deprecation of shared infrastructure components (message buses, API gateways, identity providers, observability platforms).
-- Decisions that set a precedent likely to be adopted across multiple domains even if originating in one.
+- Decisions that set a precedent are likely to be adopted across multiple domains even if originating in one.
 
 ### 2.2.2 New Platform or Technology Adoption
 
@@ -47,7 +47,7 @@ Any proposal to introduce a net-new platform, runtime, database engine, messagin
 
 ### 2.2.3 Interoperability and Integration Changes
 
-Structural changes to how the organisation's systems connect to one another or to external parties, including:
+Structural changes to how the organisation's systems connect or to external parties, including:
 
 - Changes to integration patterns (synchronous/asynchronous, event-driven, batch) that affect multiple consuming systems.
 - Modifications to API versioning strategy or contract management processes.
@@ -65,19 +65,15 @@ Decisions that materially alter the organisation's resilience posture or service
 
 ### 2.2.5 Third-Party Technology Onboarding
 
-Onboarding of any third-party vendor technology into the production environment where the technology:
+Onboarding of any third-party vendor technology into the production environment, where the technology:
 
 - Processes, stores, or transmits data classified as sensitive or regulated.
 - Requires privileged access to internal systems or networks.
 - Is subject to export controls, data sovereignty requirements, or specific regulatory obligations.
 - Represents a concentration risk if it becomes a dependency for multiple domains simultaneously.
 
----
-
 ## 2.3 Boundary Cases
 
-Where it is unclear whether a decision falls within ARB scope, the team should raise it with the EA CoE for a scope determination. The CoE will respond within **5 business days** with either a confirmation that the decision is in scope (and initiate the intake process) or a written statement that the decision may proceed at team level, which should be retained as a record.
+Where it is unclear whether a decision falls within ARB scope, the team should raise it with the EA CoE for a scope determination. The CoE will respond within **5 business days** with either a confirmation that the decision is in scope (and initiate the intake process) or a written statement that the decision may proceed at the team level, which should be retained as a record.
 
----
-
-*Parent page: [ARB Charter](README.md)*
+ARB Charter — Document Index

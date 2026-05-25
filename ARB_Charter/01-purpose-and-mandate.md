@@ -9,13 +9,15 @@ next_review: 2026-Q3
 status: Draft
 ---
 
+ARB Charter — Document Index
 # Chapter 1. Purpose and Mandate
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
----
+| **Document Owner** | Simon Armstrong, VP Chief Architect |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **Next Review Due** | 2026-08-01 |
 
 ## 1.1 Operating Model
 
@@ -25,24 +27,20 @@ Governance is performed through the CoE operating model and the ARB. Product tea
 
 This model — **Federated Delivery with the ARB as the Only Board** — avoids governance proliferation. There is no committee layer between the federated architects and the ARB. The CoE orchestrates; the ARB decides on the matters that cross domain boundaries or set enterprise-wide precedent.
 
----
-
 ## 1.2 Purpose
 
 The Architecture Review Board (ARB) is the single formal governance board for material cross-domain architecture decisions across the organisation. It exists to:
 
 - Ensure decisions that span multiple domains, platforms, or technology stacks are made with appropriate visibility, rigour, and accountability.
-- Provide a consistent, time-bounded review process so that teams receive a decision — not indefinite deliberation.
+- Provide a consistent, time-bounded review process so that teams receive a decision, not indefinite deliberation.
 - Maintain a traceable record of significant architecture choices through Architectural Decision Records (ADRs), enabling future teams to understand the rationale behind the systems they inherit.
 - Align technology direction with enterprise strategy and risk appetite.
 
 The ARB does not exist to slow teams down. Its mandate is fast turnaround on decisions that genuinely warrant cross-domain oversight, with everything else delegated to teams.
 
----
-
 ## 1.3 Mandate
 
-The ARB has authority to:
+The ARB has the authority to:
 
 - Issue **binding architecture decisions** on matters within its scope.
 - **Approve or reject** proposals for new platform or technology adoption.
@@ -51,8 +49,6 @@ The ARB has authority to:
 - **Delegate authority** to the EA CoE Head for defined categories of decision, subject to periodic ratification.
 
 The ARB operates under the sponsorship of the Senior EVP / President. The Senior EVP / President chairs the ARB or delegates that authority to the CoE.
-
----
 
 ## 1.4 Relationship to the EA CoE
 
@@ -67,6 +63,4 @@ The ARB is the decision-making forum. The EA CoE is the standing body that orche
 
 Where the EA CoE TOR and this charter conflict, this charter takes precedence for matters within ARB scope. The EA CoE TOR governs the CoE's own operating model.
 
----
-
-*Parent page: [ARB Charter](README.md)*
+ARB Charter — Document Index

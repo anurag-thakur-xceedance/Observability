@@ -9,34 +9,21 @@ next_review: 2026-Q3
 status: Draft
 ---
 
+ARB Charter — Document Index
 # Chapter 7. Chair, Membership and Delegated Authority
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
----
+| **Document Owner** | Simon Armstrong, VP Chief Architect |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **Next Review Due** | 2026-08-01 |
 
 ## 7.1 Organisation Model
 
 The ARB sits within a federated architecture organisation. The structure below is drawn directly from the CoE operating model (CoE deck, slide 7). Each layer has a distinct role; the ARB is the single formal governance board that the entire model feeds into and operates through.
 
-```
-Senior EVP / President
-  └── Head of EA / EA Lead  (orchestrates ARB; chairs or delegates)
-        └── Core EA CoE     (enterprise & data architecture; platform governance;
-                             standards & ADRs; maturity programme)
-              ├── Domain Architects     (embedded with delivery; close to engineering;
-              │                          feeds CoE with patterns)
-              └── Platform / Product    (own platform/product capabilities; drive reuse;
-                  Architects             shape platform roadmap)
-
-Interfaces: Engineering · Product · Security · Data & AI
-```
-
 Enterprise-wide decisions stay with the CoE. Local decisions stay with the federated teams.
-
----
 
 ## 7.2 Chair
 
@@ -47,11 +34,9 @@ The Chair:
 - Sets direction and has final decision-making authority on any matter brought to the ARB.
 - May delegate chair authority and ARB authority to the **Head of EA / EA Lead**, who orchestrates the ARB on the Chair's behalf.
 - Casts the deciding vote in the event of a tied vote among standing members.
-- Is responsible for ensuring the ARB operates within its charter and that decisions are made in a timely manner consistent with the SLA commitments in [Chapter 5 — SLA Model and Cadence](05-sla-model-and-cadence.md).
+- Is responsible for ensuring the ARB operates within its charter and that decisions are made on time, consistent with the SLA commitments in [Chapter 5 — SLA Model and Cadence](05-sla-model-and-cadence.md).
 
 In the Chair's absence, they must designate an acting Chair in advance. An undesignated absence does not defer the session; the Head of EA / EA Lead assumes acting Chair authority for that session.
-
----
 
 ## 7.3 Core EA CoE — Secretariat and Standards Owner
 
@@ -64,14 +49,12 @@ The Core EA CoE supports the ARB as its secretariat and standards body. The CoE:
 
 The CoE Head does not vote on binding decisions unless they are also the delegated Chair.
 
----
-
 ## 7.4 Standing Members
 
 The following roles hold permanent standing membership on the ARB, drawn from the interfaces defined in the operating model:
 
-| Role | Interface / Domain |
-|---|---|
+| **Role** | **Interface / Domain** |
+| --- | --- |
 | Head of EA / EA Lead (or delegate) | Enterprise Architecture — orchestrates ARB |
 | Engineering Lead (or delegate) | Engineering |
 | Product Lead (or delegate) | Product |
@@ -82,13 +65,11 @@ The following roles hold permanent standing membership on the ARB, drawn from th
 Standing members are expected to:
 
 - Attend or send a prepared delegate to every session.
-- Review circulated decision papers in advance of the session.
+- Review the circulated decision papers in advance of the session.
 - Declare conflicts of interest on decisions where their domain has a direct stake.
-- Contribute domain-level risk and impact assessment during deliberation.
+- Contribute to domain-level risk and impact assessment during deliberation.
 
 > **Note:** The specific named individuals for each standing role are maintained as a living register by the EA CoE and updated outside this charter to avoid requiring a charter version bump for personnel changes.
-
----
 
 ## 7.5 Domain and Platform Architects — Participation
 
@@ -99,8 +80,6 @@ Domain Architects and Platform / Product Architects are not standing ARB members
 
 Both groups may be invited to specific ARB sessions as subject-matter contributors when their domain's decisions are under review.
 
----
-
 ## 7.6 Invited Members
 
 The EA CoE may invite subject-matter experts, domain leads, or vendor representatives to specific sessions where their input is relevant. Invited members:
@@ -109,18 +88,14 @@ The EA CoE may invite subject-matter experts, domain leads, or vendor representa
 - Do not hold voting rights.
 - May be required to leave the session once their item is concluded, at the Chair's discretion.
 
----
-
 ## 7.7 Quorum
 
-| Track | Minimum Quorum |
-|---|---|
+| **Track** | **Minimum Quorum** |
+| --- | --- |
 | Standard fortnightly session | Chair (or acting Chair) plus two standing members |
 | 48-hour urgent track | Chair (or acting Chair) plus two standing members (async acceptable) |
 
 A session that does not meet quorum may not issue binding decisions. Agenda items from a quorum-failed session are carried forward to the next session with priority scheduling.
-
----
 
 ## 7.8 Delegated Authority
 
@@ -130,14 +105,10 @@ The Chair may formally delegate authority to the EA CoE for categories of decisi
 - Below a defined complexity threshold agreed between the Chair and the Head of EA / EA Lead.
 - Subject to retrospective ratification at the next standard ARB session.
 
-Delegated decisions are recorded in the ARB minutes and carry the same binding status as a full ARB decision. The EA CoE does not hold delegated authority for decisions that involve new technology adoption, significant resilience or SLA impact, or any matter where a standing member has raised an objection.
-
----
+Delegated decisions are recorded in the ARB minutes and carry the same binding status as a full ARB decision. The EA CoE does not hold delegated authority for decisions that involve new technology adoption, significant resilience or SLA impact, or any matter where a standing member has objected.
 
 ## 7.9 Membership Review
 
 Membership composition is reviewed annually by the Chair. Changes to standing membership roles require Chair approval and are recorded in an updated version of this charter. Changes to the named individuals in each role are maintained by the EA CoE in the living register without requiring a charter version update.
 
----
-
-*Parent page: [ARB Charter](README.md)*
+ARB Charter — Document Index

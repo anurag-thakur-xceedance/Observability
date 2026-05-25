@@ -9,19 +9,19 @@ next_review: 2026-Q3
 status: Draft
 ---
 
+ARB Charter — Document Index
 # Chapter 3. Scope — What Stays With Teams
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
----
+| **Document Owner** | Simon Armstrong, VP Chief Architect |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **Next Review Due** | 2026-08-01 |
 
 ## 3.1 Principle
 
 The operating model is explicit: **local decisions stay with federated teams.** The ARB governs at the cross-domain and enterprise level; everything else belongs with the team. Autonomy within a domain is a design goal, not a concession. Teams should not feel the need to seek ARB approval for decisions that are rightly theirs to make.
-
----
 
 ## 3.2 Decisions That Stay With Teams
 
@@ -53,14 +53,10 @@ The four categories below map directly to the team-level scope defined in the Co
 - Feature flags or experiment configurations scoped to a single product area.
 - Performance tuning within a service boundary that does not alter external SLAs.
 
----
-
 ## 3.3 Recording Team-Level Decisions
 
 Teams are encouraged — though not required — to maintain their own ADRs for significant local architecture decisions. This builds institutional memory and simplifies future ARB intake if a local decision later grows to cross-domain scope.
 
 The EA CoE maintains a lightweight ADR template that teams may adopt. Using a consistent format makes it easier to promote a team ADR into an enterprise ADR if the decision is later elevated to ARB scope.
 
----
-
-*Parent page: [ARB Charter](README.md)*
+ARB Charter — Document Index

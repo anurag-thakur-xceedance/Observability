@@ -9,19 +9,19 @@ next_review: 2026-Q3
 status: Draft
 ---
 
+ARB Charter — Document Index
 # Chapter 6. ARB Outputs
 
-| Version | Owner | Classification | Last Reviewed | Next Review | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal | 2026-Q2 | 2026-Q3 | Draft |
-
----
+| **Document Owner** | Simon Armstrong, VP Chief Architect |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **Next Review Due** | 2026-08-01 |
 
 ## 6.1 Overview
 
 Every ARB review produces a formal output. The four output types below map directly to those defined in the CoE operating model (CoE deck, slide 7). All outputs are recorded in the enterprise ADR register maintained by the EA CoE.
-
----
 
 ## 6.2 Output Types
 
@@ -42,8 +42,8 @@ Every binding decision is captured in a formal Architectural Decision Record (AD
 
 The ADR structure is:
 
-| Field | Content |
-|---|---|
+| **Field** | **Content** |
+| --- | --- |
 | ID | Sequential identifier (ADR-NNNN) |
 | Title | Short descriptive title |
 | Date | Date of ARB decision |
@@ -74,12 +74,8 @@ Where a proposal is approved with known architectural risk, or where a team proc
 
 Formal minutes are published for every ARB session within 2 business days. Minutes record: decisions taken, decisions deferred (with reason), attendance, and any actions assigned.
 
----
-
 ## 6.3 Precedence and Supersession
 
-When the ARB issues a new binding decision that covers the same ground as a prior decision, the prior ADR is marked as **Superseded** and linked to the new ADR. Teams should always reference the current non-superseded ADR for a given topic.
+When the ARB issues a new binding decision that covers the same ground as a prior decision, the prior ADR is marked as **superseded** and linked to the new ADR. Teams should always reference the current non-superseded ADR for a given topic.
 
----
-
-*Parent page: [ARB Charter](README.md)*
+ARB Charter — Document Index
