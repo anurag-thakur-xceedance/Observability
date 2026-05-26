@@ -13,7 +13,7 @@ status: Draft
 [↑ Back to TOC](toc.md)
 
 | Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | 0.1 | TBD | Internal |  | Draft |
 ---
 
@@ -30,7 +30,7 @@ The Agentic AI layer turns observability from reactive to proactive — automate
 ## 7.2 AI-Driven Observability Metrics
 
 | Category | Metric | Healthy | Warning | Critical | Notes |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Anomaly Detection | Abnormal Latency Spikes | ±10% baseline | 10–25% deviation > 5 min | > 25% deviation > 2 min | Model forecasts expected P95 latency; > 25% implies probable incident or dependency slowdown. FP rate target < 5%. |
 | Anomaly Detection | Unusual Traffic Patterns | ±15% | 15–30% deviation > 5 min | > 30% > 2 min or confidence > 95% | Early DDoS / load-imbalance detection. Precision ≥ 90%, recall ≥ 85%. |
 | Correlation Analysis | Deployment vs Error Spike | r < 0.3 (weak) | 0.3–0.6 (moderate) | r > 0.6 (strong) | Strong positive r → recent deployments contributing to errors. Feed back into deployment practices. |
