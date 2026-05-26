@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 1 — Purpose and Mandate](01-purpose-and-mandate.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 2. Scope — What Goes to ARB
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -76,4 +77,4 @@ Onboarding of any third-party vendor technology into the production environment,
 
 Where it is unclear whether a decision falls within ARB scope, the team should raise it with the EA CoE for a scope determination. The CoE will respond within **5 business days** with either a confirmation that the decision is in scope (and initiate the intake process) or a written statement that the decision may proceed at the team level, which should be retained as a record.
 
-ARB Charter — Document Index
+[Chapter 3 — Scope: What Stays With Teams](03-scope-what-stays-with-teams.md) | [ARB Charter — Document Index](arb-charter.md)

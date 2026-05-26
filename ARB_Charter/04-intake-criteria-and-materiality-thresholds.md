@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 3 — Scope: What Stays With Teams](03-scope-what-stays-with-teams.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 4. Intake Criteria and Materiality Thresholds
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -23,10 +24,10 @@ ARB Charter — Document Index
 
 Any team, architect, or senior engineer may submit a decision for ARB review. The intake process is:
 
-1. **Complete the ARB Intake Form** (available in Confluence under the EA CoE space). The form captures: decision context, options considered, recommended option, stakeholders affected, timeline pressure, and materiality self-assessment.
-2. **Submit to the EA CoE intake queue** via the designated Confluence page or Jira project (details maintained by CoE).
-3. The EA CoE performs **triage within 2 business days**: confirms scope, assigns an architect to support the submission, and schedules the decision for the appropriate review track (standard fortnightly cadence or 48-hour urgent track).
-4. The submitting team receives a **confirmation of track assignment** and expected decision date.
+. **Complete the ARB Intake Form** (available in Confluence under the EA CoE space). The form captures: decision context, options considered, recommended option, stakeholders affected, timeline pressure, and materiality self-assessment.
+. **Submit to the EA CoE intake queue** via the designated Confluence page or Jira project (details maintained by CoE).
+. The EA CoE performs **triage within 2 business days**: confirms scope, assigns an architect to support the submission, and schedules the decision for the appropriate review track (standard fortnightly cadence or 48-hour urgent track).
+. The submitting team receives a **confirmation of track assignment** and expected decision date.
 
 ## 4.2 Materiality Thresholds
 
@@ -59,4 +60,4 @@ Where a decision cannot wait for the fortnightly cadence, teams may invoke the *
 - A minimum quorum of the **Chair plus two standing members** is required for a binding urgent decision.
 - All urgent decisions are ratified at the next standard fortnightly session and recorded in the formal minutes.
 
-ARB Charter — Document Index
+[Chapter 5 — SLA Model and Cadence](05-sla-model-and-cadence.md) | [ARB Charter — Document Index](arb-charter.md)

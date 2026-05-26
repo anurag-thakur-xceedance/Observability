@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 7 — Chair, Membership and Delegated Authority](07-chair-membership-and-delegated-authority.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 8. Escalation Model
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -69,4 +70,4 @@ Where compliance during escalation would cause irreversible harm (e.g., a deploy
 
 The EA CoE maintains an escalation register. All escalations, their grounds, the review outcome, and the elapsed time to resolution are recorded. The register is reviewed quarterly by the Chair to identify patterns that may indicate charter gaps or ARB process improvements needed.
 
-ARB Charter — Document Index
+[Chapter 9 — Alignment to Product Architecture Governance](09-alignment-to-product-architecture-governance.md) | [ARB Charter — Document Index](arb-charter.md)

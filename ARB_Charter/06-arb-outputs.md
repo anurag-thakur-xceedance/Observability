@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 5 — SLA Model and Cadence](05-sla-model-and-cadence.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 6. ARB Outputs
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -78,4 +79,4 @@ Formal minutes are published for every ARB session within 2 business days. Minut
 
 When the ARB issues a new binding decision that covers the same ground as a prior decision, the prior ADR is marked as **superseded** and linked to the new ADR. Teams should always reference the current non-superseded ADR for a given topic.
 
-ARB Charter — Document Index
+[Chapter 7 — Chair, Membership and Delegated Authority](07-chair-membership-and-delegated-authority.md) | [ARB Charter — Document Index](arb-charter.md)

@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 4 — Intake Criteria and Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 5. SLA Model and Cadence
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -71,4 +72,4 @@ The EA CoE publishes a quarterly SLA compliance report to the ARB Chair and seni
 - Average elapsed time from intake to decision.
 - Number of decisions escalated or disputed.
 
-ARB Charter — Document Index
+[Chapter 6 — ARB Outputs](06-arb-outputs.md) | [ARB Charter — Document Index](arb-charter.md)

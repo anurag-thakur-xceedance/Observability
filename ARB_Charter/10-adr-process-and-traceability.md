@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 9 — Alignment to Product Architecture Governance](09-alignment-to-product-architecture-governance.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 10. ADR Process and Traceability
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -33,7 +34,6 @@ Proposed --> Under Review --> Accepted
          Accepted --> Superseded
                   --> Deprecated
 ```
-
 | **Status** | **Meaning** |
 | --- | --- |
 | Proposed | Submitted for ARB review; not yet decided |
@@ -106,14 +106,12 @@ and why they were not chosen.]
 
 ## Related Decisions
 
-- [ADR-NNNN → Title](#)
+- [ADR-NNNN — Title](#)
 
 ## Review Date
 
 [Date by which this decision should be re-evaluated]
 ```
-
----
 
 ## 10.5 Traceability Requirements
 
@@ -142,4 +140,4 @@ Architecture decisions do not last forever. The EA CoE conducts an annual review
 
 Flagged ADRs are added to the ARB forward agenda for deliberation. The ARB may confirm, supersede, or deprecate the decision.
 
-ARB Charter — Document Index
+[ARB Charter — Document Index](arb-charter.md)

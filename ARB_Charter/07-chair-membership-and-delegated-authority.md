@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 6 — ARB Outputs](06-arb-outputs.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 7. Chair, Membership and Delegated Authority
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -111,4 +112,4 @@ Delegated decisions are recorded in the ARB minutes and carry the same binding s
 
 Membership composition is reviewed annually by the Chair. Changes to standing membership roles require Chair approval and are recorded in an updated version of this charter. Changes to the named individuals in each role are maintained by the EA CoE in the living register without requiring a charter version update.
 
-ARB Charter — Document Index
+[Chapter 8 — Escalation Model](08-escalation-model.md) | [ARB Charter — Document Index](arb-charter.md)

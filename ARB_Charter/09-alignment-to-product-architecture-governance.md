@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 8 — Escalation Model](08-escalation-model.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 9. Alignment to Product Architecture Governance
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -55,16 +56,16 @@ The PARB and ARB scopes align in the following areas:
 | Escalation | This charter, Chapter 8 | Escalates to ARB for cross-domain matters |
 | ADR register | Enterprise register (EA CoE) | Product register (may feed into enterprise register) |
 
-The PARB does not have authority over decisions that fall within ARB scope. Attempting to use the PARB to resolve a cross-domain or enterprise-scope decision is a charter breach and must be referred to the ARB.
+The PARB does not have authority over decisions that fall within the ARB scope. Attempting to use the PARB to resolve a cross-domain or enterprise-scope decision is a charter breach and must be referred to the ARB.
 
 ## 9.5 Decision Flow Between Levels
 
 The following flow governs how decisions move between the PARB and ARB:
 
-1. A Product Engineering team decides with the PARB.
-2. The PARB assesses whether the decision is cross-domain or meets ARB materiality thresholds.
-3. If **yes**: The PARB prepares an intake submission for the ARB. The PARB may provide its own recommendation as part of the submission. The ARB issues the binding decision.
-4. If **no**: The PARB processes and decides. The decision is recorded in the product ADR register. If the decision later has cross-domain consequences, it is elevated to the ARB retroactively.
+. A Product Engineering team decides with the PARB.
+. The PARB assesses whether the decision is cross-domain or meets ARB materiality thresholds.
+. If **yes**, the PARB prepares an intake submission for the ARB. The PARB may provide its own recommendation as part of the submission. The ARB issues the binding decision.
+. If **no**, the PARB processes and decides. The decision is recorded in the product ADR register. If the decision later has cross-domain consequences, it is elevated to the ARB retroactively.
 
 ## 9.6 Shared Artefacts
 
@@ -76,4 +77,4 @@ Both bodies should use:
 
 The EA CoE is responsible for ensuring that product-level ADRs that are elevated to enterprise scope are migrated to the enterprise register without loss of history.
 
-ARB Charter — Document Index
+[Chapter 10 — ADR Process and Traceability](10-adr-process-and-traceability.md) | [ARB Charter — Document Index](arb-charter.md)

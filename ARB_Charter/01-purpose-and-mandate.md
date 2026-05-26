@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 1. Purpose and Mandate
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -63,4 +64,4 @@ The ARB is the decision-making forum. The EA CoE is the standing body that orche
 
 Where the EA CoE TOR and this charter conflict, this charter takes precedence for matters within ARB scope. The EA CoE TOR governs the CoE's own operating model.
 
-ARB Charter — Document Index
+[Chapter 2 — Scope: What Goes to ARB](02-scope-what-goes-to-arb.md) | [ARB Charter — Document Index](arb-charter.md)

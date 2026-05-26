@@ -9,7 +9,8 @@ next_review: 2026-Q3
 status: Draft
 ---
 
-ARB Charter — Document Index
+[Chapter 2 — Scope: What Goes to ARB](02-scope-what-goes-to-arb.md) | [ARB Charter — Document Index](arb-charter.md)
+
 # Chapter 3. Scope — What Stays With Teams
 
 | **Document Owner** | Simon Armstrong, VP Chief Architect |
@@ -59,4 +60,4 @@ Teams are encouraged — though not required — to maintain their own ADRs for 
 
 The EA CoE maintains a lightweight ADR template that teams may adopt. Using a consistent format makes it easier to promote a team ADR into an enterprise ADR if the decision is later elevated to ARB scope.
 
-ARB Charter — Document Index
+[Chapter 4 — Intake Criteria and Materiality Thresholds](04-intake-criteria-and-materiality-thresholds.md) | [ARB Charter — Document Index](arb-charter.md)
