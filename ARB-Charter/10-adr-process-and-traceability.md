@@ -28,12 +28,23 @@ Without a maintained register, architectural knowledge lives only in the heads o
 
 ## 10.2 ADR Lifecycle
 
+```mermaid
+flowchart LR
+    P[Proposed] --> U[Under Review]
+    U --> A[Accepted]
+    U --> R[Rejected]
+    A --> S[Superseded]
+    A --> D[Deprecated]
 ```
-Proposed --> Under Review --> Accepted
-                          --> Rejected
-         Accepted --> Superseded
-                  --> Deprecated
-```
+
+The lifecycle above should be rendered as a process diagram wherever the charter is published. The state transitions are:
+
+- `Proposed` to `Under Review` once the ARB accepts the item into deliberation.
+- `Under Review` to `Accepted` when the ARB issues a binding decision.
+- `Under Review` to `Rejected` when the proposal is declined.
+- `Accepted` to `Superseded` when a later ADR replaces it.
+- `Accepted` to `Deprecated` when the decision is no longer applicable without being directly replaced.
+
 | **Status** | **Meaning** |
 | --- | --- |
 | Proposed | Submitted for ARB review; not yet decided |
@@ -114,6 +125,21 @@ and why they were not chosen.]
 ```
 
 ## 10.5 Traceability Requirements
+
+```mermaid
+flowchart TD
+    I[Intake Submission] --> N[ADR Number Allocated by EA CoE]
+    N --> R[ADR Drafted in Enterprise Template]
+    R --> A[ARB Review and Decision]
+    A --> G[ADR Published in Enterprise Register]
+    G --> L[Links to Related Decisions]
+    G --> E[Links to Epic or Initiative]
+    G --> K[Links to Risk Record if Raised]
+    G --> M[Monthly Digest and Discoverability]
+    L --> S[Superseded ADR Updated with Back-Link]
+```
+
+The traceability model should also be published as a diagram so teams can see how an intake becomes a durable decision record and how dependency links are maintained over time.
 
 To maintain meaningful traceability, each ADR must link outward and inward:
 

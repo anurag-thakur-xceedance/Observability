@@ -26,6 +26,33 @@ The ARB sits within a federated architecture organisation. The structure below i
 
 Enterprise-wide decisions stay with the CoE. Local decisions stay with the federated teams.
 
+![ARB organisation model](arb-org-model.jpg)
+
+The image above is the preferred visual for Confluence publication. If the page is published outside this repository, `arb-org-model.jpg` should be attached to the page so the image renders correctly.
+
+```mermaid
+flowchart TD
+    C[Senior EVP / President (chairs ARB, or delegates authority)] --> H[Head of EA / EA Lead (orchestrates ARB, sets direction, owns EA standards, maintains target state)]
+    H --> E[Core EA CoE (enterprise and data architecture, platform governance, standards and ADRs, maturity programme)]
+    E --> D[Domain Architects (embedded with delivery, close to engineering, feed CoE with patterns)]
+    E --> P[Platform / Product Architects (own platform and product capabilities, drive reuse, shape platform roadmap)]
+    E --- I[Interfaces (Engineering, Product, Security, Data and AI)]
+    H --> A[Architecture Review Board (single formal governance board)]
+    D --> A
+    P --> A
+    I --> A
+```
+
+The Mermaid flowchart below the image is retained as an editable source version of the same organisation view.
+
+## 7.1.1 Operating Summary
+
+- The **Senior EVP / President** chairs the ARB directly or delegates that authority.
+- The **Head of EA / EA Lead** orchestrates the ARB and provides the enterprise architecture leadership layer beneath the Chair.
+- The **Core EA CoE** acts as the enterprise architecture hub for standards, ADR discipline, platform governance, and maturity management.
+- **Domain Architects** and **Platform / Product Architects** operate in a federated model and feed the CoE and ARB with delivery-grounded input.
+- Cross-functional interfaces from **Engineering**, **Product**, **Security**, and **Data & AI** participate in the governance model through ARB membership and deliberation.
+
 ## 7.2 Chair
 
 The ARB is chaired by the **Senior EVP / President** or their designated delegate.
