@@ -55,7 +55,8 @@ Write comprehensive unit tests covering:
 
 // Act const total = calculateOrderTotal(items);
 
-// Assert expect(total).toBe(60); }); ```
+// Assert expect(total).toBe(60); }); 
+```
 
 ### 20.3 Black Box Testing
 
@@ -104,8 +105,8 @@ Run unit tests continuously during development:
 
 # Run in watch mode (re-run on changes) npm run test:watch
 
-# Run specific test file npm test -- order.test.js ```
-
+# Run specific test file npm test -- order.test.js 
+```
 ---
 
 ## Key Artifacts
@@ -219,4 +220,4 @@ Step 20 ensures high-quality code through comprehensive unit testing following T
 ## Navigation
 
 |
- |
+|
