@@ -46,8 +46,22 @@ Coverage review must consider:
 - Validation failures and boundary conditions
 - Risky code added in the current change set
 
+Typical review output should clearly identify where the gap exists, why it matters, and what additional tests are required.
+
+Coverage Gap Report Example:
+
+```text
+Uncovered Code Paths:
+- calculateDiscount(): lines 45-52 (error handling for negative prices)
+- processRefund(): full refund branch not tested
+- validateEmail(): international domain edge case not tested
+
+Recommendation:
+Add 3 additional tests to cover the identified gaps.
+```
+
 ### 21.4.2 Evaluate Test Quality
-The review must assess whether existing tests are meaningful, maintainable, and likely to detect defects.
+The review must assess whether existing tests are meaningful, maintainable, and likely to detect defects. This should be understandable as a reviewer activity even when no AI tooling is used.
 
 The review should check for:
 - Weak or overly broad assertions
@@ -55,6 +69,19 @@ The review should check for:
 - Excessive mocking that hides true behaviour
 - Poor test naming or unclear purpose
 - Unstable, duplicated, or order-dependent tests
+
+Quality review should also consider:
+- Assertion strength, for example whether a test checks a precise expected outcome rather than a vague truthy result
+- Test independence, so that one test does not rely on another having run first
+- Test readability, including clear naming, setup, and intent
+- Mock usage appropriateness, so that mocks isolate dependencies without hiding important real behaviour
+- Test data quality, including realistic values and meaningful edge-case coverage
+
+Common quality issues include:
+- Weak assertions such as broad success checks that do not confirm the actual expected value or behaviour
+- Tests that depend on execution order or shared state
+- Missing or unclear test descriptions
+- Over-mocking, where too much behaviour is simulated and too little real logic is exercised
 
 ### 21.4.3 Add Missing High-Value Tests
 Where important scenarios are missing, the team adds or updates tests to cover the required behaviour before the change proceeds further.
@@ -65,17 +92,41 @@ Priority should be given to:
 - Defect-prone edge cases
 - Regression-prone areas changed in the current work item
 
-### 21.4.4 Review AI-Assisted Suggestions
-Where approved AI assistance is used, generated suggestions must be reviewed critically before adoption.
+Additional test suggestions may come from reviewer judgment, historical defect patterns, code complexity, or approved AI-assisted analysis, but every suggestion must be validated for relevance before adoption.
 
-The team must confirm that suggested tests are:
+### 21.4.4 Identify Edge Cases and Missing Scenarios
+The team identifies edge cases and realistic failure scenarios that are commonly missed in initial unit testing.
+
+Typical edge-case categories include:
+- Null or missing inputs
+- Empty collections or zero-value data
+- Boundary values just above or below important thresholds
+- Invalid formats, special characters, or unexpected input combinations
+- Date, time, and timezone-related conditions where relevant
+- Async, retry, timeout, or fallback behaviours where the code uses them
+
+Common missed scenarios should also be considered, including:
+- Special characters such as Unicode, emojis, and SQL injection-style input patterns where relevant to the code being tested
+- Concurrent access behaviour, including race conditions, shared-state conflicts, and locking issues where the implementation supports parallel execution
+- Large datasets or high-volume inputs, including performance-sensitive scenarios such as 1000+ items where scale may affect correctness or stability
+
+Edge Case Categories:
+- Numeric boundaries such as 0, -1, maximum integer values, and overflow-related conditions
+- String edge cases such as empty strings, very long strings, and special-character combinations
+- Date and time edge cases such as leap years, timezone changes, and daylight saving transitions
+- Collection edge cases such as empty collections, single-item collections, and duplicate entries
+- Async edge cases such as timeouts, retries, delayed failures, and fallback execution paths
+
+### 21.4.5 Review Suggested Additions and Confirm Readiness
+Where approved AI assistance is used, generated suggestions must be reviewed critically before adoption. Human review remains mandatory.
+
+The reviewer or QA lead must confirm that suggested tests are:
 - Relevant to the implemented change
 - Technically correct
 - Maintainable under team standards
 - Not duplicating existing coverage
 
-### 21.4.5 Confirm Test Readiness
-The developer or assigned test reviewer confirms that the revised test suite is ready for downstream review and quality controls.
+The developer or assigned test reviewer then confirms that the revised test suite is ready for downstream review and quality controls.
 
 
 ## 21.5 Outputs
