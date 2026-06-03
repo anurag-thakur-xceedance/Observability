@@ -72,19 +72,33 @@ The change is checked for readiness to proceed into pull request formalisation a
 ## 22.5 Outputs
 | **Output** | **Destination** | **Description** |
 |---|---|---|
-| Updated code comments and inline documentation | Source control repository | Improved maintainability and intent clarity in the change set. |
-| Intent alignment confirmation | Engineering records and downstream review flow | Evidence that code and documented behaviour do not materially conflict. |
-| Reduced documentation ambiguity | Downstream review steps | A clearer codebase for reviewers and future maintainers. |
+| Improved maintainability baseline | Source control repository | Comments and inline documentation are improved so the change set is easier to understand and maintain. |
+| Intent alignment evidence | Engineering records and downstream review flow | Review evidence shows that documented intent and actual implementation do not materially conflict. |
+| Clearer downstream review readiness | Downstream review steps | The change is easier for reviewers and future maintainers to understand without relying on undocumented tribal knowledge. |
 
 
-## 22.6 Quality Gates / Exit Criteria
+## 22.6 Key Artifacts
+**Inputs:**
+- Implemented code and tests from Steps 20 and 21
+- Existing code comments and inline documentation
+- Engineering standards for readability and maintainability
+- Approved work scope and behavioural intent
+
+**Outputs:**
+- Updated code comments and inline documentation
+- Intent-alignment review evidence
+- Documentation gap findings and applied improvements
+- Readability-ready change set for downstream pull request formalisation
+
+
+## 22.7 Quality Gates / Exit Criteria
 - [ ] Comments and inline documentation have been reviewed for relevance and accuracy.
 - [ ] No critical mismatch remains between documented intent and actual behaviour.
 - [ ] Obsolete, misleading, or low-value comments have been removed or corrected.
 - [ ] The change is maintainable enough to proceed into pull request formalisation.
 
 
-## 22.7 AI and Automation Augmentation
+## 22.8 AI and Automation Augmentation
 | **Capability** | **Tool or Service** | **Description** |
 |---|---|---|
 | Intent comparison support | Approved AI assistant | Highlights likely mismatches between comments and implementation behaviour. |
@@ -92,15 +106,17 @@ The change is checked for readiness to proceed into pull request formalisation a
 | Static maintainability signals | Static analysis tooling | Detects commented-out code, unused sections, or other maintainability concerns. |
 
 
-## 22.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Comment accuracy issues found | Maintainability metric | Number of mismatched or misleading documentation items detected. |
-| Documentation gaps closed | Maintainability metric | Number of meaningful missing explanations added before review. |
-| Review clarification reduction | Quality trend metric | Reduction in avoidable clarification comments during code review. |
+## 22.9 Observability and Metrics
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| Comment Coverage | 60-80% of relevant functions and complex logic blocks have meaningful comments | Source code review, maintainability review notes, and static analysis where available | Measures whether functions and complex logic areas are supported by useful and maintainable comments. |
+| Intent Mismatches | 0 unresolved critical mismatches | Reviewer findings, comment-intent checks, and pull request review records | Tracks whether comments or documentation conflict with the actual implementation behaviour. |
+| Documentation Gaps | Fewer than 5 significant gaps per pull request, unless explicitly justified | Code review findings, source diff review, and maintainability assessment records | Measures missing documentation on public APIs, shared logic, complex functions, or important edge-case handling. |
+| Outdated Comments | 0 unresolved outdated comments in the reviewed scope | Code review evidence and source control change history | Tracks comments that no longer match the implementation and must be corrected or removed. |
+| AI Suggestion Acceptance | 50-70% where AI assistance is used | Review notes comparing accepted suggestions to total suggestions generated | Indicates whether AI-generated comment or documentation suggestions are relevant and useful. |
 
 
-## 22.9 Best Practices
+## 22.10 Best Practices
 **DO:**
 - Comment the why, not the obvious what.
 - Remove stale comments as soon as code changes invalidate them.
@@ -111,19 +127,13 @@ The change is checked for readiness to proceed into pull request formalisation a
 - Use comments to compensate for poor naming, poor structure, or weak code clarity.
 
 
-## 22.10 RACI Matrix
+## 22.11 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | Responsible | Development Team, Development Lead |
 | Accountable | Development Lead |
 | Consulted | Technical Architect, Solution Architect, QA Lead |
 | Informed | Reviewers, Engineering Manager |
-
-
-## 22.11 Related Artefacts
-- Source code with comments
-- Coding standards and maintainability guidance
-- Work item acceptance criteria
 
 
 ## 22.12 Related Steps
