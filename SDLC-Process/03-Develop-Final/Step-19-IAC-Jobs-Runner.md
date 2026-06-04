@@ -14,7 +14,7 @@
 | **Responsible Roles** | DevOps Engineer, Platform Engineer, Development Team |
 | **Accountable** | DevOps Manager or DevOps Lead |
 | **Supporting Roles** | Security Engineer, Solution Architect, Technical Architect, QA Lead |
-| **Tools** | Open-source Pulumi or Terraform CLI, CI/CD Pipeline, Cloud Policy Engine, Secrets Manager, Monitoring Platform |
+| **Tools** | Open-source Pulumi or Terraform CLI, CI/CD Pipeline, Cloud Policy Engine, Azure Key Vault, Monitoring Platform |
 
 
 ## 19.2 Purpose
@@ -27,11 +27,11 @@ Although it is sequenced as a step in the SDLC, it should be managed operational
 | **Prerequisite** | **Source** | **Description** |
 |---|---|---|
 | **Architecture (ARB) approval** | Step 18 | Approved architecture, threat model outcomes, and identified infrastructure constraints. |
-| **IaC configurations & source code** | Step 11 and architecture artefacts | Approved open-source Pulumi or Terraform modules, Docker Compose definitions, PowerShell automation scripts, reusable platform components, standardized infrastructure templates, and stack definitions. |
+| **IaC configurations & source code** | Step 11 and architecture artefacts | Approved open-source Pulumi or Terraform modules, Azure deployment definitions, PowerShell automation scripts, reusable platform components, standardized infrastructure templates, and stack definitions. |
 | **Environment specification** | Architecture and platform standards | Required environment topology, sizing, regions, networking, access model, data stores, and dependencies. |
 | **Security baseline** | Security standards and threat model outputs | Mandatory controls such as encryption, secrets handling, logging, network segmentation, RBAC, and policy enforcement. |
 | **Pipeline configuration** | DevOps platform | CI/CD definitions, deployment gates, approval rules, service connections, and workload identity configuration. |
-| **Secrets and configuration references** | Enterprise secrets platform | Key Vault, Secrets Manager, parameter store, certificates, and environment-specific configuration references. |
+| **Secrets and configuration references** | Enterprise secrets platform | Azure Key Vault, certificates, managed identity references, and environment-specific configuration references. |
 | **Change scope** | Sprint backlog and work items | The specific application or platform changes that require environment provisioning or updates. |
 
 

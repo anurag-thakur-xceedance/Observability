@@ -66,7 +66,8 @@ Artifacts:
 - Build: v2.5.3+build.1234
 - Test Coverage: 85%
 
-Related Work Items: AB#456, AB#457 ```
+Related Work Items: AB#456, AB#457 
+```
 
 ### 31.3 Definition of Done Check
 
@@ -148,7 +149,8 @@ Quality Metrics: ✅ Code Coverage: 85% (target: 80%) ✅ Unit Tests: 142 passin
 
 Next Steps: → Security scanning and validation (Phase 04) → QA testing beginning tomorrow
 
-Team: Great work! 👏 ```
+Team: Great work! 👏 
+```
 
 ---
 
@@ -244,4 +246,4 @@ Step 31 is the development phase gate ensuring all activities are complete, DoD 
 ## Navigation
 
 |
- |
+|

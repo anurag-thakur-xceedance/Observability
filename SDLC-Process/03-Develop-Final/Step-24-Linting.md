@@ -43,35 +43,35 @@ Typical tooling includes:
 - **Go:** `golint`, `gofmt`
 
 Execution is typically triggered:
-- On pull request creation
-- On each commit to the pull request branch
-- Before merge approval or equivalent review completion
+- **Pull Request Creation:** Run when the pull request is first created.
+- **Branch Update:** Run on each commit to the pull request branch.
+- **Pre-Approval Check:** Run before merge approval or equivalent review completion.
 
 ### 24.4.2 Style Check
 The linting stage enforces coding style consistency across the submitted change set.
 
 The checks should enforce consistency across areas such as:
-- Indentation and spacing rules
-- Naming conventions
-- Line length limits
-- Import or using statement ordering
-- Bracket placement and formatting
+- **Indentation and Spacing:** Indentation and spacing rules.
+- **Naming Conventions:** Consistent naming across the codebase.
+- **Line Length:** Repository-defined line length limits.
+- **Import Ordering:** Import or using statement ordering.
+- **Formatting Structure:** Bracket placement and formatting.
 
 Common style issues include:
-- Inconsistent indentation
-- Missing semicolons in JavaScript where required by rule set
-- Trailing whitespace
-- Long lines exceeding repository limits
-- Unsorted imports
+- **Indentation Issues:** Inconsistent indentation.
+- **Missing Semicolons:** Missing semicolons in JavaScript where required by the rule set.
+- **Trailing Whitespace:** Unnecessary whitespace at line endings.
+- **Long Lines:** Lines exceeding repository limits.
+- **Import Sorting:** Unsorted imports.
 
 ### 24.4.3 Potential Issue Identification
 The linting stage also detects code quality issues and likely bug patterns before human review.
 
 Potential issue identification should detect:
-- Unused variables
-- Unreachable code
-- Type mismatches or unsafe implicit typing
-- Excessive function complexity
+- **Unused Variables:** Variables declared but not used.
+- **Unreachable Code:** Code paths that can never execute.
+- **Type Safety Issues:** Type mismatches or unsafe implicit typing.
+- **Complexity Hotspots:** Excessive function complexity.
 
 Severity levels should be interpreted consistently:
 - **Error:** Must fix and blocks progression
@@ -82,10 +82,10 @@ Severity levels should be interpreted consistently:
 Generate a detailed lint report so the author and reviewers can see exactly what must be corrected.
 
 The lint report should provide:
-- File and line references for each finding
-- Severity classification
-- Rule violated
-- Suggested fixes where available
+- **Location Detail:** File and line references for each finding.
+- **Severity Classification:** The severity level assigned to each finding.
+- **Rule Reference:** The specific rule violated.
+- **Suggested Remediation:** Suggested fixes where available.
 
 Example lint report format:
 
@@ -107,10 +107,10 @@ Linting failed
 The author corrects linting errors and any agreed critical warnings before the pull request advances.
 
 Developers should:
-- Fix all blocking lint errors before merge progression
-- Address warnings where required by team standards or reviewer expectation
-- Apply auto-fixes where available
-- Update the change set and push the correction for re-validation
+- **Fix Blocking Errors:** Fix all blocking lint errors before merge progression.
+- **Address Required Warnings:** Address warnings where required by team standards or reviewer expectation.
+- **Use Auto-Fixes:** Apply auto-fixes where available.
+- **Re-submit the Change:** Update the change set and push the correction for re-validation.
 
 Typical auto-fix commands may include:
  - `npm run lint:fix`
@@ -171,19 +171,17 @@ The change can proceed only when blocking findings are resolved and the pull req
 
 ## 24.10 Best Practices
 **DO:**
-- Run linting locally before push wherever practical.
-- Treat blocking lint findings as defects, not cosmetic suggestions.
-- Keep lint rules consistent across the repository.
-
-- Use auto-fix capabilities for simple issues where safe and approved.
-- Maintain lint configuration consistency across teams and repositories.
+- **Run Linting Early:** Run linting locally before push wherever practical.
+- **Treat Blocking Findings as Defects:** Treat blocking lint findings as defects, not cosmetic suggestions.
+- **Keep Rules Consistent:** Keep lint rules consistent across the repository.
+- **Use Safe Auto-Fixes:** Use auto-fix capabilities for simple issues where safe and approved.
+- **Standardise Configuration:** Maintain lint configuration consistency across teams and repositories.
 
 **DON'T:**
-- Suppress rules unless an approved exception exists.
-
-- Ignore warnings without understanding their impact.
-- Skip linting for small changes.
-- Overuse inline disable comments to bypass standards.
+- **Suppress Rules Casually:** Do not suppress rules unless an approved exception exists.
+- **Ignore Warning Impact:** Do not ignore warnings without understanding their impact.
+- **Skip Small-Change Linting:** Do not skip linting for small changes.
+- **Bypass Standards Inline:** Do not overuse inline disable comments to bypass standards.
 
 
 ## 24.11 RACI Matrix

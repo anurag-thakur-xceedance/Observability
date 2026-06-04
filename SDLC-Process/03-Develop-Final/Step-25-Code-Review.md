@@ -39,10 +39,10 @@ The purpose of code review is not only to approve code, but to improve the chang
 Reviewers assess whether the implementation satisfies the approved scope and whether the logic is correct.
 
 Reviewers should evaluate:
-- Logic correctness and whether the code does what it is intended to do
-- Edge-case handling and boundary conditions
-- Error handling behaviour
-- Alignment to approved acceptance criteria and technical expectations
+- **Logic Correctness:** Whether the code does what it is intended to do.
+- **Edge-Case Handling:** Boundary conditions and unusual scenarios.
+- **Error Handling:** Whether failures are handled appropriately and predictably.
+- **Acceptance Alignment:** Alignment to approved acceptance criteria and technical expectations.
 
 Typical functional review checks include:
 - [ ] Logic is correct and handles expected edge cases
@@ -53,16 +53,14 @@ Typical functional review checks include:
 Reviewers assess readability, cohesion, duplication, structure, and long-term maintainability.
 
 Maintainability review should consider:
-- Readability and self-documenting structure
- - Whether the code is readable and self-documenting without relying on excessive explanation
-- Function and class cohesion
- - Whether functions are small and focused on a single concern
-- Duplication and reuse opportunities in line with the DRY principle
-- Appropriateness of design patterns and SOLID principles
-- Obvious performance concerns where visible in the code
- - Simplicity of control flow and whether the implementation is easy to reason about
-- Naming clarity for variables, functions, classes, and modules
- - Testability and whether the structure supports maintainable automated tests
+- **Readability:** Whether the code is readable and self-documenting without relying on excessive explanation.
+- **Cohesion:** Whether functions and classes are small, focused, and aligned to a single concern.
+- **Duplication:** Reuse opportunities and adherence to the DRY principle.
+- **Design Quality:** Appropriateness of design patterns and SOLID principles.
+- **Performance:** Obvious performance concerns where visible in the code.
+- **Control Flow:** Whether the implementation is easy to reason about.
+- **Naming Clarity:** Whether variable, function, class, and module names support maintainability.
+- **Testability:** Whether the structure supports maintainable automated tests.
 
 Typical quality checks include:
 - [ ] Code is readable and self-documenting
@@ -84,21 +82,21 @@ Check for security issues:
 - **XSS:** Output encoding or equivalent output-safety controls are applied.
 
 Typical security red flags include:
-- Hardcoded credentials or secrets
-- Unvalidated user input
-- Missing authorisation checks
-- Direct unsafe query construction
-- Sensitive data exposed in logs
+- **Hardcoded Credentials:** Secrets or credentials embedded directly in code or configuration.
+- **Unvalidated Input:** User-controlled input accepted without appropriate validation or sanitisation.
+- **Missing Authorisation:** Access-control checks not enforced where required.
+- **Unsafe Query Construction:** Direct query building or equivalent insecure data-access patterns.
+- **Sensitive Logging:** Sensitive data exposed through logs or diagnostics.
 
 ### 25.4.4 Provide Actionable Feedback
 Comments should be specific, respectful, and prioritised according to severity and expected action.
 
 Feedback should:
-- Reference line numbers or concrete code locations
-- Explain why the issue matters
-- Suggest an improvement where possible
-- Focus on the code and risk, not the person
-- Balance corrective feedback with useful positive reinforcement where appropriate
+- **Location-Specific:** Reference line numbers or concrete code locations.
+- **Risk-Aware:** Explain why the issue matters.
+- **Actionable:** Suggest an improvement where possible.
+- **Code-Focused:** Focus on the code and risk, not the person.
+- **Balanced:** Include useful positive reinforcement where appropriate.
 
 Feedback categories should be used consistently:
 - **Must Fix:** Blocking issues preventing approval
@@ -134,7 +132,7 @@ Approval readiness should confirm:
 ## 25.6 Key Artifacts
 **Inputs:**
 - Pull request with code changes
- - Lint report and automated check results from Step 24
+- Lint report and automated check results from Step 24
 - Coding standards, design guidance, and review policy
 - Supporting architecture or work-item context where relevant
 

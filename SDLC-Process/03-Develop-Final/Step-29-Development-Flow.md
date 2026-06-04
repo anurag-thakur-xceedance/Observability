@@ -40,7 +40,9 @@ Typical build outputs include:
 - **JavaScript or TypeScript:** npm or webpack build to bundled files
 - **Python:** packaged wheel or tarball
 - **C# or .NET:** Release build output such as DLL or EXE
-- **Docker:** container images
+- **Azure Containers:** container images prepared for Azure Container Registry or App Service deployment
+
+Build execution should remain fully automated, repeatable, and traceable to the exact commit, branch, work item, and pipeline run that produced the artefact set. Local or ad hoc builds must not be treated as authoritative deployment outputs.
 
 Example build commands:
 
@@ -57,8 +59,8 @@ pip install -r requirements.txt && python setup.py bdist_wheel
 # .NET
 dotnet build --configuration Release
 
-# Docker
-docker build -t app:${VERSION} .
+# Azure Container Registry build
+az acr build --registry contosoregistry --image app:${VERSION} .
 ```
 
 ### 29.4.2 Apply Versioning and Traceability Metadata
@@ -76,6 +78,8 @@ Typical versioning strategy:
 - **PATCH:** Bug fixes
 - **Build:** CI build number
 
+Versioning must support downstream rollback, release comparison, incident investigation, and auditability. Every stored artefact should be uniquely attributable to a specific pipeline execution and source revision.
+
 Example version metadata:
 
 ```text
@@ -85,46 +89,52 @@ Build Date: 2026-03-10T14:23:45Z
 Branch: feature/payment-gateway
 ```
 
-### 29.4.3 Validate Build Output Integrity
+### 29.4.3 Validate Build Outputs
 Confirm that artefacts are complete, expected, and not corrupted or empty.
 
 Validation should confirm:
-- Artefacts generated successfully
- - Expected files are present
- - File sizes are reasonable and non-zero
- - Checksums are calculated for integrity
- - Dependencies are included and resolved correctly
+- **Artefact Generation:** Artefacts are generated successfully.
+- **Expected Files:** Expected files are present.
+- **File Integrity:** File sizes are reasonable and non-zero.
+- **Checksum Validation:** Checksums are calculated for integrity.
+- **Dependency Resolution:** Dependencies are included and resolved correctly.
 
-Validation checklist:
+Validation Checks:
 - [ ] Build completed without errors
 - [ ] All expected artefacts present
 - [ ] Artefact sizes > 0 bytes
 - [ ] Checksums calculated, such as SHA256
 - [ ] Dependencies resolved correctly
 
+Validation should also confirm that no unexpected files, debug-only outputs, or incomplete packaging artefacts are being promoted as deployment-ready outputs.
+
 ### 29.4.4 Store Artefacts in the Approved Repository
 Publish the build outputs to the approved artefact store or registry.
 
 Approved storage targets may include:
-- **Binaries:** Artifactory, Nexus, Azure Artifacts
-- **Containers:** Docker Hub, Azure Container Registry, ECR
-- **Packages:** npm registry, PyPI, NuGet
+- **Binaries:** Azure Artifacts
+- **Containers:** Azure Container Registry
+- **Packages:** Azure Artifacts feeds or NuGet
+
+Stored artefacts should remain immutable once published under a released build version. If the output changes, a new versioned artefact should be produced instead of overwriting the existing record.
 
 Stored metadata should include:
-- Version number
-- Build timestamp
-- Git commit SHA
-- Branch name
-- Build pipeline identifier
+- **Version Number:** The assigned build or release version.
+- **Build Timestamp:** The timestamp for the build execution.
+- **Git Commit SHA:** The commit identifier for traceability.
+- **Branch Name:** The source branch used for the build.
+- **Build Pipeline Identifier:** The pipeline or run identifier associated with the artefact.
 
-### 29.4.5 Confirm Readiness for Environment Deployment
-Ensure the generated outputs are suitable for the next deployment-oriented step.
+### 29.4.5 Pipeline Progression
+Progress the validated build outputs to the next controlled stage only when the generated outputs are suitable for downstream deployment activity.
 
 Pipeline progression typically includes:
-- Updating build or pipeline status
-- Triggering deployment to the integration environment
-- Notifying the team of build success
-- Updating work-item or delivery status where required
+- **Status Update:** Updating build or pipeline status.
+- **Deployment Trigger:** Triggering deployment to the integration environment.
+- **Team Notification:** Notifying the team of build success.
+- **Work Item Update:** Updating work-item or delivery status where required.
+
+Progression should occur only when build evidence, versioning, storage publication, and integrity checks all confirm that the artefact set is suitable for controlled downstream deployment.
 
 
 ## 29.5 Outputs
@@ -133,6 +143,7 @@ Pipeline progression typically includes:
 | **Versioned build artefacts** | Approved artefact repository | Traceable build outputs ready for deployment and further validation. |
 | **Build logs and execution evidence** | CI/CD platform | Evidence of successful build and packaging activity. |
 | **Version metadata** | Artefact repository and engineering records | Commit-linked version information for tracking and rollback reference. |
+| **Validated deployment-ready package** | Downstream deployment steps and engineering records | A package whose integrity, completeness, and publication status are confirmed before environment deployment begins. |
 
 
 ## 29.6 Key Artifacts
@@ -146,12 +157,14 @@ Pipeline progression typically includes:
 - Version metadata
 - Build logs
 - Checksums and publication evidence
+- Build-validation evidence showing completeness and deployment readiness
 
 
 ## 29.7 Quality Gates / Exit Criteria
 - [ ] Build completed successfully.
 - [ ] Required artefacts were generated.
 - [ ] Versioning and traceability metadata were applied correctly.
+- [ ] Artefact integrity and completeness checks passed.
 - [ ] Artefacts were stored in the approved repository.
 - [ ] The change is ready to proceed to Step 30.
 
@@ -167,32 +180,43 @@ Pipeline progression typically includes:
 ## 29.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Build Success Rate** | >=95% | CI/CD pipeline success reports and build trend dashboards | Percentage of builds completing successfully. |
-| **Build Time** | <10 minutes | Build pipeline timing records | Time required to compile, package, and produce the approved artefacts. |
-| **Artifact Size Growth** | <20% increase from the previous stable build unless justified | Artefact repository statistics and build reports | Tracks artefact size growth for unusual increases or packaging issues. |
-| **Build Frequency** | 5-20 builds/day | CI/CD pipeline activity records | Indicates how often builds are being produced during active development. |
-| **Cycle Time** | <4 hours from commit to deployment-ready artifact | Source control timestamps, build records, and deployment-readiness checkpoints | Measures delivery speed from committed change to validated build output. |
+| **Build Success Rate** | >=95% successful builds per reporting period | CI/CD pipeline success reports and build trend dashboards | Percentage of builds completing successfully. |
+| **Build Time** | <10 minutes per standard build run | Build pipeline timing records | Time required to compile, package, and produce the approved artefacts. |
+| **Artefact Size Growth** | <20% increase from the previous stable build unless justified and approved | Artefact repository statistics and build reports | Tracks artefact size growth for unusual increases or packaging issues. |
+| **Build Frequency** | 5-20 builds per active development day | CI/CD pipeline activity records | Indicates how often builds are being produced during active development. |
+| **Cycle Time** | <4 hours from commit to deployment-ready artefact | Source control timestamps, build records, and deployment-readiness checkpoints | Measures delivery speed from committed change to validated build output. |
+| **Publication Success Rate** | 100% of successful builds published to the approved repository | Artefact publication logs and CI/CD release evidence | Percentage of successful builds whose outputs are stored correctly in the approved artefact repository. |
+| **Checksum Coverage** | 100% of deployment-ready artefacts have recorded checksum evidence | Build logs, checksum outputs, and repository publication evidence | Percentage of artefacts with integrity evidence recorded before downstream deployment. |
 
 
 ## 29.10 Best Practices
 **DO:**
-- Keep builds deterministic and automated.
-- Store artefacts in approved registries, not in source control.
-- Apply traceable versioning consistently.
-
-- Use semantic versioning consistently.
-- Tag artefacts with commit SHA for traceability.
-- Keep build logs for troubleshooting.
+- **Keep Builds Deterministic:** Keep builds deterministic and automated.
+- **Store Artefacts in Approved Registries:** Store artefacts in approved registries, not in source control.
+- **Apply Traceable Versioning:** Apply traceable versioning consistently.
+- **Use Semantic Versioning:** Use semantic versioning consistently.
+- **Tag Artefacts for Traceability:** Tag artefacts with commit SHA for traceability.
+- **Retain Build Logs:** Keep build logs for troubleshooting.
 
 **DON'T:**
-- Treat build failure as acceptable for progression.
+- **Accept Build Failure for Progression:** Do not treat build failure as acceptable for progression.
+- **Reuse Version Numbers:** Do not reuse version numbers.
+- **Skip Required Versioning:** Do not skip versioning when rollback or traceability is required.
+- **Store Large Binaries in Source Control:** Do not store large binaries in source control.
 
-- Reuse version numbers.
- - Skip versioning when rollback or traceability is required.
-- Store large binaries in source control.
+
+## 29.11 Summary and Key Outcomes
+Step 29 builds, versions, validates, and stores artefacts through controlled CI/CD automation so that downstream deployment uses outputs that are consistent, traceable, and ready for controlled release activity.
+
+Key Outcomes:
+- **Artefact Generation:** Build outputs are compiled or packaged successfully for the approved technology stack.
+- **Traceable Versioning:** Semantic versioning and commit-linked metadata are applied consistently.
+- **Repository Publication:** Artefacts are stored in the approved repository or registry rather than source control.
+- **Integrity Validation:** Completeness, checksum, and packaging checks confirm deployment readiness.
+- **Deployment Readiness:** Downstream steps receive a validated, versioned, and reviewable artefact set.
 
 
-## 29.11 RACI Matrix
+## 29.12 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | **Responsible** | DevOps Engineer, Development Team, CI/CD Pipeline |
@@ -201,12 +225,12 @@ Pipeline progression typically includes:
 | **Informed** | Engineering Manager, Product Owner |
 
 
-## 29.12 Related Steps
+## 29.13 Related Steps
 - **Upstream:** [Step 28: Secrets Scan](Step-28-Secrets-Scan.md)
 - **Downstream:** [Step 30: Development Flow Continued](Step-30-Development-Flow-Continued.md)
 
 
-## 29.13 Revision History
+## 29.14 Revision History
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |

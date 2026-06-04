@@ -32,7 +32,8 @@ Test Infrastructure as Code (IAC) changes to validate infrastructure will provis
 
 ``` Previewing update (dev): + 3 to create ~ 2 to update - 1 to delete
 
-Resources: + aws:s3/bucket:Bucket order-processing-bucket-dev + aws:rds/instance:Instance order-db-dev + aws:ec2/securityGroup:SecurityGroup order-sg-dev ~ aws:lambda/function:Function order-processor (version update) ~ aws:dynamodb/table:Table session-store (throughput change) - aws:ec2/instance:Instance legacy-server (no longer needed) ```
+Resources: + aws:s3/bucket:Bucket order-processing-bucket-dev + aws:rds/instance:Instance order-db-dev + aws:ec2/securityGroup:SecurityGroup order-sg-dev ~ aws:lambda/function:Function order-processor (version update) ~ aws:dynamodb/table:Table session-store (throughput change) - aws:ec2/instance:Instance legacy-server (no longer needed) 
+```
 
 ### 27.2 Plan Validation
 
@@ -113,7 +114,8 @@ Resources: + aws:s3/bucket:Bucket order-processing-bucket-dev + aws:rds/instance
 
 ``` Estimated Monthly Cost: Current: $850/month Proposed: $1,245/month Delta: +$395/month (+46%)
 
-Top Changes: + RDS Instance (db.t3.large): +$180/month + S3 Bucket (estimated 500GB): +$12/month ~ Lambda (increased memory): +$8/month ```
+Top Changes: + RDS Instance (db.t3.large): +$180/month + S3 Bucket (estimated 500GB): +$12/month ~ Lambda (increased memory): +$8/month 
+```
 
 ---
 

@@ -39,27 +39,27 @@ The purpose of this step is to ensure that the change is properly packaged for r
 Create the pull request with proper branch naming and the correct merge target.
 
 Expected branch metadata includes:
-- Branch naming: follows the approved convention such as `feature/WORKITEM-123-short-description`
-- Target branch is `main` or `develop`, based on the team branching strategy
-- Source branch contains the complete committed change set for the work item
+- **Branch Naming:** Follows the approved convention such as `feature/WORKITEM-123-short-description`.
+- **Target Branch:** `main` or `develop`, based on the team branching strategy.
+- **Source Branch Completeness:** The source branch contains the complete committed change set for the work item.
 
 Typical branch strategy examples include:
-- `feature/US-456-add-payment-gateway` for a user story
-- `bugfix/BUG-789-fix-login-error` for a defect fix
-- `hotfix/PROD-321-critical-security-patch` for a production hotfix
+- **User Story Branch:** `feature/US-456-add-payment-gateway`
+- **Defect Fix Branch:** `bugfix/BUG-789-fix-login-error`
+- **Production Hotfix Branch:** `hotfix/PROD-321-critical-security-patch`
 
 ### 23.4.2 Provide Review Context
 Link the pull request to the related work items so that traceability is explicit and bidirectional.
 
 The pull request should:
-- Reference work items in the title or description
-- Use supported linking keywords such as `Fixes #123` or `Closes AB#456`
-- Preserve bidirectional traceability between the pull request and the governing work item
+- **Reference Work Items:** Include work items in the title or description.
+- **Use Linking Keywords:** Use supported linking keywords such as `Fixes #123` or `Closes AB#456`.
+- **Preserve Traceability:** Maintain bidirectional traceability between the pull request and the governing work item.
 
 Typical linking structure includes:
-- Title - `Add payment gateway integration (Fixes AB#456)`
-- Description includes implementation context and related work items
-- Related records identify what the PR implements, depends on, or relates to
+- **Title Format:** `Add payment gateway integration (Fixes AB#456)`
+- **Description Content:** Include implementation context and related work items.
+- **Related Records:** Identify what the PR implements, depends on, or relates to.
 
 Example linkage detail:
 - **Implements:** `User Story AB#456`
@@ -77,11 +77,11 @@ The description should cover:
 - **Screenshots:** For UI changes where relevant
 
 An effective pull request template typically includes:
-- `Summary`
-- `Changes`
-- `Testing`
-- `Related Work Items`
-- `Checklist`
+- **Summary Section:** `Summary`
+- **Change Section:** `Changes`
+- **Testing Section:** `Testing`
+- **Work Item Section:** `Related Work Items`
+- **Checklist Section:** `Checklist`
 
 Example checklist items include:
 - [ ] Unit tests added and coverage remains within target
@@ -93,10 +93,10 @@ Example checklist items include:
 Assign appropriate reviewers according to team policy and change risk.
 
 Reviewer assignment expectations include:
-- At least 2 reviewers, where team policy requires dual review
-- Include a domain expert for complex or business-critical changes
-- Include a security reviewer for security-sensitive code
-- Notify reviewers through the pull request workflow, comments, or approved team communication channels
+- **Dual Review:** At least 2 reviewers where team policy requires dual review.
+- **Domain Expertise:** Include a domain expert for complex or business-critical changes.
+- **Security Review:** Include a security reviewer for security-sensitive code.
+- **Reviewer Notification:** Notify reviewers through the pull request workflow, comments, or approved team communication channels.
 
 Reviewer selection criteria typically include:
 - **Code owner:** Team member responsible for the affected area
@@ -116,10 +116,10 @@ PR Checklist Before Submission:
 - [ ] Breaking changes are documented where applicable
 
 After submission, the author should:
-- Ensure pre-submit checks such as tests and linting pass
-- Monitor CI/CD pipeline status
-- Respond to reviewer comments promptly
-- Address feedback and update the pull request as needed
+- **Check Validation Status:** Ensure pre-submit checks such as tests and linting pass.
+- **Monitor Pipeline Progress:** Monitor CI/CD pipeline status.
+- **Respond Promptly:** Respond to reviewer comments promptly.
+- **Update the Pull Request:** Address feedback and update the pull request as needed.
 
 Submission does not imply immediate merge; it means the change has formally entered the governed merge and review path.
 
@@ -175,13 +175,13 @@ Submission does not imply immediate merge; it means the change has formally ente
 
 ## 23.10 Best Practices
 **DO:**
-- Keep the pull request focused and coherent.
-- Link every pull request to its governing work item.
- - Write review instructions that reduce ambiguity for reviewers.
- - Ensure the merge workflow begins with clean, reviewable context.
+- **Keep the PR Focused:** Keep the pull request focused and coherent.
+- **Maintain Work Item Traceability:** Link every pull request to its governing work item.
+- **Write Clear Review Instructions:** Write review instructions that reduce ambiguity for reviewers.
+- **Start with Reviewable Context:** Ensure the merge workflow begins with clean, reviewable context.
 
 **DON'T:**
-- Treat PR submission as a formality rather than a governed handoff into review.
+- **Treat Submission as a Formality:** Do not treat PR submission as a formality rather than a governed handoff into review.
 
 
 ## 23.11 RACI Matrix

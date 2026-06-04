@@ -39,7 +39,8 @@ Build artifacts, apply versioning, and store in artifact repository as part of t
 
 # .NET dotnet build --configuration Release
 
-# Docker docker build -t app:${VERSION} . ```
+# Docker docker build -t app:${VERSION} . 
+```
 
 ### 29.2 Artifact Versioning
 
@@ -193,4 +194,4 @@ Step 29 builds, versions, and stores artifacts through CI/CD automation, ensurin
 ## Navigation
 
 |
- |
+|

@@ -59,7 +59,8 @@ Deploy artifacts to integration environment and run smoke tests to validate basi
 
 # Wait for rollout kubectl rollout status deployment/app
 
-# Verify deployment kubectl get pods -l app=app ```
+# Verify deployment kubectl get pods -l app=app 
+```
 
 ### 30.3 Smoke Validation
 
@@ -77,7 +78,8 @@ Deploy artifacts to integration environment and run smoke tests to validate basi
 
 # Basic API test curl https://integration.example.com/api/ping # Expected: {"message": "pong"}
 
-# Database connectivity curl https://integration.example.com/api/db-status # Expected: {"database": "connected"} ```
+# Database connectivity curl https://integration.example.com/api/db-status # Expected: {"database": "connected"} 
+```
 
 **Smoke Test Checklist:**
 
@@ -108,7 +110,8 @@ Changes:
 - Fixed login error handling
 - Updated user profile UI
 
-Related Work Items: AB#456, AB#457 ```
+Related Work Items: AB#456, AB#457 
+```
 
 ### 30.5 Handoff Preparation
 
@@ -208,4 +211,4 @@ Step 30 deploys artifacts to integration environment and validates basic functio
 ## Navigation
 
 |
- |
+|

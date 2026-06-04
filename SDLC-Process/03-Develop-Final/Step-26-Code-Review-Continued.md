@@ -36,9 +36,9 @@ Step 26 completes the review response cycle by ensuring that feedback from Step 
 The author resolves the requested changes, clarifies ambiguities, and updates the change set accordingly.
 
 Feedback resolution should include:
-- Address each blocking and important review comment.
-- Updating code, tests, or documentation where required
-- Recording rationale where the author disagrees and seeks reviewer confirmation
+- **Comment Resolution:** Address each blocking and important review comment.
+- **Change Updates:** Update code, tests, or documentation where required.
+- **Documented Rationale:** Record rationale where the author disagrees and seeks reviewer confirmation.
 
 Typical expectations:
 - [ ] All material feedback items have an explicit action or response
@@ -49,25 +49,25 @@ Typical expectations:
 Open comment threads and questions are addressed to closure, with supporting rationale where required.
 
 Discussion resolution should ensure:
-- Open questions are answered clearly.
-- Disagreements are resolved through reviewer-author discussion.
-- Threads are closed only when the underlying concern has actually been addressed.
+- **Clear Answers:** Open questions are answered clearly.
+- **Resolved Disagreements:** Reviewer-author discussion closes disagreements.
+- **True Closure:** Threads are closed only when the underlying concern has actually been addressed.
 
 ### 26.4.3 Re-run Relevant Checks
 After changes are made, the required automated checks are re-run to confirm that the revised change remains valid.
 
 Re-validation typically includes:
-- Re-running linting and other PR checks
-- Re-running tests impacted by the review changes
-- Confirming the pull request remains in a healthy state after rework
+- **Check Re-Runs:** Re-run linting and other pull request checks.
+- **Targeted Test Re-Runs:** Re-run tests impacted by the review changes.
+- **Healthy PR State:** Confirm the pull request remains in a healthy state after rework.
 
 ### 26.4.4 Re-submit for Review Confirmation
 Reviewers reassess the updated change to confirm that requested actions have been completed satisfactorily.
 
 Re-review should confirm:
-- Requested changes have been completed
-- No new issues were introduced during rework.
-- Reviewer comments are either resolved or explicitly dispositioned.
+- **Requested Changes Complete:** Requested changes have been completed.
+- **No Regression Introduced:** No new issues were introduced during rework.
+- **Comment Disposition:** Reviewer comments are either resolved or explicitly dispositioned.
 
 ### 26.4.5 Confirm Approval Readiness
 The change is confirmed as ready to proceed into the next quality and control steps.
@@ -126,14 +126,14 @@ Approval readiness should confirm:
 
 ## 26.10 Best Practices
 **DO:**
-- Address feedback with clear intent and complete fixes.
-- Keep reviewers informed when substantial changes are made after feedback.
-- Treat review closure as a quality control, not an administrative step.
-- Resolve the underlying issue, not just the comment thread.
+- **Resolve with Intent:** Address feedback with clear intent and complete fixes.
+- **Keep Reviewers Informed:** Keep reviewers informed when substantial changes are made after feedback.
+- **Treat Closure as Quality Control:** Treat review closure as a quality control, not an administrative step.
+- **Fix the Real Issue:** Resolve the underlying issue, not just the comment thread.
 
 **DON'T:**
-- Mark review issues resolved only when the code actually reflects the resolution.
-- Treat comment closure as evidence of quality on its own.
+- **Mark Issues Resolved Prematurely:** Do not mark review issues resolved only when the code actually reflects the resolution.
+- **Confuse Closure with Quality:** Do not treat comment closure as evidence of quality on its own.
 
 
 ## 26.11 RACI Matrix

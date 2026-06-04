@@ -35,7 +35,8 @@ Automated scanning for exposed secrets, credentials, API keys, and sensitive inf
 
 # ❌ Database connection string with password db\_url = "postgresql://user:password123@localhost/db"
 
-# ❌ API key in configuration stripe\_api\_key = "sk\_live\_4eC39HqLyjWDarjtT1zdp7dc" ```
+# ❌ API key in configuration stripe\_api\_key = "sk\_live\_4eC39HqLyjWDarjtT1zdp7dc" 
+```
 
 ### 28.2 Credential Detection
 
@@ -69,7 +70,8 @@ Automated scanning for exposed secrets, credentials, API keys, and sensitive inf
 
 ```yaml # ❌ Kubernetes secret in plain text (should use sealed secrets) apiVersion: v1 kind: Secret data: password: cGFzc3dvcmQxMjM= # base64 is not encryption!
 
-# ❌ .env file committed DB\_PASSWORD=my\_secret\_password API\_KEY=sk\_live\_12345 ```
+# ❌ .env file committed DB\_PASSWORD=my\_secret\_password API\_KEY=sk\_live\_12345 
+```
 
 ### 28.4 False Positive Review
 
@@ -84,7 +86,8 @@ Automated scanning for exposed secrets, credentials, API keys, and sensitive inf
 
 ``` # Whitelist test credentials test\_api\_key = "test\_sk\_12345" # whitelisted: test credential
 
-# Whitelist Stripe test key (publicly known) stripe\_test\_key = "pk\_test\_..." # whitelisted: public test key ```
+# Whitelist Stripe test key (publicly known) stripe\_test\_key = "pk\_test\_..." # whitelisted: public test key 
+```
 
 ### 28.5 Remediation Guidance
 
@@ -110,7 +113,8 @@ Automated scanning for exposed secrets, credentials, API keys, and sensitive inf
 
 # Load from environment variable (set in CI/CD) api\_key = os.environ.get("STRIPE\_API\_KEY")
 
-# Or load from Key Vault secret\_client = SecretClient(vault\_url="https://...", credential=credential) api\_key = secret\_client.get\_secret("stripe-api-key").value ```
+# Or load from Key Vault secret\_client = SecretClient(vault\_url="https://...", credential=credential) api\_key = secret\_client.get\_secret("stripe-api-key").value 
+```
 
 ---
 
