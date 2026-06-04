@@ -4,19 +4,19 @@
 
 | **Attribute** | **Value** |
 |---|---|
-| Document Owner | Simon Armstrong, VP Chief Architect |
-| Approved By | Simon Armstrong (pending wider review) |
-| Classification | Internal |
-| Review Frequency | Half-Yearly |
-| Next Review Due | 2026-12-01 |
+| **Document Owner** | Simon Armstrong, VP Chief Architect |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Half-Yearly |
+| **Next Review Due** | 2026-12-01 |
 
 ## 24.1 Overview
 | **Attribute** | **Value** |
 |---|---|
-| Responsible Roles | Development Team, CI/CD Pipeline |
-| Accountable | Development Lead |
-| Supporting Roles | DevOps Engineer, Development Lead |
-| Tools | Linting tools, static analysis tools, CI/CD pipeline |
+| **Responsible Roles** | Development Team, CI/CD Pipeline |
+| **Accountable** | Development Lead |
+| **Supporting Roles** | DevOps Engineer, Development Lead |
+| **Tools** | Linting tools, static analysis tools, CI/CD pipeline |
 
 
 ## 24.2 Purpose
@@ -26,9 +26,9 @@ Step 24 applies automated linting and code-style validation to the submitted cha
 ## 24.3 Prerequisites
 | **Prerequisite** | **Source** | **Description** |
 |---|---|---|
-| Submitted pull request | Step 23 | The change set now in the review pipeline. |
-| Code standards and lint rules | Engineering standards | Approved lint rules, formatting expectations, and language-specific checks. |
-| Project source code | Source control repository | The files changed in the pull request. |
+| **Submitted pull request** | Step 23 | The change set now in the review pipeline. |
+| **Code standards and lint rules** | Engineering standards | Approved lint rules, formatting expectations, and language-specific checks. |
+| **Project source code** | Source control repository | The files changed in the pull request. |
 
 
 ## 24.4 Activities
@@ -36,11 +36,11 @@ Step 24 applies automated linting and code-style validation to the submitted cha
 The CI/CD workflow executes the approved linting and formatting rules against the pull request change set.
 
 Typical tooling includes:
-- JavaScript or TypeScript: `ESLint`, `Prettier`
-- Python: `Pylint`, `Flake8`, `Black`
-- Java: `Checkstyle`, `SpotBugs`
-- C#: `StyleCop`, `Roslyn Analyzers`
-- Go: `golint`, `gofmt`
+- **JavaScript or TypeScript:** `ESLint`, `Prettier`
+- **Python:** `Pylint`, `Flake8`, `Black`
+- **Java:** `Checkstyle`, `SpotBugs`
+- **C#:** `StyleCop`, `Roslyn Analyzers`
+- **Go:** `golint`, `gofmt`
 
 Execution is typically triggered:
 - On pull request creation
@@ -74,9 +74,9 @@ Potential issue identification should detect:
 - Excessive function complexity
 
 Severity levels should be interpreted consistently:
-- Error: Must fix and blocks progression
-- Warning: Should fix or explicitly justify according to policy
-- Info: Non-blocking suggestion for improvement
+- **Error:** Must fix and blocks progression
+- **Warning:** Should fix or explicitly justify according to policy
+- **Info:** Non-blocking suggestion for improvement
 
 ### 24.4.4 Report Generation
 Generate a detailed lint report so the author and reviewers can see exactly what must be corrected.
@@ -113,7 +113,7 @@ Developers should:
 - Update the change set and push the correction for re-validation
 
 Typical auto-fix commands may include:
-- `npm run lint:fix`
+ - `npm run lint:fix`
 - `black .`
 - `gofmt -w .`
 
@@ -126,9 +126,9 @@ The change can proceed only when blocking findings are resolved and the pull req
 ## 24.5 Outputs
 | **Output** | **Destination** | **Description** |
 |---|---|---|
-| Lint report | CI/CD platform and pull request checks | Machine-generated record of errors, warnings, and informational findings. |
-| Corrected change set | Source control repository | Pull request updated to comply with code standards. |
-| Lint status result | Downstream review steps | Pass or fail result used before deeper human review proceeds. |
+| **Lint report** | CI/CD platform and pull request checks | Machine-generated record of errors, warnings, and informational findings. |
+| **Corrected change set** | Source control repository | Pull request updated to comply with code standards. |
+| **Lint status result** | Downstream review steps | Pass or fail result used before deeper human review proceeds. |
 
 
 ## 24.6 Key Artifacts
@@ -154,19 +154,19 @@ The change can proceed only when blocking findings are resolved and the pull req
 ## 24.8 AI and Automation Augmentation
 | **Capability** | **Tool or Service** | **Description** |
 |---|---|---|
-| Automated lint execution | CI/CD pipeline | Runs standards checks consistently on every relevant pull request change. |
-| Fix suggestion support | Approved AI assistant | Suggests likely remediations for rule violations. |
-| Rule enforcement | Lint and static analysis tools | Applies team standards without requiring manual inspection first. |
+| **Automated lint execution** | CI/CD pipeline | Runs standards checks consistently on every relevant pull request change. |
+| **Fix suggestion support** | Approved AI assistant | Suggests likely remediations for rule violations. |
+| **Rule enforcement** | Lint and static analysis tools | Applies team standards without requiring manual inspection first. |
 
 
 ## 24.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| Lint Pass Rate | >=95% | Pull request check results and CI/CD pipeline trend reports | Percentage of pull requests that pass linting on the first attempt. |
-| Average Lint Findings per PR | <5 | Lint reports aggregated across pull requests | Typical lint burden introduced per change set. |
-| Auto-fix Rate | >=60% | Lint tool auto-fix logs and remediation reports | Percentage of total findings corrected automatically. |
-| Lint Execution Time | <3 minutes | CI/CD pipeline timing records | Time required to run linting against the pull request change set. |
-| Disabled Rules | <5 active rule exceptions | Lint configuration review and repository standards audit | Number of disabled linting rules or equivalent exceptions in active use. |
+| **Lint Pass Rate** | >=95% | Pull request check results and CI/CD pipeline trend reports | Percentage of pull requests that pass linting on the first attempt. |
+| **Average Lint Findings per PR** | <5 | Lint reports aggregated across pull requests | Typical lint burden introduced per change set. |
+| **Auto-fix Rate** | >=60% | Lint tool auto-fix logs and remediation reports | Percentage of total findings corrected automatically. |
+| **Lint Execution Time** | <3 minutes | CI/CD pipeline timing records | Time required to run linting against the pull request change set. |
+| **Disabled Rules** | <5 active rule exceptions | Lint configuration review and repository standards audit | Number of disabled linting rules or equivalent exceptions in active use. |
 
 
 ## 24.10 Best Practices
@@ -189,10 +189,10 @@ The change can proceed only when blocking findings are resolved and the pull req
 ## 24.11 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
-| Responsible | Development Team, CI/CD Pipeline |
-| Accountable | Development Lead |
-| Consulted | DevOps Engineer, Development Lead |
-| Informed | Reviewers, Engineering Manager |
+| **Responsible** | Development Team, CI/CD Pipeline |
+| **Accountable** | Development Lead |
+| **Consulted** | DevOps Engineer, Development Lead |
+| **Informed** | Reviewers, Engineering Manager |
 
 
 ## 24.12 Related Steps
@@ -203,6 +203,6 @@ The change can proceed only when blocking findings are resolved and the pull req
 ## 24.13 Revision History
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
-| 0.1 | 5 May 2026 | Anurag Thakur | Initial draft for Review |
+| **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
 
 [Previous: Step 23 - Merge PR](Step-23-Merge-PR.md) | [Next: Step 25 - Code Review](Step-25-Code-Review.md)
