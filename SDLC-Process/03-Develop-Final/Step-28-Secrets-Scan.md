@@ -46,13 +46,13 @@ Example detections:
 
 ```python
 # AWS Access Key detected
-aws_access_key = "AKIAIOSFODNN7EXAMPLE"
+aws_access_key = "Example Key"
 
 # Database connection string with password
-db_url = "postgresql://user:password123@localhost/db"
+db_url = "postgresql://user:PassowrdInClear@localhost/db"
 
 # API key in configuration
-stripe_api_key = "sk_live_4eC39HqLyjWDarjtT1zdp7dc"
+stripe_api_key = "sk_live_SampleApiKey"
 ```
 
 ### 28.4.2 Review Findings
