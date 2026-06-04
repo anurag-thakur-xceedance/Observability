@@ -36,24 +36,92 @@ The purpose of this step is to ensure that the change is properly packaged for r
 
 ## 23.4 Activities
 ### 23.4.1 Prepare Pull Request Metadata
-The author prepares the pull request with the correct branch target, title, linked work item, and summary of the change.
+Create the pull request with proper branch naming and the correct merge target.
+
+Expected branch metadata includes:
+- Branch naming follows the approved convention such as `feature/WORKITEM-123-short-description`
+- Target branch is `main` or `develop`, based on the team branching strategy
+- Source branch contains the complete committed change set for the work item
+
+Typical branch strategy examples include:
+- `feature/US-456-add-payment-gateway` for a user story
+- `bugfix/BUG-789-fix-login-error` for a defect fix
+- `hotfix/PROD-321-critical-security-patch` for a production hotfix
 
 ### 23.4.2 Provide Review Context
-The pull request description must provide enough context for reviewers to understand:
-- What changed
-- Why the change was made
-- Any technical or business constraints
-- Expected review focus areas
-- How the change can be validated
+Link the pull request to the related work items so that traceability is explicit and bidirectional.
+
+The pull request should:
+- Reference work items in the title or description
+- Use supported linking keywords such as `Fixes #123` or `Closes AB#456`
+- Preserve bidirectional traceability between the pull request and the governing work item
+
+Typical linking structure includes:
+- Title: `Add payment gateway integration (Fixes AB#456)`
+- Description includes implementation context and related work items
+- Related records identify what the PR implements, depends on, or relates to
+
+Example linkage detail:
+- Implements: `User Story AB#456`
+- Depends on: `Task AB#457 (API credentials)`
+- Relates to: `Bug AB#450 (payment validation)`
 
 ### 23.4.3 Link Traceability Records
-The pull request must be linked to the relevant backlog item, change record, defect, or release scope so that traceability is preserved.
+Provide a clear pull request description so reviewers can understand the change without reconstructing context from commits alone.
+
+The description should cover:
+- What: Summary of changes
+- Why: Business context and rationale
+- How: Technical approach overview
+- Testing: How to test the changes
+- Screenshots: For UI changes where relevant
+
+An effective pull request template typically includes:
+- `Summary`
+- `Changes`
+- `Testing`
+- `Related Work Items`
+- `Checklist`
+
+Example checklist items include:
+- [ ] Unit tests added and coverage remains within target
+- [ ] Integration tests added where relevant
+- [ ] Documentation updated
+- [ ] No known security vulnerabilities introduced
 
 ### 23.4.4 Assign or Request Reviewers
-The author assigns the appropriate reviewers or routes the pull request according to the team review policy.
+Assign appropriate reviewers according to team policy and change risk.
+
+Reviewer assignment expectations include:
+- At least 2 reviewers, where team policy requires dual review
+- Include a domain expert for complex or business-critical changes
+- Include a security reviewer for security-sensitive code
+- Notify reviewers through the pull request workflow, comments, or approved team communication channels
+
+Reviewer selection criteria typically include:
+- Code owner: Team member responsible for the affected area
+- Domain expert: Reviewer with business logic familiarity
+- Security reviewer: Required for authentication, payment, or sensitive data handling
+- Junior developer: Included where appropriate for knowledge sharing and learning
 
 ### 23.4.5 Submit Into the Merge Workflow
-The change is submitted so automated checks and review steps can begin. Submission does not imply immediate merge; it means the change has formally entered the merge and review path.
+Submit the pull request and monitor its progress through the merge workflow.
+
+PR Checklist Before Submission:
+- [ ] All tests are passing locally
+- [ ] Code follows the style guide
+- [ ] Comments and documentation are updated
+- [ ] Work items are linked
+- [ ] Reviewers are assigned
+- [ ] Breaking changes are documented where applicable
+
+After submission, the author should:
+- Ensure pre-submit checks such as tests and linting pass
+- Monitor CI/CD pipeline status
+- Respond to reviewer comments promptly
+- Address feedback and update the pull request as needed
+
+Submission does not imply immediate merge; it means the change has formally entered the governed merge and review path.
 
 
 ## 23.5 Outputs
@@ -65,7 +133,21 @@ The change is submitted so automated checks and review steps can begin. Submissi
 | Triggered automation checks | CI/CD platform | Automated linting, testing, and pipeline controls initiated by pull request submission. |
 
 
-## 23.6 Quality Gates / Exit Criteria
+## 23.6 Key Artifacts
+**Inputs:**
+- Implemented and tested change set from Steps 20-22
+- Approved work item, defect, or change reference
+- Branching, pull request, and merge policy standards
+- Review context, testing notes, and traceability requirements
+
+**Outputs:**
+- Submitted pull request with complete metadata
+- Linked work item or change reference
+- Pull request description with review and testing context
+- Reviewer assignment or routing evidence
+
+
+## 23.7 Quality Gates / Exit Criteria
 - [ ] Pull request is created against the correct target branch.
 - [ ] Linked work items or change references are present.
 - [ ] The title and description are clear, complete, and review-ready.
@@ -73,7 +155,7 @@ The change is submitted so automated checks and review steps can begin. Submissi
 - [ ] The change has formally entered the automated and human review workflow.
 
 
-## 23.7 AI and Automation Augmentation
+## 23.8 AI and Automation Augmentation
 | **Capability** | **Tool or Service** | **Description** |
 |---|---|---|
 | Pull request summary support | Approved AI assistant | Helps generate an initial summary, testing notes, and reviewer context. |
@@ -81,15 +163,17 @@ The change is submitted so automated checks and review steps can begin. Submissi
 | Automated workflow initiation | CI/CD pipeline | Starts required review-time quality controls as soon as the pull request is submitted. |
 
 
-## 23.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Time to PR submission | Flow metric | Time from implementation start to pull request creation. |
-| Traceability completeness | Governance metric | Percentage of pull requests correctly linked to approved work scope. |
-| PR rework due to poor context | Quality metric | Frequency of pull requests sent back because metadata or description was insufficient. |
+## 23.9 Observability and Metrics
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| PR Size | <400 lines changed | Pull request diff statistics in the source control platform | Tracks whether pull requests remain focused and reviewable. |
+| PR Creation Time | <30 minutes | Pull request creation timestamps and author activity records | Measures the time taken to create and submit the pull request once the change is ready. |
+| Work Item Linkage | 100% | Pull request metadata checks and work item linkage validation rules | Percentage of pull requests correctly linked to approved work scope. |
+| Time to First Review | <4 hours | Pull request timestamps and first-review activity records | Time from pull request submission to the first human review. |
+| Time From Inception to PR | <3 days | Work item start date, branch history, and pull request creation timestamp | Measures development velocity from work start to pull request submission. |
 
 
-## 23.9 Best Practices
+## 23.10 Best Practices
 **DO:**
 - Keep the pull request focused and coherent.
 - Link every pull request to its governing work item.
@@ -100,20 +184,13 @@ The change is submitted so automated checks and review steps can begin. Submissi
 - Treat PR submission as a formality rather than a governed handoff into review.
 
 
-## 23.10 RACI Matrix
+## 23.11 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | Responsible | Development Team, Pull Request Author |
 | Accountable | Development Lead |
 | Consulted | Reviewers, QA Lead, DevOps Engineer |
 | Informed | Engineering Manager, Product Owner |
-
-
-## 23.11 Related Artefacts
-- Pull request description
-- Linked work items or change records
-- Branching and merge policy guidance
-- Review assignment record
 
 
 ## 23.12 Related Steps

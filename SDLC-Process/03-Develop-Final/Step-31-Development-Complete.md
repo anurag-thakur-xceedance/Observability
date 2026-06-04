@@ -74,11 +74,13 @@ The development phase is complete only when the change is demonstrably ready for
 
 
 ## 31.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Definition of Done compliance | Governance metric | Percentage of required completion criteria satisfied before phase exit. |
-| Phase completion cycle time | Flow metric | Time taken for a change to move through the Develop phase to closure. |
-| Reopened development items | Quality trend metric | Frequency of changes that were marked complete but required return to development. |
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| Definition of Done Compliance | 100% | Definition of Done checklist records and work item completion evidence | Percentage of required completion criteria satisfied before phase exit. |
+| Work Item Completion | 100% | Sprint board, work item system, and delivery status reports | Percentage of committed development items completed for the scoped release or sprint. |
+| Phase Duration | Less than 2 weeks, unless formally planned otherwise | Delivery lead-time reporting across the Develop phase | Time taken for a change to move through the Develop phase to closure. |
+| Handoff Time | Less than 1 hour | Handoff package timestamps and stakeholder notification records | Time required to prepare and hand off the completion package to the next phase. |
+| Time From Inception to PR | Less than 3 days | Work item start records, branch history, and pull request creation timestamps | Measures development velocity through the earlier part of the phase and supports DORA-style tracking. |
 
 
 ## 31.9 Best Practices

@@ -35,14 +35,92 @@ Step 24 applies automated linting and code-style validation to the submitted cha
 ### 24.4.1 Run Automated Linting
 The CI/CD workflow executes the approved linting and formatting rules against the pull request change set.
 
-### 24.4.2 Identify Rule Violations
-The linting stage highlights errors, warnings, and informational findings related to code style, quality, and maintainability.
+Typical tooling includes:
+- JavaScript or TypeScript: `ESLint`, `Prettier`
+- Python: `Pylint`, `Flake8`, `Black`
+- Java: `Checkstyle`, `SpotBugs`
+- C#: `StyleCop`, `Roslyn Analyzers`
+- Go: `golint`, `gofmt`
 
-### 24.4.3 Resolve Blocking Findings
+Execution is typically triggered:
+- On pull request creation
+- On each commit to the pull request branch
+- Before merge approval or equivalent review completion
+
+### 24.4.2 Style Check
+The linting stage enforces coding style consistency across the submitted change set.
+
+The checks should enforce consistency across areas such as:
+- Indentation and spacing rules
+- Naming conventions
+- Line length limits
+- Import or using statement ordering
+- Bracket placement and formatting
+
+Common style issues include:
+- Inconsistent indentation
+- Missing semicolons in JavaScript where required by rule set
+- Trailing whitespace
+- Long lines exceeding repository limits
+- Unsorted imports
+
+### 24.4.3 Potential Issue Identification
+The linting stage also detects code quality issues and likely bug patterns before human review.
+
+Potential issue identification should detect:
+- Unused variables
+- Unreachable code
+- Type mismatches or unsafe implicit typing
+- Excessive function complexity
+
+Severity levels should be interpreted consistently:
+- Error: Must fix and blocks progression
+- Warning: Should fix or explicitly justify according to policy
+- Info: Non-blocking suggestion for improvement
+
+### 24.4.4 Report Generation
+Generate a detailed lint report so the author and reviewers can see exactly what must be corrected.
+
+The lint report should provide:
+- File and line references for each finding
+- Severity classification
+- Rule violated
+- Suggested fixes where available
+
+Example lint report format:
+
+```text
+src/services/payment.ts
+Line 45: Error 'userId' is assigned but never used (no-unused-vars)
+Line 67: Warning Function has complexity 15 (max 10) (complexity)
+Line 89: Error Missing return type annotation (explicit-module-boundary-types)
+
+src/utils/validator.ts
+Line 23: Warning Line length exceeds 120 characters (max-len)
+Line 45: Info Consider using template literal (prefer-template)
+
+2 errors, 2 warnings, 1 info
+Linting failed
+```
+
+### 24.4.5 Resolve Blocking Findings
 The author corrects linting errors and any agreed critical warnings before the pull request advances.
 
-### 24.4.4 Re-run Validation
+Developers should:
+- Fix all blocking lint errors before merge progression
+- Address warnings where required by team standards or reviewer expectation
+- Apply auto-fixes where available
+- Update the change set and push the correction for re-validation
+
+Typical auto-fix commands may include:
+- `npm run lint:fix`
+- `black .`
+- `gofmt -w .`
+
+### 24.4.6 Re-run Validation
 Linting is re-run after fixes to confirm the change is compliant and stable.
+
+The change can proceed only when blocking findings are resolved and the pull request check is in a pass state.
 
 
 ## 24.5 Outputs
@@ -53,14 +131,27 @@ Linting is re-run after fixes to confirm the change is compliant and stable.
 | Lint status result | Downstream review steps | Pass or fail result used before deeper human review proceeds. |
 
 
-## 24.6 Quality Gates / Exit Criteria
+## 24.6 Key Artifacts
+**Inputs:**
+- Pull request code changes
+- Linting configuration files such as `.eslintrc`, `.pylintrc`, or equivalent
+- Repository coding standards and formatting rules
+
+**Outputs:**
+- Lint report posted to the pull request or pipeline output
+- Pass or fail status recorded in the pull request checks
+- Issue list with file and line references
+- Auto-fix output or remediation evidence where applicable
+
+
+## 24.7 Quality Gates / Exit Criteria
 - [ ] Linting has run successfully against the change set.
 - [ ] Blocking lint errors have been corrected.
 - [ ] Agreed critical warnings are resolved or explicitly accepted by policy.
 - [ ] Pull request is ready for human code review.
 
 
-## 24.7 AI and Automation Augmentation
+## 24.8 AI and Automation Augmentation
 | **Capability** | **Tool or Service** | **Description** |
 |---|---|---|
 | Automated lint execution | CI/CD pipeline | Runs standards checks consistently on every relevant pull request change. |
@@ -68,37 +159,40 @@ Linting is re-run after fixes to confirm the change is compliant and stable.
 | Rule enforcement | Lint and static analysis tools | Applies team standards without requiring manual inspection first. |
 
 
-## 24.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Lint pass rate | Quality metric | Percentage of pull requests that pass linting without repeated correction cycles. |
-| Average lint findings per PR | Quality metric | Typical lint burden introduced per change set. |
-| Time to lint resolution | Flow metric | Time taken to correct blocking lint issues after detection. |
+## 24.9 Observability and Metrics
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| Lint Pass Rate | >=95% | Pull request check results and CI/CD pipeline trend reports | Percentage of pull requests that pass linting on the first attempt. |
+| Average Lint Findings per PR | <5 | Lint reports aggregated across pull requests | Typical lint burden introduced per change set. |
+| Auto-fix Rate | >=60% | Lint tool auto-fix logs and remediation reports | Percentage of total findings corrected automatically. |
+| Lint Execution Time | <3 minutes | CI/CD pipeline timing records | Time required to run linting against the pull request change set. |
+| Disabled Rules | <5 active rule exceptions | Lint configuration review and repository standards audit | Number of disabled linting rules or equivalent exceptions in active use. |
 
 
-## 24.9 Best Practices
+## 24.10 Best Practices
 **DO:**
 - Run linting locally before push wherever practical.
 - Treat blocking lint findings as defects, not cosmetic suggestions.
 - Keep lint rules consistent across the repository.
 
+- Use auto-fix capabilities for simple issues where safe and approved.
+- Maintain lint configuration consistency across teams and repositories.
+
 **DON'T:**
 - Suppress rules unless an approved exception exists.
 
+- Ignore warnings without understanding their impact.
+- Skip linting for small changes.
+- Overuse inline disable comments to bypass standards.
 
-## 24.10 RACI Matrix
+
+## 24.11 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | Responsible | Development Team, CI/CD Pipeline |
 | Accountable | Development Lead |
 | Consulted | DevOps Engineer, Development Lead |
 | Informed | Reviewers, Engineering Manager |
-
-
-## 24.11 Related Artefacts
-- Lint configuration files
-- Pull request checks
-- Code standards reference
 
 
 ## 24.12 Related Steps

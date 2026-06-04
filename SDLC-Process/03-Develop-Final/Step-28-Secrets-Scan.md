@@ -70,11 +70,13 @@ Re-run the scan to confirm that unresolved exposures no longer remain.
 
 
 ## 28.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Secrets found per change | Security metric | Number of secret findings detected per change set. |
-| False-positive rate | Security quality metric | Percentage of findings classified as non-exposure after review. |
-| Time to secret remediation | Response metric | Time taken to remove or mitigate confirmed secret exposure. |
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| Secrets Detected | 0 | Secret scanning reports and pull request security checks | Number of confirmed secret findings detected per change set. |
+| False Positive Rate | Less than 10% | Security review records comparing confirmed and dismissed findings | Percentage of findings classified as non-exposure after review. |
+| Scan Time | Less than 5 minutes | CI/CD pipeline timing records | Time to complete the secrets scan. |
+| Block Rate | Less than 5% of pull requests | Pull request security gate statistics | Percentage of pull requests blocked due to secret findings. |
+| Rotation Time | Less than 2 hours for confirmed exposure | Security incident handling records and credential rotation logs | Time taken to rotate exposed secrets after confirmation. |
 
 
 ## 28.9 Best Practices

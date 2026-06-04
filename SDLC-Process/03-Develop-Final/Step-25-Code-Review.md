@@ -75,11 +75,13 @@ The review outcome should clearly indicate whether the change is approved, condi
 
 
 ## 25.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Time to first review | Flow metric | Time from PR submission to the first human review. |
-| Review turnaround time | Flow metric | Time from first review to review closure or approval. |
-| Review defect detection rate | Quality metric | Meaningful issues found during review before merge. |
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| Time to First Review | Less than 4 hours | Pull request timestamps and reviewer activity records | Time from pull request submission to the first human review. |
+| Review Depth | At least 2 reviewers | Approval records and reviewer participation data | Number of reviewers engaged per pull request. |
+| Review Completion Time | Less than 24 hours | Pull request review timestamps from first review to final decision | Time from first review to review closure or approval. |
+| Defect Detection | 3 to 5 meaningful findings per pull request on average | Review comment categorisation and defect trend reporting | Measures whether code review is surfacing substantive issues before merge. |
+| Review Turnaround | Less than 8 hours on average | Pull request workflow analytics and review cycle reporting | Average active time spent in review before progression. |
 
 
 ## 25.9 Best Practices

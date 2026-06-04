@@ -73,11 +73,13 @@ Ensure the generated outputs are suitable for the next deployment-oriented step.
 
 
 ## 29.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Build success rate | Delivery metric | Percentage of builds completing successfully. |
-| Build duration | Flow metric | Time required to produce the approved artefacts. |
-| Artefact publication success | Delivery metric | Percentage of successful artefact publication attempts. |
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| Build Success Rate | At least 95% | CI/CD pipeline success reports and build trend dashboards | Percentage of builds completing successfully. |
+| Build Time | Less than 10 minutes | Build pipeline timing records | Time required to compile, package, and produce the approved artefacts. |
+| Artifact Size | Monitor trend and investigate material increases | Artefact repository statistics and build reports | Tracks artefact size growth for unusual increases or packaging issues. |
+| Build Frequency | 5 to 20 builds per day, adjusted to team cadence | CI/CD pipeline activity records | Indicates how often builds are being produced during active development. |
+| Cycle Time | Less than 4 hours from commit to deployment-ready artifact | Source control timestamps, build records, and deployment-readiness checkpoints | Measures delivery speed from committed change to validated build output. |
 
 
 ## 29.9 Best Practices

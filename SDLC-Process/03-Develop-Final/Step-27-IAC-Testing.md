@@ -73,11 +73,13 @@ Where relevant, review cost implications and operational changes introduced by t
 
 
 ## 27.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| IaC validation pass rate | Quality metric | Percentage of IaC changes passing preview and policy checks on first run. |
-| Drift detection count | Operational metric | Number of drift or unexpected-change findings detected. |
-| IaC validation cycle time | Flow metric | Time required to complete infrastructure validation. |
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| IaC Test Pass Rate | At least 95% | CI/CD validation results and IaC test trend reports | Percentage of IaC changes passing preview and policy checks on first run. |
+| Policy Compliance Rate | 100% | Policy tool results and governance compliance records | Percentage of pull requests compliant with approved IaC policies. |
+| Drift Incidents | 0 unresolved incidents | Drift detection output and platform engineering review logs | Number of drift or unexpected-change findings detected. |
+| Cost Variance | Less than 10% | Cost estimation reports compared with observed spend | Difference between estimated and actual infrastructure cost where measurable. |
+| IaC Test Time | Less than 10 minutes | CI/CD pipeline timing records | Time required to complete infrastructure validation. |
 
 
 ## 27.9 Best Practices

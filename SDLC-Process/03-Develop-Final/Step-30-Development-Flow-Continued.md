@@ -72,11 +72,13 @@ Establish that the deployed output is stable enough for the final development-ph
 
 
 ## 30.8 Observability and Metrics
-| **Metric / Reference** | **Type** | **Description** |
-|---|---|---|
-| Deployment success rate | Delivery metric | Percentage of successful validation-environment deployments. |
-| Smoke validation pass rate | Quality metric | Percentage of deployments passing required post-deployment checks. |
-| Deployment cycle time | Flow metric | Time from deployment start to validation completion. |
+| **Metric** | **Target** | **How It Is Tracked** | **Description** |
+|---|---|---|---|
+| Deployment Success Rate | At least 95% | Deployment pipeline reports and environment release dashboards | Percentage of successful validation-environment deployments. |
+| Deployment Time | Less than 10 minutes | CI/CD deployment timing records | Time from deployment start to smoke-test completion. |
+| Smoke Test Pass Rate | 100% | Smoke test execution records and deployment validation logs | Percentage of deployments passing required post-deployment checks. |
+| Rollback Frequency | Less than 5% | Deployment incident records and release reporting | Percentage of deployments that require rollback. |
+| Environment Availability | At least 99% | Environment monitoring dashboards and uptime reporting | Availability of the integration or validation environment during active delivery. |
 
 
 ## 30.9 Best Practices

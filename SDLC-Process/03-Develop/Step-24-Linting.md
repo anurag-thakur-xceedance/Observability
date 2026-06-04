@@ -84,7 +84,8 @@ Automated code linting enforces coding standards, identifies potential issues, a
 
 src/utils/validator.ts Line 23: Warning Line length exceeds 120 characters (max-len) Line 45: Info Consider using template literal (prefer-template)
 
-2 errors, 2 warnings, 1 info ❌ Linting failed ```
+2 errors, 2 warnings, 1 info ❌ Linting failed 
+```
 
 ### 24.5 Issue Resolution
 
@@ -101,7 +102,8 @@ src/utils/validator.ts Line 23: Warning Line length exceeds 120 characters (max-
 
 # Python black . && flake8
 
-# Go gofmt -w . && golint ./... ```
+# Go gofmt -w . && golint ./... 
+```
 
 ---
 
@@ -176,7 +178,8 @@ src/utils/validator.ts Line 23: Warning Line length exceeds 120 characters (max-
 
 **ESLint (.eslintrc.json):**
 
-```json { "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"], "rules": { "no-unused-vars": "error", "no-console": "warn", "max-len": ["warn", { "code": 120 }], "complexity": ["warn", 10], "no-eval": "error" } } ```
+```json { "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"], "rules": { "no-unused-vars": "error", "no-console": "warn", "max-len": ["warn", { "code": 120 }], "complexity": ["warn", 10], "no-eval": "error" } } 
+```
 
 **Pylint (.pylintrc):**
 
@@ -184,7 +187,8 @@ src/utils/validator.ts Line 23: Warning Line length exceeds 120 characters (max-
 
 [FORMAT] max-line-length=120
 
-[DESIGN] max-args=7 max-locals=15 max-complexity=10 ```
+[DESIGN] max-args=7 max-locals=15 max-complexity=10 
+```
 
 ---
 
