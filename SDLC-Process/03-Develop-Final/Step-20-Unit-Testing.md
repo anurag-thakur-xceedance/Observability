@@ -42,8 +42,8 @@ Development proceeds using a disciplined implementation approach in which unit t
 Expected implementation discipline includes:
 - Defining the expected behaviour before completing the implementation
 - Keeping functions, classes, and modules small enough to test in isolation
- - Designing code with dependency boundaries that support mocking and controlled substitution
- - Ensuring that new code is reviewable, deterministic, and testable without requiring manual setup
+- Designing code with dependency boundaries that support mocking and controlled substitution
+- Ensuring that new code is reviewable, deterministic, and testable without requiring manual setup
 
 **Note:** Where strict test-first development is not practical, developers must still produce unit tests as part of the same work item and before the change is considered ready for review.
 

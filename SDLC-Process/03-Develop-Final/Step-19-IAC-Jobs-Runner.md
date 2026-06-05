@@ -27,7 +27,7 @@ Although it is sequenced as a step in the SDLC, it should be managed operational
 | **Prerequisite** | **Source** | **Description** |
 |---|---|---|
 | **Architecture (ARB) approval** | Step 18 | Approved architecture, threat model outcomes, and identified infrastructure constraints. |
-| **IaC configurations & source code** | Step 11 and architecture artefacts | Approved open-source Pulumi or Terraform modules, Azure deployment definitions, PowerShell automation scripts, reusable platform components, standardized infrastructure templates, and stack definitions. |
+| **IaC configurations & source code** | Step 11 and architecture artefacts | Approved open-source Pulumi or Terraform modules, Azure deployment definitions, PowerShell automation scripts, reusable platform components, standardised infrastructure templates, and stack definitions. |
 | **Environment specification** | Architecture and platform standards | Required environment topology, sizing, regions, networking, access model, data stores, and dependencies. |
 | **Security baseline** | Security standards and threat model outputs | Mandatory controls such as encryption, secrets handling, logging, network segmentation, RBAC, and policy enforcement. |
 | **Pipeline configuration** | DevOps platform | CI/CD definitions, deployment gates, approval rules, service connections, and workload identity configuration. |
