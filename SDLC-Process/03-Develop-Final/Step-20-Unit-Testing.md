@@ -49,13 +49,13 @@ Expected implementation discipline includes:
 
 Key Practices:
 - Follow coding standards and style guides
-- Implement single responsibility principle
+- Implement the single responsibility principle
 - Keep functions small and focused
 - Use meaningful variable and function names
 - Document complex logic with comments
 - Define the expected behaviour before completing the implementation
- - Design code with dependency boundaries that support mocking and controlled substitution
- - Ensure that new code is reviewable, deterministic, and testable without requiring manual setup
+- Design code with dependency boundaries that support mocking and controlled substitution
+- Ensure that new code is reviewable, deterministic, and testable without requiring manual setup
 
 ### 20.4.2 Create Unit Tests for Core Behaviour
 Unit tests must validate the expected behaviour of the smallest meaningful unit of code in isolation from external systems. Tests should focus on correctness, determinism, and maintainability.
@@ -117,9 +117,9 @@ Unit tests must be run repeatedly during development so failures are detected ea
 
 Execution points should include:
 - Local execution before commit or push
-- Pre-push or pre-merge pipeline validation where configured
+- Pre-push or pre-merge pipeline validation, where configured
 - CI execution on pull requests and relevant branch updates
- - Focused reruns when code or tests are modified during review feedback cycles
+- Focused reruns when code or tests are modified during review feedback cycles
 
 Example commands:
 
@@ -141,11 +141,11 @@ npm test -- order.test.js
 Before the change moves to the next step, the developer or technical lead confirms that the unit test suite is adequate for the implemented change.
 
 This review should confirm:
- - The implemented scope is fully covered by meaningful tests
+- The implemented scope is fully covered by meaningful tests
 - No critical branch or failure path has been ignored
 - Test names, structure, and assertions are understandable
- - Mocks are appropriate and not hiding behavioural defects
- - Test execution results are stable and repeatable
+- Mocks are appropriate and do not hide behavioural defects
+- Test execution results are stable and repeatable
 
 
 ## 20.5 Outputs
@@ -203,7 +203,7 @@ AI-generated tests must be reviewed, corrected, and validated by the responsible
 | **Unit Test Pass Rate** | 100% in the approved execution path | Local runs, pull request checks, and CI test results | Percentage of unit tests passing during local and CI execution. |
 | **Test Execution Time** | <10 minutes for the approved unit test suite | CI pipeline timing, local execution timing, and trend reporting | Time required to complete the approved unit test suite. |
 | **Flaky Test Rate** | 0 known flaky tests in active use | Repeated CI runs, rerun history, and engineering defect records | Frequency of inconsistent outcomes from the same test suite without code changes. |
-| **Defect Escape Indicator** | <5 defects per release attributable to missed unit-test coverage, with downward trend over time | Defect analysis, QA findings, and retrospective review | Defects later found in review, integration, or testing that should have been caught by unit tests. |
+| **Defect Escape Indicator** | <5 defects per release attributable to missed unit-test coverage, with a downward trend over time | Defect analysis, QA findings, and retrospective review | Defects later found in review, integration, or testing that should have been caught by unit tests. |
 
 Expected telemetry includes CI test results, coverage reports, test duration trends, and failure logs linked to the relevant work item and commit.
 

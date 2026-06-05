@@ -37,7 +37,7 @@ Although it is sequenced as a step in the SDLC, it should be managed operational
 
 ## 19.4 Activities
 ### 19.4.1 Validate Deployment Readiness
-Before any IaC execution begins, the assigned delivery owner validates that the work item is authorized, scoped correctly, and ready for execution.
+Before any IaC execution begins, the assigned delivery owner validates that the work item is authorised, correctly scoped, and ready for execution.
 
 This validation includes:
 - **Target Environment Scope:** Confirm the target environment and deployment scope.
@@ -46,7 +46,7 @@ This validation includes:
 - **Connection and Identity Readiness:** Verify that required service connections, identities, and secrets references are available.
 - **Landing Zone Alignment:** Verify that the change fits the approved landing zone, naming standards, and tagging model.
 
-The pipeline must fail fast if approvals, credentials, stack selection, or required inputs are missing. The work item must not move forward until these prerequisites are satisfied.
+The pipeline must fail fast if approvals, credentials, stack selection, or required inputs are missing. The work item must not proceed until these prerequisites are met.
 
 ### 19.4.2 Execute Static and Policy Validation
 The IaC code is validated before provisioning is attempted.
@@ -95,7 +95,7 @@ This baseline includes, where applicable:
 - **Least-Privilege Access:** RBAC using least privilege.
 - **Managed Identity Usage:** Managed identities instead of static credentials.
 - **Centralized Secret Retrieval:** Secret retrieval from the approved secret store.
-- **Diagnostics by Default:** Diagnostic logs, metrics, traces, and audit events enabled by default.
+- **Diagnostics by Default:** Diagnostic logs, metrics, traces, and audit events are enabled by default.
 - **Backup and Retention Controls:** Backup, retention, and recovery settings aligned to environment policy.
 - **Mandatory Tagging:** Tags such as application, owner, environment, cost centre, data classification, and support group.
 
@@ -150,7 +150,7 @@ Documentation must be updated as part of the same delivery work item so the depl
 ## 19.5 Outputs
 | **Output** | **Destination** | **Description** |
 |---|---|---|
-| **Environment ready for downstream engineering use** | Development, QA, Operations, and release stakeholders | A provisioned or updated environment aligned to the approved architecture, delivery scope, and target deployment needs. |
+| **Environment is ready for downstream engineering use** | Development, QA, Operations, and release stakeholders | A provisioned or updated environment aligned to the approved architecture, delivery scope, and target deployment needs. |
 | **Controlled and traceable infrastructure delivery baseline** | CI/CD platform, audit trail, and state backend | Execution evidence, state data, and traceability records are captured for future runs, support, and auditability. |
 | **Operationally governed infrastructure baseline** | Platform documentation, observability platform, and governance teams | Documentation, monitoring, diagnostics, and policy validation are in place to support secure downstream use. |
 
@@ -182,7 +182,7 @@ Documentation must be updated as part of the same delivery work item so the depl
 - [ ] Deployment evidence, state, and resource outputs were captured and stored.
 - [ ] The delivery team confirmed the environment is ready for Step 20 without manual corrective action.
 
-The step is complete only when the work item acceptance criteria have been met and the environment is reproducible through IaC, operationally observable, security-compliant, and ready for application development and test execution.
+The step is complete only when the work item acceptance criteria have been met, and the environment is reproducible through IaC, operationally observable, security-compliant, and ready for application development and test execution.
 
 
 ## 19.8 AI and Automation Augmentation
@@ -223,7 +223,7 @@ Expected telemetry for this step includes pipeline logs, cloud activity logs, po
 - **Capture Audit Evidence:** Capture every deployment as an auditable change linked to a work item and commit.
 
 **DON'T:**
-- **Correct Infrastructure Manually:** Do not make manual corrections in the cloud console instead of fixing the code and rerunning the pipeline.
+- **Correct Infrastructure Manually:** Do not make manual corrections in the cloud console; instead, fix the code and rerun the pipeline.
 - **Assume Deployment Success Is Enough:** Do not treat deployment success alone as sufficient without validating operability and readiness for the development team.
 
 
