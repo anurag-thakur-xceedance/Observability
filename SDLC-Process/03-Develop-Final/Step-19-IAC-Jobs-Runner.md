@@ -40,11 +40,11 @@ Although it is sequenced as a step in the SDLC, it should be managed operational
 Before any IaC execution begins, the assigned delivery owner validates that the work item is authorized, scoped correctly, and ready for execution.
 
 This validation includes:
-- Confirming the target environment and deployment scope
- - Confirming that the architecture and security approvals are current
-- Confirming that the IaC branch, stack, workspace, and state backend are correct
-- Verifying that required service connections, identities, and secrets references are available
-- Verifying that the change fits the approved landing zone, naming standards, and tagging model
+- **Target Environment Scope:** Confirm the target environment and deployment scope.
+- **Architecture and Security Approval:** Confirm that the architecture and security approvals are current.
+- **IaC Context Accuracy:** Confirm that the IaC branch, stack, workspace, and state backend are correct.
+- **Connection and Identity Readiness:** Verify that required service connections, identities, and secrets references are available.
+- **Landing Zone Alignment:** Verify that the change fits the approved landing zone, naming standards, and tagging model.
 
 The pipeline must fail fast if approvals, credentials, stack selection, or required inputs are missing. The work item must not move forward until these prerequisites are satisfied.
 
@@ -52,18 +52,18 @@ The pipeline must fail fast if approvals, credentials, stack selection, or requi
 The IaC code is validated before provisioning is attempted.
 
 The validation stage must include:
-- Syntax validation and formatting checks
-- Module and dependency resolution
-- Static analysis for insecure patterns
-- Policy-as-code validation against enterprise standards
- - Validating that only approved modules and providers are used
- - Validating that secrets are referenced securely and are not embedded in code or pipeline variables
+- **Syntax and Formatting Validation:** Run syntax validation and formatting checks.
+- **Dependency Resolution:** Resolve modules and dependencies.
+- **Security Pattern Analysis:** Run static analysis for insecure patterns.
+- **Policy-as-Code Enforcement:** Validate against enterprise standards.
+- **Approved Module Verification:** Validate that only approved modules and providers are used.
+- **Secure Secret Referencing:** Validate that secrets are referenced securely and are not embedded in code or pipeline variables.
 
 Typical controls include:
-- `pulumi preview` or `terraform plan` using the approved open-source CLI tooling
-- Policy packs or policy sets
-- Schema and variable validation
- - Linter checks for IaC quality and consistency
+- **Preview or Plan Execution:** `pulumi preview` or `terraform plan` using the approved open-source CLI tooling.
+- **Policy Packs:** Policy packs or policy sets.
+- **Schema Validation:** Schema and variable validation.
+- **Linting Checks:** Linter checks for IaC quality and consistency.
 
 Any high-severity policy or security violation blocks progression.
 
@@ -71,18 +71,18 @@ Any high-severity policy or security violation blocks progression.
 The pipeline executes the approved IaC job to create or update the target development or test environment.
 
 Execution must be:
-- Non-interactive and fully automated through the pipeline
-- Traceable to the triggering commit, work item, and build number
-- Scoped to the intended stack, workspace, subscription, project, resource group, and target environment
- - Idempotent so repeated runs converge safely on the desired state
+- **Fully Automated:** Non-interactive and fully automated through the pipeline.
+- **Traceable:** Traceable to the triggering commit, work item, and build number.
+- **Correctly Scoped:** Scoped to the intended stack, workspace, subscription, project, resource group, and target environment.
+- **Idempotent:** Repeated runs converge safely on the desired state.
 
 Provisioning typically includes:
-- Network and connectivity components
-- Compute, containers, serverless, or platform services
- - Data stores and storage accounts
-- Identity assignments and role bindings
-- DNS, certificates, and ingress configuration
-- Observability agents, diagnostics, and alert routing
+- **Network and Connectivity:** Network and connectivity components.
+- **Compute and Platform Services:** Compute, containers, serverless, or platform services.
+- **Data Services:** Data stores and storage accounts.
+- **Identity and Access:** Identity assignments and role bindings.
+- **Ingress and Certificates:** DNS, certificates, and ingress configuration.
+- **Observability Enablement:** Observability agents, diagnostics, and alert routing.
 
 Where the implementation spans multiple environments, each environment deployment should be tracked as a distinct execution item or sub-task under the same parent work item so approvals, evidence, and outcomes remain clear.
 
@@ -90,14 +90,14 @@ Where the implementation spans multiple environments, each environment deploymen
 After resources are provisioned, the pipeline enforces the platform security and operability baseline.
 
 This baseline includes, where applicable:
-- Private networking or controlled ingress
-- Encryption at rest and in transit
-- RBAC using least privilege
-- Managed identities instead of static credentials
-- Centralized secret retrieval from the approved secret store
-- Diagnostic logs, metrics, traces, and audit events enabled by default
-- Backup, retention, and recovery settings aligned to environment policy
- - Mandatory tags such as application, owner, environment, cost centre, data classification, and support group
+- **Private Networking:** Private networking or controlled ingress.
+- **Encryption Controls:** Encryption at rest and in transit.
+- **Least-Privilege Access:** RBAC using least privilege.
+- **Managed Identity Usage:** Managed identities instead of static credentials.
+- **Centralized Secret Retrieval:** Secret retrieval from the approved secret store.
+- **Diagnostics by Default:** Diagnostic logs, metrics, traces, and audit events enabled by default.
+- **Backup and Retention Controls:** Backup, retention, and recovery settings aligned to environment policy.
+- **Mandatory Tagging:** Tags such as application, owner, environment, cost centre, data classification, and support group.
 
 Configuration drift introduced by manual post-deployment changes is not permitted. All changes must be re-captured in IaC.
 
@@ -105,13 +105,13 @@ Configuration drift introduced by manual post-deployment changes is not permitte
 Provisioning success alone is insufficient. The environment must be functionally validated before handoff.
 
 Validation must confirm:
-- All pipeline jobs completed successfully
- - Target resources are healthy and reachable through approved paths
- - Application dependencies are available
- - Service identities can access only the required dependencies
- - Configuration values are loaded correctly from approved secret and config stores
- - Logging and metrics are emitted to the enterprise monitoring platform
-- No critical security or policy violations remain unresolved
+- **Pipeline Success:** All pipeline jobs completed successfully.
+- **Resource Health:** Target resources are healthy and reachable through approved paths.
+- **Dependency Availability:** Application dependencies are available.
+- **Identity Access Boundaries:** Service identities can access only the required dependencies.
+- **Configuration Load Validation:** Configuration values are loaded correctly from approved secret and config stores.
+- **Monitoring Signal Emission:** Logging and metrics are emitted to the enterprise monitoring platform.
+- **Policy and Security Closure:** No critical security or policy violations remain unresolved.
 
 Where relevant, validation should include smoke connectivity checks for databases, queues, storage, APIs, and platform endpoints.
 
@@ -119,14 +119,14 @@ Where relevant, validation should include smoke connectivity checks for database
 The pipeline records the deployment evidence needed for auditability and support.
 
 This evidence includes:
- - Pipeline run identifier and execution timestamp
-- Commit SHA and source branch
-- Work item or change record linkage
-- Stack or workspace name
-- Plan or preview output summary
-- Resource inventory and key outputs
-- Policy validation results
- - Approver details where approvals were required
+- **Pipeline Run Reference:** Pipeline run identifier and execution timestamp.
+- **Source Traceability:** Commit SHA and source branch.
+- **Change Linkage:** Work item or change record linkage.
+- **IaC Context Reference:** Stack or workspace name.
+- **Plan or Preview Summary:** Plan or preview output summary.
+- **Resource Inventory:** Resource inventory and key outputs.
+- **Policy Validation Evidence:** Policy validation results.
+- **Approval Evidence:** Approver details where approvals were required.
 
 The resulting environment becomes the approved baseline for downstream development and testing steps. The work item is only considered complete when execution evidence and acceptance criteria have been recorded.
 
@@ -134,15 +134,15 @@ The resulting environment becomes the approved baseline for downstream developme
 The delivery team updates the infrastructure documentation required to support engineering continuity, operational readiness, and auditability.
 
 Infrastructure documentation must include, where applicable:
-- The environment purpose and scope
-- The target environment name and hosting location
-- The deployed resource inventory and key dependencies
-- Network, identity, and access considerations
-- Configuration baselines and environment-specific variations
-- Secret and certificate reference locations without exposing secret values
-- Monitoring, logging, backup, and recovery expectations
-- Named ownership for engineering, platform, security, and support teams
-- Links to the source repository, pipeline definition, and latest successful execution evidence
+- **Environment Purpose and Scope:** The environment purpose and scope.
+- **Environment Identity:** The target environment name and hosting location.
+- **Resource Inventory:** The deployed resource inventory and key dependencies.
+- **Network and Access Design:** Network, identity, and access considerations.
+- **Configuration Baseline:** Configuration baselines and environment-specific variations.
+- **Secret and Certificate References:** Secret and certificate reference locations without exposing secret values.
+- **Operational Expectations:** Monitoring, logging, backup, and recovery expectations.
+- **Named Ownership:** Ownership for engineering, platform, security, and support teams.
+- **Source and Execution Links:** Links to the source repository, pipeline definition, and latest successful execution evidence.
 
 Documentation must be updated as part of the same delivery work item so the deployed environment and the recorded design remain aligned.
 
@@ -200,31 +200,31 @@ AI-assisted outputs must always be reviewed by the responsible engineer before e
 ## 19.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Provisioning Success Rate** | 95% or higher successful runs | CI/CD pipeline run status and deployment records | Percentage of IaC runs that complete successfully without rollback or rerun. |
-| **Provisioning Lead Time** | Aligned to sprint and environment delivery commitments | Work item timestamps, pipeline timestamps, and release records | Time from approved architecture handoff to environment readiness for development. |
-| **Change Failure Rate for IaC Runs** | Less than 10% | Rollback records, hotfix records, and incident-linked deployment history | Percentage of infrastructure changes requiring rollback, hotfix, or urgent correction. |
-| **Mean Time to Recover Environment Issues** | Less than 4 hours for development-impacting failures | Incident logs, support records, and environment recovery timestamps | Time required to restore a failed or misconfigured development environment. |
-| **Policy Compliance Rate** | 100% for mandatory controls | Policy engine results, pipeline checks, and governance reports | Percentage of runs that pass all mandatory policy checks without exception. |
-| **Drift Incidents** | Zero unresolved drift incidents | Drift detection reports and platform governance records | Count of manual or out-of-band infrastructure changes detected in managed environments. |
-| **O4 Monitoring Coverage** | All provisioned resources onboarded to required monitoring | Observability platform onboarding evidence and platform health dashboards | Infrastructure and platform monitoring coverage for resources provisioned during this step. |
+| **Provisioning Success Rate** | >=95% successful IaC runs per reporting period | CI/CD pipeline run status and deployment records | Percentage of IaC runs that complete successfully without rollback or rerun. |
+| **Provisioning Lead Time** | <1 business day from approved handoff to development-environment readiness | Work item timestamps, pipeline timestamps, and release records | Time from approved architecture handoff to environment readiness for development. |
+| **Change Failure Rate for IaC Runs** | <10% of IaC runs require rollback, hotfix, or urgent correction | Rollback records, hotfix records, and incident-linked deployment history | Percentage of infrastructure changes requiring rollback, hotfix, or urgent correction. |
+| **Mean Time to Recover Environment Issues** | <4 hours for development-impacting failures | Incident logs, support records, and environment recovery timestamps | Time required to restore a failed or misconfigured development environment. |
+| **Policy Compliance Rate** | 100% mandatory-policy pass rate | Policy engine results, pipeline checks, and governance reports | Percentage of runs that pass all mandatory policy checks without exception. |
+| **Unresolved Drift Incidents** | 0 unresolved drift incidents before progression | Drift detection reports and platform governance records | Count of manual or out-of-band infrastructure changes detected in managed environments. |
+| **Monitoring Coverage** | 100% of provisioned resources onboarded to required monitoring | Observability platform onboarding evidence and platform health dashboards | Infrastructure and platform monitoring coverage for resources provisioned during this step. |
 
 Expected telemetry for this step includes pipeline logs, cloud activity logs, policy evaluation results, resource health signals, and deployment correlation identifiers.
 
 
 ## 19.10 Best Practices
 **DO:**
-- Define Step 19 in the backlog as an infrastructure delivery work item with explicit acceptance criteria.
-- Link the execution to the parent feature, defect, platform change, or release item.
-- Provision development and test environments exclusively through approved IaC pipelines.
-- Use reusable modules and platform standards instead of project-specific snowflake infrastructure.
-- Prefer managed identity and secret references over embedded credentials.
-- Keep environment definitions small, composable, and peer-reviewable.
-- Fail early on policy, naming, tagging, and configuration violations.
-- Capture every deployment as an auditable change linked to a work item and commit.
+- **Track as a Delivery Work Item:** Define Step 19 in the backlog as an infrastructure delivery work item with explicit acceptance criteria.
+- **Maintain Parent Traceability:** Link the execution to the parent feature, defect, platform change, or release item.
+- **Use Approved IaC Pipelines Only:** Provision development and test environments exclusively through approved IaC pipelines.
+- **Prefer Reusable Platform Modules:** Use reusable modules and platform standards instead of project-specific snowflake infrastructure.
+- **Prefer Secret References and Managed Identity:** Prefer managed identity and secret references over embedded credentials.
+- **Keep Definitions Composable:** Keep environment definitions small, composable, and peer-reviewable.
+- **Fail Early on Control Violations:** Fail early on policy, naming, tagging, and configuration violations.
+- **Capture Audit Evidence:** Capture every deployment as an auditable change linked to a work item and commit.
 
 **DON'T:**
-- Make manual corrections in the cloud console instead of fixing the code and rerunning the pipeline.
-- Treat deployment success alone as sufficient without validating operability and readiness for the development team.
+- **Correct Infrastructure Manually:** Do not make manual corrections in the cloud console instead of fixing the code and rerunning the pipeline.
+- **Assume Deployment Success Is Enough:** Do not treat deployment success alone as sufficient without validating operability and readiness for the development team.
 
 
 ## 19.11 Common Failure Modes and Prevention
@@ -238,7 +238,18 @@ Expected telemetry for this step includes pipeline logs, cloud activity logs, po
 | **Unobservable environment** | Diagnostics not enabled by default | Make logging, metrics, and alert hooks part of the baseline module set. |
 
 
-## 19.12 RACI Matrix
+## 19.12 Summary and Key Outcomes
+Step 19 provisions and configures the infrastructure baseline required for downstream engineering work through controlled IaC execution, policy enforcement, secure configuration, and environment validation.
+
+Key Outcomes:
+- **Provisioned Environment Baseline:** Required infrastructure is created or updated in the approved target environment.
+- **Policy-Compliant Infrastructure Delivery:** Provisioning passes mandatory policy, security, and configuration controls.
+- **Operational Readiness Validation:** Connectivity, dependencies, monitoring, and configuration baselines are validated before handoff.
+- **Traceable Deployment Evidence:** Execution, approval, state, and output records are captured for auditability and support.
+- **Documented Environment Readiness:** Infrastructure documentation is updated so downstream teams can use and support the environment confidently.
+
+
+## 19.13 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | **Responsible** | DevOps Engineer, Platform Engineer |
@@ -247,12 +258,12 @@ Expected telemetry for this step includes pipeline logs, cloud activity logs, po
 | **Informed** | Development Team, Product Owner, Support or Operations Team |
 
 
-## 19.13 Related Steps
+## 19.14 Related Steps
 - **Upstream:** [Step 18: Threat Modeling Architecture Review](../02-Architecture-Design/Step-18-Threat-Modeling-Architecture-Review.md)
 - **Downstream:** [Step 20: Unit Testing](Step-20-Unit-Testing.md)
 
 
-## 19.14 Revision History
+## 19.15 Revision History
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |

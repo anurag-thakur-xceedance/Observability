@@ -198,32 +198,32 @@ AI-generated tests must be reviewed, corrected, and validated by the responsible
 ## 20.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Line Coverage** | 80% minimum unless exception is approved | Coverage tooling in local execution and CI/CD reports | Percentage of executable lines exercised during unit testing. |
-| **Branch Coverage** | 70% minimum unless exception is approved | Coverage tooling and branch coverage reports in CI/CD | Percentage of decision branches exercised during unit testing. |
+| **Line Coverage** | >=80% unless an exception is approved | Coverage tooling in local execution and CI/CD reports | Percentage of executable lines exercised during unit testing. |
+| **Branch Coverage** | >=70% unless an exception is approved | Coverage tooling and branch coverage reports in CI/CD | Percentage of decision branches exercised during unit testing. |
 | **Unit Test Pass Rate** | 100% in the approved execution path | Local runs, pull request checks, and CI test results | Percentage of unit tests passing during local and CI execution. |
-| **Test Execution Time** | Fast enough to support frequent developer execution; typically less than 10 minutes for the unit suite | CI pipeline timing, local execution timing, and trend reporting | Time required to complete the approved unit test suite. |
-| **Flaky Test Rate** | Zero known flaky tests | Repeated CI runs, rerun history, and engineering defect records | Frequency of inconsistent outcomes from the same test suite without code changes. |
-| **Defect Escape Indicator** | Downward trend across sprints and releases | Defect analysis, QA findings, and retrospective review | Defects later found in review, integration, or testing that should have been caught by unit tests. |
+| **Test Execution Time** | <10 minutes for the approved unit test suite | CI pipeline timing, local execution timing, and trend reporting | Time required to complete the approved unit test suite. |
+| **Flaky Test Rate** | 0 known flaky tests in active use | Repeated CI runs, rerun history, and engineering defect records | Frequency of inconsistent outcomes from the same test suite without code changes. |
+| **Defect Escape Indicator** | <5 defects per release attributable to missed unit-test coverage, with downward trend over time | Defect analysis, QA findings, and retrospective review | Defects later found in review, integration, or testing that should have been caught by unit tests. |
 
 Expected telemetry includes CI test results, coverage reports, test duration trends, and failure logs linked to the relevant work item and commit.
 
 
 ## 20.10 Best Practices
 **DO:**
- - Write or update unit tests as part of the same work item as the code change.
-- Keep tests focused, readable, and deterministic.
-- Prefer clear assertions over vague truthiness checks.
-- Mock only what is necessary to isolate the unit under test.
-- Test behaviour and business rules, not incidental implementation detail.
-- Ensure the test suite is fast enough to support frequent execution by developers.
-- Use coverage data to find blind spots, not to justify weak tests.
-- Treat failing or flaky unit tests as blockers that require prompt correction.
+- **Write Tests with the Change:** Write or update unit tests as part of the same work item as the code change.
+- **Keep Tests Focused:** Keep tests focused, readable, and deterministic.
+- **Prefer Clear Assertions:** Prefer clear assertions over vague truthiness checks.
+- **Mock Only What Is Necessary:** Mock only what is necessary to isolate the unit under test.
+- **Test Behaviour, Not Incidental Detail:** Test behaviour and business rules, not incidental implementation detail.
+- **Keep the Suite Fast:** Ensure the test suite is fast enough to support frequent execution by developers.
+- **Use Coverage as a Signal:** Use coverage data to find blind spots, not to justify weak tests.
+- **Treat Instability as a Blocker:** Treat failing or flaky unit tests as blockers that require prompt correction.
 
 **DON'T:**
-- Treat unit testing as a separate late-stage activity outside the implementation workflow.
-- Rely on coverage numbers alone as proof of test quality.
-- Over-mock behaviour to the point that meaningful logic is no longer being tested.
-- Move code forward when critical paths, business rules, or failure cases are not covered.
+- **Push Testing to a Late Stage:** Do not treat unit testing as a separate late-stage activity outside the implementation workflow.
+- **Use Coverage Alone as Proof:** Do not rely on coverage numbers alone as proof of test quality.
+- **Over-Mock the Unit:** Do not over-mock behaviour to the point that meaningful logic is no longer being tested.
+- **Advance with Critical Gaps:** Do not move code forward when critical paths, business rules, or failure cases are not covered.
 
 
 ## 20.11 Common Failure Modes and Prevention
@@ -236,7 +236,18 @@ Expected telemetry includes CI test results, coverage reports, test duration tre
 | **Slow developer feedback loop** | Large or poorly structured test suite | Keep unit tests small, isolated, and fast; move broader concerns to higher test layers. |
 
 
-## 20.12 RACI Matrix
+## 20.12 Summary and Key Outcomes
+Step 20 embeds quality directly into implementation by requiring unit tests to evolve with the code so that the resulting change is behaviourally verified, regression-resistant, and ready for deeper review.
+
+Key Outcomes:
+- **Behaviourally Verified Implementation:** Features are developed with unit tests that validate intended behaviour and failure handling.
+- **Meaningful Test Coverage:** Line, branch, and business-rule coverage provide useful protection rather than superficial metrics alone.
+- **Stable Developer Feedback Loop:** Fast, repeatable unit-test execution supports continuous verification during implementation.
+- **Review-Ready Code and Tests:** The code change and corresponding tests are ready for downstream test review and code review.
+- **Reduced Defect Escape Risk:** Unit-level validation catches issues earlier in the development lifecycle.
+
+
+## 20.13 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | **Responsible** | Development Team, Development Lead |
@@ -245,12 +256,12 @@ Expected telemetry includes CI test results, coverage reports, test duration tre
 | **Informed** | Reviewers, Product Owner, DevOps Engineer |
 
 
-## 20.13 Related Steps
+## 20.14 Related Steps
 - **Upstream:** [Step 19: IaC Jobs Runner](Step-19-IAC-Jobs-Runner.md)
 - **Downstream:** [Step 21: Test Reviewer Additions](Step-21-Test-Reviewer-Additions.md)
 
 
-## 20.14 Revision History
+## 20.15 Revision History
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
