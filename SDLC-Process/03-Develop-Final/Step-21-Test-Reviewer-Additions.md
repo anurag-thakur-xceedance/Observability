@@ -40,11 +40,11 @@ This step exists to improve test adequacy, not simply to increase test count. Th
 The team reviews coverage reports and implemented logic to identify code paths that remain untested or under-tested.
 
 Coverage review must consider:
-- Untested methods or functions
-- Unexecuted decision branches
-- Exception and fallback paths
-- Validation failures and boundary conditions
-- Risky code added in the current change set
+- **Untested Methods:** Methods or functions that are not exercised.
+- **Unexecuted Branches:** Decision branches that have not been executed.
+- **Exception and Fallback Paths:** Error handling and fallback behaviour that remain untested.
+- **Validation and Boundary Conditions:** Validation failures and important boundary conditions.
+- **Risky New Code:** Risk-prone code added in the current change set.
 
 Typical review output should clearly identify where the gap exists, why it matters, and what additional tests are required.
 
@@ -64,33 +64,33 @@ Add 3 additional tests to cover the identified gaps.
 The review must assess whether existing tests are meaningful, maintainable, and likely to detect defects. This should be understandable as a reviewer activity even when no AI tooling is used.
 
 The review should check for:
-- Weak or overly broad assertions
-- Tests that only verify implementation detail
-- Excessive mocking that hides true behaviour
-- Poor test naming or unclear purpose
-- Unstable, duplicated, or order-dependent tests
+- **Weak Assertions:** Weak or overly broad assertions.
+- **Implementation-Detail Bias:** Tests that only verify implementation detail.
+- **Excessive Mocking:** Excessive mocking that hides true behaviour.
+- **Poor Test Naming:** Poor test naming or unclear purpose.
+- **Instability or Duplication:** Unstable, duplicated, or order-dependent tests.
 
 Quality review should also consider:
-- Assertion strength, for example whether a test checks a precise expected outcome rather than a vague truthy result
-- Test independence, so that one test does not rely on another having run first
-- Test readability, including clear naming, setup, and intent
-- Mock usage appropriateness, so that mocks isolate dependencies without hiding important real behaviour
-- Test data quality, including realistic values and meaningful edge-case coverage
+- **Assertion Strength:** Whether a test checks a precise expected outcome rather than a vague truthy result.
+- **Test Independence:** Whether one test relies on another having run first.
+- **Test Readability:** Clear naming, setup, and intent.
+- **Appropriate Mock Usage:** Whether mocks isolate dependencies without hiding important real behaviour.
+- **Test Data Quality:** Realistic values and meaningful edge-case coverage.
 
 Common quality issues include:
- - Weak assertions such as broad success checks that do not confirm the actual expected value or behaviour
-- Tests that depend on execution order or shared state
-- Missing or unclear test descriptions
-- Over-mocking, where too much behaviour is simulated and too little real logic is exercised
+- **Weak Assertions:** Broad success checks that do not confirm the actual expected value or behaviour.
+- **Execution Order Dependence:** Tests that depend on execution order or shared state.
+- **Unclear Test Descriptions:** Missing or unclear test descriptions.
+- **Over-Mocking:** Too much behaviour is simulated and too little real logic is exercised.
 
 ### 21.4.3 Add Missing High-Value Tests
 Where important scenarios are missing, the team adds or updates tests to cover the required behaviour before the change proceeds further.
 
 Priority should be given to:
-- Business-critical decision paths
-- Security-sensitive or validation-heavy logic
-- Defect-prone edge cases
-- Regression-prone areas changed in the current work item
+- **Business-Critical Paths:** Business-critical decision paths.
+- **Security-Sensitive Logic:** Security-sensitive or validation-heavy logic.
+- **Defect-Prone Edge Cases:** Edge cases with a history of defects or elevated risk.
+- **Regression-Prone Changed Areas:** Areas changed in the current work item that are prone to regression.
 
 Additional test suggestions may come from reviewer judgment, historical defect patterns, code complexity, or approved AI-assisted analysis, but every suggestion must be validated for relevance before adoption.
 
@@ -106,25 +106,25 @@ Typical edge-case categories include:
 - Async, retry, timeout, or fallback behaviours where the code uses them
 
 Common missed scenarios should also be considered, including:
-- Special characters such as Unicode, emojis, and SQL injection-style input patterns where relevant to the code being tested
-- Concurrent access behaviour, including race conditions, shared-state conflicts, and locking issues where the implementation supports parallel execution
-- Large datasets or high-volume inputs, including performance-sensitive scenarios such as 1000+ items where scale may affect correctness or stability
+- **Special Character Handling:** Unicode, emojis, and SQL injection-style input patterns where relevant to the code being tested.
+- **Concurrent Access Behaviour:** Race conditions, shared-state conflicts, and locking issues where the implementation supports parallel execution.
+- **Large Dataset Behaviour:** High-volume inputs, including performance-sensitive scenarios such as 1000+ items where scale may affect correctness or stability.
 
 Edge Case Categories:
-- Numeric boundaries such as 0, -1, maximum integer values, and overflow-related conditions
-- String edge cases such as empty strings, very long strings, and special-character combinations
-- Date and time edge cases such as leap years, timezone changes, and daylight saving transitions
-- Collection edge cases such as empty collections, single-item collections, and duplicate entries
-- Async edge cases such as timeouts, retries, delayed failures, and fallback execution paths
+- **Numeric Boundaries:** 0, -1, maximum integer values, and overflow-related conditions.
+- **String Edge Cases:** Empty strings, very long strings, and special-character combinations.
+- **Date and Time Edge Cases:** Leap years, time-zone changes, and daylight-saving transitions.
+- **Collection Edge Cases:** Empty collections, single-item collections, and duplicate entries.
+- **Async Edge Cases:** Timeouts, retries, delayed failures, and fallback execution paths.
 
 ### 21.4.5 Review Suggested Additions and Confirm Readiness
 Where approved AI assistance is used, generated suggestions must be reviewed critically before adoption. Human review remains mandatory.
 
 The reviewer or QA lead must confirm that suggested tests are:
-- Relevant to the implemented change
-- Technically correct
-- Maintainable under team standards
-- Not duplicating existing coverage
+- **Relevant:** Relevant to the implemented change.
+- **Technically Correct:** Technically correct.
+- **Maintainable:** Maintainable under team standards.
+- **Non-Duplicative:** Not duplicating existing coverage.
 
 The developer or assigned test reviewer then confirms that the revised test suite is ready for downstream review and quality controls.
 
@@ -146,11 +146,11 @@ The developer or assigned test reviewer then confirms that the revised test suit
 - Approved work item scope and acceptance criteria
 
 **Outputs:**
- - Test review report covering identified coverage gaps and quality issues
- - Additional test suggestions with prioritization and review decisions
+- Test review report covering identified coverage gaps and quality issues
+- Additional test suggestions with prioritisation and review decisions
 - Edge case catalog of missing or newly identified behavioural scenarios
- - Accepted test updates added directly to the change set or tracked for immediate action
- - Review evidence showing which suggestions were accepted, rejected, or deferred
+- Accepted test updates added directly to the change set or tracked for immediate action
+- Review evidence showing which suggestions were accepted, rejected, or deferred
 
 
 ## 21.7 Quality Gates / Exit Criteria
@@ -160,7 +160,7 @@ The developer or assigned test reviewer then confirms that the revised test suit
 - [ ] Test suite remains stable and executable after updates.
 - [ ] The change is ready to proceed to Step 22 and subsequent review controls.
 
-Exit Criteria: Test review report is complete, accepted suggestions are actioned or recorded, and the revised test suite is ready for downstream review.
+**Exit Criteria:** Test review report is complete, accepted suggestions are actioned or recorded, and the revised test suite is ready for downstream review.
 
 
 ## 21.8 AI and Automation Augmentation
@@ -178,37 +178,37 @@ Exit Criteria: Test review report is complete, accepted suggestions are actioned
 | **Test Suggestions Generated** | 10-30 per review | AI assistant output and review records | Additional tests suggested based on coverage, code risk, and defect patterns. |
 | **Suggestion Acceptance Rate** | 60-80% | Accepted suggestions divided by total suggestions reviewed | Indicates whether generated suggestions are relevant and valuable to the team. |
 | **Coverage Improvement** | +5-10% where meaningful gaps exist | Before-and-after coverage reports in CI/CD and quality records | Increase in useful line or branch coverage after test additions. |
-| **Review Time** | Less than 30 minutes for analysis and triage | Review timestamps, work item records, or review session notes | Time required to complete automated analysis and human review of suggestions. |
-| **High-Risk Gaps Closed** | All critical gaps addressed or explicitly justified | Review checklist and updated test evidence | Ensures important missing scenarios are not left unresolved before code review. |
+| **Review Time** | <30 minutes for analysis and triage | Review timestamps, work item records, or review session notes | Time required to complete automated analysis and human review of suggestions. |
+| **High-Risk Gaps Closed** | 100% of critical gaps addressed or explicitly justified before progression | Review checklist and updated test evidence | Ensures important missing scenarios are not left unresolved before code review. |
 | **Test Stability** | 100% stable in approved execution path | CI test runs and rerun history | Confirms that revised tests remain repeatable and do not introduce flakiness. |
-| **Defect Reduction Trend** | Reduction over time across sprint and release cycles | QA defect records, escape analysis, and retrospective review | Measures whether stronger test review is reducing downstream defects. |
+| **Defect Reduction Trend** | >=20% reduction in downstream test-related defects over the agreed reporting period | QA defect records, escape analysis, and retrospective review | Measures whether stronger test review is reducing downstream defects. |
 
 
 ## 21.10 Best Practices
 **DO:**
- - Review AI suggestions critically and confirm that they add meaningful value.
-- Prioritize suggestions by risk, business impact, and defect likelihood.
-- Implement high-value suggestions immediately where they protect important behaviour.
-- Document reasons for rejecting suggestions or deferring lower-value additions.
-- Use reviewer-driven test improvement as a learning opportunity for future implementation quality.
+- **Review AI Suggestions Critically:** Confirm that they add meaningful value.
+- **Prioritise by Risk and Impact:** Prioritise suggestions by risk, business impact, and defect likelihood.
+- **Implement High-Value Suggestions Promptly:** Implement high-value suggestions immediately where they protect important behaviour.
+- **Document Rejections and Deferrals:** Document reasons for rejecting suggestions or deferring lower-value additions.
+- **Use Review as a Learning Opportunity:** Use reviewer-driven test improvement as a learning opportunity for future implementation quality.
 
 **DON'T:**
-- Accept all AI suggestions blindly without technical and behavioural validation.
-- Ignore meaningful coverage gaps identified through analysis.
-- Add tests just to increase coverage numbers without improving confidence.
- - Skip human review of suggestions because the analysis is automated.
-- Dismiss edge cases as unlikely without considering operational or business risk.
+- **Accept Suggestions Blindly:** Do not accept all AI suggestions without technical and behavioural validation.
+- **Ignore Meaningful Coverage Gaps:** Do not ignore meaningful coverage gaps identified through analysis.
+- **Optimise for Coverage Numbers Alone:** Do not add tests just to increase coverage numbers without improving confidence.
+- **Skip Human Review:** Do not skip human review of suggestions because the analysis is automated.
+- **Dismiss Edge Cases Prematurely:** Do not dismiss edge cases as unlikely without considering operational or business risk.
 
 
 ## 21.11 Summary and Key Outcomes
 Step 21 strengthens the test suite by combining automated analysis with human review to identify coverage gaps, improve assertion quality, and add missing high-value scenarios before formal code review progresses further.
 
 Key Outcomes:
- - Coverage gaps are identified and addressed or explicitly justified.
- - Additional high-value test scenarios are generated and reviewed.
- - Edge cases and overlooked behavioural risks are surfaced earlier in the development lifecycle.
- - Test quality improves through stronger assertions, better structure, and more meaningful coverage.
- - Downstream review and QA receive a more robust and defensible test baseline.
+- **Coverage Gap Closure:** Coverage gaps are identified and addressed or explicitly justified.
+- **Additional High-Value Scenarios:** Additional high-value test scenarios are generated and reviewed.
+- **Earlier Risk Visibility:** Edge cases and overlooked behavioural risks are surfaced earlier in the development lifecycle.
+- **Improved Test Quality:** Test quality improves through stronger assertions, better structure, and more meaningful coverage.
+- **Stronger Downstream Baseline:** Downstream review and QA receive a more robust and defensible test baseline.
 
 
 ## 21.12 RACI Matrix
