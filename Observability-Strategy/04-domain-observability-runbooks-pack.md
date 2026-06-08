@@ -18,14 +18,14 @@ status: Draft
 ---
 
 ## 4.1 Purpose
-Operational runbooks that translate the standards in [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). The deployment platform is described in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
+Operational runbooks that translate the standards in [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). The deployment platform is described in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 
 ---
 
 ## 4.2 Infrastructure Observability Runbook
 
 ### 4.2.1 Signals
-CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time. Metric thresholds: see [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4 Infrastructure Telemetry Standards](02-enterprise-observability-standards-catalog.md#24-infrastructure-telemetry-standards).
+CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time. Metric thresholds: see [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4 Infrastructure Telemetry Standards](02-enterprise-observability-standards-catalog.md#24-infrastructure-telemetry-standards).
 
 ### 4.2.2 Triage Flow
 1. Confirm scope: per host, per Compose service, per container.
@@ -35,7 +35,7 @@ CPU, memory, disk I/O, container restarts, host failures, Compose service restar
 5. If host failures > 1/day → check hardware / VM-platform health and impact on dependent Compose services.
 6. If Compose health-checks failing → run `Test-StackHealth.ps1` and inspect `docker compose ps`.
 
-### 4.2.3 Visualization
+### 4.2.3 Visualisation
 Stacked-area charts and heat maps for trend visibility. Combine gauges (current state) with time-series panels (trend). Per-host and per-service breakdowns required.
 
 ---
@@ -65,7 +65,7 @@ Stacked-area charts and heat maps for trend visibility. Combine gauges (current 
 ## 4.4 Database Observability Runbook
 
 ### 4.4.1 Signals
-Slow queries, lock contention, connection-pool usage, replication lag, query latency. Thresholds: [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards).
+Slow queries, lock contention, connection-pool usage, replication lag, query latency. Thresholds: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards).
 
 ### 4.4.2 Triage Flow
 1. **Slow queries > 1%** → review query plan, indexes, recent schema changes.
@@ -83,7 +83,7 @@ Slow queries, lock contention, connection-pool usage, replication lag, query lat
 ## 4.5 Network & Latency Observability Runbook
 
 ### 4.5.1 Signals
-Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions. Thresholds: [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.8 Network & Latency Telemetry Standards](02-enterprise-observability-standards-catalog.md#28-network-latency-telemetry-standards).
+Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions. Thresholds: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.8 Network & Latency Telemetry Standards](02-enterprise-observability-standards-catalog.md#28-network-latency-telemetry-standards).
 
 ### 4.5.2 Triage Flow
 1. **Packet drops > 0.5%** sustained → investigate host NIC, route saturation, or link errors.
@@ -98,14 +98,14 @@ Packet drops, cross-service latency, DNS failures, inter-service errors, TCP ret
   - Packet drops + TCP retransmits → physical / host-network congestion issue.
   - Cross-service latency + inter-service errors → dependency or routing problem.
 - **Scope:** Collect per host, per Compose service, per container, and per network segment.
-- **Visualization:** Stacked-area charts or heat maps for packet-loss and latency trends.
+- **Visualisation:** Stacked-area charts or heat maps for packet-loss and latency trends.
 
 ---
 
 ## 4.6 Scaling & Performance Runbook
 
 ### 4.6.1 Signals
-Queue length, request latency, error rate, container startup time, cold-start latency. Thresholds: [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.9 Scaling & Performance Telemetry Standards](02-enterprise-observability-standards-catalog.md#29-scaling-performance-telemetry-standards).
+Queue length, request latency, error rate, container startup time, cold-start latency. Thresholds: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.9 Scaling & Performance Telemetry Standards](02-enterprise-observability-standards-catalog.md#29-scaling-performance-telemetry-standards).
 
 ### 4.6.2 Outcome Posture
 Scaling observability validates that capacity changes deliver the user-visible performance the strategy commits to. Posture: scaling must be **predictable, observable, and tied to user impact**, not internal metrics alone.
@@ -127,7 +127,7 @@ Scaling observability validates that capacity changes deliver the user-visible p
 
 ## 4.7 Query Examples and Decision Trees (Per Domain)
 
-This section provides concrete query examples (PromQL / LogQL / TraceQL) and decision trees for each of the five domain runbooks above. **Thresholds are reasonable defaults** — recalibrate per service per [Section 4.8 Calibration Note](#48-calibration-note) once production baselines exist.
+This section provides concrete query examples (PromQL / LogQL / TraceQL) and decision trees for each of the five domain runbooks above. Thresholds are the **pack baseline values** and must be recalibrated per service per [Section 4.8 Calibration Note](#48-calibration-note) once production baselines exist.
 
 ### 4.7.1 Infrastructure — PromQL
 
@@ -238,46 +238,55 @@ rate(process_runtime_jvm_gc_duration_seconds_sum[5m])
 
 ### 4.7.6 Decision Tree — On-Call Triage
 
+<img src="assets/diagrams/04-decision-tree.jpg" alt="On-call triage decision tree for alert handling and symptom-based diagnosis." width="900">
+
 ```mermaid
 flowchart TD
-    A["Alert fires"] --> B{"Is the SLO burn-rate fast (>14.4× over 1h)?"}
-    B -->|"yes"| C["Page Critical — open incident"]
-    B -->|"no"| D{"Is it slow-burn (>1× over 6h)?"}
-    D -->|"yes"| E["Ticket — investigate within business hours"]
-    D -->|"no"| F["Auto-close after observation window"]
+    A["Alert fires"] --> B{"Is the SLO burn-rate fast
+    (>14.4× over 1h)?"}
+    B -->|"yes"| C["Page Critical<br/>open incident"]
+    B -->|"no"| D{"Is it slow-burn
+    (>1× over 6h)?"}
+    D -->|"yes"| E["Ticket
+    investigate within
+    business hours"]
+    D -->|"no"| F["Auto-close after 
+    observation window"]
 
     C --> G{"Symptom class?"}
-    G -->|"latency"| H["Apply Sec 8.2 app/network queries<br/>check upstream deps in Tempo"]
-    G -->|"error rate"| I["Sec 8.2 LogQL error grep<br/>correlate with last deploy<br/>(Ch 7 Sec 8.1 change calendar)"]
-    G -->|"saturation"| J["Sec 8.1 infra + Sec 8.5 scaling queries<br/>scale out per Ch 22"]
-    G -->|"data freshness"| K["Sec 8.3 DB lag query<br/>check ingest pipeline (Ch 2 Sec 8)"]
+    G -->|"latency"| H["Run Sections<br/>4.7.2 and 4.7.4 queries<br/>check upstream<br/>    dependencies in Tempo"]
+    G -->|"error rate"| I["Run Section<br/>4.7.2 LogQL queries<br/>correlate with recent<br/>deployment and Chapter 8<br/>change calendar"]
+    G -->|"saturation"| J["Run Sections<br/>4.7.1 and 4.7.5 queries<br/>scale out per Chapter 23"]
+    G -->|"data freshness"| K["Run Section<br/>4.7.3 DB lag queries<br/>check ingest<br/>pipeline in Chapter 3"]
 
-    H --> L["Mitigate per Ch 12 Sec 6"]
+    H --> L["Mitigate per Chapter 13"]
     I --> L
     J --> L
     K --> L
-    L --> M["PIR within 24h (Ch 12 Sec 7)"]
+    L --> M["PIR within 24h<br/>(Chapter 13, Section 13.6)"]
 ```
 
 ### 4.7.7 Decision Tree — Symptom → Runbook Section
 
+<img src="assets/diagrams/04-decision-tree-symptom.jpg" alt="Symptom-to-runbook decision tree for routing investigation to the correct query set." width="900">
+
 ```mermaid
 flowchart LR
     S["Observed symptom"] --> S1{"Where?"}
-    S1 -->|"single host"| R1["Sec 3 Infra — Sec 8.1 queries"]
-    S1 -->|"single service<br/>(many hosts)"| R2["Sec 4 Application — Sec 8.2 queries"]
-    S1 -->|"DB layer"| R3["Sec 5 Database — Sec 8.3 queries"]
-    S1 -->|"cross-service path"| R4["Sec 6 Network — Sec 8.4 queries"]
-    S1 -->|"under load only"| R5["Sec 7 Scaling — Sec 8.5 queries"]
+    S1 -->|"single host"| R1["Infrastructure — Section 4.7.1 queries"]
+    S1 -->|"single service<br/>(many hosts)"| R2["Application — Section 4.7.2 queries"]
+    S1 -->|"DB layer"| R3["Database — Section 4.7.3 queries"]
+    S1 -->|"cross-service path"| R4["Network — Section 4.7.4 queries"]
+    S1 -->|"under load only"| R5["Scaling — Section 4.7.5 queries"]
 ```
 
 ## 4.8 Calibration Note
 After a few weeks of production data, narrow each range so **Warning ≈ 95th percentile of normal** and **Critical ≈ approaching SLA breach**.
 
 ## 4.9 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalog.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalogue.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
-- [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana dashboard structure.
+- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana dashboard structure.
 - [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment standard.
 - [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident response playbook for end-to-end resolution.
 

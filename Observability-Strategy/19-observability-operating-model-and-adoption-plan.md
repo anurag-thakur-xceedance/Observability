@@ -21,16 +21,16 @@ status: Draft
 Observability is as much about **people and processes** as tools. This document captures the operating model and adoption plan that turns the platform into a capability.
 
 ## 19.2 Cultural Principles
-- **Cross-Functional Collaboration.** Silos between DevOps, SRE, and business teams are reduced; responsibility for system health is shared.
-- **Training & Education.** Investment in team skills ensures effective use of observability tools and accurate interpretation of data.
-- **Actionable Alerting.** Intelligent thresholds reduce alert fatigue; each alert is associated with a clear response playbook (see [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md), [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md)).
+- **Cross-functional collaboration.** Silos between DevOps, SRE, and business teams are reduced; responsibility for system health is shared.
+- **Training and education.** Investment in team skills ensures effective use of observability tools and accurate interpretation of data.
+- **Actionable alerting.** Intelligent thresholds reduce alert fatigue; each alert is associated with a clear response playbook (see [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md), [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md)).
 
 ## 19.3 Roles & Responsibilities
 
 | Role | Primary Focus |
 |---|---|
 | Service / Application Owner | Owns service-specific telemetry conformance ([18. Application Telemetry Standard](18-application-telemetry-standard.md)) and SLOs |
-| SRE / Platform Ops | Operates the platform ([3. Observability Reference Architecture](03-observability-reference-architecture.md)), runs runbooks ([4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md)), maintains dashboards ([6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)) |
+| SRE / Platform Ops | Operates the platform ([3. Observability Reference Architecture](03-observability-reference-architecture.md)), runs runbooks ([4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md)), maintains dashboards ([6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)) |
 | Incident Commander | Coordinates Critical incidents ([13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)) |
 | Data Governance Lead | Owns retention, classification, RBAC ([9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)) |
 | AIOps Lead | Owns AIOps guardrails and model lifecycle ([7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) |
@@ -47,7 +47,7 @@ Observability is as much about **people and processes** as tools. This document 
 ### 19.4.2 Phase 2 — Correlation & Alerting
 - Roll out shared dashboards and topology views.
 - Establish on-call rotation aligned to [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) severities.
-- Reduce alert noise to "moderate" through tuning (see [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)).
+- Reduce alert noise to **<= 20% non-actionable alerts** through tuning (see [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)).
 
 ### 19.4.3 Phase 3 — AI-Driven Intelligence
 - Operationalise AIOps feedback loops; operators routinely validate AI outputs.
@@ -56,7 +56,7 @@ Observability is as much about **people and processes** as tools. This document 
 
 ### 19.4.4 Community of Practice
 
-The Observability **Community of Practice (CoP)** is the working-level forum that operationalises governance below the ARB. It is the primary mechanism by which standards from [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) and decisions from [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) become **lived practice** across services.
+The Observability **Community of Practice (CoP)** is the working-level forum that operationalises governance below the ARB. It is the primary mechanism by which standards from [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) and decisions from [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) become **lived practice** across services.
 
 **Charter.** The CoP is **advisory and educational**, not a decision body. Decision authority remains with the ARB / governance body per [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.3 Decision Rights](16-observability-governance-charter-and-arb-pack.md#163-decision-rights).
 
@@ -76,7 +76,7 @@ The Observability **Community of Practice (CoP)** is the working-level forum tha
 | Annual conference / unconf | Annual, full day | Internal event; external speakers welcome | Platform Ops |
 
 **Artefacts the CoP owns or curates.**
-- **Pattern library.** Worked examples for telemetry kits ([Chapter 26. Service Onboarding and Instrumentation Kits -> Section 26.3 Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md#263-instrumentation-kits)), dashboard templates ([6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)), SLO definitions ([25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md)).
+- **Pattern library.** Worked examples for telemetry kits ([Chapter 26. Service Onboarding and Instrumentation Kits -> Section 26.3 Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md#263-instrumentation-kits)), dashboard templates ([6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)), SLO definitions ([25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md)).
 - **Anti-pattern register.** Misuses encountered in PRR or in production; published with remediation guidance.
 - **RFC log.** Drafts headed for ADRs in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 - **Champions list.** A "Champion" per service team — a named engineer accountable for that team's adherence to standards and the local point-of-contact for the CoP.

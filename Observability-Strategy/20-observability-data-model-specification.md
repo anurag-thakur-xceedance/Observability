@@ -53,14 +53,15 @@ Together these form **full-stack observability**.
 - **User Session** *initiates* **Transactions**.
 
 ## 20.5 Correlation Identifiers
-- `correlation.id` (a.k.a. `trace.id`) — required across logs, metrics-with-exemplars, and traces.
+- `trace.id` — the technical distributed-tracing identifier carried by W3C Trace Context and required across traces, logs, and metric exemplars.
+- `correlation.id` — the business correlation identifier that must survive non-tracing hops such as queues, batch jobs, partner callbacks, and manual replays.
 - `service.name` + `env` — primary partition keys for cross-pillar joins.
 - `tenant_class` — for multi-tenant grouping (no tenant PII).
 
 ## 20.6 Schema Conventions
 - Follow **OpenTelemetry semantic conventions** where available.
 - Custom attributes prefixed with `xc.` (Xceedance) namespace to avoid collision.
-- Metric names: `<domain>.<entity>.<measure>.<unit>` (see [Chapter 18. Application Telemetry Standard -> Section 18.5 Naming Conventions](18-application-telemetry-standard.md#185-naming-conventions), [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3 Naming and Labelling Standards](02-enterprise-observability-standards-catalog.md#23-naming-and-labelling-standards)).
+- Metric names follow the enterprise snake_case standard in [Chapter 18. Application Telemetry Standard -> Section 18.5 Naming Conventions](18-application-telemetry-standard.md#185-naming-conventions) and [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3 Naming and Labelling Standards](02-enterprise-observability-standards-catalog.md#23-naming-and-labelling-standards).
 - Labels: bounded cardinality; high-cardinality labels removed/bucketed after retention window (see [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.6 Data Quality and Standards](09-observability-data-governance-and-retention-policy.md#96-data-quality-and-standards), [Chapter 10. Observability FinOps Standard -> Section 10.3 Down-Sampling and Aggregation](10-observability-finops-standard.md#103-down-sampling-and-aggregation)).
 
 ## 20.7 PII & Sensitive Data
@@ -72,7 +73,7 @@ This section turns the logical model in Sections 2–7 into concrete, machine-va
 
 ### 20.8.1 JSON Schema Index
 
-Five canonical schemas live under `Artifact_Pack/schemas/`. Each schema is the source-of-truth contract between producers (services, collectors) and consumers (backends, correlation engine, AIOps models). Producers MUST validate locally before emission; the ingest pipeline re-validates and routes failures to the dead-letter stream described in Section 9.4.
+Five canonical schemas live under `schemas/`. Each schema is the source-of-truth contract between producers (services, collectors) and consumers (backends, correlation engine, AIOps models). Producers MUST validate locally before emission; the ingest pipeline re-validates and routes failures to the dead-letter stream described in Section 20.8.6.
 
 | Signal | Schema file | `$id` | Aligned With |
 |---|---|---|---|
@@ -171,7 +172,7 @@ Notes on cardinality:
 
 ### 20.8.5 OpenTelemetry Semantic-Convention Crosswalk
 
-The schemas reuse OpenTelemetry semantic-convention attribute names verbatim wherever a convention exists; Xceedance-specific attributes are namespaced `xc.*`. This table is the audit trail for every attribute used in the schemas of Section 9.1.
+The schemas reuse OpenTelemetry semantic-convention attribute names verbatim wherever a convention exists; Xceedance-specific attributes are namespaced `xc.*`. This table is the audit trail for every attribute used in the schemas of Section 20.8.1.
 
 | Logical Concept (Section 4) | Schema Field | OTel Convention | Notes |
 |---|---|---|---|
@@ -232,14 +233,14 @@ Each dead-letter record is annotated with `xc.dlq.reason`, `xc.dlq.schema_path`,
 - Synthetic conformance payloads (one valid + one negative per schema) live under `reference-implementations/conformance/` (P3 deliverable) and are exercised by CI.
 
 ## 20.9 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — naming and labelling standards.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — naming and labelling standards.
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline storing this data.
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — governance and classification; cardinality budgets cited from Section 7.
-- [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics) — consumer of the ERD in Section 9.2.
+- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — governance and classification.
+- [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics) — consumer of the ERD in Section 20.8.4.
 - [18. Application Telemetry Standard](18-application-telemetry-standard.md) — application-level field requirements; journey-name source.
 - [Chapter 24. Observability Platform Security Architecture -> Section 24.4 PII Redaction (Concrete Mechanisms)](24-observability-platform-security-architecture.md#244-pii-redaction-concrete-mechanisms) — PII patterns feeding the `dlq-pii` stream.
 - [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.3 Decision Rights](16-observability-governance-charter-and-arb-pack.md#163-decision-rights) — schema-version change-control authority.
-- Schema files: `Artifact_Pack/schemas/metric-sample.schema.json`, `log-record.schema.json`, `trace-span.schema.json`, `event-record.schema.json`, `profile-sample.schema.json`.
+- Schema files: `schemas/metric-sample.schema.json`, `schemas/log-record.schema.json`, `schemas/trace-span.schema.json`, `schemas/event-record.schema.json`, `schemas/profile-sample.schema.json`.
 
 ---
 

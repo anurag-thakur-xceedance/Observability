@@ -28,7 +28,7 @@ status: Draft
 | **T**ampering | Prometheus rules / dashboards | Direct edit on host bypassing Git | Read-only mounts; provisioning from Git only; audit log on changes |
 | **T**ampering | In-transit telemetry | MITM | TLS 1.2+ everywhere; certificate pinning at gateway |
 | **R**epudiation | Configuration changes | No actor attribution | Audit-event schema (Section 6); SIEM forwarding |
-| **I**nformation Disclosure | Logs containing PII | Unredacted log lines stored | OTel Collector `attributes/redact` + `transform` processors; pattern catalog (Section 5); Loki line filters |
+| **I**nformation Disclosure | Logs containing PII | Unredacted log lines stored | OTel Collector `attributes/redact` + `transform` processors; pattern catalogue (Section 5); Loki line filters |
 | **I**nformation Disclosure | Dashboards exposing customer data | Cross-tenant view | RBAC + tenant-scoped data sources; per-org Grafana folders |
 | **I**nformation Disclosure | Telemetry sent to vendor SaaS | Egress without controls | Egress allow-list; redaction before export; data-residency enforcement |
 | **D**enial of Service | Telemetry pipeline | Cardinality bomb / log flood | Cardinality limits (memory_limiter); per-tenant rate limits; circuit-breaker on collector |
@@ -181,12 +181,12 @@ Deployment definitions reference secrets through approved runtime or automation 
 - Auditable egress log (firewall + LB).
 
 ## 24.9 Hardening Baseline
-- Containers run as non-root.
-- Read-only root filesystem; explicit writable volumes only.
-- Drop all Linux capabilities except those required.
-- seccomp default profile.
-- Resource limits set on every service (CPU + memory).
-- Host-level: minimal base OS, automated patching, host-based IDS.
+- **Container runtime.** Containers run as non-root.
+- **Filesystem posture.** Read-only root filesystem; explicit writable volumes only.
+- **Linux privileges.** Drop all Linux capabilities except those required.
+- **Kernel policy.** seccomp default profile.
+- **Resource governance.** Resource limits set on every service (CPU + memory).
+- **Host baseline.** Minimal base OS, automated patching, host-based IDS.
 
 ## 24.10 Cross-References
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline detail.

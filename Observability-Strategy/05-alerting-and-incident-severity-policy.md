@@ -83,9 +83,9 @@ After a few weeks of live data, calibrate thresholds so:
 - **Critical** ≈ conditions where user impact or SLA breach begins.
 
 ## 5.7 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — threshold definitions feeding alert rules.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — threshold definitions feeding alert rules.
 - [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks invoked by alerts.
-- [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana implementation of alerting.
+- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana implementation of alerting.
 - [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI-specific alerting tuning.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — alert quality KPIs (signal-to-noise ratio).
 - [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident response workflow once alert fires.

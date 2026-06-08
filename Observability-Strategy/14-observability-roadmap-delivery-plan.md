@@ -34,7 +34,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Team Onboarding | Train ops + dev teams on dashboards | All relevant team members can navigate Grafana |
 
 ### 14.2.1 Phase 1 Targets (from [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
-- MTTD < 15 min, MTTR in hours, services instrumented 20%, alert noise high (baseline), manual RCA 100%, automated tickets 0%.
+- MTTD < 15 min, MTTR <= 4 h, services instrumented 20%, alert noise > 35% non-actionable, manual RCA 100%, automated tickets 0%.
 
 ## 14.3 Phase 2 — Correlation & Alerting (Months 4–6)
 **Theme:** "Connect the Dots — Understand Why It's Happening."
@@ -51,7 +51,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Cross-Team Dashboards | Shared views breaking down silos | Single pane of glass accessible to all stakeholders |
 
 ### 14.3.1 Phase 2 Targets (from [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
-- MTTD < 5 min, MTTR ~ 30 min, services instrumented 70%, alert noise moderate, manual RCA 50%, automated tickets 50%.
+- MTTD < 5 min, MTTR <= 30 min, services instrumented 70%, alert noise <= 20% non-actionable, manual RCA 50%, automated tickets 50%.
 
 ## 14.4 Phase 3 — AI-Driven Intelligence (Months 7–12)
 **Theme:** "Predict and Automate — Fix Before Users Notice."
@@ -69,7 +69,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Business Impact Correlation | Link technical incidents to business KPIs (revenue, CX scores) | Executives receive business-context summaries |
 
 ### 14.4.1 Phase 3 Targets (from [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
-- MTTD < 1 min, MTTR in minutes, services instrumented 100%, alert noise low (< 10% FP), manual RCA < 20%, automated tickets > 90%.
+- MTTD < 1 min, MTTR <= 15 min, services instrumented 100%, alert noise <= 10% non-actionable, manual RCA < 20%, automated tickets > 90%.
 
 ## 14.5 Dependencies (Cross-Phase)
 - [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.

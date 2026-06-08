@@ -35,7 +35,9 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 ### 18.3.1 Required Trace Attributes (Pre-Login)
 - `service.name`, `auth.provider`, `auth.method` (`password` / `mfa` / `sso`), `auth.outcome` (`success` / `failure` / `mfa_required`), `gateway.route`, `client.region`, `correlation.id`.
 
-**Correlation initiation (mandatory).** The W3C Trace Context `traceparent` header MUST be created at the first Azure ingress hop (Azure Front Door, Application Gateway, or API Management — whichever is outermost) and propagated through every downstream service, message, and async hand-off. Application services MUST NOT regenerate `traceparent`; they extract `trace_id` / `span_id` from the inbound header and attach them to every emitted span, log line, and metric exemplar. Pre-login flows that bypass authenticated APIM policies still inherit `traceparent` from Front Door / App Gateway. See [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.1 Required Resource Attributes (every signal)](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal) for the edge-injection contract.
+**Correlation initiation (mandatory).** The W3C Trace Context `traceparent` header MUST be created at the first Azure ingress hop (Azure Front Door, Application Gateway, or API Management — whichever is outermost) and propagated through every downstream service, message, and async hand-off. Application services MUST NOT regenerate `traceparent`; they extract `trace_id` / `span_id` from the inbound header and attach them to every emitted span, log line, and metric exemplar. Pre-login flows that bypass authenticated APIM policies still inherit `traceparent` from Front Door / App Gateway. See [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.1 Required Resource Attributes (every signal)](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal) for the edge-injection contract.
+
+Where Azure ingress is not present, the same requirement applies at the equivalent outermost ingress component in AWS, Google Cloud, or an approved third-party edge service. The cloud-specific product may change; the propagation contract does not.
 
 ### 18.3.2 Required Log Fields
 - `timestamp`, `level`, `service.name`, `auth.outcome`, `error.code`, `correlation.id`. **No PII** (see [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)).
@@ -56,7 +58,7 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 - Root span per user transaction; child spans per service call and dependency call. End-to-end span coverage required for the four named journeys: **login**, **checkout**, **report-gen**, **policy-quote** (subject to product confirmation).
 
 ## 18.5 Naming Conventions
-- Metric names follow `<domain>.<entity>.<measure>.<unit>` (e.g. `app.auth.latency.ms`).
+- Metric names follow the enterprise convention in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.2 Metric Naming Convention](02-enterprise-observability-standards-catalog.md#232-metric-naming-convention): lowercase snake_case with units where applicable (for example `http_request_duration_seconds`).
 - Labels: `service`, `env`, `region`, `cloud`, `tenant_class` (no PII).
 - Trace attributes follow OpenTelemetry semantic conventions where available.
 
@@ -69,10 +71,10 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 - Conformance evidence is part of release readiness.
 
 ## 18.8 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline and backend that consume this telemetry.
 - [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) — operational runbook applying this telemetry.
-- [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of these metrics.
+- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana visualisation of these metrics.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — PII / data governance constraints.
 - [20. Observability Data Model Specification](20-observability-data-model-specification.md) — formal data model for span hierarchy and entities.
 

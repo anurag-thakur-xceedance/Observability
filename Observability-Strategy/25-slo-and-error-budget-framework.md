@@ -41,7 +41,7 @@ Without a formal SLO methodology, "reliability targets" are aspirational. With i
 
 ## 25.3 SLO Target Derivation
 
-| Service Tier (per [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model)) | Availability SLO | Latency SLO | Window |
+| Service Tier (per [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model)) | Availability SLO | Latency SLO | Window |
 |---|---|---|---|
 | T1 | 99.9% | 99% requests under tier-specific target (e.g., P99 ≤ 800 ms) | 30-day rolling |
 | T2 | 99.5% | 95% requests under target | 30-day rolling |

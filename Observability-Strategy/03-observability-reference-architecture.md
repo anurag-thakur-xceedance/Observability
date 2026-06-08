@@ -20,8 +20,8 @@ status: Draft
 ## 3.1 Architectural Principles
 - **Centralised Data Collection.** All telemetry consolidated in a unified platform to break down silos and enable cross-pillar correlation.
 - **Open Standards.** Vendor-neutral instrumentation (OpenTelemetry) to avoid lock-in and simplify integration.
-- **Tool Selection.** Grafana selected as primary visualization and alerting tool based on scalability, ease of use, and cost.
-- **Containerized Delivery.** The observability platform is delivered as containerized services, with implementation chosen per environment (for example Kubernetes, Docker Compose, or equivalent platform-managed container deployment).
+- **Tool Selection.** Grafana selected as primary visualisation and alerting tool based on scalability, ease of use, and cost.
+- **Containerised Delivery.** The observability platform is delivered as containerised services, with implementation chosen per environment (for example Kubernetes, Docker Compose, or equivalent platform-managed container deployment).
 - **Single Pane of Glass.** Unified view across infra, application, and business layers.
 - **Reproducible Deployment.** IaC and deployment automation are version-controlled, repeatable, and environment-aware, with platform-specific configuration, dashboards, and alert rules managed as code.
 - **Deployment-Model Awareness.** Universal observability — consistent logs + metrics + traces + events across all runtimes — is implemented in a model-aware manner, not one-size-fits-all. Deployment topology (on-prem, customer site, cloud VM) directly shapes what can be instrumented, the context that can be captured, and where telemetry can be stored or processed; trace continuity, data ownership, and cost control follow from those choices.
@@ -115,7 +115,7 @@ The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is
 | Metrics Storage | Prometheus | Infra and application metrics |
 | Logs Storage | Loki | Structured logs |
 | Traces Storage | Tempo | Distributed traces |
-| Visualization | Grafana | Dashboards, exploration, analytics |
+| Visualisation | Grafana | Dashboards, exploration, analytics |
 | Host Observability | Node Exporter | OS-level metrics (CPU/mem/disk/net) on every host |
 | Container Observability | cAdvisor | Per-container CPU/memory/I/O metrics |
 | Network Monitoring | Host-level network metrics via Node Exporter; network probes / synthetic checks via Blackbox Exporter | Network reachability, latency, packet loss |
@@ -127,7 +127,7 @@ The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is
 | Synthetic Monitoring | Blackbox Exporter / k6 | Black-box probes for HTTP, TCP, DNS, ICMP, TLS |
 | Real User Monitoring (RUM) | OpenTelemetry Browser SDK | Front-end Core Web Vitals + user-journey spans |
 | Auto-Instrumentation (eBPF) | Beyla (or equivalent) | Code-free L4/L7 visibility for legacy / unmodifiable services |
-| Service Catalog (CMDB bridge) | Backstage / ServiceNow CMDB integration | Authoritative service identity (`service.name`, `tier`, `team`) |
+| Service Catalogue (CMDB bridge) | Backstage / ServiceNow CMDB integration | Authoritative service identity (`service.name`, `tier`, `team`) |
 | Paging / On-Call | PagerDuty / Opsgenie / Squadcast | Alert escalation and rotation management |
 | Identity / Auth | Corporate IdP (OIDC / SAML) + Vault PKI | User SSO + service mTLS |
 | Secrets | HashiCorp Vault / Azure Key Vault | Component credentials and bearer tokens |
@@ -150,6 +150,21 @@ For legacy services, vendor-supplied components, or any workload where code-leve
 - Less attribute fidelity than SDK instrumentation.
 - Custom business attributes still require SDK.
 
+### 3.4.2 Azure-Primary, Cross-Cloud Equivalents
+
+Azure is the **primary reference cloud** for this pack. Where an estate uses another cloud, the control intent stays the same and the nearest managed equivalent is used.
+
+| Capability | Azure Reference | AWS Equivalent | Google Cloud Equivalent |
+|---|---|---|---|
+| Edge ingress / trace initiation | Front Door, Application Gateway, API Management | CloudFront, ALB, API Gateway | External HTTP(S) Load Balancer, API Gateway |
+| Managed Kubernetes | AKS | EKS | GKE |
+| Secrets / keys | Azure Key Vault | AWS Secrets Manager / KMS | Secret Manager / Cloud KMS |
+| Object storage for Loki / Tempo / archive | Azure Blob Storage | S3 | Cloud Storage |
+| Policy / config compliance | Azure Policy | AWS Config / SCP | Organisation Policy / Config Validator |
+| Managed PostgreSQL | Azure Database for PostgreSQL | RDS for PostgreSQL | Cloud SQL for PostgreSQL |
+
+The standard remains Azure-first for pricing, examples, and operating procedures. Multi-cloud adoption requires an ADR documenting the chosen equivalent controls, service limits, and support model.
+
 ## 3.5 Telemetry Collection Layers
 Telemetry is captured across four major layers:
 
@@ -158,27 +173,27 @@ Telemetry is captured across four major layers:
 3. **Database.** Query, lock, connection, and replication telemetry via dedicated exporters as Compose services.
 4. **Network & Latency.** Host-level network counters (packet drops, retransmits) plus active probes (Blackbox Exporter) for cross-service latency, DNS, and reachability.
 
-A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md).
+A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md).
 
 ### 3.5.1 Sampling Strategy
 
 | Signal | Approach | Rate (default) | Rationale |
 |---|---|---|---|
 | Metrics | No sampling — full fidelity at scrape interval | 100% | Aggregated by definition; sampling defeats the purpose |
-| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model)) |
+| Logs | Volume control via structured-log policy + level filtering | INFO+ in prod | Fine-grained by service tier (see [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model)) |
 | Traces (head-based, baseline) | `parentbased_traceidratio` at SDK | T1 10%, T2 5%, T3 1%, T4 0.1% | Decision propagates with `traceparent`; lightweight |
 | Traces (tail-based, gateway) | Tail sampling at gateway Collector | 100% of errors + 100% of slow (> P95) + N% of normal | Captures the interesting traces; downsamples the rest |
 
 **Decision** formalised in **ADR-013**.
 
 ## 3.6 Containerized Deployment Design
-The observability stack runs as containerized services in every environment (development, test, staging, production; on-prem, customer-hosted, cloud VM, or managed cluster). The design is deployment-model aware rather than tied to one runtime or one cloud-specific platform.
+The observability stack runs as containerised services in every environment (development, test, staging, production; on-prem, customer-hosted, cloud VM, or managed cluster). The design is deployment-model aware rather than tied to one runtime or one cloud-specific platform.
 
 **Advantages:**
-- **Centralized Dashboards.** Unified Grafana view regardless of where the stack runs.
-- **Unified Telemetry Schema.** Same metric names, labels, log fields, trace attributes everywhere.
-- **Cross-Host Incident Visibility.** Incidents that span hosts / sites remain visible in a single context.
-- **Operational Flexibility.** Teams can use the container orchestration layer that fits their environment while preserving the same observability standards and telemetry contracts.
+- **Centralised dashboards.** Unified Grafana view regardless of where the stack runs.
+- **Unified telemetry schema.** Same metric names, labels, log fields, trace attributes everywhere.
+- **Cross-host incident visibility.** Incidents that span hosts / sites remain visible in a single context.
+- **Operational flexibility.** Teams can use the container orchestration layer that fits their environment while preserving the same observability standards and telemetry contracts.
 
 **Design constraints (see [8. IaC for Observability Standard](08-iac-for-observability-standard.md) for KPIs):**
 - **Cross-environment config parity ≥ 95%** between deployments of the same tier.
@@ -248,13 +263,13 @@ Detailed control catalogue in [24. Observability Platform Security Architecture]
 - **`otelcol_processor_dropped_spans`** is a meta-monitor alert (see [Chapter 22. Observability Platform HA and DR Design -> Section 22.7 Self-Monitoring (Meta-Monitor)](22-observability-platform-ha-and-dr-design.md#227-self-monitoring-meta-monitor)).
 
 ### 3.7.3 Schema Validation and Cardinality Controls
-- Cardinality enforcement per [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
+- Cardinality enforcement per [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
 - Required-attribute enforcement: `attributes/required` processor pattern rejects telemetry missing any of `service.name`, `tier`, `tenant_id`.
 - Recording rules in Prometheus / Mimir track per-service active-series count.
 
 ## 3.8 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
-- [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana platform standards and dashboard playbook.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
+- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana platform standards and dashboard playbook.
 - [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment and automation standard.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data lifecycle and retention applied to backends.
 - [20. Observability Data Model Specification](20-observability-data-model-specification.md) — formal data model for entities/relationships across pillars.

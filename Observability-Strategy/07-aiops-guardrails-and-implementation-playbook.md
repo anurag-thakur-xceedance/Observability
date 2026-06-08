@@ -65,8 +65,8 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4 Domain
 - ML-based outlier detection (e.g. **Prophet**, **Isolation Forest**).
 - Selection criteria: explainability, retraining cost, false-positive control.
 
-### 7.5.3 Visualization
-- Predicted-vs-actual curves overlaid in Grafana (see [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)).
+### 7.5.3 Visualisation
+- Predicted-vs-actual curves overlaid in Grafana (see [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)).
 - Anomaly deviation percentages and model confidence values shown on dashboards.
 
 ### 7.5.4 Success Criteria
@@ -713,9 +713,9 @@ The following KPIs apply to the LLM stack and are reported on the scorecard in C
 These KPIs are also referenced by NFR-PRV-01 (PII redaction verification), NFR-SEC-03 (cross-tenant boundary enforcement), and the AI safety KPIs in Section 9.5.
 
 ## 7.10 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
-- [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana visualization of AI overlays.
+- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana visualisation of AI overlays.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention rules for prompt audit logs.
 - [Chapter 11. Compliance and Audit Control Matrix -> Section 11.5 Control Matrix (Initial)](11-compliance-and-audit-control-matrix.md#115-control-matrix-initial) — OBS-C-14 audits the lifecycle in Section 8.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — Phase 3 KPI targets (MTTD < 1 min, automated tickets > 90%); AI safety KPIs from Section 9.5.

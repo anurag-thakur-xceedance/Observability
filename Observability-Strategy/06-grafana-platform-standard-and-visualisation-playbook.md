@@ -1,5 +1,5 @@
 ---
-title: Grafana Platform Standard and Visualization Playbook
+title: Grafana Platform Standard and Visualisation Playbook
 chapter: 6
 version: 0.1
 owner: TBD
@@ -8,7 +8,7 @@ reviewed_date:
 status: Draft
 ---
 
-# 6. Grafana Platform Standard and Visualization Playbook
+# 6. Grafana Platform Standard and Visualisation Playbook
 
 [↑ Back to TOC](toc.md)
 
@@ -18,10 +18,10 @@ status: Draft
 ---
 
 ## 6.1 Purpose
-Defines how Grafana is operated as the primary visualization and alerting platform, and how dashboards deliver the strategy's "single pane of glass".
+Defines how Grafana is operated as the primary visualisation and alerting platform, and how dashboards deliver the strategy's "single pane of glass".
 
 ## 6.2 Role of Grafana in the Strategy
-Grafana visualizes and alerts against Prometheus (metrics), Loki (logs), and Tempo (traces). Dashboards, ad-hoc queries, and alerts present a unified, single-pane-of-glass view of system health, performance, and reliability.
+Grafana visualises and alerts against Prometheus (metrics), Loki (logs), and Tempo (traces). Dashboards, ad-hoc queries, and alerts present a unified, single-pane-of-glass view of system health, performance, and reliability.
 
 ## 6.3 Dashboard Structure (Three-Layer Model)
 
@@ -31,8 +31,8 @@ Grafana visualizes and alerts against Prometheus (metrics), Loki (logs), and Tem
 | **Application** | Service health and trace-driven metrics — latency, errors, throughput | App engineering, on-call |
 | **Business** | Customer-impact KPIs — login/payment success rates, conversion latencies | Product, Operations leadership |
 
-## 6.4 Key Metrics & Suggested Ranges (Visualization)
-Full thresholds in [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.10 Grafana Visualization Layer Standards](02-enterprise-observability-standards-catalog.md#210-grafana-visualization-layer-standards). Summary:
+## 6.4 Key Metrics & Suggested Ranges (Visualisation)
+Full thresholds in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.10 Grafana Visualisation Layer Standards](02-enterprise-observability-standards-catalog.md#210-grafana-visualisation-layer-standards). Summary:
 
 | Layer | Metric | Healthy | Warning | Critical |
 |---|---|---|---|---|
@@ -60,7 +60,7 @@ Severity model is owned by [5. Alerting and Incident Severity Policy](05-alertin
 | Warning | Above warning threshold for ≥ 5 min rolling window | Investigate within normal support hours; check dependency or resource limits. |
 | Critical | Above critical threshold for ≥ 2 min or repeated within 10 min | Immediate incident response; probable user or business impact. |
 
-## 6.6 Implementation & Visualization Tips
+## 6.6 Implementation & Visualisation Tips
 - **Dashboards structure:** Infra → Application → Business (top-down).
 - **Percentile-based latency.** Always track **P95 and P99**, never rely solely on averages.
 - **Correlate metrics.** High API latency + elevated error rates typically indicates backend/DB issue. High API latency + healthy DB latency typically indicates app-side or runtime contention.
@@ -171,7 +171,7 @@ A scheduled job exports the live Grafana state and `diff`s it against the reposi
 Drift > 7 days is a finding under **OBS-C-02**.
 
 ## 6.8 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — Grafana's role in the reference architecture.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
 - [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.

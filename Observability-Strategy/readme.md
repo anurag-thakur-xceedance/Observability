@@ -73,13 +73,13 @@ The pack ships with three PowerShell verifiers under `tools/`:
 - `tools/verify_links.ps1` — validates internal markdown links and anchors (must run zero-broken).
 - `tools/verify_frontmatter.ps1` — validates YAML front-matter and the standard front-matter table.
 
-PRs against the pack MUST run `verify_links.ps1` and `verify_frontmatter.ps1` (zero-broken / zero-error), regenerate the TOC if any heading changed, register new acronyms or concepts in the annexures, update the [Traceability Matrix](traceability-matrix.md) if artifacts change, and cite a relevant ADR in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) for any architectural decision.
+PRs against the pack MUST run `verify_links.ps1` and `verify_frontmatter.ps1` (zero-broken / zero-error), regenerate the TOC if any heading changed, register new acronyms or concepts in the annexures, update the [Traceability Matrix](traceability-matrix.md) if artefacts change, and cite a relevant ADR in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) for any architectural decision.
 
 ## Status and Open Items
 
 Open decisions, deferred items, and known gaps are tracked in the [Handover Report](handover-report.md). The [Traceability Matrix](traceability-matrix.md) provides the source-to-artifact coverage map.
 
-**Pack maturity — read before adoption.** This is a v0.1 **handover** artifact, not an engineering-ready specification. Chapter depth is intentionally asymmetric: governance, operating-model, strategy, and compliance-mapping content is more developed than reference implementations, dashboard JSON, prompt registries, and edge / RUM / SBOM patterns — those are deferred to the engineering phase. Schemas, NFR thresholds, regulatory crosswalks, and AIOps prompt scaffolding are **synthesis-grade** and require SME validation (data-platform, compliance, security, SRE) before they are used as binding artifacts. Known gaps are enumerated in the [Handover Report -> Section 4. Sections Pending](handover-report.md#3-sections-pending) and the new [30. Observability Programme Risk Register](30-observability-programme-risk-register.md).
+**Pack maturity — read before adoption.** This is a v0.1 **handover** artefact, not an engineering-ready specification. Chapter depth is intentionally asymmetric: governance, operating-model, strategy, and compliance-mapping content is more developed than reference implementations, dashboard JSON, prompt registries, and edge / RUM / SBOM patterns — those are deferred to the engineering phase. Schemas, NFR thresholds, regulatory crosswalks, and AIOps prompt scaffolding are **synthesis-grade** and require SME validation (data-platform, compliance, security, SRE) before they are used as binding artefacts. Known gaps are enumerated in the [Handover Report -> Section 4. Sections Pending](handover-report.md#3-sections-pending) and the new [30. Observability Programme Risk Register](30-observability-programme-risk-register.md).
 
 ---
 

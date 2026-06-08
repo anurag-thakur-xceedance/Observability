@@ -45,7 +45,7 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 | Internal Analytics / BI | T3 | Decision support | Internal | 98.0% | ≤ 24 h | ≤ 24 h | Pipeline-health telemetry |
 | Corporate IT (HR, Finance, Email) | T4 | Internal users | Internal | 98.0% | ≤ 48 h | ≤ 24 h | Standard infra telemetry |
 
-**Tier definitions** are formalised in [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model).
+**Tier definitions** are formalised in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model).
 
 ## 21.3 Value-Stream View
 
@@ -92,7 +92,7 @@ The full SLO methodology — including SLI categorisation, error-budget policy, 
 | Business Capability | Primary Artifacts |
 |---|---|
 | All T1 capabilities | [18. Application Telemetry Standard](18-application-telemetry-standard.md), [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md), [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
-| Customer-facing (Quoting, FNOL, Self-Service) | [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — customer-experience layer; [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) for RUM kit |
+| Customer-facing (Quoting, FNOL, Self-Service) | [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — customer-experience layer; [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) for RUM kit |
 | Underwriting / AI | [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) for model telemetry parallels |
 | Claims with payment | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) for payment-data redaction |
 | Reporting / Regulatory | [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md), [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
@@ -106,7 +106,7 @@ The full SLO methodology — including SLI categorisation, error-budget policy, 
 - **Customer Operations:** "Per-customer-site dashboards show isolated tenancy; SLA breach detection ≤ 2 min."
 
 ## 21.7 Cross-References
-- [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model) — tier definitions consumed by this chapter.
+- [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model) — tier definitions consumed by this chapter.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI targets per tier.
 - [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — SLO methodology.
 - [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant data isolation.

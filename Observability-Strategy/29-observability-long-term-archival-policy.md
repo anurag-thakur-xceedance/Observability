@@ -113,10 +113,10 @@ Promotion is automated by an archival worker that runs daily:
 
 ### 29.6.3 Destruction
 
-- Cryptographic erasure (key deletion) is the primary destruction method for cloud-backed archives.
-- Physical media destruction certificate retained for on-prem / customer-site archives.
-- Destruction certificate retained for **2 years** after destruction event.
-- Destruction is blocked while any legal hold is active on the record.
+- **Cloud-backed archives.** Cryptographic erasure (key deletion) is the primary destruction method.
+- **Customer-site or on-prem archives.** Physical media destruction certificate retained where physical media is used.
+- **Evidence retention.** Destruction certificate retained for **2 years** after destruction event.
+- **Legal-hold gate.** Destruction is blocked while any legal hold is active on the record.
 
 ## 29.7 Privacy Treatment Before Archival
 

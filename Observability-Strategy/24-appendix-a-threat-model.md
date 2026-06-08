@@ -38,7 +38,7 @@ This appendix to [24. Observability Platform Security Architecture](24-observabi
 | C3 | Prometheus / Mimir (metrics backend) | Storage |
 | C4 | Loki (logs backend) | Storage |
 | C5 | Tempo (traces backend) | Storage |
-| C6 | Grafana (visualization & alerting) | User-facing |
+| C6 | Grafana (visualisation and alerting) | User-facing |
 | C7 | AIOps layer (anomaly / RCA / LLM) | Processing |
 | C8 | IaC pipeline (Git → deployment) | Control plane |
 | C9 | Archive store (long-term) | Retention boundary |
@@ -80,7 +80,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Query-of-death exhausts backend | Query limits; per-user concurrency caps | NFR-PRF-01 | M |
 | **E** | Backend compromise → lateral move | Backends in segmented subnet; no outbound except whitelisted | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 
-### 24A.4.4 C6 — Grafana (Visualization & Alerting)
+### 24A.4.4 C6 — Grafana (Visualisation and Alerting)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|

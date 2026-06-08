@@ -32,11 +32,11 @@ The platform itself is **Tier 1**. Recovery objectives:
 | OTel Collector (edge) | Per-host agent; failure isolated | Run as resilient host service (`restart: always`); local disk queue with `file_storage` extension | Daemon-set equivalent across hosts | N/A — already distributed |
 | OTel Collector (gateway) | Single instance bottleneck at ~100k spans/s | Active-active behind L4 LB (HAProxy / nginx) with `loadbalancing` exporter for trace stickiness | 2-N gateway replicas | When ingest > 50k spans/s sustained or single-host CPU > 60% |
 | Prometheus | Single binary; no native HA | **Pair pattern:** two identical Prometheus instances scraping same targets; Grafana queries both via `--query.lookback-delta` and round-robin | Mimir / Thanos / VictoriaMetrics with object-storage backend | When series count > 10M, retention > 90 days, or HA writes needed |
-| Loki | Monolithic mode acceptable to ~100GB/day | Two monolithic instances behind LB with shared object storage (Azure Blob / S3 / MinIO) | Loki SSD or microservice mode | When ingest > 50GB/day or query latency degrades |
-| Tempo | Monolithic mode acceptable to moderate trace volume | Two instances with shared object storage backend | Tempo distributed (distributor / ingester / querier) | When trace ingest > 20k spans/s or query timeouts occur |
+| Loki | Monolithic mode supported to ~100 GB/day compressed ingest | Two monolithic instances behind LB with shared object storage (Azure Blob / S3 / MinIO) | Loki SSD or microservice mode | When ingest > 50 GB/day sustained or query latency P95 > 5 s |
+| Tempo | Monolithic mode supported to ~20k spans/s sustained ingest | Two instances with shared object storage backend | Tempo distributed (distributor / ingester / querier) | When trace ingest > 20k spans/s sustained or query timeout rate > 1% |
 | Grafana | Single instance + SQLite is single point of failure | External Postgres for Grafana DB; two Grafana instances behind LB; provisioned dashboards/datasources from Git | Grafana HA with shared external DB | Day 1 if RTO ≤ 30 min |
 | Alertmanager | Single instance ≠ HA | **Cluster mode:** 3 Alertmanager peers gossiping; deduplicates alerts | Already HA in cluster mode | Day 1 |
-| Pyroscope (profiles) | Single instance acceptable initially | Two instances with shared object storage | Pyroscope distributed | When profile ingest > 1GB/day |
+| Pyroscope (profiles) | Single instance supported to ~1 GB/day ingest | Two instances with shared object storage | Pyroscope distributed | When profile ingest > 1 GB/day sustained |
 
 ## 22.3 Reference HA Topology (Compose, Single Region)
 ```

@@ -22,7 +22,7 @@ status: Draft
 ## 26.1 Onboarding Workflow (Service Owner View)
 
 ```
-[Day 0]   Service registered in catalog (owner, tier, value stream)
+[Day 0]   Service registered in catalogue (owner, tier, value stream)
 [Day 1]   Pick instrumentation kit (per language)
 [Day 2]   Local: SDK installed; metrics + logs + traces emitting
 [Day 5]   PR opened with starter dashboards & alerts (from kit)
@@ -39,7 +39,7 @@ A service may not be promoted to production without a PASS on every item below.
 
 | # | Item | Owner | Evidence |
 |---|---|---|---|
-| 1 | Service registered in catalog with tier, owner, on-call | Service Owner | Catalog entry |
+| 1 | Service registered in catalogue with tier, owner, on-call | Service Owner | Catalogue entry |
 | 2 | OpenTelemetry SDK initialised; resource attributes complete (service.name, service.version, deployment.environment, team, tier, tenant where applicable) | Dev | OTel debug exporter run |
 | 3 | RED metrics (Rate, Errors, Duration) emitted per endpoint | Dev | Prometheus scrape sample |
 | 4 | Health endpoint (`/health/liveness`, `/health/readiness`) implemented | Dev | Probe test |
@@ -152,7 +152,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 | % PRRs passing first review | ≥ 70% |
 
 ## 26.7 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
 - [18. Application Telemetry Standard](18-application-telemetry-standard.md) — pre/post-login standards.
 - [19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) — adoption governance.
 - [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — cardinality budget.

@@ -72,13 +72,33 @@ A tiered retention model balances cost, performance, and investigatory needs —
 - Classification determines storage location, encryption requirements, and access levels.
 
 ## 9.6 Data Quality and Standards
-- A standard telemetry schema (naming conventions for metrics, labels, log fields, trace attributes) is maintained; see [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) and [20. Observability Data Model Specification](20-observability-data-model-specification.md).
+- A standard telemetry schema (naming conventions for metrics, labels, log fields, trace attributes) is maintained; see [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) and [20. Observability Data Model Specification](20-observability-data-model-specification.md).
 - Data quality checks (missing labels, malformed logs, excessive cardinality) implemented in the telemetry pipeline.
 - Services are required to meet minimum instrumentation standards before production promotion.
 
 ## 9.7 Deletion and Retention Enforcement
-- Automated retention rules configured in storage backends (Prometheus, Loki, Tempo, object storage).
-- Deletion jobs and compaction processes monitored to ensure compliance with policy and regulations (e.g. GDPR-aligned deletion timelines when applicable).
+- **Backend rules.** Automated retention rules are configured in Prometheus or Mimir, Loki, Tempo, and the archive object store so that expiry is enforced by policy rather than operator discretion.
+- **Purge ledger.** Every purge job writes an immutable ledger record containing backend, tenant scope, data class, retention rule, execution time, record count or byte count purged, and result status.
+- **Failure handling.** Any failed purge or compaction job raises a Sev-3 operational ticket immediately and a Sev-2 incident if unresolved for more than 24 hours in production.
+- **Legal-hold override.** Records tagged for legal hold are excluded from purge even when the retention window has expired; the exclusion reason is written to the purge ledger.
+- **Verification.** Post-purge verification queries must confirm that the expired data is no longer queryable from the hot or warm tier.
+
+### 9.7.1 Backend-Specific Purge Mechanics
+
+| Backend | Purge Mechanism | Verification Evidence | Escalation Trigger |
+|---|---|---|---|
+| Prometheus / Mimir | TSDB block expiry and compaction per retention policy | Block inventory before/after purge; query returns no results beyond retention boundary | Old blocks still queryable 2 hours after expiry window |
+| Loki | Retention delete worker and compactor delete markers | Chunk-delete log; sample LogQL query by tenant and date range | Expired streams still queryable 2 hours after delete window |
+| Tempo | Block retention and compactor deletion | Block manifest diff; sample trace lookup by expired trace ID | Expired traces still retrievable 2 hours after delete window |
+| Object storage archive | Lifecycle transition and object-expiry rule, except legal hold | Object inventory report; immutable-ledger purge certificate | Expired archive objects remain outside legal hold after next lifecycle run |
+
+### 9.7.2 Tenant Offboarding Purge Standard
+
+1. **Scope confirmation.** Confirm tenant ID, residency boundary, legal-hold status, and contractual retention overrides.
+2. **Hot and warm purge.** Execute scoped deletion across metrics, logs, traces, profiles, and correlation stores for the tenant.
+3. **Archive disposition.** Apply destruction or hold-preserve logic to archived tenant data.
+4. **Verification.** Run post-delete queries proving the tenant's telemetry is no longer retrievable from each backend.
+5. **Certification.** Produce a tenant deletion certificate with timestamps, approvers, backend evidence references, and any legal-hold exclusions.
 
 ## 9.8 Lifecycle Mechanics (linked to FinOps)
 Cost-related lifecycle mechanics (hot / warm / cold storage, downsampling) are owned by [10. Observability FinOps Standard](10-observability-finops-standard.md). This policy authorises those mechanics; cost detail lives in [10. Observability FinOps Standard](10-observability-finops-standard.md).
@@ -102,7 +122,7 @@ The retention and governance policy creates a continuous **Day-2 operational** l
 | Storage capacity review (per backend) | Weekly | Platform Ops | Capacity dashboard ([23. Capacity and Scale Model](23-capacity-and-scale-model.md)) |
 | Retention-job success rate review | Weekly | Platform Ops | Job success metric; alert log |
 | Compaction lag check (Loki, Tempo) | Daily | Platform Ops | Compaction lag metric |
-| Cardinality drift review ([Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | Weekly | Platform Ops | Active-series report |
+| Cardinality drift review ([Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | Weekly | Platform Ops | Active-series report |
 | Schema-conformance scan | Weekly | Data Governance | Conformance dashboard |
 | PII redaction validation (sample audit) | Monthly | Data Governance | Audit report |
 | Backup-restore drill (per stateful backend) | Quarterly | Platform Ops | Drill report; RTO measured |
@@ -143,14 +163,14 @@ To mitigate **GOV-R-10** (single-point-of-knowledge), every Day-2 procedure has:
 - Quarterly rotation through the procedure during normal operation (not only during incident).
 
 ## 9.10 Cross-References
-- [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) / [20. Observability Data Model Specification](20-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
-- [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks for Section 10.1 Day-2 procedures.
-- [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management) — change workflow used for Section 10.1 retention changes.
+- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) / [20. Observability Data Model Specification](20-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
+- [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks for Section 9.9 Day-2 procedures.
+- [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management) — change workflow used for Section 9.9 retention changes.
 - [10. Observability FinOps Standard](10-observability-finops-standard.md) — cost-driven lifecycle mechanics.
-- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance and audit control matrix; OBS-C-04, OBS-C-08 sourced from Section 10.1.
+- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance and audit control matrix; OBS-C-04, OBS-C-08 sourced from Section 9.9.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard for governance success.
 - [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance charter ownership.
-- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — capacity inputs to Section 10.1.1 weekly review.
+- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — capacity inputs to Section 9.9.2 weekly review.
 - [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant offboarding procedure cross-ref.
 
 ---

@@ -55,7 +55,7 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 26 | Grafana Observability Layer | MIXED | 5 | Strategic role kept; platform standards → artifact 5. |
 | 27 | Key Metrics and Suggested Ranges (Grafana) | EXTRACT | 1, 5 | Standards in artifact 1 Section 11; viz in artifact 5 Section 5. |
 | 28 | Recommended Alerting Policy (Grafana) | EXTRACT | 4, 5 | Policy in artifact 4; Grafana implementation in artifact 5 Section 6. |
-| 29 | Implementation & Visualization Tips (Grafana) | EXTRACT | 5 | Artifact 5 Section 7. |
+| 29 | Implementation & Visualisation Tips (Grafana) | EXTRACT | 5 | Artifact 5 Section 7. |
 | 30 | AI-Driven Observability Layer | MIXED | 6 | Intent + guardrails kept; implementation → artifact 6. |
 | 31 | AI-Driven Observability Key Metrics and Ranges | EXTRACT | 6, 1 | Artifact 6 Section 3; aligned in artifact 1 Section 12. |
 | 32 | AI-Driven Observability Metrics | EXTRACT | 6 | Embedded in artifact 6 Section 3. |
@@ -65,7 +65,7 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 | 36 | IaC Role in OpenTelemetry Deployment | MIXED | 7 | Strategic policy kept; patterns/controls → artifact 7. |
 | 37 | Key Metrics for IaC Role in OTel Deployments | EXTRACT | 7, 11 | Platform KPIs in artifact 7 Section 5; roll-up in artifact 11 Section 6. |
 | 38 | Severity Policy (IaC) | EXTRACT | 4 | Artifact 4 Section 5.7. |
-| 39 | Implementation & Visualization Tips (IaC) | EXTRACT | 7 | Artifact 7 Section 7. |
+| 39 | Implementation & Visualisation Tips (IaC) | EXTRACT | 7 | Artifact 7 Section 7. |
 | 40 | Multi-Cloud Observability Design | MIXED | 2 | Reframed as deployment-model-aware containerized delivery in artifact 2 Section 6; platform-specific implementation remains environment-dependent. |
 | 41 | Observability Data Model | EXTRACT | 19 | Data model spec in artifact 19. |
 | 42 | Governance and Data Strategy | MIXED | 8, 15 | Narrative kept; data controls → artifact 8; governance model → artifact 15. |
@@ -92,11 +92,11 @@ In the table below, the **Target Artifact(s)** column uses short numeric labels 
 
 | # | Artifact | Source Sections (by # above) |
 |---:|---|---|
-| 1 | [Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) | 3 (5 Pillars), 16, 19, 23, 27 (also referenced in 31), 58 (Appendix tables) |
+| 1 | [Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) | 3 (5 Pillars), 16, 19, 23, 27 (also referenced in 31), 58 (Appendix tables) |
 | 2 | [3. Observability Reference Architecture](03-observability-reference-architecture.md) | 4, 7, 8, 9, 40 |
 | 3 | [Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) | 10, 12, 13, 15, 16, 18, 19, 21, 22, 23, 25, 58 |
 | 4 | [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) | 14, 17, 20, 24, 28, 34, 38 |
-| 5 | [Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) | 26, 27, 28, 29, 58 |
+| 5 | [Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) | 26, 27, 28, 29, 58 |
 | 6 | [AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) | 30, 31, 32, 33, 34, 35, 58 |
 | 7 | [IaC for Observability Standard](08-iac-for-observability-standard.md) | 36, 37, 39 |
 | 8 | [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) | 42, 43, 44, 58 |
@@ -198,7 +198,7 @@ Verifier baseline at v0.1 close: **1,296 internal links / 0 broken; front-matter
 | G1 | Observability domain RACI matrix (capability × role: Platform Engineering, Service Owner, AIOps Lead, FinOps, ARB, Security, Compliance) | Chapter 18 or Chapter 15, new section | Planned |
 | O4 | Supply-chain security — SBOM requirement (CycloneDX / SPDX), signed-image policy (Sigstore / Cosign), vulnerability-scan cadence on observability stack images | Chapter 23, new section | Planned |
 | E4 | Edge / customer-site collection patterns — offline buffering, store-and-forward, identity bootstrap, tenant isolation at edge | Chapter 26, new section | Planned |
-| D1 | JSON Schemas (draft 2020-12) for metrics / logs / traces / events / profiles | `Artifact_Pack/schemas/` | **Delivered (P2 Phase 3)** — five schemas under `Artifact_Pack/schemas/`, indexed in [Chapter 20. Observability Data Model Specification -> Section 20.8.1 JSON Schema Index](20-observability-data-model-specification.md#2081-json-schema-index) |
+| D1 | JSON Schemas (draft 2020-12) for metrics / logs / traces / events / profiles | `schemas/` | **Delivered (P2 Phase 3)** — five schemas under `schemas/`, indexed in [Chapter 20. Observability Data Model Specification -> Section 20.8.1 JSON Schema Index](20-observability-data-model-specification.md#2081-json-schema-index) |
 | D9 | LLM prompt-sanitisation standard + prompt-template registry | Chapter 6 or new Chapter 31 | **Delivered (P2 Phase 2.7/2.8)** — see [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.9 Worked Examples — Filled Model Cards and Prompt Registry](07-aiops-guardrails-and-implementation-playbook.md#79-worked-examples-filled-model-cards-and-prompt-registry) |
 
 ### D.3 P3 — Subsumed gaps

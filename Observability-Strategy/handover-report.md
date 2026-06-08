@@ -35,11 +35,11 @@ status: Draft
 | # | File |
 |---|---|
 | 0 | [1. Xceedance Observability Strategy](01-xceedance-observability-strategy.md) |
-| 1 | [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) |
+| 1 | [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) |
 | 2 | [3. Observability Reference Architecture](03-observability-reference-architecture.md) |
 | 3 | [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) |
 | 4 | [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) |
-| 5 | [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) |
+| 5 | [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) |
 | 6 | [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) |
 | 7 | [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | 8 | [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
@@ -175,11 +175,11 @@ The following items are P3 / implementation-phase follow-ups:
 - **P3 K1-K5** and H-list per [Traceability Matrix -> Section D](traceability-matrix.md) — risk register (new Ch 29), reference implementations, meta-observability dashboards, RUM standard, supply-chain SBOM section, edge collection patterns, privacy NFR set.
 
 **SME validation caveat.** Content is synthesis-grade; the following items in particular benefit from SME review before production use:
-- Ch 06 Section 10.3.3 PII regex table (illustrative patterns).
+- Ch 07 Section 7.9.3.3 PII regex table (illustrative patterns).
 - Ch 10 Section 7 framework mappings (SOC2 CC IDs, ISO Annex A IDs, GDPR Articles) — currently best-effort; auditor confirmation recommended.
 - Ch 10 Section 7.1 financial-services regulatory crosswalk (DORA, NAIC Model Bulletin #674, APRA CPS 234) — synthesis-grade; compliance / legal confirmation required.
 - Ch 19 Section 9 JSON Schemas — review by data-platform SME against actual producer libraries.
-- Ch 27 NFR thresholds — confirm with platform team before adoption as binding NFRs.
+- Ch 28 NFR thresholds — confirm with platform team before adoption as binding NFRs.
 - Ch 29 Observability Programme Risk Register — likelihood, impact, and residual ratings are author-assigned; risk-owner ratification required.
 
 ### 3.1 Pack Maturity Framing
@@ -195,8 +195,8 @@ This is a v0.1 **handover** artifact, not an engineering-ready specification. Ch
 
 The following gaps were identified during v0.1 review and are explicitly deferred to the engineering phase. Each is mirrored as a risk in [30. Observability Programme Risk Register](30-observability-programme-risk-register.md):
 
-1. **WORM control contradiction (Ch 10 OBS-C-04 vs OBS-C-17 vs Ch 28).** The compliance matrix asserts WORM retention via S3 Object Lock Compliance / Azure Immutable Blob, but Ch 28 long-term archival policy does not yet specify the archival format, restore SLO, or legal-hold workflow. Resolve before any audit attestation. (Ch 29 R-04, R-09.)
-2. **Ch 27 missing NFR families.** Privacy NFRs, supply-chain / SBOM NFRs, AIOps model-drift NFRs, and edge-collection NFRs are not yet enumerated. Required before NFRs can be cited as binding in contracts or design reviews. (Ch 29 R-11.)
+1. **WORM control alignment.** The core WORM, legal-hold, and restore policy content now exists in [29. Observability Long-Term Archival Policy](29-observability-long-term-archival-policy.md), but implementation evidence and engineering controls still need to be proven in the running platform before audit reliance. (Ch 29 R-04, R-09.)
+2. **Ch 28 implementation follow-through.** The NFR families are now enumerated in [28. Observability Non-Functional Requirements Register](28-observability-non-functional-requirements.md); the remaining gap is engineering evidence and automated verification coverage for the full set. (Ch 29 R-11.)
 3. **Vendor telemetry contracts.** No standard exists for third-party / SaaS vendor telemetry ingest (data contract, retention, PII handling, on-prem connector). Required before any vendor signal is admitted to the platform. (Ch 29 R-13.)
 4. **Reference implementations absent.** `reference-implementations/` directory is empty. IaC modules (Compose, PowerShell), AIOps prompt registry YAML, and onboarding kit scaffolding (Ch 25) need working code, not just standards text. (Ch 29 R-02, R-03.)
 5. **Grafana dashboard JSON deferred.** `dashboards/` is empty. Meta-observability dashboards (platform-on-platform), KPI dashboards (Ch 11), and SLO dashboards (Ch 24) need exportable JSON. (Ch 29 R-05.)
@@ -232,7 +232,7 @@ The following gaps were identified during v0.1 review and are explicitly deferre
 3. **Data-platform SME pass** on the 5 JSON Schemas under `schemas/` and [Chapter 20. Observability Data Model Specification -> Section 20.8 Canonical JSON Schemas, ERD, and OTel Crosswalk](20-observability-data-model-specification.md#208-canonical-json-schemas-erd-and-otel-crosswalk) against actual producer libraries.
 4. **Product confirmation** of named user journeys in [18. Application Telemetry Standard](18-application-telemetry-standard.md) (Decision #5).
 5. **P3 increment kickoff** — work the K1-K5 anchored gaps and H-list per [Traceability Matrix -> Section D](traceability-matrix.md). Start with K3 (reference implementations) so the YAML prompt registry referenced from Ch 06 Section 10.4 lands alongside its consuming standard, and K4 (new Chapter 29 programme risk register).
-6. **Editorial consistency pass** — re-read [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md) <-> [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) <-> [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) to ensure no threshold drift between catalog, runbook, and visualization artifacts.
+6. **Editorial consistency pass** — re-read [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) <-> [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) <-> [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) to ensure no threshold drift between catalogue, runbook, and visualisation artefacts.
 7. **Convert revised strategy to `.docx`** if business stakeholders require Word format (Pandoc one-liner).
 
 ---

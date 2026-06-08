@@ -28,7 +28,7 @@ Defines who governs observability standards, retention, access, and architecture
 
 | Domain | Decision Right |
 |---|---|
-| Telemetry standards ([2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md), [18. Application Telemetry Standard](18-application-telemetry-standard.md), [20. Observability Data Model Specification](20-observability-data-model-specification.md)) | Governance body approves; standards owners draft. |
+| Telemetry standards ([2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md), [18. Application Telemetry Standard](18-application-telemetry-standard.md), [20. Observability Data Model Specification](20-observability-data-model-specification.md)) | Governance body approves; standards owners draft. |
 | Retention policy ([9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)) | Governance body approves; data governance lead drafts. |
 | Access control ([9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) RBAC) | Identity / Security with governance body endorsement. |
 | Cost / FinOps levers ([10. Observability FinOps Standard](10-observability-finops-standard.md)) | Platform Ops with governance body sign-off above threshold. |
@@ -57,7 +57,7 @@ The decision-rights table (Section 4) names the **A**ccountable role only. The f
 | Activity | Service Owner | SRE / Platform Ops | Data Governance | AIOps Lead | Identity / Security | Governance Body / ARB | FinOps |
 |---|---|---|---|---|---|---|
 | Define service SLO ([25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md)) | A,R | C | I | I | I | C | I |
-| Approve new telemetry standard ([2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md)) | C | R | C | I | C | A | I |
+| Approve new telemetry standard ([2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md)) | C | R | C | I | C | A | I |
 | Approve cardinality-budget exception ([Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | R | C | I | I | I | A | C |
 | Onboard new service (PRR gate, [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) | A,R | R | C | I | C | I | I |
 | Change retention policy ([9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)) | I | R | A,R | I | C | C | C |

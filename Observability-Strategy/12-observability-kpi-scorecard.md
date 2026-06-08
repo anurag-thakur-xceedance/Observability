@@ -27,7 +27,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 | Reduce Downtime | Mean Time to Resolution (MTTR) | Operational | Reduce average MTTR by 50% in 6 months (e.g. 180 → 90 min) | Sustained lower MTTR; > 80% incidents resolved without escalation |
 | Operational Efficiency | Cross-Team Incident Resolution Rate; # Tools Consolidated | Collaboration / Efficiency | ≥ 70% cross-team resolution within 6 months; reduce tool count 30–40% in 12 months | Seamless team coordination; fewer war-room sessions; tool cost savings |
 | Customer Impact / Reliability | System Availability (Uptime); Performance Incident Lead Time | Service Reliability | Uptime ≥ 99.9%; anomalies → incidents in < 5 minutes | Reduced user-impact incidents; improved end-user experience |
-| Cost Optimization | Monthly Tooling & Integration Spend; Tool Coverage Rate | Financial / Operational | Reduce tooling cost 20–25% in 12 months; coverage > 90% for unified stack | Consolidated systems, lower cost without visibility loss |
+| Cost Optimisation | Monthly Tooling & Integration Spend; Tool Coverage Rate | Financial / Operational | Reduce tooling cost 20–25% in 12 months; coverage > 90% for unified stack | Consolidated systems, lower cost without visibility loss |
 | Application Reliability | Error Rate; Deployment Success Rate | Technical Quality | Error rate < 1% per 1,000 requests; deployment success > 95% | Fewer rollbacks; stable production |
 | Engineering Productivity | Time on Feature vs. Issue Rectification; Feature Delivery Velocity | Productivity / Innovation | ≥ 70% engineering time on new features; +15–20% delivery velocity in 9 months | Higher value output; sustained reduction in reactive work |
 | Data Standardization | % systems emitting consistent telemetry | Data Integrity | 100% of critical services on OpenTelemetry | Unified single pane of glass |
@@ -38,7 +38,7 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 |---|---|---|---|---|
 | Business Continuity | Recovery Point Objective (RPO) | Data Protection | ≤ 15 min for critical systems | Minimal data loss during outages |
 | Business Continuity | Recovery Time Objective (RTO) | Service Restoration | ≤ 60 min for Tier 1 services | Restoration within SLA |
-| System Scalability | Resource Utilization (CPU / mem / throughput) | Performance | ≤ 70–75% average utilisation | Stable performance under scaling |
+| System Scalability | Resource Utilisation (CPU / mem / throughput) | Performance | ≤ 70–75% average utilisation | Stable performance under scaling |
 | Alert Quality | Signal-to-Noise Ratio | Monitoring Quality | ≥ 80% actionable alerts | Reduced alert fatigue |
 | Root Cause Efficiency | % of Incidents with Root Cause Identified | Incident Mgmt | ≥ 90% | Continuous learning |
 | Data Completeness | Telemetry Coverage % | Observability Accuracy | ≥ 95% services standardised | Full visibility across product/infra |
@@ -64,15 +64,15 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 | Metric | Phase 1 Target | Phase 2 Target | Phase 3 Target |
 |---|---|---|---|
 | Mean Time to Detect (MTTD) | < 15 min | < 5 min | < 1 min |
-| Mean Time to Resolution (MTTR) | Hours | 30 min | Minutes |
+| Mean Time to Resolution (MTTR) | <= 4 h | <= 30 min | <= 15 min |
 | Services Instrumented | 20% | 70% | 100% |
-| Alert Noise Ratio | High | Moderate | Low (< 10% false positives) |
+| Alert Noise Ratio | > 35% non-actionable | <= 20% non-actionable | <= 10% non-actionable |
 | Manual RCA Required | 100% | 50% | < 20% |
 | Automated Ticket Creation | 0% | 50% | > 90% |
 
 ### 12.6.1 Telemetry Data Quality SLIs
 
-The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance), [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), and [Chapter 22. Observability Platform HA and DR Design -> Section 22.7 Self-Monitoring (Meta-Monitor)](22-observability-platform-ha-and-dr-design.md#227-self-monitoring-meta-monitor).
+The observability platform is itself a tier-1 service whose **inputs** (the telemetry from instrumented services) and **outputs** (the data available to query) must meet quality SLIs. Without these SLIs, every other KPI in this scorecard is built on sand. Sourced from [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance), [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), and [Chapter 22. Observability Platform HA and DR Design -> Section 22.7 Self-Monitoring (Meta-Monitor)](22-observability-platform-ha-and-dr-design.md#227-self-monitoring-meta-monitor).
 
 ### 12.6.2 Ingest Quality SLIs
 
@@ -131,7 +131,7 @@ Section 7.1 SLIs appear on the **Platform Health** dashboard, viewable to all en
 - Incident-driven adjustments raised through [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) (ADRs).
 
 ## 12.8 Cross-References
-- [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) — feeds Section 7.1.2 cardinality SLI.
+- [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) — feeds Section 7.1.2 cardinality SLI.
 - [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) / [10. Observability FinOps Standard](10-observability-finops-standard.md) / [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.
 - [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — roadmap phase plan that drives phase targets.

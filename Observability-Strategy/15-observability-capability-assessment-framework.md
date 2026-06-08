@@ -25,9 +25,9 @@ Assesses observability maturity against the phase plan in [14. Observability Roa
 | Metric | Phase 1 Target | Phase 2 Target | Phase 3 Target |
 |---|---|---|---|
 | Mean Time to Detect (MTTD) | < 15 minutes | < 5 minutes | < 1 minute |
-| Mean Time to Resolution (MTTR) | Hours | 30 minutes | Minutes |
+| Mean Time to Resolution (MTTR) | <= 4 hours | <= 30 minutes | <= 15 minutes |
 | Services Instrumented | 20% | 70% | 100% |
-| Alert Noise Ratio | High | Moderate | Low (< 10% false positives) |
+| Alert Noise Ratio | > 35% non-actionable | <= 20% non-actionable | <= 10% non-actionable |
 | Manual RCA Required | 100% | 50% | < 20% |
 | Automated Ticket Creation | 0% | 50% | > 90% |
 

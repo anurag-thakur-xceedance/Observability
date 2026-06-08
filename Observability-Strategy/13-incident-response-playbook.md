@@ -88,10 +88,10 @@ sequenceDiagram
 | 2 | Pipeline & storage (OTel Collector → Prom/Loki/Tempo) | Platform | [3. Observability Reference Architecture](03-observability-reference-architecture.md) |
 | 3 | Detection (threshold or AI anomaly) | Platform | [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md), [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) |
 | 4 | Triage — severity, ack, routing | On-Call | [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) |
-| 5 | Diagnosis via runbooks + Grafana + AI RCA | On-Call + Service Owner | [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md), [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md), [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) |
+| 5 | Diagnosis via runbooks + Grafana + AI RCA | On-Call + Service Owner | [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md), [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md), [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) |
 | 6 | Mitigation / remediation | Service Owner | [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) |
 | 7 | Communication to stakeholders | Incident Commander | [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) |
-| 8 | Resolution & verification (metrics healthy, alerts auto-resolve) | On-Call | [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) |
+| 8 | Resolution & verification (metrics healthy, alerts auto-resolve) | On-Call | [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) |
 | 9 | Post-Incident Review (PIR) — structured RCA record | Incident Commander | [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
 | 10 | Feedback — ADR, model retraining, roadmap, KPI updates | Governance Body | [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md), [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md), [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) |
 
@@ -114,7 +114,7 @@ Inherited from [Chapter 5. Alerting and Incident Severity Policy -> Section 5.3 
 | Critical | Page on-call immediately; commander engaged | Stakeholder updates per cadence |
 
 ## 13.5 Diagnosis Aids
-- **Grafana correlation panels** — dashboards link metrics ↔ logs ↔ traces via shared identifiers (see [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)).
+- **Grafana correlation panels** — dashboards link metrics ↔ logs ↔ traces via shared identifiers (see [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)).
 - **AI-generated RCA tickets** — pre-populated with context, impact assessment, and suggested remediation (see [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
 - **Domain runbooks** — see [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) for infra, application, DB, network, scaling.
 
@@ -136,7 +136,7 @@ PIRs are stored in a central knowledge base for **at least 12 months** (per [Cha
 ## 13.8 Cross-References
 - [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — domain runbooks.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity policy & routing.
-- [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) — Grafana correlation tooling.
+- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana correlation tooling.
 - [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI RCA & automated ticketing.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — incident-related KPIs.
 - [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — phase-aligned automation roadmap.

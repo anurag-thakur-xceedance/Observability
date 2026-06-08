@@ -26,15 +26,15 @@ Formal Architecture Decision Records (ADRs) for significant observability decisi
 |---|---|---|---|
 | ADR-000 | Observability Strategy Principles (10 principles) | Accepted | [Chapter 1. Xceedance Observability Strategy -> Section 1.2 Vision, Mission, and Guiding Principles](01-xceedance-observability-strategy.md#12-vision-mission-and-guiding-principles) |
 | ADR-001 | Adopt OpenTelemetry as universal telemetry standard | Implicit (in strategy) → ratify | Strategy section "Build the Technical Foundation" |
-| ADR-002 | Select Grafana as primary visualization & alerting tool | Implicit → ratify | Strategy section "Build the Technical Foundation" |
+| ADR-002 | Select Grafana as primary visualisation and alerting tool | Implicit → ratify | Strategy section "Build the Technical Foundation" |
 | ADR-003 | Use Prometheus / Loki / Tempo as backends | Implicit → ratify | Strategy section "High-Level Architecture" |
 | ADR-004 | Adopt containerized deployment with environment-specific automation and orchestration | Accepted (revised) | [8. IaC for Observability Standard](08-iac-for-observability-standard.md); Strategy section "IaC Role in OpenTelemetry Deployment" |
 | ADR-005 | Adopt deployment-model-aware containerized delivery across on-prem, customer site, cloud VM, and managed clusters | Accepted (revised) | [Chapter 3. Observability Reference Architecture -> Section 3.6 Containerized Deployment Design](03-observability-reference-architecture.md#36-containerized-deployment-design); [8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
 | ADR-006 | Tiered retention (hot / warm / cold) with metrics 30–90d, logs 7–30d, traces 7d, RCA 1y | Implicit → ratify | Strategy section "Telemetry retention tiers" |
 | ADR-007 | AIOps guardrails: FP < 5%, detection latency < 2 min | Implicit → ratify | Strategy section "AI-Driven Observability — Success criteria" |
 | ADR-008 | Adopt Sloth as SLO-rule generator | Proposed | [Chapter 25. SLO and Error-Budget Framework -> Section 25.8 Tooling Decision](25-slo-and-error-budget-framework.md#258-tooling-decision) |
-| ADR-009 | Service Tiering Model (T1–T4) with per-tier policy deltas | Proposed | [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model) |
-| ADR-010 | Cardinality Budget (per-service, enforced at SDK + collector + backend) | Proposed | [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) |
+| ADR-009 | Service Tiering Model (T1–T4) with per-tier policy deltas | Proposed | [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model) |
+| ADR-010 | Cardinality Budget (per-service, enforced at SDK + collector + backend) | Proposed | [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) |
 | ADR-011 | Multi-tenant data-isolation model with gateway-injected `tenant_id` | Proposed | [Chapter 27. Multi-Tenant and Customer-Site Deployment Model -> Section 27.3 Tenant Labelling Enforcement](27-multi-tenant-and-customer-site-deployment-model.md#273-tenant-labelling-enforcement) |
 | ADR-012 | Auto-instrumentation via eBPF (Beyla) for legacy / unmodifiable services | Proposed | [Chapter 3. Observability Reference Architecture -> Section 3.4.1 eBPF for Legacy and Non-Intrusive Instrumentation](03-observability-reference-architecture.md#341-ebpf-for-legacy-and-non-intrusive-instrumentation) |
 | ADR-013 | Tail-based sampling at gateway with 100%-error retention | Proposed | [Chapter 3. Observability Reference Architecture -> Section 3.5.1 Sampling Strategy](03-observability-reference-architecture.md#351-sampling-strategy) |
@@ -83,7 +83,7 @@ Selected option and the rationale that distinguishes it.
 
 ## Linked Artifacts
 - Chapter N. Title — section impacted
-- Service catalog entries impacted
+- Service catalogue entries impacted
 - Runbook updates required
 ```
 
@@ -145,14 +145,14 @@ Selected option and the rationale that distinguishes it.
 
 ---
 
-### 17.4.3 ADR-002: Select Grafana as primary visualization & alerting tool
+### 17.4.3 ADR-002: Select Grafana as primary visualisation and alerting tool
 
 - **Status**: Accepted (ratified from implicit)
 - **Date**: 2026-05-07
 - **Authors**: A. Thakur
 - **Reviewers**: ARB
 - **Supersedes**: —
-- **Related**: [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)
+- **Related**: [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)
 
 **Context.** Visualisation and alerting are the human surface of observability. We need one consistent UI across metrics/logs/traces, with strong correlation, RBAC, multi-tenancy, and dashboards-as-code support.
 
@@ -185,7 +185,7 @@ Selected option and the rationale that distinguishes it.
 **Context.** Once OpenTelemetry is the wire format (ADR-001), backends must be chosen for each signal type. Options range from single-vendor to mixed open-source.
 
 **Options Considered.**
-- (A) Single-vendor TSDB+log+trace (Elastic Stack). Pros: integrated; Cons: cost, weaker trace story, license drift.
+- (A) Single-vendor TSDB+log+trace (Elastic Stack). Pros: integrated; Cons: cost, weaker trace story, licence drift.
 - (B) Cloud-native managed (CloudWatch, Azure Monitor). Pros: turnkey; Cons: lock-in, cost, weak cross-cloud story.
 - (C) Prometheus (metrics) + Loki (logs) + Tempo (traces). Pros: signal-optimal, OTel-native ingest, cheap object-store backed (Loki/Tempo), Grafana correlation built-in; Cons: three components to operate.
 
@@ -350,7 +350,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, Service Owners
 - **Supersedes**: —
-- **Related**: [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model)
+- **Related**: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model)
 
 **Context.** Uniform observability standards across all services is wasteful (low-tier services don't need 99.99% SLOs) and dangerous (Tier-1 services need stricter policies than the average).
 
@@ -378,7 +378,7 @@ Selected option and the rationale that distinguishes it.
 - **Authors**: A. Thakur
 - **Reviewers**: ARB, Platform Lead
 - **Supersedes**: —
-- **Related**: [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance), [Chapter 23. Capacity and Scale Model -> Section 23.8 Cardinality Budget](23-capacity-and-scale-model.md#238-cardinality-budget)
+- **Related**: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance), [Chapter 23. Capacity and Scale Model -> Section 23.8 Cardinality Budget](23-capacity-and-scale-model.md#238-cardinality-budget)
 
 **Context.** Uncontrolled label cardinality is the #1 cause of Prometheus outages and cost overruns.
 
@@ -568,7 +568,7 @@ Selected option and the rationale that distinguishes it.
 ---
 
 ## 17.5 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) / [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md) / [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — architectural decisions implemented.
+- [3. Observability Reference Architecture](03-observability-reference-architecture.md) / [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) / [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — architectural decisions implemented.
 - [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance body that ratifies ADRs.
 
 ---

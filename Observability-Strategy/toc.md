@@ -30,7 +30,7 @@ status: Draft
 - [1.3 Business Objectives & KPIs (Narrative)](01-xceedance-observability-strategy.md#13-business-objectives-kpis-narrative)
 - [1.4 High-Level Architecture (One-Page View)](01-xceedance-observability-strategy.md#14-high-level-architecture-one-page-view)
 
-## [2. Enterprise Observability Standards Catalog](02-enterprise-observability-standards-catalog.md)
+## [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md)
 
 - [2.1 Scope and Intent](02-enterprise-observability-standards-catalog.md#21-scope-and-intent)
 - [2.2 The Five Pillars of Telemetry](02-enterprise-observability-standards-catalog.md#22-the-five-pillars-of-telemetry)
@@ -41,7 +41,7 @@ status: Draft
 - [2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards)
 - [2.8 Network & Latency Telemetry Standards](02-enterprise-observability-standards-catalog.md#28-network-latency-telemetry-standards)
 - [2.9 Scaling & Performance Telemetry Standards](02-enterprise-observability-standards-catalog.md#29-scaling-performance-telemetry-standards)
-- [2.10 Grafana Visualization Layer Standards](02-enterprise-observability-standards-catalog.md#210-grafana-visualization-layer-standards)
+- [2.10 Grafana Visualisation Layer Standards](02-enterprise-observability-standards-catalog.md#210-grafana-visualisation-layer-standards)
 - [2.11 AI-Driven Telemetry Standards](02-enterprise-observability-standards-catalog.md#211-ai-driven-telemetry-standards)
 - [2.12 Calibration Guidance](02-enterprise-observability-standards-catalog.md#212-calibration-guidance)
 - [2.13 Cross-References](02-enterprise-observability-standards-catalog.md#213-cross-references)
@@ -79,16 +79,16 @@ status: Draft
 - [5.6 Calibration Guidance](05-alerting-and-incident-severity-policy.md#56-calibration-guidance)
 - [5.7 Cross-References](05-alerting-and-incident-severity-policy.md#57-cross-references)
 
-## [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)
+## [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)
 
-- [6.1 Purpose](06-grafana-platform-standard-and-visualization-playbook.md#61-purpose)
-- [6.2 Role of Grafana in the Strategy](06-grafana-platform-standard-and-visualization-playbook.md#62-role-of-grafana-in-the-strategy)
-- [6.3 Dashboard Structure (Three-Layer Model)](06-grafana-platform-standard-and-visualization-playbook.md#63-dashboard-structure-three-layer-model)
-- [6.4 Key Metrics & Suggested Ranges (Visualization)](06-grafana-platform-standard-and-visualization-playbook.md#64-key-metrics-suggested-ranges-visualization)
-- [6.5 Recommended Alerting Policy (Grafana Implementation)](06-grafana-platform-standard-and-visualization-playbook.md#65-recommended-alerting-policy-grafana-implementation)
-- [6.6 Implementation & Visualization Tips](06-grafana-platform-standard-and-visualization-playbook.md#66-implementation-visualization-tips)
-- [6.7 Calibration](06-grafana-platform-standard-and-visualization-playbook.md#67-calibration)
-- [6.8 Cross-References](06-grafana-platform-standard-and-visualization-playbook.md#68-cross-references)
+- [6.1 Purpose](06-grafana-platform-standard-and-visualisation-playbook.md#61-purpose)
+- [6.2 Role of Grafana in the Strategy](06-grafana-platform-standard-and-visualisation-playbook.md#62-role-of-grafana-in-the-strategy)
+- [6.3 Dashboard Structure (Three-Layer Model)](06-grafana-platform-standard-and-visualisation-playbook.md#63-dashboard-structure-three-layer-model)
+- [6.4 Key Metrics & Suggested Ranges (Visualisation)](06-grafana-platform-standard-and-visualisation-playbook.md#64-key-metrics-suggested-ranges-visualisation)
+- [6.5 Recommended Alerting Policy (Grafana Implementation)](06-grafana-platform-standard-and-visualisation-playbook.md#65-recommended-alerting-policy-grafana-implementation)
+- [6.6 Implementation & Visualisation Tips](06-grafana-platform-standard-and-visualisation-playbook.md#66-implementation-visualisation-tips)
+- [6.7 Calibration](06-grafana-platform-standard-and-visualisation-playbook.md#67-calibration)
+- [6.8 Cross-References](06-grafana-platform-standard-and-visualisation-playbook.md#68-cross-references)
 
 ## [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)
 
@@ -110,7 +110,7 @@ status: Draft
 - [8.3 Implementation Patterns](08-iac-for-observability-standard.md#83-implementation-patterns)
 - [8.4 Platform KPIs (Deployment and Automation)](08-iac-for-observability-standard.md#84-platform-kpis-deployment-and-automation)
 - [8.5 Severity Policy (Deployment-Specific)](08-iac-for-observability-standard.md#85-severity-policy-deployment-specific)
-- [8.6 Implementation & Visualization](08-iac-for-observability-standard.md#86-implementation-visualization)
+- [8.6 Implementation & Visualisation](08-iac-for-observability-standard.md#86-implementation-visualisation)
 - [8.7 Calibration](08-iac-for-observability-standard.md#87-calibration)
 - [8.8 Cross-References](08-iac-for-observability-standard.md#88-cross-references)
 

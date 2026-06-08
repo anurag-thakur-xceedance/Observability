@@ -107,9 +107,9 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4.7 IaC 
 | Warning | Sustained breach ≥ 5 min, or 1 deployment failure | Review deployment logs, deployment definitions, exporter configs; correct drift. |
 | Critical | Critical breach, or repeated deployment failures within 3 runs | Trigger incident or rollback; high chance of data loss / missing telemetry. |
 
-## 8.6 Implementation & Visualization
+## 8.6 Implementation & Visualisation
 
-**In Grafana (see also [6. Grafana Platform Standard and Visualization Playbook](06-grafana-platform-standard-and-visualization-playbook.md)):**
+**In Grafana (see also [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)):**
 - **Deployment dashboards** → status of each platform service per host or cluster (image tag, uptime, healthcheck state).
 - **Coverage dashboards** → per-host exporter scrape success and OTel service emission coverage.
 - **Performance dashboards** → stack provision time and update time trends, sourced from deployment automation metrics.
@@ -132,7 +132,7 @@ After a few cycles, refine thresholds:
 
 ### 8.7.1 Change Management
 
-Changes to the observability platform are themselves a **change-managed** activity, distinct from changes by service teams to their service-level dashboards/alerts (covered by [Chapter 6. Grafana Platform Standard and Visualization Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualization-playbook.md#671-dashboards-as-code)).
+Changes to the observability platform are themselves a **change-managed** activity, distinct from changes by service teams to their service-level dashboards/alerts (covered by [Chapter 6. Grafana Platform Standard and Visualisation Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualisation-playbook.md#671-dashboards-as-code)).
 
 ### 8.7.2 Change Classes
 
@@ -160,7 +160,7 @@ A change passes a wave gate if **all** of the following hold during the wave's s
 - Collector deploy success ≥ 99% across the wave's hosts.
 - Exporter health ≥ 98% across the wave.
 - No critical-severity self-monitoring alert ([Chapter 22. Observability Platform HA and DR Design -> Section 22.7 Self-Monitoring (Meta-Monitor)](22-observability-platform-ha-and-dr-design.md#227-self-monitoring-meta-monitor)).
-- Cardinality budget ([Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) within ±5% of pre-change baseline.
+- Cardinality budget ([Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) within ±5% of pre-change baseline.
 
 ### 8.7.4 Rollback Standards
 
@@ -192,7 +192,7 @@ The post-change report is the auditable evidence under **OBS-C-02** ([11. Compli
 ## 8.8 Cross-References
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — reference architecture deployed by this standard.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
-- [Chapter 6. Grafana Platform Standard and Visualization Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualization-playbook.md#671-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
+- [Chapter 6. Grafana Platform Standard and Visualisation Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualisation-playbook.md#671-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
 - [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits change records produced by Section 8.1.
 - [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — platform KPI roll-up to executive scorecard.
 - [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — change control / ARB approvals for stack changes.

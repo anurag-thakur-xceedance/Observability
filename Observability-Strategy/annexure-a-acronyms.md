@@ -31,11 +31,11 @@ status: Draft
 | CD | Continuous Delivery | Automated deployment pipeline downstream of CI. |
 | CI | Continuous Integration | Automated build/test pipeline triggered on commit. |
 | CoP | Community of Practice | Working-level forum that operationalises observability standards. See [Chapter 19. Observability Operating Model and Adoption Plan -> Section 19.4.4 Community of Practice](19-observability-operating-model-and-adoption-plan.md#1944-community-of-practice). |
-| CPU | Central Processing Unit | Compute capacity metric (utilization %). |
+| CPU | Central Processing Unit | Compute capacity metric (utilisation %). |
 | CSAT | Customer Satisfaction | Business KPI used to validate observability outcomes. |
 | CSF | Cybersecurity Framework | NIST framework used to structure governance risk register. |
 | CX | Customer Experience | User-facing quality metric. |
-| DB | Database | Generic term for data store; see [Chapter 2. Enterprise Observability Standards Catalog -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards). |
+| DB | Database | Generic term for data store; see [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards). |
 | DDoS | Distributed Denial of Service | Network-saturation attack; relevant to packet-drop and latency telemetry. |
 | DevOps | Development + Operations | Cultural/operational model that observability supports. |
 | DNS | Domain Name System | Name-resolution service; failure rate is a network telemetry signal. |
@@ -110,7 +110,7 @@ status: Draft
 | TCP | Transmission Control Protocol | Transport-layer protocol; retransmission rate is a network telemetry signal. |
 | TSC | Trust Services Criteria | SOC 2 criteria categories (Security, Availability, etc.). |
 | URL | Uniform Resource Locator | Web address. |
-| USE | Utilization, Saturation, Errors | Resource-monitoring method (Brendan Gregg). |
+| USE | Utilisation, Saturation, Errors | Resource-monitoring method (Brendan Gregg). |
 | UX | User Experience | User-perceived quality dimension. |
 | VM | Virtual Machine | Compute host (replaces "node" in the host-portable model). |
 
