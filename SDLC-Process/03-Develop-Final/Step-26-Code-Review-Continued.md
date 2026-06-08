@@ -27,7 +27,7 @@ Step 26 completes the review response cycle by ensuring that feedback from Step 
 | **Prerequisite** | **Source** | **Description** |
 |---|---|---|
 | **Review comments and decisions** | Step 25 | Issues, questions, and requested changes raised by reviewers. |
-| **Pull request change set** | Step 23 onward | The working code change that requires revision or clarification. |
+| **Pull request change set** | Step 23 onward | The working code change requires revision or clarification. |
 | **Automated check results** | CI/CD platform | Current evidence used to confirm whether revised changes remain valid. |
 
 
@@ -86,7 +86,7 @@ Approval readiness should confirm:
 |---|---|---|
 | **Updated pull request** | Source control platform | Revised code and tests incorporating review feedback. |
 | **Resolved review discussions** | Pull request workflow | Closed or otherwise addressed review comments and questions. |
-| **Approval-ready change set** | Downstream steps | A revised change ready for continued progression through the development controls. |
+| **Approval-ready change set** | Downstream steps | A revised change is ready for continued progression through the development controls. |
 
 
 ## 26.6 Key Artifacts
@@ -98,7 +98,7 @@ Approval readiness should confirm:
 **Outputs:**
 - Updated pull request with review feedback applied
 - Closed or dispositioned discussion threads
-- Re-run pipeline and validation evidence
+- Re-run the pipeline and validation evidence
 - Approval-ready review state
 
 
@@ -123,7 +123,7 @@ Approval readiness should confirm:
 |---|---|---|---|
 | **Review Rework Cycle Time** | <8 hours from review feedback to approval readiness | Pull request review timestamps and workflow analytics | Time taken to address review comments and return the change to approval readiness. |
 | **Open Discussion Count** | 0 unresolved discussions before progression | Pull request discussion-thread status and review dashboard records | Number of unresolved review discussions per pull request. |
-| **Rework Defect Recurrence** | 0 repeated critical issues in the same pull request review cycle | Review comment history and issue recurrence reporting | Frequency with which the same issue reappears after review rework. |
+| **Rework Defect Recurrence** | 0 repeated critical issues in the same pull request review cycle | Review comment history and issue recurrence reporting | The frequency with which the same issue reappears after review and rework. |
 
 
 ## 26.10 Best Practices
@@ -143,7 +143,7 @@ Step 26 completes the human review response cycle by ensuring that review feedba
 
 Key Outcomes:
 - **Feedback Resolution:** Material review feedback is addressed with visible code, test, or documentation changes.
-- **Discussion Closure:** Open review threads are resolved with clear rationale rather than administrative closure alone.
+- **Discussion Closure:** Open review threads are resolved with a clear rationale rather than administrative closure alone.
 - **Re-validated Pull Request State:** Automated checks and affected tests are re-run after rework.
 - **Approval Readiness:** Reviewers can confirm whether the updated change is ready to proceed.
 - **Controlled Review Continuation:** The pull request moves forward with stronger evidence and reduced ambiguity.

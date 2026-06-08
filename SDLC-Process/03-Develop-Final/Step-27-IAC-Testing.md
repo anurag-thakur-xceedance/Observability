@@ -33,7 +33,7 @@ Step 27 validates Infrastructure as Code changes before they proceed further in 
 
 ## 27.4 Activities
 ### 27.4.1 Generate Plan or Preview
-Run the approved preview or planning command to understand the infrastructure impact before application.
+Run the approved preview or planning command to understand the infrastructure impact before the application.
 
 Generate an infrastructure change preview by:
 - **Approved Preview Command:** Run `pulumi preview`, `terraform plan`, or an approved equivalent.
@@ -75,7 +75,7 @@ Validation checklist:
 - [ ] IaC syntax valid
 - [ ] Required parameters present
 - [ ] Resource names follow convention
-- [ ] Tags include environment, owner, and cost-center where required
+- [ ] Tags include environment, owner, and cost-centre, where required
 - [ ] Dependencies properly declared
 
 ### 27.4.3 Apply Policy and Compliance Checks
@@ -88,9 +88,9 @@ Policy checks typically cover:
 - **Best Practices:** HA configuration or backup is enabled where required.
 
 Typical policy examples include:
-- **Public Access Restriction:** Deny public access on Azure Storage Accounts.
+- **Public Access Restriction:** Deny public access to Azure Storage Accounts.
 - **Encryption Enforcement:** Require encryption at rest for Azure SQL databases.
-- **Tagging Enforcement:** Enforce tagging such as environment, owner, and cost-center.
+- **Tagging Enforcement:** Enforce tagging such as environment, owner, and cost-centre.
 - **Region Restriction:** Restrict deployment to approved Azure regions.
 - **Resilience Baseline:** Require zone redundancy or equivalent resilience controls for production data services.
 
@@ -201,11 +201,11 @@ Top Changes:
 |---|---|---|---|
 | **IaC Test Pass Rate** | >=95% first-pass success | CI/CD validation results and IaC test trend reports | Percentage of IaC changes passing preview and policy checks on the first run. |
 | **Policy Compliance Rate** | 100% mandatory-policy pass rate | Policy tool results and governance compliance records | Percentage of pull requests compliant with approved IaC policies without unresolved mandatory failures. |
-| **Unresolved Drift Findings** | 0 before progression | Drift detection output and platform engineering review logs | Number of drift or unexpected-change findings still open when the step completes. |
-| **Cost Variance** | <10% variance between estimated and observed cost where measurable | Cost estimation reports compared with observed spend | Difference between estimated and actual infrastructure cost where the resulting spend can be measured. |
+| **Unresolved Drift Findings** | 0 before progression | Drift detection output and platform engineering review logs | The number of drift or unexpected-change findings is still open when the step completes. |
+| **Cost Variance** | <10% variance between estimated and observed cost where measurable | Cost estimation reports compared with observed spend | The difference between estimated and actual infrastructure cost, where the resulting spend can be measured. |
 | **IaC Test Time** | <10 minutes per validation run | CI/CD pipeline timing records | Time required to complete infrastructure validation. |
 | **Destructive Change Review Coverage** | 100% of delete/replace actions explicitly reviewed | Plan output review records and pull request evidence | Percentage of destructive or replacement actions with explicit human review evidence. |
-| **Material Cost Increase Review Coverage** | 100% of changes above agreed budget threshold reviewed | Cost estimation output, approval records, and work item notes | Percentage of significant cost increases that were explicitly reviewed and dispositioned. |
+| **Material Cost Increase Review Coverage** | 100% of changes above the agreed budget threshold reviewed | Cost estimation output, approval records, and work item notes | Percentage of significant cost increases that were explicitly reviewed and dispositioned. |
 
 
 ## 27.10 Best Practices
@@ -254,4 +254,3 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
-

@@ -108,7 +108,7 @@ The author corrects linting errors and any agreed critical warnings before the p
 
 Developers should:
 - **Fix Blocking Errors:** Fix all blocking lint errors before merge progression.
-- **Address Required Warnings:** Address warnings where required by team standards or reviewer expectation.
+- **Address Required Warnings:** Address warnings where required by team standards or reviewer expectations.
 - **Use Auto-Fixes:** Apply auto-fixes where available.
 - **Re-submit the Change:** Update the change set and push the correction for re-validation.
 
@@ -128,7 +128,7 @@ The change can proceed only when blocking findings are resolved and the pull req
 |---|---|---|
 | **Lint report** | CI/CD platform and pull request checks | Machine-generated record of errors, warnings, and informational findings. |
 | **Corrected change set** | Source control repository | Pull request updated to comply with code standards. |
-| **Lint status result** | Downstream review steps | Pass or fail result used before deeper human review proceeds. |
+| **Lint status result** | Downstream review steps | The pass or fail result is used before deeper human review proceeds. |
 
 
 ## 24.6 Key Artifacts
@@ -139,7 +139,7 @@ The change can proceed only when blocking findings are resolved and the pull req
 
 **Outputs:**
 - Lint report posted to the pull request or pipeline output
-- Pass or fail status recorded in the pull request checks
+- Pass or fail status is recorded in the pull request checks
 - Issue list with file and line references
 - Auto-fix output or remediation evidence where applicable
 

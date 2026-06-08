@@ -22,7 +22,7 @@
 ## 25.2 Purpose
 Step 25 provides the primary human quality control within the development phase. It validates correctness, maintainability, security, architectural alignment, and readiness beyond what automated checks can confirm.
 
-The purpose of code review is not only to approve code, but to improve the change and reduce delivery risk before merge progression continues.
+The purpose of code review is not only to approve code, but to improve the change and reduce delivery risk before the merge process continues.
 
 
 ## 25.3 Prerequisites
@@ -57,7 +57,7 @@ Maintainability review should consider:
 - **Cohesion:** Whether functions and classes are small, focused, and aligned to a single concern.
 - **Duplication:** Reuse opportunities and adherence to the DRY principle.
 - **Design Quality:** Appropriateness of design patterns and SOLID principles.
-- **Performance:** Obvious performance concerns where visible in the code.
+- **Performance:** Obvious performance concerns were visible in the code.
 - **Control Flow:** Whether the implementation is easy to reason about.
 - **Naming Clarity:** Whether variable, function, class, and module names support maintainability.
 - **Testability:** Whether the structure supports maintainable automated tests.
@@ -65,11 +65,11 @@ Maintainability review should consider:
 Typical quality checks include:
 - [ ] Code is readable and self-documenting
 - [ ] Functions are small and focused
-- [ ] No unnecessary duplication exists and the DRY principle is respected
+- [ ] No unnecessary duplication exists, and the DRY principle is respected
 - [ ] The design is appropriate for the change
 - [ ] Performance concerns are acceptable for the expected usage
 - [ ] Naming and structure support long-term maintainability
-- [ ] The code is testable and does not create avoidable maintenance burden
+- [ ] The code is testable and does not create an avoidable maintenance burden
 
 ### 25.4.3 Review Security and Risk Concerns
 Reviewers inspect for insecure practices, missing validation, inappropriate access assumptions, or other risks that require correction.
@@ -163,7 +163,7 @@ Approval readiness should confirm:
 |---|---|---|---|
 | **Time to First Review** | <4 hours from pull request submission | Pull request timestamps and reviewer activity records | Time from pull request submission to the first human review. |
 | **Review Depth** | >=2 reviewers per pull request where policy requires dual review | Approval records and reviewer participation data | Number of reviewers engaged per pull request. |
-| **Review Completion Time** | <24 hours from first review to final decision | Pull request review timestamps from first review to final decision | Time from first review to review closure or approval. |
+| **Review Completion Time** | <24 hours from first review to final decision | Pull request review timestamps from the first review to the final decision | Time from first review to review closure or approval. |
 | **Defect Detection** | 3-5 meaningful findings per pull request on average | Review comment categorisation and defect trend reporting | Measures whether code review is surfacing substantive issues before merge. |
 | **Review Turnaround** | <8 hours average active review time per pull request | Pull request workflow analytics and review cycle reporting | Average active time spent in review before progression. |
 
@@ -173,7 +173,7 @@ Approval readiness should confirm:
 - **Focus on Material Review Concerns:** Focus on correctness, risk, and maintainability before style issues already covered by automation.
 - **Make Feedback Specific:** Make comments specific and actionable.
 - **Review Against Approved Design:** Review with the approved design and acceptance criteria in mind.
-- **Review Promptly:** Review within the expected team service window where practical.
+- **Review Promptly:** Review within the expected team service window, where practical.
 - **Recognise Good Decisions:** Recognise good implementation decisions as well as issues.
 
 **DON'T:**
@@ -183,7 +183,7 @@ Approval readiness should confirm:
 
 
 ## 25.11 Summary and Key Outcomes
-Step 25 provides the primary human review gate within the Develop phase, ensuring that correctness, maintainability, security, and standards compliance are assessed with judgement that automated checks alone cannot provide.
+Step 25 provides the primary human review gate within the Develop phase, ensuring that correctness, maintainability, security, and standards compliance are assessed with judgment that automated checks alone cannot provide.
 
 Key Outcomes:
 - **Human Quality Validation:** The change is examined for correctness, maintainability, and implementation quality.

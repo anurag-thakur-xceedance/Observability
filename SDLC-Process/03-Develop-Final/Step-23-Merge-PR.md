@@ -39,8 +39,8 @@ The purpose of this step is to ensure that the change is properly packaged for r
 Create the pull request with proper branch naming and the correct merge target.
 
 Expected branch metadata includes:
-- **Branch Naming:** Follows the approved convention such as `feature/WORKITEM-123-short-description`.
-- **Target Branch:** `main` or `develop`, based on the team branching strategy.
+- **Branch Naming:** Follows the approved convention, such as `feature/WORKITEM-123-short-description`.
+- **Target Branch:** `main` or `develop`, based on the team's branching strategy.
 - **Source Branch Completeness:** The source branch contains the complete committed change set for the work item.
 
 Typical branch strategy examples include:
@@ -93,7 +93,7 @@ Example checklist items include:
 Assign appropriate reviewers according to team policy and change risk.
 
 Reviewer assignment expectations include:
-- **Dual Review:** At least 2 reviewers where team policy requires dual review.
+- **Dual Review:** At least 2 reviewers where the team policy requires dual review.
 - **Domain Expertise:** Include a domain expert for complex or business-critical changes.
 - **Security Review:** Include a security reviewer for security-sensitive code.
 - **Reviewer Notification:** Notify reviewers through the pull request workflow, comments, or approved team communication channels.
@@ -116,7 +116,7 @@ PR Checklist Before Submission:
 - [ ] Breaking changes are documented where applicable
 
 After submission, the author should:
-- **Check Validation Status:** Ensure pre-submit checks such as tests and linting pass.
+- **Check Validation Status:** Ensure pre-submit checks, such as tests and linting, pass.
 - **Monitor Pipeline Progress:** Monitor CI/CD pipeline status.
 - **Respond Promptly:** Respond to reviewer comments promptly.
 - **Update the Pull Request:** Address feedback and update the pull request as needed.
@@ -188,9 +188,9 @@ Submission does not imply immediate merge; it means the change has formally ente
 Step 23 packages the completed change into a governed pull request so that traceability, automated validation, and human review can begin with the right context and the right routing.
 
 Key Outcomes:
-- **Governed Pull Request Submission:** The change is formally submitted into the controlled review and merge workflow.
+- **Governed Pull Request Submission:** The change is formally submitted to the controlled review and merge workflow.
 - **Work Item Traceability:** The pull request is linked clearly to the approved work scope and related records.
-- **Reviewer-Ready Context:** Reviewers receive clear description, testing notes, and implementation context.
+- **Reviewer-Ready Context:** Reviewers receive a clear description, testing notes, and implementation context.
 - **Correct Reviewer Routing:** The request is assigned or routed to the right reviewers for the type of change.
 - **Automated Review Initiation:** Submission triggers the expected CI/CD and review-time quality controls.
 

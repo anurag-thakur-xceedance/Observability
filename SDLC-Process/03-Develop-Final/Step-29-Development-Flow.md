@@ -20,7 +20,7 @@
 
 
 ## 29.2 Purpose
-Step 29 builds, versions, validates, and stores the change outputs needed for subsequent deployment and validation activities. It ensures that the implementation is converted into consistent, traceable, and reusable build artefacts under controlled automation.
+Step 29 builds, versions, validates, and stores the changed outputs needed for subsequent deployment and validation activities. It ensures that the implementation is converted into consistent, traceable, and reusable build artefacts under controlled automation.
 
 
 ## 29.3 Prerequisites
@@ -28,7 +28,7 @@ Step 29 builds, versions, validates, and stores the change outputs needed for su
 |---|---|---|
 | **Approved change set in review workflow** | Steps 20-28 | Code and configuration that have passed the required development-phase controls to this point. |
 | **Build configuration** | Source control repository | Approved build instructions, dependency definitions, and packaging logic. |
-| **Versioning rules** | Engineering and release standards | The versioning pattern required for build traceability. |
+| **Versioning rules** | Engineering and release standards | The versioning pattern is required for build traceability. |
 
 
 ## 29.4 Activities
@@ -142,7 +142,7 @@ Progression should occur only when build evidence, versioning, storage publicati
 ## 29.5 Outputs
 | **Output** | **Destination** | **Description** |
 |---|---|---|
-| **Versioned build artefacts** | Approved artefact repository | Traceable build outputs ready for deployment and further validation. |
+| **Versioned build artefacts** | Approved artefact repository | Traceable build outputs are ready for deployment and further validation. |
 | **Build logs and execution evidence** | CI/CD platform | Evidence of successful build and packaging activity. |
 | **Version metadata** | Artefact repository and engineering records | Commit-linked version information for tracking and rollback reference. |
 | **Validated deployment-ready package** | Downstream deployment steps and engineering records | A package whose integrity, completeness, and publication status are confirmed before environment deployment begins. |

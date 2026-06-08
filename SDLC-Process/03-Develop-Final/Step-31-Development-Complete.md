@@ -26,7 +26,7 @@ The purpose of this step is to prevent incomplete, weakly evidenced, or insuffic
 ## 31.3 Prerequisites
 | **Prerequisite** | **Source** | **Description** |
 |---|---|---|
-| **Completed development outputs** | Steps 19-30 | The full set of code, infrastructure, tests, review outcomes, and deployment evidence created in this phase. |
+| **Completed development outputs** | Steps 19-30 | The full set of code, infrastructure, tests, review outcomes, and deployment evidence was created in this phase. |
 | **Definition of Done criteria** | Engineering and delivery standards | Approved completion expectations for the change. |
 | **Work item status and evidence** | Work item system and engineering records | Delivery status, traceability, and supporting evidence for phase completion. |
 
@@ -46,9 +46,9 @@ Review completion of development activities such as:
 
 Development phase checklist:
 - [ ] All sprint backlog items completed
-- [ ] Code merged to main or develop branch
+- [ ] Code merged to the main or develop branch
 - [ ] Unit tests achieve >=80% coverage and 100% passing
-- [ ] Code reviewed and approved with >=2 reviewers where policy requires
+- [ ] Code reviewed and approved with >=2 reviewers, where policy requires
 - [ ] Linting passed with zero blocking errors
 - [ ] Secrets scan passed with zero unresolved secrets
 - [ ] IaC testing passed where applicable
@@ -59,7 +59,7 @@ Development phase checklist:
 ### 31.4.2 Verify Definition of Done
 Check the change against the applicable Definition of Done criteria, including implementation, tests, review, build, and deployment readiness.
 
-Definition of Done review should include:
+The definition of Done review should include:
 
 Code Quality:
 - [ ] Code follows team standards
@@ -84,7 +84,7 @@ Testing:
 - [ ] Unit tests passing
 - [ ] Integration tests passing where applicable
 - [ ] Smoke tests passed
-- [ ] Test cases linked to requirements where required
+- [ ] Test cases linked to requirements were required
 
 Deployment:
 - [ ] Deployed to integration environment
@@ -135,7 +135,7 @@ Handoff preparation should include:
 Typical handoff package contents:
 - **Deployment Version and Location:** Deployment version and location.
 - **Environment Details:** URLs, access information, and related environment context.
-- **Security Scan Reports:** Secrets, dependency, and related security results.
+- **Security Scan Reports:** Secrets, dependencies, and related security results.
 - **Architecture Updates:** Updated architecture diagrams where relevant.
 - **Test Evidence:** Test results and coverage reports.
 

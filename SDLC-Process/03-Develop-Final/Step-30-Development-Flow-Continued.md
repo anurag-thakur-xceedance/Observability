@@ -26,9 +26,9 @@ Step 30 deploys the generated build outputs into the designated validation envir
 ## 30.3 Prerequisites
 | **Prerequisite** | **Source** | **Description** |
 |---|---|---|
-| **Versioned build artefacts** | Step 29 | Approved build outputs ready for controlled deployment. |
+| **Versioned build artefacts** | Step 29 | Approved build outputs are ready for controlled deployment. |
 | **Deployment configuration** | Source control repository and platform standards | Environment-specific configuration required for deployment. |
-| **Target validation environment** | Platform and environment management | The integration or equivalent validation environment used for deployment confirmation. |
+| **Target validation environment** | Platform and environment management | The integration or equivalent validation environment is used for deployment confirmation. |
 
 
 ## 30.4 Activities
@@ -60,8 +60,8 @@ Deployment should typically include:
 - **Service Start or Restart:** Start or restart services.
 
 Typical deployment methods include:
-- **App Service:** Deploy package or container image and apply app settings.
-- **Azure Functions:** Deploy function package and update application settings.
+- **App Service:** Deploy a package or container image and apply app settings.
+- **Azure Functions:** Deploy the function package and update application settings.
 - **Virtual Machine or VM Scale Set:** Deploy package and update configuration.
 
 Deployment must remain automated, repeatable, and traceable to the approved artefact version, deployment run, target environment, and delivery record. Manual environment changes should not be used as a substitute for governed deployment automation.
@@ -164,7 +164,7 @@ The step is not complete merely because deployment succeeded. It is complete whe
 | **Deployed validation build** | Target validation environment | Versioned artefact deployed into the designated environment. |
 | **Deployment evidence** | CI/CD platform and engineering records | Logs, timestamps, and outcomes confirming deployment execution. |
 | **Post-deployment validation results** | QA and engineering records | Health-check and smoke-test evidence supporting readiness. |
-| **Readiness handoff package** | Development completion and downstream validation stakeholders | Environment details, deployment status, and supporting evidence prepared for final phase closure. |
+| **Readiness handoff package** | Development completion and downstream validation stakeholders | Environment details, deployment status, and supporting evidence were prepared for final phase closure. |
 
 
 ## 30.6 Key Artifacts
@@ -174,7 +174,7 @@ The step is not complete merely because deployment succeeded. It is complete whe
 - Target integration or validation environment
 
 **Outputs:**
-- Deployed application in the validation environment
+- Deployed the application in the validation environment
 - Smoke test results
 - Deployment status report
 - Environment details and handoff evidence for the next step

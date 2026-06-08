@@ -40,7 +40,7 @@ The team reviews comments to ensure they are necessary, clear, and helpful.
 
 Comments should:
 - Explain intent, assumptions, or non-obvious reasoning.
-- Not restate what the code already expresses clearly.
+- Do not restate what the code already expresses clearly.
 - Be current and aligned with the latest implementation.
 - Avoid leaving stale `TODO`, `FIXME`, or obsolete guidance in reviewed code.
 
@@ -54,7 +54,7 @@ This includes validating:
 - **Documented Assumptions:** Assumptions stated in comments or annotations remain correct.
 
 ### 22.4.3 Identify Documentation Gaps
-Gaps are identified where maintainability would be weakened by missing explanation.
+Gaps are identified where maintainability would be weakened by a missing explanation.
 
 Typical gaps include:
 - **Unexplained Business Logic:** Complex business logic with no explanation.
@@ -109,16 +109,16 @@ The change is checked for readiness to proceed into pull request formalisation a
 ## 22.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Comment Coverage** | 60-80% of relevant functions and complex logic blocks have meaningful comments | Source code review, maintainability review notes, and static analysis where available | Measures whether functions and complex logic areas are supported by useful and maintainable comments. |
+| **Comment Coverage** | 60-80% of relevant functions and complex logic blocks have meaningful comments | Source code review, maintainability review notes, and static analysis, where available | Measures whether functions and complex logic areas are supported by useful and maintainable comments. |
 | **Intent Mismatches** | 0 unresolved critical mismatches | Reviewer findings, comment-intent checks, and pull request review records | Tracks whether comments or documentation conflict with the actual implementation behaviour. |
 | **Documentation Gaps** | <5 significant gaps per pull request, unless explicitly justified | Code review findings, source diff review, and maintainability assessment records | Measures missing documentation on public APIs, shared logic, complex functions, or important edge-case handling. |
-| **Outdated Comments** | 0 unresolved outdated comments in the reviewed scope | Code review evidence and source control change history | Tracks comments that no longer match the implementation and must be corrected or removed. |
-| **AI Suggestion Acceptance** | 50-70% where AI assistance is used | Review notes comparing accepted suggestions to total suggestions generated | Indicates whether AI-generated comment or documentation suggestions are relevant and useful. |
+| **Outdated Comments** | 0 unresolved, outdated comments in the reviewed scope | Code review evidence and source control change history | Tracks comments that no longer match the implementation and must be corrected or removed. |
+| **AI Suggestion Acceptance** | 50-70% where AI assistance is used | Review notes comparing accepted suggestions to total suggestions generated | Indicates whether AI-generated comments or documentation suggestions are relevant and useful. |
 
 
 ## 22.10 Best Practices
 **DO:**
-- **Explain the Why:** Comment the why, not the obvious what.
+- **Explain the Why:** Comment on the why, not the obvious what.
 - **Remove Stale Comments Quickly:** Remove stale comments as soon as code changes invalidate them.
 - **Keep Maintainability Notes Precise:** Ensure maintainability notes are concise and precise.
 - **Reduce Reviewer Confusion Early:** Use this step to reduce reviewer confusion before formal review progresses.

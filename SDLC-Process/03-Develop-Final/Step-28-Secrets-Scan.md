@@ -20,7 +20,7 @@
 
 
 ## 28.2 Purpose
-Step 28 ensures that no secrets, credentials, tokens, private keys, or other sensitive configuration data are exposed in source code, configuration files, or infrastructure definitions. It acts as a critical development-phase security gate before build and deployment readiness progress further.
+Step 28 ensures that no secrets, credentials, tokens, private keys, or other sensitive configuration data are exposed in source code, configuration files, or infrastructure definitions. It acts as a critical development-phase security gate before build and deployment readiness progresses further.
 
 
 ## 28.3 Prerequisites
@@ -84,7 +84,7 @@ variables:
 ConnectionStrings__OrdersDb: "Server=tcp:order-db-dev.database.windows.net,1433;Password=MySecretPassword123;"
 ```
 
-False-positive review should consider:
+False-positive reviews should consider:
 - **Test Credentials:** Test or dummy credentials.
 - **Documentation Examples:** Example code in documentation.
 - **Inactive Credentials:** Already-rotated or invalid credentials.
@@ -198,7 +198,7 @@ Any confirmed secret finding should trigger immediate notification to the securi
 - **Use Approved Secret Stores:** Use approved secret stores and runtime retrieval patterns.
 - **Treat Exposure as an Incident:** Treat confirmed secret exposure as an incident requiring immediate action.
 - **Re-scan After Remediation:** Re-scan after any remediation before allowing progression.
-- **Scan Every Pull Request:** Scan every pull request before merge.
+- **Scan Every Pull Request:** Scan every pull request before merging.
 - **Store Secrets Securely:** Store secrets in environment variables or approved secret stores.
 - **Protect Sensitive Files:** Add sensitive files to `.gitignore` or equivalent protections.
 
@@ -210,7 +210,7 @@ Any confirmed secret finding should trigger immediate notification to the securi
 
 
 ## 28.11 Summary and Key Outcomes
-Step 28 prevents accidental exposure of secrets through automated scanning and controlled human review so that credentials, tokens, keys, and sensitive configuration do not pass further into the development flow unresolved.
+Step 28 prevents accidental exposure of secrets through automated scanning and controlled human review so that credentials, tokens, keys, and sensitive configurations do not pass further into the development flow unresolved.
 
 Key Outcomes:
 - **Secret Exposure Prevention:** Live secrets and sensitive credentials are detected before downstream progression.
@@ -238,4 +238,3 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
-
