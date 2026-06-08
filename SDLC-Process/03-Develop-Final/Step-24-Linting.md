@@ -214,4 +214,3 @@ Key Outcomes:
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
 
-[Previous: Step 23 - Merge PR](Step-23-Merge-PR.md) | [Next: Step 25 - Code Review](Step-25-Code-Review.md)

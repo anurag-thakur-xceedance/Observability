@@ -47,13 +47,13 @@ Scanning should cover not only application code, but also configuration files, I
 Example detections:
 
 ```python
-# Azure Storage connection string detected
+# Azure Storage Connection String Detected
 storage_connection_string = "DefaultEndpointsProtocol=https;AccountName=ordersdev;AccountKey=ExampleKey;EndpointSuffix=core.windows.net"
 
-# Azure SQL connection string with password
+# Azure SQL Connection String with Password
 sql_connection_string = "Server=tcp:order-db-dev.database.windows.net,1433;Initial Catalog=OrdersDb;User ID=appuser;Password=PassowrdInClear;Encrypt=True;"
 
-# Key Vault secret reference copied as plain value
+# Key Vault Secret Reference Copied as Plain Value
 app_settings = {"KeyVaultSecret": "PlainTextSecretValue"}
 ```
 
@@ -76,11 +76,11 @@ Credential types commonly encountered in this step include:
 Configuration analysis examples include:
 
 ```yaml
-# Azure Pipelines variable with embedded secret
+# Azure Pipelines Variable with Embedded Secret
 variables:
   sqlAdminPassword: "MySecretPassword123"
 
-# App settings file committed with secret
+# App Settings File Committed with Secret
 ConnectionStrings__OrdersDb: "Server=tcp:order-db-dev.database.windows.net,1433;Password=MySecretPassword123;"
 ```
 
@@ -96,7 +96,7 @@ Whitelist examples:
 
 ```text
 storage_account_key = "ExampleOnlyNotARealKey"  # whitelisted: documented sample value
-key_vault_secret_name = "sample-secret-name"     # whitelisted: secret reference, not secret value
+key_vault_secret_name = "sample-secret-name"    # whitelisted: secret reference, not secret value
 ```
 
 ### 28.4.3 Remediate Confirmed Exposure
@@ -182,12 +182,12 @@ If repository history scanning or push-protection controls identify broader expo
 ## 28.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Confirmed Secrets Detected** | 0 before progression | Secret scanning reports and pull request security checks | Number of confirmed secret findings detected in the scoped change set at step completion. |
+| **Confirmed Secrets Detected** | 0 confirmed secrets before progression | Secret scanning reports and pull request security checks | Number of confirmed secret findings detected in the scoped change set at step completion. |
 | **False Positive Rate** | <10% of total findings reviewed | Security review records comparing confirmed and dismissed findings | Percentage of findings classified as non-exposure after structured review. |
 | **Scan Time** | <5 minutes per scan run | CI/CD pipeline timing records | Time to complete the secrets scan. |
 | **PR Block Rate Due to Secret Findings** | <5% of pull requests per reporting period | Pull request security gate statistics | Percentage of pull requests blocked due to detected secret findings within the agreed reporting window. |
 | **Rotation Time** | <2 hours from confirmed exposure to rotation initiation | Security incident handling records and credential rotation logs | Time taken to initiate rotation of exposed secrets after confirmation. |
-| **Remediation Re-scan Pass Rate** | 100% before progression | Re-scan results in CI/CD and security review evidence | Percentage of remediated secret findings that pass the required re-scan before the pull request advances. |
+| **Remediation Re-scan Pass Rate** | 100% of remediated findings pass re-scan before progression | Re-scan results in CI/CD and security review evidence | Percentage of remediated secret findings that pass the required re-scan before the pull request advances. |
 | **Documented Disposition Coverage** | 100% of false positives and exceptions documented | Security review notes, whitelist records, and pull request evidence | Percentage of dismissed or exceptioned findings with explicit documented rationale. |
 
 Any confirmed secret finding should trigger immediate notification to the security team and the pull request author, with the event recorded in the relevant security or delivery tracking record.
@@ -239,4 +239,3 @@ Key Outcomes:
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
 
-[Previous: Step 27 - IaC Testing](Step-27-IAC-Testing.md) | [Next: Step 29 - Development Flow](Step-29-Development-Flow.md)

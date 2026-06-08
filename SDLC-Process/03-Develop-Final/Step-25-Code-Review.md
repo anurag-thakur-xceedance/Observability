@@ -99,19 +99,19 @@ Feedback should:
 - **Balanced:** Include useful positive reinforcement where appropriate.
 
 Feedback categories should be used consistently:
-- **Must Fix:** Blocking issues preventing approval
-- **Should Fix:** Important but not necessarily blocking
-- **Nice to Have:** Improvement suggestions
-- **Question:** Clarification or discussion point
+- **Must Fix:** Blocking issues preventing approval.
+- **Should Fix:** Important but not necessarily blocking.
+- **Nice to Have:** Improvement suggestions.
+- **Question:** Clarification or discussion point.
 
 ### 25.4.5 Determine Review Outcome
 The review outcome should clearly indicate whether the change is approved, conditionally approved, or requires rework before it can proceed.
 
 Typical review outcomes include:
-- **Approve:** Code is acceptable and ready to progress
-- **Approve with Comments:** Minor suggestions remain, but the change can proceed
-- **Request Changes:** Issues must be addressed before progression
-- **Comment:** Discussion continues without final decision yet
+- **Approve:** Code is acceptable and ready to progress.
+- **Approve with Comments:** Minor suggestions remain, but the change can proceed.
+- **Request Changes:** Issues must be addressed before progression.
+- **Comment:** Discussion continues without a final decision yet.
 
 Approval readiness should confirm:
 - [ ] All required tests are passing
@@ -161,28 +161,39 @@ Approval readiness should confirm:
 ## 25.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Time to First Review** | <4 hours | Pull request timestamps and reviewer activity records | Time from pull request submission to the first human review. |
-| **Review Depth** | >=2 reviewers | Approval records and reviewer participation data | Number of reviewers engaged per pull request. |
-| **Review Completion Time** | <24 hours | Pull request review timestamps from first review to final decision | Time from first review to review closure or approval. |
-| **Defect Detection** | 3-5 meaningful findings per PR on average | Review comment categorisation and defect trend reporting | Measures whether code review is surfacing substantive issues before merge. |
-| **Review Turnaround** | <8 hours on average | Pull request workflow analytics and review cycle reporting | Average active time spent in review before progression. |
+| **Time to First Review** | <4 hours from pull request submission | Pull request timestamps and reviewer activity records | Time from pull request submission to the first human review. |
+| **Review Depth** | >=2 reviewers per pull request where policy requires dual review | Approval records and reviewer participation data | Number of reviewers engaged per pull request. |
+| **Review Completion Time** | <24 hours from first review to final decision | Pull request review timestamps from first review to final decision | Time from first review to review closure or approval. |
+| **Defect Detection** | 3-5 meaningful findings per pull request on average | Review comment categorisation and defect trend reporting | Measures whether code review is surfacing substantive issues before merge. |
+| **Review Turnaround** | <8 hours average active review time per pull request | Pull request workflow analytics and review cycle reporting | Average active time spent in review before progression. |
 
 
 ## 25.10 Best Practices
 **DO:**
-- Focus on correctness, risk, and maintainability before style issues already covered by automation.
-- Make comments specific and actionable.
-- Review with the approved design and acceptance criteria in mind.
-- Review within the expected team service window where practical.
-- Recognise good implementation decisions as well as issues.
+- **Focus on Material Review Concerns:** Focus on correctness, risk, and maintainability before style issues already covered by automation.
+- **Make Feedback Specific:** Make comments specific and actionable.
+- **Review Against Approved Design:** Review with the approved design and acceptance criteria in mind.
+- **Review Promptly:** Review within the expected team service window where practical.
+- **Recognise Good Decisions:** Recognise good implementation decisions as well as issues.
 
 **DON'T:**
-- Give rubber-stamp approval without meaningful review.
-- Block pull requests over trivial style issues already enforced by automation.
-- Approve code that you do not understand.
+- **Rubber-Stamp the Change:** Do not give approval without meaningful review.
+- **Block on Trivial Style Issues:** Do not block pull requests over trivial style issues already enforced by automation.
+- **Approve Unclear Code:** Do not approve code that you do not understand.
 
 
-## 25.11 RACI Matrix
+## 25.11 Summary and Key Outcomes
+Step 25 provides the primary human review gate within the Develop phase, ensuring that correctness, maintainability, security, and standards compliance are assessed with judgement that automated checks alone cannot provide.
+
+Key Outcomes:
+- **Human Quality Validation:** The change is examined for correctness, maintainability, and implementation quality.
+- **Security Risk Review:** Security-relevant issues and unsafe patterns are identified before progression.
+- **Actionable Feedback:** Review comments provide clear, prioritised guidance for improvement.
+- **Governed Review Decision:** The pull request receives a clear approval, conditional approval, or rework outcome.
+- **Stronger Downstream Readiness:** The change is better prepared for either rework resolution or final approval progression.
+
+
+## 25.12 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | **Responsible** | Development Team, Reviewers |
@@ -191,14 +202,12 @@ Approval readiness should confirm:
 | **Informed** | Engineering Manager, Product Owner |
 
 
-## 25.12 Related Steps
+## 25.13 Related Steps
 - **Upstream:** [Step 24: Linting](Step-24-Linting.md)
 - **Downstream:** [Step 26: Code Review Continued](Step-26-Code-Review-Continued.md)
 
 
-## 25.13 Revision History
+## 25.14 Revision History
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
-
-[Previous: Step 24 - Linting](Step-24-Linting.md) | [Next: Step 26 - Code Review Continued](Step-26-Code-Review-Continued.md)

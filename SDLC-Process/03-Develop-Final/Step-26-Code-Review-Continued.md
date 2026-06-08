@@ -45,6 +45,8 @@ Typical expectations:
 - [ ] Code changes reflect the agreed resolution
 - [ ] Supporting tests or documentation are updated where needed
 
+This step should leave a clear audit trail showing what changed, why it changed, and whether the resulting pull request is ready for the next control point rather than simply appearing quieter because comment threads were closed.
+
 ### 26.4.2 Resolve Review Discussions
 Open comment threads and questions are addressed to closure, with supporting rationale where required.
 
@@ -119,9 +121,9 @@ Approval readiness should confirm:
 ## 26.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Review Rework Cycle Time** | <8 hours | Pull request review timestamps and workflow analytics | Time taken to address review comments and return the change to approval readiness. |
-| **Open Discussion Count** | 0 unresolved discussions | Pull request discussion-thread status and review dashboard records | Number of unresolved review discussions per pull request. |
-| **Rework Defect Recurrence** | 0 repeated critical issues | Review comment history and issue recurrence reporting | Frequency with which the same issue reappears after review rework. |
+| **Review Rework Cycle Time** | <8 hours from review feedback to approval readiness | Pull request review timestamps and workflow analytics | Time taken to address review comments and return the change to approval readiness. |
+| **Open Discussion Count** | 0 unresolved discussions before progression | Pull request discussion-thread status and review dashboard records | Number of unresolved review discussions per pull request. |
+| **Rework Defect Recurrence** | 0 repeated critical issues in the same pull request review cycle | Review comment history and issue recurrence reporting | Frequency with which the same issue reappears after review rework. |
 
 
 ## 26.10 Best Practices
@@ -136,7 +138,18 @@ Approval readiness should confirm:
 - **Confuse Closure with Quality:** Do not treat comment closure as evidence of quality on its own.
 
 
-## 26.11 RACI Matrix
+## 26.11 Summary and Key Outcomes
+Step 26 completes the human review response cycle by ensuring that review feedback is actioned properly, discussions are resolved transparently, and the pull request is returned to an approval-ready state with supporting evidence.
+
+Key Outcomes:
+- **Feedback Resolution:** Material review feedback is addressed with visible code, test, or documentation changes.
+- **Discussion Closure:** Open review threads are resolved with clear rationale rather than administrative closure alone.
+- **Re-validated Pull Request State:** Automated checks and affected tests are re-run after rework.
+- **Approval Readiness:** Reviewers can confirm whether the updated change is ready to proceed.
+- **Controlled Review Continuation:** The pull request moves forward with stronger evidence and reduced ambiguity.
+
+
+## 26.12 RACI Matrix
 | **Role** | **Responsibility** |
 |---|---|
 | **Responsible** | Development Team, Reviewers |
@@ -145,14 +158,12 @@ Approval readiness should confirm:
 | **Informed** | Engineering Manager, Product Owner |
 
 
-## 26.12 Related Steps
+## 26.13 Related Steps
 - **Upstream:** [Step 25: Code Review](Step-25-Code-Review.md)
 - **Downstream:** [Step 27: IaC Testing](Step-27-IAC-Testing.md)
 
 
-## 26.13 Revision History
+## 26.14 Revision History
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
-
-[Previous: Step 25 - Code Review](Step-25-Code-Review.md) | [Next: Step 27 - IaC Testing](Step-27-IAC-Testing.md)

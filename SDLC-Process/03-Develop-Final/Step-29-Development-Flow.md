@@ -44,6 +44,8 @@ Typical build outputs include:
 
 Build execution should remain fully automated, repeatable, and traceable to the exact commit, branch, work item, and pipeline run that produced the artefact set. Local or ad hoc builds must not be treated as authoritative deployment outputs.
 
+Build outputs should be consistent regardless of who triggers the pipeline or when it runs, so that deployment behaviour is based on the controlled artefact set rather than environmental variation.
+
 Example build commands:
 
 ```bash
@@ -180,9 +182,9 @@ Progression should occur only when build evidence, versioning, storage publicati
 ## 29.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Build Success Rate** | >=95% successful builds per reporting period | CI/CD pipeline success reports and build trend dashboards | Percentage of builds completing successfully. |
+| **Build Success Rate** | >=95% successful builds per reporting period | CI/CD pipeline success reports and build trend dashboards | Percentage of builds that complete successfully. |
 | **Build Time** | <10 minutes per standard build run | Build pipeline timing records | Time required to compile, package, and produce the approved artefacts. |
-| **Artefact Size Growth** | <20% increase from the previous stable build unless justified and approved | Artefact repository statistics and build reports | Tracks artefact size growth for unusual increases or packaging issues. |
+| **Artefact Size Growth** | <20% increase from the previous stable build unless explicitly justified and approved | Artefact repository statistics and build reports | Tracks artefact size growth for unusual increases or packaging issues. |
 | **Build Frequency** | 5-20 builds per active development day | CI/CD pipeline activity records | Indicates how often builds are being produced during active development. |
 | **Cycle Time** | <4 hours from commit to deployment-ready artefact | Source control timestamps, build records, and deployment-readiness checkpoints | Measures delivery speed from committed change to validated build output. |
 | **Publication Success Rate** | 100% of successful builds published to the approved repository | Artefact publication logs and CI/CD release evidence | Percentage of successful builds whose outputs are stored correctly in the approved artefact repository. |
@@ -203,6 +205,8 @@ Progression should occur only when build evidence, versioning, storage publicati
 - **Reuse Version Numbers:** Do not reuse version numbers.
 - **Skip Required Versioning:** Do not skip versioning when rollback or traceability is required.
 - **Store Large Binaries in Source Control:** Do not store large binaries in source control.
+
+Published artefacts should remain the authoritative source for downstream deployment. Rebuilding the same version outside the controlled pipeline should not be used as a substitute for the recorded artefact.
 
 
 ## 29.11 Summary and Key Outcomes
@@ -234,5 +238,3 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
-
-[Previous: Step 28 - Secrets Scan](Step-28-Secrets-Scan.md) | [Next: Step 30 - Development Flow Continued](Step-30-Development-Flow-Continued.md)

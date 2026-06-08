@@ -66,6 +66,8 @@ Typical deployment methods include:
 
 Deployment must remain automated, repeatable, and traceable to the approved artefact version, deployment run, target environment, and delivery record. Manual environment changes should not be used as a substitute for governed deployment automation.
 
+The deployment activity should remain consistent across repeated executions so that validation outcomes reflect the released artefact and environment state rather than operator variation.
+
 Example deployment steps:
 
 ```bash
@@ -199,12 +201,12 @@ The step is not complete merely because deployment succeeded. It is complete whe
 ## 30.9 Observability and Metrics
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
-| **Deployment Success Rate** | >=95% successful deployments per reporting period | Deployment pipeline reports and environment release dashboards | Percentage of successful validation-environment deployments. |
+| **Deployment Success Rate** | >=95% successful deployments per reporting period | Deployment pipeline reports and environment release dashboards | Percentage of deployments to the validation environment that complete successfully. |
 | **Deployment Time** | <10 minutes from deployment start to smoke-test completion | CI/CD deployment timing records | Time from deployment start to smoke-test completion. |
-| **Smoke Test Pass Rate** | 100% pass rate for required smoke tests | Smoke test execution records and deployment validation logs | Percentage of deployments passing required post-deployment checks. |
+| **Smoke Test Pass Rate** | 100% of required smoke tests pass per deployment | Smoke test execution records and deployment validation logs | Percentage of deployments passing required post-deployment checks. |
 | **Rollback Frequency** | <5% of deployments per reporting period | Deployment incident records and release reporting | Percentage of deployments that require rollback. |
 | **Environment Availability** | >=99% uptime during active delivery windows | Environment monitoring dashboards and uptime reporting | Availability of the integration or validation environment during active delivery. |
-| **Critical Log Error Count** | 0 unresolved critical errors after deployment validation | Monitoring platform alerts, application logs, and deployment review notes | Number of unresolved critical runtime or startup errors remaining after deployment checks complete. |
+| **Critical Log Error Count** | 0 unresolved critical errors after deployment validation | Monitoring platform alerts, application logs, and deployment review notes | Number of unresolved critical runtime or start-up errors remaining after deployment checks complete. |
 | **Deployment Evidence Coverage** | 100% of deployments have recorded status, timestamp, version, and validation evidence | CI/CD release records, work item updates, and deployment dashboards | Percentage of deployments with complete recorded evidence for downstream review. |
 
 
@@ -253,5 +255,3 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
-
-[Previous: Step 29 - Development Flow](Step-29-Development-Flow.md) | [Next: Step 31 - Development Complete](Step-31-Development-Complete.md)

@@ -213,9 +213,9 @@ The development phase is complete only when the change is demonstrably ready for
 | **Metric** | **Target** | **How It Is Tracked** | **Description** |
 |---|---|---|---|
 | **Definition of Done Compliance** | 100% of required criteria satisfied before phase exit | Definition of Done checklist records and work item completion evidence | Percentage of required completion criteria satisfied before phase exit. |
-| **Work Item Completion** | 100% of scoped delivery items completed | Sprint board, work item system, and delivery status reports | Percentage of committed development items completed for the scoped release or sprint. |
+| **Work Item Completion** | 100% of scoped delivery items completed before phase closure | Sprint board, work item system, and delivery status reports | Percentage of committed development items completed for the scoped release or sprint. |
 | **Phase Duration** | <2 weeks per change through the Develop phase | Delivery lead-time reporting across the Develop phase | Time taken for a change to move through the Develop phase to closure. |
-| **Handoff Time** | <1 hour from completion confirmation to handoff package delivery | Handoff package timestamps and stakeholder notification records | Time required to prepare and hand off the completion package to the next phase. |
+| **Handoff Time** | <1 hour from completion confirmation to hand-off package delivery | Hand-off package timestamps and stakeholder notification records | Time required to prepare and hand off the completion package to the next phase. |
 | **Time From Inception to PR** | <3 days from work start to pull request submission | Work item start records, branch history, and pull request creation timestamps | Measures development velocity through the earlier part of the phase and supports DORA-style tracking. |
 | **Completion Communication Coverage** | 100% of completed changes communicated to required stakeholders | Sprint board updates, dashboard records, and stakeholder notification evidence | Percentage of completed changes with recorded completion communication to the required audience. |
 

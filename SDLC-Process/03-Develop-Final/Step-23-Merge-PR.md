@@ -213,5 +213,3 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
-
-[Previous: Step 22 - Comment Aware Reasoning](Step-22-Comment-Aware-Reasoning.md) | [Next: Step 24 - Linting](Step-24-Linting.md)

@@ -82,10 +82,10 @@ Validation checklist:
 Validate against security, tagging, region, identity, and other required guardrails.
 
 Policy checks typically cover:
-- **Security:** No public storage exposure, encryption enabled
-- **Cost:** Resources within budget limits
-- **Compliance:** Required tags are present and approved regions are used
-- **Best Practices:** HA configuration or backup enabled where required
+- **Security:** No public storage exposure; encryption is enabled.
+- **Cost:** Resources remain within budget limits.
+- **Compliance:** Required tags are present and approved regions are used.
+- **Best Practices:** HA configuration or backup is enabled where required.
 
 Typical policy examples include:
 - **Public Access Restriction:** Deny public access on Azure Storage Accounts.
@@ -101,10 +101,10 @@ Example policy violation:
 ```text
 Policy Violation: Security Policy
 
-- Resource: azure-native:storage:StorageAccount orderprocessingdevsa
-- Issue: Public blob access enabled
-- Severity: High
-- Recommendation: Disable public blob access and restrict network access
+- **Resource:** azure-native:storage:StorageAccount orderprocessingdevsa
+- **Issue:** Public blob access enabled
+- **Severity:** High
+- **Recommendation:** Disable public blob access and restrict network access
 ```
 
 ### 27.4.4 Detect Drift and Unintended Change
@@ -123,10 +123,10 @@ Example drift finding:
 ```text
 Drift Detected:
 
-- Resource: azure-native:sql:Database order-db-dev-main
-- Expected: GP_Gen5_2
-- Actual: GP_Gen5_4 (manually resized)
-- Action: Update IaC or revert infrastructure
+- **Resource:** azure-native:sql:Database order-db-dev-main
+- **Expected:** GP_Gen5_2
+- **Actual:** GP_Gen5_4 (manually resized)
+- **Action:** Update IaC or revert infrastructure
 ```
 
 ### 27.4.5 Review Cost and Operational Impact
@@ -202,7 +202,7 @@ Top Changes:
 | **IaC Test Pass Rate** | >=95% first-pass success | CI/CD validation results and IaC test trend reports | Percentage of IaC changes passing preview and policy checks on the first run. |
 | **Policy Compliance Rate** | 100% mandatory-policy pass rate | Policy tool results and governance compliance records | Percentage of pull requests compliant with approved IaC policies without unresolved mandatory failures. |
 | **Unresolved Drift Findings** | 0 before progression | Drift detection output and platform engineering review logs | Number of drift or unexpected-change findings still open when the step completes. |
-| **Cost Variance** | <10% variance between estimate and observed cost where measurable | Cost estimation reports compared with observed spend | Difference between estimated and actual infrastructure cost where the resulting spend can be measured. |
+| **Cost Variance** | <10% variance between estimated and observed cost where measurable | Cost estimation reports compared with observed spend | Difference between estimated and actual infrastructure cost where the resulting spend can be measured. |
 | **IaC Test Time** | <10 minutes per validation run | CI/CD pipeline timing records | Time required to complete infrastructure validation. |
 | **Destructive Change Review Coverage** | 100% of delete/replace actions explicitly reviewed | Plan output review records and pull request evidence | Percentage of destructive or replacement actions with explicit human review evidence. |
 | **Material Cost Increase Review Coverage** | 100% of changes above agreed budget threshold reviewed | Cost estimation output, approval records, and work item notes | Percentage of significant cost increases that were explicitly reviewed and dispositioned. |
@@ -255,4 +255,3 @@ Key Outcomes:
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
 
-[Previous: Step 26 - Code Review Continued](Step-26-Code-Review-Continued.md) | [Next: Step 28 - Secrets Scan](Step-28-Secrets-Scan.md)
