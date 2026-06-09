@@ -1,12 +1,14 @@
 ## Azure Resource Naming & Tagging Policy Standard
-Document Version: 1.1
+Document Version: 1.2
 Effective Date: June 9, 2026
 Target Audience: Cloud Engineers, DevOps Teams, IT Administrators, Solution Architects
 
 ## 1. Executive Summary
 This document establishes the official governance framework for naming and tagging Microsoft Azure resources within the organization. Implementing these standards ensures structural clarity, precise cost-allocation/chargeback modeling, operational efficiency, and rapid incident remediation. Compliance with this standard is mandatory for all existing and newly deployed infrastructure.
 
-## 2. Resource Naming Convention## Naming Components & Taxonomy
+## 2. Resource Naming Convention
+
+## Naming Components & Taxonomy
 To guarantee a reliable hierarchy, all resource names must strictly adhere to the following sequence:
 
 ```
@@ -57,7 +59,10 @@ Use these official prefixes across all deployments:
 | | Application Gateway | agw | Supports hyphens |
 | | Load Balancer | lb | Supports hyphens |
 | | Private Link / Sync Service | sync | Supports hyphens |
-| Security | Key Vault | kv | Global name validation |
+| Security Appliances | Azure Firewall | afw | Supports hyphens |
+| | Palo Alto NVA | pan | Appliance cluster node naming limits |
+| | Fortinet NVA | fnt | Appliance cluster node naming limits |
+| | Key Vault | kv | Global name validation |
 
 ## Regional Abbreviations
 The organization operates globally across the following primary Azure regions:
@@ -72,7 +77,7 @@ The organization operates globally across the following primary Azure regions:
 | Asia Pacific | India Central | indiacentral |
 | | Southeast Asia | seasia |
 
-
+------------------------------
 ## 3. Resource Tagging Policy
 Tags consist of case-sensitive metadata key-value pairs assigned directly to resources, resource groups, and subscriptions.
 ## Tag Design Rules
@@ -108,22 +113,22 @@ Every resource deployed must contain these five core keys:
 * BackupSchedule: System protection interval tracking. Values: Daily-30DayRet, Weekly, None.
 * EndDate: Expiration deadline for temporary infrastructure. Values: ISO date format (YYYY-MM-DD).
 
-
-## 4. Policy Enforcement and Automation
+------------------------------
+## 4. Policy Enforcement, Governance, and Remediation
 To prevent human error and stop non-compliant setups before they happen, these rules are actively enforced using Azure Policy.
-## Enforcement Actions
+## Policy Action Mechanics
 
    1. Deny Action: Deployments that fail to match the proper resource group prefix string (rg-) or are missing any Mandatory Tag Keys will be rejected automatically with an error message.
    2. Modify / Inherit Action: If a resource group has the proper tags but an underlying resource is missing them, Azure Policy automatically copies the tags down from the resource group via inheritance.
 
-## Reference Azure Policy JSON (Enforce Tag Key presence)
+## Native Azure Policy Definitions## Definition 1: Enforce Tag Key Presence (Deny Mode)
 This native JSON definition forces deployments to include the CostCenter tag key:
 
 ```
 JSON
 {
   "properties": {
-    "displayName": "Enforce Mandatory CostCenter Tag Key",
+    "displayName": "Denies deployment if the resource is missing the mandatory CostCenter tag key.",
     "policyType": "Custom",
     "mode": "Indexed",
     "description": "Denies deployment if the resource is missing the mandatory 'CostCenter' tag key.",
@@ -140,12 +145,57 @@ JSON
 }
 ```
 
-## 5. Automation via Infrastructure as Code (IaC)
+## Definition 2: Automatic Remediation (Inherit Tags from Resource Group)
+This policy auto-remediates compliant workspaces by copying missing tags downward:
 
+```
+JSON
+{
+  "properties": {
+    "displayName": "Inherit CostCenter Tag from Resource Group if Missing",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "description": "Ensures underlying resources inherit the CostCenter tag from their parent Resource Group if not provided.",
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "tags[CostCenter]",
+            "exists": false
+          },
+          {
+            "value": "[resourceGroup().tags['CostCenter']]",
+            "exists": true
+          }
+        ]
+      },
+      "then": {
+        "action": "modify",
+        "details": {
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+          ],
+          "operations": [
+            {
+              "operation": "add",
+              "field": "tags[CostCenter]",
+              "value": "[resourceGroup().tags['CostCenter']]"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+
+## 5. Automation via Infrastructure as Code (IaC)
 ## Terraform Implementation Module
 Use this standard baseline block to auto-apply prefixes, format restrictions, and enforce object tags across modules:
 
 ```
+hcl
 # Local Variables for Naming Strategy Standardization
 locals {
   workload    = "custportal"
@@ -189,11 +239,11 @@ resource "azurerm_storage_account" "stor" {
 }
 ```
 
-
 ## Bicep Implementation Template
 Deploy consistent resources with automated tag injection using this native Bicep layout:
 
 ```
+bicep
 // Parameter Configurations for Context Inputs
 param workload string = 'custportal'
 param environment string = 'prod'
@@ -229,17 +279,106 @@ resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
 }
 ```
 
-## 6. Implementation Roadmap
+
+## 6. Shift-Left CI/CD Pull Request Validation
+To prevent invalid resource names from getting merged into main branches, add this linter engine payload verification configuration directly to your repository validation engine pipeline step.
+
+## GitHub Actions Workflow (Pull Request Linter Check)
+Save this code blocks inside your repository path as .github/workflows/tf-lint.yml:
+
+```
+name: "IaC Resource Naming Linter"
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  lint-names:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Baseline
+        uses: actions/checkout@v4
+
+      - name: Run Regex Pattern Match over Infrastructure Definitions
+        run: |
+          echo "Scanning configuration files for non-compliant names..."
+          # Scan for common resource blocks to make sure they match lower-case naming rule conventions
+          # Pattern flags errors if uppercase characters are used within naming vars inside .tf configurations
+          if grep -rE 'name\s*=\s*"[A-Z]+' *.tf; then
+            echo "ERROR: Discovered uppercase string inputs for resource names. Hyphenated lower-case schema mandatory."
+            exit 1
+          else
+            echo "Success! Naming patterns match standardization parameters."
+          fi
+```
+
+## 7. Operational Discovery Audit Script
+Run this unified Azure PowerShell script locally or inside Cloud Shell to parse your entire live active Azure Tenant. It will look for naming pattern breaches and missing tags, then output a CSV gap-analysis matrix breakdown list.
+
+```
+# Tenant-Wide Governance Audit Verification Script
+$ReportOutput = @()
+$MandatoryTags = @("CostCenter", "Environment", "Owner", "WorkloadName", "BusinessCriticality")
+
+Write-Host "Authenticating and querying structural Azure Subscription Matrix..." -ForegroundColor Cyan
+$AzSubscriptions = Get-AzSubscription
+foreach ($Sub in $AzSubscriptions) {
+    Set-AzContext -SubscriptionId $Sub.Id | Out-Null
+    Write-Host "Processing Inventory for Target Subscription: $($Sub.Name)" -ForegroundColor Yellow
+    
+    # Retrieve all deployed inventory entities
+    $AzResources = Get-AzResource
+    
+    foreach ($Resource in $AzResources) {
+        $TagIssues = @()
+        $NamingIssue = $false
+        
+        # 1. Audit Evaluation Check for Tag Compliance Parameters
+        foreach ($TagKey in $MandatoryTags) {
+            if (-not $Resource.Tags.ContainsKey($TagKey)) {
+                $TagIssues += $TagKey
+            }
+        }
+        
+        # 2. Audit Evaluation Check for Core Naming Hyphenation Prefix Syntax
+        # Evaluates if naming doesn't align to minimal standard components delimiter boundaries
+        if ($Resource.Name -notmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
+            # Catch items flagged by strict alphanumeric exclusions safely (like Storage Accounts)
+            if ($Resource.ResourceType -notmatch "Microsoft.Storage" -and $Resource.ResourceType -notmatch "Microsoft.DocumentDB") {
+                $NamingIssue = $true
+            }
+        }
+
+        # Logging compliance breaches to final tracking array database matrices
+        if ($TagIssues.Count -gt 0 -or $NamingIssue -eq $true) {
+            $TrackingObject = [PSCustomObject]@{
+                SubscriptionName = $Sub.Name
+                ResourceName     = $Resource.Name
+                ResourceType     = $Resource.ResourceType
+                ResourceGroup    = $Resource.ResourceGroupName
+                MissingTags      = ($TagIssues -join ", ")
+                NamingViolation  = $NamingIssue
+            }
+            $ReportOutput += $TrackingObject
+        }
+    }
+}
+# Export local disk file data object index logs
+$OutputFilePath = "./AzureGovernanceAuditIssues.csv"
+$ReportOutput | Export-Csv -Path $OutputFilePath -NoTypeInformation
+Write-Host "Audit Complete! Breakdown report matrix file saved to disk path location at: $OutputFilePath" -ForegroundColor Green
+```
+
+## 8. Implementation Roadmap
 
 * Phase 1 (Month 1): Formally publish this guidelines draft on the internal company wiki.
 * Phase 2 (Month 2): Configure Azure Policy definitions in Audit Mode to locate un-tagged or poorly-named legacy resources without breaking active apps.
 * Phase 3 (Month 3): Enable the Deny Action permanently across all Non-Production and Production landing zones. Run manual remediation scripts on legacy anomalies.
 
 
-To proceed with building out your cloud governance platform, please share:
+To complete the operational setup of this policy standard framework across your enterprise platform workspace environments, let me know:
 
-* Are there any specific naming rules for your network security appliances (like Palo Alto, Fortinet, or Azure Firewall) that need custom prefixes?
-* Do you need help with Azure Policy definition scripts to auto-remediate legacy, non-compliant resource tags?
-* Should we establish CI/CD linting check validation scripts to block bad names during pull requests?
+* Would you like the PowerShell audit script updated to auto-fix the missing tags using the Resource Group's tags during execution?
+* Should we expand the CI/CD linting section to use specialized tool platforms (such as TFLint, Checkov, or OPA Rego blocks)?
+* Do you require help bundling these Azure Policies together into an Azure Initiative for easier tracking?
 
 
