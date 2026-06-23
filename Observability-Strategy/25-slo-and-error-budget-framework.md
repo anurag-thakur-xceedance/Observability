@@ -1,7 +1,7 @@
 ---
 title: SLO and Error-Budget Framework
 chapter: 25
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 > **Closes Gaps:** D1, D2 (partial).
 
 ---
@@ -52,6 +52,20 @@ Targets must be:
 - **Just below** historical performance (do not set 99.99% if observed is 99.93%).
 - **Achievable** without "nines theatre" (don't promise more than the dependencies offer).
 - **Reviewed quarterly** as part of the SLO governance cadence.
+
+### 25.3.1 Standard "golden" SLO sets by service type
+The tiering model defines *how reliable* a service must be; this section defines *what to measure* for common archetypes. Teams should start from these "golden" SLOs and only diverge with a documented rationale.
+
+| Service Type | Primary SLIs | Default SLO Set (for T1/T2 services) |
+|---|---|---|
+| **User-facing HTTP API** | Availability, latency, correctness | Availability: 99.9% (T1) / 99.5% (T2) over 30 days. Latency: 99% of requests under 800 ms (T1) / 95% under 1,200 ms (T2) for key read paths. Correctness: ≥ 99.5% of responses pass schema and domain validation. |
+| **Interactive web/mobile UI** | Availability, latency, freshness | Availability (page load without error): 99.5% (T1) / 99.0% (T2). Latency: 95% of page loads to interactive under 2.5 s on reference devices. Freshness: ≥ 99% of dashboards/widgets reflect data no more than 5 minutes old. |
+| **Asynchronous worker / batch job** | Timeliness, success rate | Timeliness: ≥ 99% of jobs complete within SLA window (e.g. within 30 minutes of scheduled start). Success rate: ≥ 99.5% of jobs complete without manual intervention. |
+| **Data pipeline / ETL** | Freshness, correctness, throughput | Freshness: ≥ 99% of pipelines deliver data to consumers within agreed lag (e.g. ≤ 15 minutes for near-real-time, ≤ 4 hours for daily loads). Correctness: ≥ 99.9% of records pass validation checks. Throughput: pipeline sustains ≥ 95% of contracted throughput during peak windows. |
+| **Streaming / messaging consumer** | Availability, lag, loss | Availability: 99.9% of time consumer is healthy and reading from stream. Lag: 99% of messages processed within X seconds of arrival (X agreed per stream). Loss: 100% of messages processed at-least-once; 0% accepted data loss. |
+| **Internal platform component (e.g. auth, identity, config)** | Availability, latency | Availability: 99.9% over 30 days for T1 dependencies. Latency: 99% of calls under 300 ms on the critical path. |
+
+Additional SLIs (e.g. durability, coverage) may be added where they materially affect user outcomes, but each service **must keep the number of SLOs small (≤ 5)** to remain operable.
 
 ## 25.4 Error Budget
 
@@ -126,14 +140,19 @@ A burn rate of **N** means the budget would be consumed in **(window / N)** time
 
 ## 25.6 Error-Budget Policy
 
-| Budget State | Trigger | Policy Response |
-|---|---|---|
-| Healthy (≥ 50% remaining) | Default | Normal operation; new feature work prioritised |
-| Stressed (10–50% remaining) | Burn rate > 1× baseline for ≥ 24h | Reliability work increases; ARB notified |
-| Exhausted (≤ 10% remaining) | Sustained burn for 24h | **Feature freeze on this service**; only reliability/bugfix changes |
-| Breached (< 0%) | Budget gone before window end | Service owner + Director SRE on-call; incident review; explicit ARB unfreeze required |
+| Budget State | Budget Remaining | Budget Consumed | Trigger | Policy Response |
+|---|---|---|---|---|
+| **Healthy** | ≥ 50% | ≤ 50% | Default | Normal operation; new feature work prioritised. Reliability work scheduled but not blocking. |
+| **Stressed** | 10–50% | 50–90% | Burn rate > 1× baseline for ≥ 24h | Reliability work increases; ARB notified; teams start planning mitigations (canarying reliability fixes, capacity changes, tuning dependencies). |
+| **Exhausted** | ≤ 10% | 90–100% | Sustained burn for 24h or multiple critical burn alerts in a week | **Feature freeze on this service**; only reliability and defect fixes allowed. Any exception requires ARB approval. |
+| **Breached** | < 0% | > 100% | Budget gone before window end | Service owner + Director SRE on-call; incident review scheduled; explicit ARB decision required to unfreeze and accept further risk. |
 
-Exception process: written waiver from Director SRE + Service Owner with stated remediation timeline; logged in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+**Budget burn thresholds and actions:**
+- **At ~50% budget consumed:** reliability posture is still acceptable, but teams must review SLOs, recent incidents and dependencies. For T1/T2 services this review should happen within the same sprint.
+- **Beyond 75% budget consumed (within the current window):** for T1 services, the default is to **gate new feature releases** behind additional checks (e.g. error-budget-aware release pipeline) and bring forward reliability work.
+- **At 100% budget consumed (breach):** feature freeze is mandatory until a corrective plan is agreed and implemented; rollbacks, traffic-shaping or dark-launching of risky features are explicitly considered.
+
+Exception process: written waiver from Director SRE + Service Owner with a stated remediation timeline; logged in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 ## 25.7 SLO Authoring Workflow
 1. Service owner identifies user journeys.

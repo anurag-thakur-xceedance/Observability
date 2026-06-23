@@ -1,7 +1,7 @@
 ---
 title: Service Onboarding and Instrumentation Kits
 chapter: 26
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 > **Closes Gaps:** E1, I2.
 
 ---
@@ -54,6 +54,20 @@ A service may not be promoted to production without a PASS on every item below.
 | 13 | Tenant labels present where multi-tenant per [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | Dev | Sample telemetry |
 | 14 | Capacity sizing reviewed against [23. Capacity and Scale Model](23-capacity-and-scale-model.md) reference deployment | Platform Engineering | Sizing note |
 
+### 26.2.1 "Minimum Observability" CI Check
+
+Each onboarding kit includes a reference CI job (for example, `ci/minimum-observability-check.yml`) that enforces a **minimum observability** bar before deployment:
+
+- The CI job validates that the repository contains:
+  - SLO definition file (for example, `observability/slo.yaml`) per [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
+  - Alert rule file (for example, `observability/alerts.yaml`) with at least one SLO burn-rate alert.
+  - Dashboard definition file (for example, `observability/dashboard.jsonnet` or `dashboard.json`).
+  - Runbook link for Critical alerts.
+- The job runs on every main-branch build and **must pass** before promotion to staging or production.
+- For new services, the job can scaffold starter files from the selected kit and fail with actionable guidance until the owner fills in service-specific details.
+
+Any exception to the minimum set requires ARB approval and an entry in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+
 ## 26.3 Instrumentation Kits
 
 Each kit is a Git template + README in the service-templates monorepo. The kit provides:
@@ -64,6 +78,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 - Starter Prometheus rules YAML.
 - Starter SLO YAML (Sloth format).
 - Sample runbook.
+- Example CI snippet wiring the minimum observability check into the service's pipeline.
 
 ### 26.3.1 Java (Spring Boot) Kit
 - **OTel:** `opentelemetry-spring-boot-starter` + `opentelemetry-exporter-otlp`.

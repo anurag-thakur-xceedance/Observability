@@ -1,7 +1,7 @@
 ---
 title: Application Telemetry Standard
 chapter: 18
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 18.1 Purpose
@@ -62,15 +62,39 @@ Where Azure ingress is not present, the same requirement applies at the equivale
 - Labels: `service`, `env`, `region`, `cloud`, `tenant_class` (no PII).
 - Trace attributes follow OpenTelemetry semantic conventions where available.
 
-## 18.6 PII & Data Classification
+## 18.6 Front-End and RUM Telemetry
+
+Front-end applications (web and mobile) MUST emit RUM telemetry aligned to [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.14 Front-End and RUM Standards](02-enterprise-observability-standards-catalog.md#214-front-end-and-rum-standards).
+
+### 18.6.1 Required Browser RUM Fields
+- `service.name`, `deployment.environment`, `tenant_id`, `region`.
+- `rum.session.id` (opaque, non-PII, rotated frequently).
+- `page.url` (normalised, without user-specific identifiers where possible), `page.route` (templated path).
+- Navigation timings: TTFB, DOMContentLoaded, First Paint, onload.
+- Core Web Vitals: LCP, FID/INP, CLS (as provided by the RUM SDK).
+- Error context: error class, message (redacted for PII), stack trace truncated to safe length.
+
+### 18.6.2 RUM Privacy Guardrails
+- No raw PII, keystrokes, or form-body content is captured in RUM telemetry.
+- DOM snapshots and screen recordings are **disabled by default**; any exception requires a privacy impact assessment and ARB approval.
+- User identifiers appearing in URLs must be removed or tokenised client-side before emission.
+
+### 18.6.3 Sampling
+- RUM sampling follows the environment defaults in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.15 Environment-Specific Sampling and Retention Defaults](02-enterprise-observability-standards-catalog.md#215-environment-specific-sampling-and-retention-defaults).
+- Services **must not** unilaterally increase RUM sampling in production beyond the documented ranges without:
+  - FinOps review (cost impact).
+  - Security and privacy review (data volume and residency effects).
+
+
+## 18.7 PII & Data Classification
 - **PII prohibited** in logs and traces wherever possible.
 - Masking / tokenisation / redaction enforced at source or in the OpenTelemetry pipeline (see [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.5 Data Classification](09-observability-data-governance-and-retention-policy.md#95-data-classification)).
 
-## 18.7 Conformance
+## 18.8 Conformance
 - Services must meet this standard before production promotion (see [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.6 Data Quality and Standards](09-observability-data-governance-and-retention-policy.md#96-data-quality-and-standards)).
 - Conformance evidence is part of release readiness.
 
-## 18.8 Cross-References
+## 18.9 Cross-References
 - [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline and backend that consume this telemetry.
 - [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) — operational runbook applying this telemetry.

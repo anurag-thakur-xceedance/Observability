@@ -1,7 +1,7 @@
 ---
 title: Alerting and Incident Severity Policy
 chapter: 5
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 5.1 Purpose
@@ -61,12 +61,21 @@ A single, enterprise-wide severity model and action expectation for alerts from 
 - **Warning:** above warning threshold ≥ 5 min rolling window → investigate within normal support hours; check dependency or resource limits.
 - **Critical:** above critical ≥ 2 min or repeated within 10 min → immediate incident response; probable user or business impact.
 
-### 5.4.6 AI-Detected Events
+### 5.4.6 Synthetic and RUM Checks
+- **Synthetic probes:**
+  - Warning: 1–5% failure over 10 minutes in any region, or latency 50–100% above baseline for ≥ 10 minutes. Routed as **Warning**; triage in-hours.
+  - Critical: ≥ 5% failure over 5 minutes in **two or more regions**, 100% failure from any single region for ≥ 3 minutes, or full-path latency > 2× SLO for ≥ 10 minutes across regions. Routed as **Critical**; immediate paging and incident creation.
+- **RUM/Core Web Vitals:**
+  - Warning: any front-end SLO (LCP, FID/INP, CLS, JS error rate) in [2.14.2](02-enterprise-observability-standards-catalog.md#2142-front-end-slo-targets-indicative) in warning band for ≥ 30 minutes.
+  - Critical: front-end SLOs in critical band for ≥ 15 minutes, or a step change in JS error rate > 1% of active sessions. Routed as **Critical** for T1/T2 user-facing products.
+
+
+### 5.4.7 AI-Detected Events
 - **Info / Normal:** deviation < warning OR anomaly confidence < 70% → record event for model training; no alert.
 - **Warning:** deviation crosses warning AND confidence ≥ 80% → human triage; check recent deployments / infra changes.
 - **Critical:** critical threshold crossed AND confidence ≥ 90%, OR correlation > 0.6 sustained → automatic incident creation or rollback trigger.
 
-### 5.4.7 IaC / OpenTelemetry Deployment
+### 5.4.8 IaC / OpenTelemetry Deployment
 - **Info / Normal:** metrics inside healthy/normal → CI-CD trend analytics only.
 - **Warning:** sustained breach ≥ 5 min or 1 IaC run → review pipeline / IaC scripts; correct configuration drift.
 - **Critical:** breach or repeated IaC failures within 3 runs → trigger incident or rollback; high chance of telemetry data loss.

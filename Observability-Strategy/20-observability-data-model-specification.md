@@ -1,7 +1,7 @@
 ---
 title: Observability Data Model Specification
 chapter: 20
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 20.1 Purpose
@@ -64,14 +64,56 @@ Together these form **full-stack observability**.
 - Metric names follow the enterprise snake_case standard in [Chapter 18. Application Telemetry Standard -> Section 18.5 Naming Conventions](18-application-telemetry-standard.md#185-naming-conventions) and [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3 Naming and Labelling Standards](02-enterprise-observability-standards-catalog.md#23-naming-and-labelling-standards).
 - Labels: bounded cardinality; high-cardinality labels removed/bucketed after retention window (see [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.6 Data Quality and Standards](09-observability-data-governance-and-retention-policy.md#96-data-quality-and-standards), [Chapter 10. Observability FinOps Standard -> Section 10.3 Down-Sampling and Aggregation](10-observability-finops-standard.md#103-down-sampling-and-aggregation)).
 
-## 20.7 PII & Sensitive Data
-PII is prohibited in logs and traces wherever possible. Masking, tokenisation, or redaction enforced at source or in the pipeline (see [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.5 Data Classification](09-observability-data-governance-and-retention-policy.md#95-data-classification)).
+### 20.6.1 Telemetry Schema Versioning
+- Each telemetry schema (metrics, logs, traces, events, profiles) carries an explicit **schema version** in metadata (for example, `xc.schema_version` tag or `$id` path in JSON schema).
+- **Breaking changes** (removing fields, changing type or meaning) require a new **major** schema version and a migration plan:
+  - Producers MAY emit either version for a minimum **90-day overlap window**.
+  - Consumers must be tolerant of both versions during overlap.
+  - Breaking changes must be justified in an ADR and approved per [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md).
+- **Non-breaking changes** (adding optional fields, extending enums) are allowed within the same major version but MUST be backwards-compatible for all consumers.
+- Deprecation of fields is documented in the schema file and PIRs/ADRs reference the deprecation where relevant.
 
-## 20.8 Canonical JSON Schemas, ERD, and OTel Crosswalk
+## 20.7 PII & Sensitive Data
+PII is prohibited in logs and traces wherever possible. Masking, tokenisation, or redaction is enforced at source or in the pipeline (see [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.5 Data Classification](09-observability-data-governance-and-retention-policy.md#95-data-classification)).
+
+## 20.8 Telemetry Health and Data-Quality Monitoring
+
+Healthy telemetry is a **first-class SLI**. The platform continuously monitors for signs of broken or degraded instrumentation.
+
+### 20.8.1 Broken-Instrumentation Heuristics
+
+The following heuristics are implemented as recording rules and alerts:
+
+- **Stuck gauges:**
+  - `delta(metric[15m]) == 0` for gauges expected to change (queue depth, memory usage) → potential stuck exporter.
+- **Flat counters:**
+  - Counters (`*_total`) that show zero increase over a configurable window despite non-zero traffic (e.g. HTTP request counter flat while latency metrics move) → missing increments or label misconfiguration.
+- **Sudden cardinality drop:**
+  - Active series per service or label cardinality drops > 50% in 5 minutes without a corresponding deployment event → potential label loss.
+- **Timestamp skew:**
+  - Metric or log timestamps outside ±5 minutes of wall-clock → clock drift or bad timestamp wiring.
+- **Trace coverage:**
+  - Expected trace coverage SLI (e.g. percentage of HTTP requests with a trace) falls below agreed threshold per tier.
+
+These heuristics feed into a **Telemetry Health** view rather than paging on-call immediately; paging thresholds are defined in [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md).
+
+### 20.8.2 Telemetry Health Dashboard Standard
+
+Every environment has a standardised "Telemetry Health" dashboard with at least the following panels:
+
+- **Signal coverage:** per service, proportion of requests with metrics, logs, and traces.
+- **Schema validity:** rate of schema-validation failures per signal type (see Section 20.8.6 dead-letter discipline).
+- **Cardinality vs budget:** active series and label-cardinality versus budgets from [2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
+- **Timestamp skew:** distribution of ingest- vs event-time deltas.
+- **PII violations:** count of records routed to the `dlq-pii` stream.
+
+The dashboard template lives alongside other platform dashboards in [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) and is generated per environment.
+
+## 20.9 Canonical JSON Schemas, ERD, and OTel Crosswalk
 
 This section turns the logical model in Sections 2–7 into concrete, machine-validatable artefacts: a per-signal JSON Schema, an entity relationship diagram for the correlation entities, an OpenTelemetry semantic-convention crosswalk, and the dead-letter discipline that protects downstream consumers from malformed data.
 
-### 20.8.1 JSON Schema Index
+### 20.9.1 JSON Schema Index
 
 Five canonical schemas live under `schemas/`. Each schema is the source-of-truth contract between producers (services, collectors) and consumers (backends, correlation engine, AIOps models). Producers MUST validate locally before emission; the ingest pipeline re-validates and routes failures to the dead-letter stream described in Section 20.8.6.
 
@@ -85,18 +127,18 @@ Five canonical schemas live under `schemas/`. Each schema is the source-of-truth
 
 All schemas use **JSON Schema Draft 2020-12**. Cross-schema references (e.g. the shared `resource` definition) use relative `$ref` so the schemas are portable as a single bundle.
 
-### 20.8.2 Required Resource Attributes (All Signals)
+### 20.9.2 Required Resource Attributes (All Signals)
 
 The `resource` definition in `metric-sample.schema.json#/$defs/resource` is the **single source of truth** for the resource block on every signal. It enforces three required attributes — `service.name`, `service.version`, `deployment.environment` — because these three form the partition key for every cross-pillar join in [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics).
 
-### 20.8.3 Schema Version Lifecycle
+### 20.9.3 Schema Version Lifecycle
 
 - Schemas are versioned via the `$id` URL path (e.g. `/schemas/v1/metric-sample.schema.json` when v2 lands).
 - Breaking changes require a new major version and a 90-day overlap window during which producers MAY emit either version.
 - Additive changes (new optional fields, new enum members) are non-breaking and ship as minor revisions; the `$id` is unchanged but the schema file carries a `revision` annotation.
 - Schema changes follow the change-control process in [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.3 Decision Rights](16-observability-governance-charter-and-arb-pack.md#163-decision-rights).
 
-### 20.8.4 Entity Relationship Diagram
+### 20.9.4 Entity Relationship Diagram
 
 The diagram below renders the entities and relationships from Sections 3 and 4 in their formal cardinality. It is the canonical reference for the correlation model in [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics).
 
@@ -170,7 +212,7 @@ Notes on cardinality:
 - A **Transaction** spans one-or-many **Services** (root + child spans); a Service participates in zero-or-many concurrent Transactions.
 - An **Incident** correlates with zero-or-many **Deployments** and **Scaling Events** within its detection window (default ±30 min, governed by [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.4 Severity Policy for AI-Detected Events](07-aiops-guardrails-and-implementation-playbook.md#74-severity-policy-for-ai-detected-events)).
 
-### 20.8.5 OpenTelemetry Semantic-Convention Crosswalk
+### 20.9.5 OpenTelemetry Semantic-Convention Crosswalk
 
 The schemas reuse OpenTelemetry semantic-convention attribute names verbatim wherever a convention exists; Xceedance-specific attributes are namespaced `xc.*`. This table is the audit trail for every attribute used in the schemas of Section 20.8.1.
 
@@ -202,7 +244,7 @@ The schemas reuse OpenTelemetry semantic-convention attribute names verbatim whe
 
 Producers MUST NOT introduce attributes that collide with reserved OTel namespaces (`http.*`, `db.*`, `messaging.*`, `rpc.*`, `cloud.*`, `k8s.*`, `service.*`, `deployment.*`, `host.*`, `container.*`, `network.*`, `url.*`, `server.*`, `client.*`, `user_agent.*`, `error.*`, `exception.*`) unless aligned with the published convention. Custom dimensions belong under `xc.*`.
 
-### 20.8.6 Dead-Letter Discipline for Schema Violations
+### 20.9.6 Dead-Letter Discipline for Schema Violations
 
 Schema validation failures are never silent. The pipeline classifies each failed record and routes it to a dead-letter stream so producers can self-serve diagnosis without paging the platform team.
 
@@ -216,7 +258,7 @@ Schema validation failures are never silent. The pipeline classifies each failed
 
 Each dead-letter record is annotated with `xc.dlq.reason`, `xc.dlq.schema_path`, and the first 256 bytes of the offending field (PII-redacted) so the producer can locate the bug without retrieving the original payload.
 
-### 20.8.7 Mapping to Native Backend Formats
+### 20.9.7 Mapping to Native Backend Formats
 
 | Schema | Prometheus | Loki | Tempo | Pyroscope |
 |---|---|---|---|---|
@@ -226,17 +268,17 @@ Each dead-letter record is annotated with `xc.dlq.reason`, `xc.dlq.schema_path`,
 | `event-record.schema.json`   | n/a (events are not metrics; do not derive Prometheus series from them). | Stored as a dedicated stream `event_type=...` for query. | `source.trace_id` links events to traces when emitted from an instrumented context. | n/a |
 | `profile-sample.schema.json` | n/a | n/a | Span attribute `pyroscope.profile_id` references the profile. | Native; aggregated server-side by `stack_id`. |
 
-### 20.8.8 Conformance and Reference Implementations
+### 20.9.8 Conformance and Reference Implementations
 
 - A schema-validation test suite ships with each reference language SDK in `reference-implementations/sdks/` (P3 deliverable).
 - The collector's `schemavalidator` processor is configured to enforce the schemas in this section at the OTLP receiver edge.
 - Synthetic conformance payloads (one valid + one negative per schema) live under `reference-implementations/conformance/` (P3 deliverable) and are exercised by CI.
 
-## 20.9 Cross-References
+## 20.10 Cross-References
 - [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — naming and labelling standards.
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline storing this data.
 - [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — governance and classification.
-- [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics) — consumer of the ERD in Section 20.8.4.
+- [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics) — consumer of the ERD in Section 20.9.4.
 - [18. Application Telemetry Standard](18-application-telemetry-standard.md) — application-level field requirements; journey-name source.
 - [Chapter 24. Observability Platform Security Architecture -> Section 24.4 PII Redaction (Concrete Mechanisms)](24-observability-platform-security-architecture.md#244-pii-redaction-concrete-mechanisms) — PII patterns feeding the `dlq-pii` stream.
 - [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.3 Decision Rights](16-observability-governance-charter-and-arb-pack.md#163-decision-rights) — schema-version change-control authority.

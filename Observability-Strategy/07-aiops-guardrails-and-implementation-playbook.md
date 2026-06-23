@@ -1,7 +1,7 @@
 ---
 title: AIOps Guardrails and Implementation Playbook
 chapter: 7
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -13,17 +13,18 @@ status: Draft
 [↑ Back to TOC](toc.md)
 
 | Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+|---|---|---|---|---|
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 7.1 Strategic Intent & Guardrails
 The Agentic AI layer turns observability from reactive to proactive — automated RCA, anomaly detection, and enriched ticketing against telemetry from Prometheus, Loki, and Tempo.
 
 **Guardrails (non-negotiable):**
+- **Human accountability.** Human operators remain accountable for incident decisions; AI is advisory unless explicitly approved for narrow auto-remediation cases.
 - AI alerts only fire when **deviation crosses defined thresholds** AND **anomaly confidence ≥ 80%** for warnings, ≥ 90% for criticals.
-- Auto-remediation is restricted to **pre-approved runbooks** with full audit trails.
-- Operator validation is required for model retraining feedback loops.
+- Auto-remediation is restricted to **pre-approved runbooks** with full audit trails and must include a tested kill-switch.
+- Operator validation is required for model retraining feedback loops and for promoting AI-suggested changes to alerting/routing.
 - False-positive rate must remain below 5%; precision ≥ 90%; recall ≥ 85%.
 - Detection latency must remain below 2 minutes from anomaly onset.
 
@@ -76,9 +77,19 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4 Domain
 - Anomalies precision **≥ 90%**, recall **≥ 85%**.
 
 ## 7.6 Feedback Loop & Continuous Improvement
-- Operator validation outcomes feed retraining queues.
+- Operator validation outcomes feed retraining queues and model promotion decisions.
 - AI accuracy is tracked month-over-month against operator feedback (see [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) Phase 3 targets).
-- Pre-approved auto-remediation actions are reviewed quarterly.
+- Pre-approved auto-remediation actions are reviewed quarterly; any increase in alert noise or MTTR beyond agreed bands triggers rollback to manual-only operation.
+
+### 7.6.1 AIOps Value Metrics and Rollback Thresholds
+
+To justify continued use of an AIOps model or auto-remediation, the following value metrics are tracked per model:
+
+- **MTTR impact:** median MTTR and P95 MTTR for incidents where the model contributed vs control. A sustained **increase** in MTTR > 10% over baseline for 2 consecutive months triggers rollback of the model's influence.
+- **Alert noise:** ratio of AI-driven alerts acknowledged as useful vs dismissed. If useful alerts fall below 70% for 4 consecutive weeks, the model's alerting is downgraded (e.g. to Warning-only) or disabled.
+- **Root-cause identification:** operator feedback on whether AI hypotheses contributed to correct RCA. A drop below 60% positive feedback triggers retraining or decommissioning.
+
+Rollback decisions and their rationale are captured as ADRs in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 ## 7.7 MLOps Lifecycle for AIOps Models
 

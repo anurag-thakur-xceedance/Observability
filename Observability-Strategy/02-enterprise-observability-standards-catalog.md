@@ -1,7 +1,7 @@
 ---
 title: Enterprise Observability Standards Catalogue
 chapter: 2
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 2.1 Scope and Intent
@@ -237,7 +237,91 @@ Targets: false-positive rate < 5%, detection latency < 2 min from anomaly onset,
 ## 2.12 Calibration Guidance
 Safe baselines. After several weeks of telemetry, calibrate so **Warning ≈ 95th percentile of normal behaviour** and **Critical ≈ user impact or SLA breach**.
 
-## 2.13 Cross-References
+## 2.13 Synthetic and Black-Box Monitoring Standards
+
+Synthetic monitoring complements real-user telemetry by continuously testing critical journeys from **outside-in** and from **inside** the platform.
+
+### 2.13.1 Synthetic Probe Placement
+- **External probes:**
+  - Run from at least **three user-critical regions** per active geography (for example, EU, US, APAC) against production entrypoints (Azure Front Door / Application Gateway / API Management).
+  - Cover the top 3–5 business journeys per T1 product: login, quote, bind, payment, self-service policy view.
+- **Internal probes:**
+  - Run from inside the cluster / VNet against internal entrypoints to detect configuration or dependency issues not visible from the public edge.
+  - At minimum: API health endpoints, auth dependency checks, database connectivity, queue depth sanity checks.
+
+### 2.13.2 Synthetic SLOs and Thresholds
+Synthetic checks define **black-box SLOs** that backstop service SLOs:
+
+| Service Tier | Synthetic Availability SLO | Synthetic Latency SLO |
+|---|---|---|
+| T1 | ≥ 99.9% probe success over 30 days | 95% of probes complete within 2.5 s end-to-end |
+| T2 | ≥ 99.5% | 95% within 3.5 s |
+| T3 | ≥ 99.0% | 95% within 5.0 s |
+| T4 | ≥ 98.0% | best-effort |
+
+Synthetic SLOs are **not a substitute** for service SLOs; they provide an early warning when full-path behaviour degrades.
+
+### 2.13.3 Severity Mapping for Synthetic Failures
+- **Warning:**
+  - Probe failure rate between 1–5% over 10 minutes in any single region.
+  - Latency degradation of 50–100% over baseline in any single region for ≥ 10 minutes.
+  - Action: triage during business hours; check for regional routing, DNS, or CDN issues.
+- **Critical:**
+  - ≥ 5% failure sustained for 5 minutes in **two or more regions**, or
+  - 100% failure from any region for ≥ 3 minutes, or
+  - full-path latency > 2× SLO threshold for ≥ 10 minutes across regions.
+  - Action: immediate incident; page on-call. See [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) and [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md).
+
+Synthetic checks for T1 services MUST be integrated into change pipelines so that **pre-deploy and post-deploy** synthetic runs gate production changes.
+
+## 2.14 Front-End and RUM Standards
+
+Front-end observability covers browser and mobile experiences via **Real User Monitoring (RUM)** plus complementary synthetic checks.
+
+### 2.14.1 RUM Required Signals
+- **Navigation timing:** time to first byte (TTFB), DOM content loaded, First Paint.
+- **Core Web Vitals:**
+  - Largest Contentful Paint (LCP).
+  - First Input Delay (FID) or Interaction to Next Paint (INP) when FID is not available.
+  - Cumulative Layout Shift (CLS).
+- **Error telemetry:** JavaScript errors, resource load failures, unhandled promise rejections.
+- **Session metrics:** page views per session, bounce rate, session length, errors per session.
+
+### 2.14.2 Front-End SLO Targets (Indicative)
+
+| Metric | Healthy Target | Warning | Critical |
+|---|---|---|---|
+| LCP | < 2.5 s for ≥ 75% of real-user page loads | 2.5–4.0 s for ≥ 25% | > 4.0 s for ≥ 25% |
+| FID / INP | FID < 100 ms / INP < 200 ms for ≥ 75% | 100–300 ms / 200–400 ms for ≥ 25% | > 300 ms / > 400 ms for ≥ 25% |
+| CLS | < 0.1 for ≥ 75% | 0.1–0.25 for ≥ 25% | > 0.25 for ≥ 25% |
+| JS Error Rate | < 0.2% of sessions with JS errors | 0.2–1% | > 1% |
+
+Front-end SLOs are attached to the same **service tier** model (Section 2.4.1) and feed into the application SLO framework in [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
+
+### 2.14.3 Privacy and Sampling
+- **PII and content:**
+  - No keystroke capture, DOM snapshotting of sensitive forms, or raw PII in RUM payloads.
+  - RUM events must be limited to performance timing, high-level navigation metadata, and non-sensitive error context.
+- **Sampling:**
+  - **Production:** default 5–20% of sessions sampled, calibrated per T1/T2 traffic level. T1 services may sample at higher rates subject to FinOps review.
+  - **Pre-production (uat/staging):** up to 100% sampling permitted; environment must not carry real PII.
+  - **Development:** RUM optional; if enabled, 100% sampling allowed for debugging.
+- **Region and tenant awareness:**
+  - RUM data must be labelled by `tenant_id`, `region`, and `deployment.environment` and abide by regional data residency rules from [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md).
+
+## 2.15 Environment-Specific Sampling and Retention Defaults
+
+Per-environment defaults align SLO visibility with FinOps constraints (see [10. Observability FinOps Standard](10-observability-finops-standard.md)).
+
+| Environment | Metrics Scrape Interval | Trace Sampling (Head + Tail) | Log Level / Sampling | RUM Session Sampling | Hot Retention (Metrics / Logs / Traces) |
+|---|---|---|---|---|---|
+| **prod** | Per tier (T1 10 s, T2 15 s, T3 30 s, T4 60 s) | T1: 10% head + 100% errors; T2: 5% + 100% errors; T3: 1% + 100% errors; T4: 0.1% | Error + Warning by default; Info only for short periods during incidents; sampling or dropping DEBUG | 5–20% of sessions, tuned per service | T1: 30 d / 14 d / 7 d; T2: 30 d / 14 d / 7 d; T3: 14 d / 7 d / 3 d; T4: 14 d / 7 d / 1 d |
+| **pre-prod / uat** | 15–30 s | Up to 20% head + 100% errors | Info + above; DEBUG allowed with shorter retention | Up to 100% of sessions (no real PII) | 14 d / 7 d / 3 d for all tiers |
+| **test / dev** | 30–60 s | Flexible; 0–100% as needed for debugging | All levels allowed; developers must avoid noisy DEBUG spam | Optional; typically disabled or 100% for short debugging windows | 7 d / 3 d / 1 d |
+
+Deviation from these defaults (for example, 100% tracing in prod or extended hot retention) requires ARB review and an ADR entry, as it has direct cost and risk implications.
+
+## 2.16 Cross-References
 - [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
 - [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md): How standards render in Grafana dashboards.

@@ -1,7 +1,7 @@
 ---
 title: Grafana Platform Standard and Visualisation Playbook
 chapter: 6
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 6.1 Purpose
@@ -68,14 +68,102 @@ Severity model is owned by [5. Alerting and Incident Severity Policy](05-alertin
 - **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
 - **Standardise dashboard library.** Per-domain template dashboards (Infra/App/DB/Network/Scaling/AI) cloned per service rather than hand-built.
 
-## 6.7 Calibration
+## 6.7 Telemetry Health Dashboard Standard
+
+A **Telemetry Health** dashboard is mandatory per environment. It surfaces the health of the observability data itself and implements the heuristics from [20. Observability Data Model Specification -> Section 20.8 Telemetry Health and Data-Quality Monitoring](20-observability-data-model-specification.md#208-telemetry-health-and-data-quality-monitoring).
+
+### 6.7.1 Required Panels
+
+- **Signal coverage (by service):**
+  - Purpose: show, for each service, the proportion of traffic that is covered by metrics, logs, and traces.
+  - Example metric (PromQL):
+    - Request volume: `sum(rate(http_requests_total{service=~"$service"}[5m])) by (service)`.
+    - Trace coverage: `sum(rate(http_requests_total{service=~"$service", trace_id!=""}[5m])) by (service) / sum(rate(http_requests_total{service=~"$service"}[5m])) by (service)`.
+
+- **Schema validation failures (by signal):**
+  - Purpose: visualise dead-letter volume for schema violations (see Section 20.9.6).
+  - Example metric (LogQL → Prometheus counter via pipeline): `rate(obs_schemavalidation_failures_total{reason=~"required-field-missing|type-or-format"}[5m])`.
+
+- **Cardinality vs budget:**
+  - Purpose: compare active series and label-cardinality against per-tier budgets.
+  - Example (PromQL):
+    - Active series: `count by (service)( {__name__!=""} )` vs budget from `cardinality_budget{service="..."}`.
+    - Panel shows % of budget used; alerts fire when > 80%.
+
+- **Timestamp skew:**
+  - Purpose: detect clock drift or bad timestamp wiring.
+  - Example (LogQL):
+    ```
+    {job="otel-collector"}
+    | unwrap ts(timestamp)
+    | line_format "{{ .ts | duration_since_now }}"
+    ```
+  - In practice, a derived PromQL metric (e.g. `obs_timestamp_skew_seconds`) is preferred for graphing.
+
+- **PII violations:**
+  - Purpose: show the rate of records sent to `dlq-pii`.
+  - Example metric: `rate(obs_telemetry_pii_violations_total[5m])` with labels `service`, `category`.
+
+### 6.7.2 Layout and Usage
+
+- The Telemetry Health dashboard is part of the **canonical** dashboard set and is owned by Platform Engineering.
+- It is placed alongside infra/app/business overview dashboards and linked from the on-call runbook for platform issues.
+- Panels use consistent colouring (green/amber/red) aligned with the thresholds in Chapters 2 and 20.
+
+Service teams are encouraged to add a compact Telemetry Health row to their service-level dashboards (for example, trace coverage, schema failures, and cardinality vs budget for their service only).
+
+## 6.8 Dashboard and Alert Governance
+
+Without guardrails, dashboards and alerts sprawl. Governance ensures the library remains usable and supportable.
+
+### 6.7.1 Dashboard Types and Lifecycle
+
+- **Canonical dashboards:**
+  - Owned by Platform Engineering or the Observability CoP.
+  - Cover common layers (infra, app, business) and telemetry health.
+  - Changes follow full PR review; breaking changes require communication to affected teams.
+- **Service dashboards:**
+  - Derived from standard templates (e.g. RED/USE) and owned by each service team.
+  - Must include ownership metadata: `owner`, `team`, `tier`, `service.name` tags.
+- **Team-local / experimental dashboards:**
+  - Clearly tagged `experimental` or `team:<name>` and scoped to non-prod by default.
+  - Subject to **expiry:** dashboards without any views in 90 days are flagged for deletion.
+
+Lifecycle rules:
+- Every dashboard JSON carries `xc.owner`, `xc.contact`, and `xc.tier` labels.
+- A scheduled job computes **view counts**; dashboards with 0 views over 90 days open an issue for owner confirmation or archival.
+- Canonical dashboards are exempt from automatic deletion but still reviewed annually.
+
+### 6.7.2 Alert Creation, Ownership, and Review
+
+- **Who may create production alerts:**
+  - Platform Engineering, SRE, and designated service owners.
+  - Non-production alerts may be created by any engineer but are bound to non-prod data sources.
+- **Ownership metadata:**
+  - Every alert rule must include `owner`, `team`, `service`, `tier`, and a `runbook_url`.
+- **Review cadence:**
+  - Alerts are reviewed at least **quarterly** per service: noise level, usefulness, and mapping to runbooks.
+  - Experimental alerts must carry an `xc.expires_at` annotation; CI fails if expiry is in the past.
+- **Sprawl controls:**
+  - Alerts that have **never fired** in the last 180 days AND do not protect an explicit SLO are flagged for removal or consolidation.
+  - Alerts that **fire > N times/week** without incident linkage are reviewed for tuning or removal (N defined per tier in [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md)).
+
+### 6.7.3 Quarterly Hygiene Review
+
+Once per quarter, the Observability CoP runs a hygiene review per environment:
+- Remove or archive 0-view dashboards (unless explicitly exempted).
+- Tune or remove "never-firing" alerts and chronic-noise alerts.
+- Verify that all Critical alerts link to an up-to-date runbook.
+- Confirm that new services onboarded in the last quarter have RED dashboards and SLO burn panels (see [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)).
+
+## 6.9 Calibration
 Industry-standard starting ranges. After a few weeks of live data, calibrate: warning ≈ 95th-percentile normal; critical ≈ user impact / SLA breach.
 
-### 6.7.1 Dashboards-as-Code
+### 6.9.1 Dashboards-as-Code
 
 All Grafana dashboards, alert rules, and notification policies are managed **as code**. No production dashboard is hand-edited in the UI; UI changes are exported and committed via PR. This is enforced by **OBS-C-02** in [Chapter 11. Compliance and Audit Control Matrix -> Section 11.5 Control Matrix (Initial)](11-compliance-and-audit-control-matrix.md#115-control-matrix-initial).
 
-#### 6.7.1.1 Repository Layout
+#### 6.9.1.1 Repository Layout
 
 ```
 observability-grafana/
@@ -108,7 +196,7 @@ observability-grafana/
     └── deploy.yml                      # CI: lint → test → plan → apply
 ```
 
-#### 6.7.1.2 Toolchain
+#### 6.9.1.2 Toolchain
 
 | Tool | Purpose | Notes |
 |---|---|---|
@@ -119,7 +207,7 @@ observability-grafana/
 | **`promtool test rules`** | Unit-test alert rules | Required for every alert rule |
 | **`amtool`** | Test notification routing | Validates `policies/` |
 
-#### 6.7.1.3 PR Workflow
+#### 6.9.1.3 PR Workflow
 
 ```
 PR opened → CI runs:
@@ -135,7 +223,7 @@ PR opened → CI runs:
 
 A **break-glass** path exists for severity-Critical incident-response dashboard fixes: a designated SRE may apply a hot-fix via grizzly direct to prod with a follow-up PR within 24 hours. The break-glass action is logged and reviewed at the next CoP ([Chapter 19. Observability Operating Model and Adoption Plan -> Section 19.4.4 Community of Practice](19-observability-operating-model-and-adoption-plan.md#1944-community-of-practice)).
 
-#### 6.7.1.4 Service Dashboard Template (RED)
+#### 6.9.1.4 Service Dashboard Template (RED)
 
 Every service inherits the same RED dashboard skeleton, parameterised by service name. Pseudocode:
 
@@ -161,7 +249,7 @@ Every service inherits the same RED dashboard skeleton, parameterised by service
 
 Service teams provide only `serviceName` and `tier`; the dashboard itself is generated. This is the single largest lever for the **dashboard self-service rate** KPI in [Chapter 19. Observability Operating Model and Adoption Plan -> Section 19.7.1 Adoption KPIs](19-observability-operating-model-and-adoption-plan.md#1971-adoption-kpis).
 
-#### 6.7.1.5 Drift Detection
+#### 6.9.1.5 Drift Detection
 
 A scheduled job exports the live Grafana state and `diff`s it against the repository. Any drift opens an issue automatically. Common causes:
 - Hot-fix without follow-up PR (break-glass).
@@ -170,7 +258,7 @@ A scheduled job exports the live Grafana state and `diff`s it against the reposi
 
 Drift > 7 days is a finding under **OBS-C-02**.
 
-## 6.8 Cross-References
+## 6.10 Cross-References
 - [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
 - [3. Observability Reference Architecture](03-observability-reference-architecture.md) — Grafana's role in the reference architecture.
 - [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.

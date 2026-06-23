@@ -1,7 +1,7 @@
 ---
 title: Incident Response Playbook (Telemetry to Resolution)
 chapter: 13
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 13.1 Purpose
@@ -127,11 +127,31 @@ For each major incident, a structured RCA record is captured with:
 
 PIRs are stored in a central knowledge base for **at least 12 months** (per [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.4 Worked Example: Applying Retention Policy](09-observability-data-governance-and-retention-policy.md#94-worked-example-applying-retention-policy)).
 
+### 13.6.1 Integration with ITSM and Change Tooling
+
+- Incidents are tracked in the enterprise ITSM tool (for example, ServiceNow or Jira) with fields mapped as follows:
+  - `severity` ↔ severity model in [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md).
+  - `service` ↔ `service.name`.
+  - `environment` ↔ `deployment.environment`.
+  - `slo_breach` (boolean) and `slo_reference` (link to SLO definition) where applicable.
+- Incident creation is automated for Critical alerts; ticket IDs are linked back into Grafana panels and AIOps outputs.
+- Change records (for example, deployment tickets) are linked to incidents during PIR so that systemic fixes can be tracked through the change calendar in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
+
 ## 13.7 Success Criteria
 - MTTD reduced per phase targets (see [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) / [15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md)).
 - ≥ 90% incidents have an identified root cause.
 - > 90% automated ticket creation by Phase 3 maturity.
 - Demonstrable reuse of PIR records in subsequent reviews and risk assessments.
+
+### 13.7.1 Closed-Loop Improvement
+
+Each PIR explicitly identifies whether updates are required to any of the following and tracks them to completion:
+- **Runbooks:** new steps, clarified diagnostics, or new branches in decision trees (Chapter 4).
+- **SLOs and alerts:** thresholds tuned, new SLOs added, or obsolete alerts retired (Chapters 2, 5, 25).
+- **Dashboards:** new panels or views required to detect or diagnose similar incidents faster (Chapter 6).
+- **Instrumentation:** telemetry field additions or corrections (Chapters 18 and 20).
+
+Where the corrective action is systemic (affects multiple services or platform-wide behaviour), the PIR nominates an ADR in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) and, if needed, a roadmap item in [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md).
 
 ## 13.8 Cross-References
 - [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — domain runbooks.

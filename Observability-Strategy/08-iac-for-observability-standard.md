@@ -1,7 +1,7 @@
 ---
 title: IaC for Observability Standard
 chapter: 8
-version: 0.1
+version: 0.2
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.2 | TBD | Internal |  | Draft |
 ---
 
 ## 8.1 Strategic Policy Position
@@ -24,6 +24,22 @@ Observability deployment must be **reproducible, version-controlled, containeriz
 - **Automation and IaC** — deployment, configuration, validation, secrets handling, and rollout controls are managed through approved automation tooling and version-controlled definitions.
 
 All deployment definitions, automation scripts, exporter configs, dashboards, alert rules, and SLO definitions are **version-controlled in Git** (GitOps-style change control).
+
+### 8.1.1 Policy-as-Code for Telemetry Invariants
+
+The following invariants are enforced as **policy-as-code**, evaluated in CI/CD before changes are applied:
+
+- **Correlation propagation:**
+  - Gate: configuration for gateways, API Management, and ingress must demonstrate `traceparent` and `X-Correlation-Id` injection/propagation per [2.3.1 Required Resource Attributes](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal).
+  - Policy: rejects merges where new ingress routes lack the required headers.
+- **5xx logging with context:**
+  - Gate: services must include structured logs for HTTP 5xx responses containing `service.name`, `deployment.environment`, `trace_id`, `span_id`, and `correlation.id`.
+  - Policy: rejects merges when log templates or middleware omit these fields.
+- **Cardinality budget checks:**
+  - Gate: cardinality budget per service and tier remains within limits defined in [2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
+  - Policy: blocks changes that introduce new high-cardinality labels without an explicit ADR.
+
+Policy definitions live alongside IaC and are evaluated using the organisation's chosen policy engine (for example, Open Policy Agent), with CI failure preventing drift from these invariants.
 
 ## 8.2 Scope
 - Deployment of the **OpenTelemetry Collector** as a containerized service.
