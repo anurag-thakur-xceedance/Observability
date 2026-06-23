@@ -66,7 +66,7 @@ This policy applies to:
 | Scope Area | Included |
 |---|---|
 | Cloud providers | Azure subscriptions, AWS accounts, GCP projects |
-| Environments | Production, non-production, development, test, QA, UAT, shared services, sandbox |
+| Environments | Production, development, test, QA, UAT, shared services, sandbox |
 | Deployment methods | Terraform, OpenTofu, Bicep, ARM, CloudFormation, CDK, Pulumi, Deployment Manager, CLI, portal/console, scripts, CI/CD pipelines |
 | Resource types | Compute, storage, networking, databases, security, IAM, containers, monitoring, integration, backup, data, AI services |
 | Local development | Docker Compose resources where labels are supported |
@@ -132,7 +132,7 @@ xceed-custportal-prod-use1-vm-001
 |---|---:|---|---|
 | `company` | Yes | Approved company or business-unit code. | `xceed` |
 | `project` | Yes | Application, product, workload, or platform capability. | `custportal`, `claims`, `billing`, `underwrite` |
-| `environment` | Yes | Deployment lifecycle tier. | `prod`, `nonprod`, `dev`, `test`, `qa`, `uat`, `shrd`, `sbx` |
+| `environment` | Yes | Deployment lifecycle tier. | `prod`, `dev`, `test`, `qa`, `uat`, `shrd`, `sbx` |
 | `region` | Yes | Standardized enterprise region short code. | `use1`, `usw2`, `euw1`, `inc1` |
 | `resource-type` | Yes | Standard resource abbreviation. | `vm`, `rg`, `vnet`, `sql`, `kv`, `st` |
 | `instance` | Yes | Three-digit sequential uniqueness value. | `001`, `002`, `003` |
@@ -142,7 +142,6 @@ xceed-custportal-prod-use1-vm-001
 | Code | Name | Description |
 |---|---|---|
 | `prod` | Production | Customer-facing or business-critical production systems. |
-| `nonprod` | Non-production | General non-production environment where a more specific code is not required. |
 | `dev` | Development | Developer, build, and continuous integration environments. |
 | `test` | Test | Functional, integration, smoke, or regression testing environments. |
 | `qa` | Quality assurance | QA validation environments owned by quality engineering or release validation teams. |
@@ -163,11 +162,21 @@ xceed-custportal-prod-use1-vm-001
 | NAM-007 | No personal names | Do not include individual names, initials, or employee IDs in resource names. Use owner tags instead. |
 | NAM-008 | No secrets | Do not include secrets, ticket numbers with sensitive context, customer identifiers, PHI, or PCI data in names. |
 
-Baseline validation regex for hyphenated names:
+Strict validation regex for standard hyphenated resource names:
 
 ```regex
-^[a-z0-9]+(-[a-z0-9]+)*-[0-9]{3}$
+^xceed-[a-z0-9]+(-[a-z0-9]+)*-(prod|dev|test|qa|uat|shrd|sbx)-(use1|use2|usw1|usw2|usw3|usc1|cac1|brs1|euw1|eun1|uks1|frc1|dew1|chn1|noe1|sec1|itn1|esc1|uae1|qac1|ilc1|zan1|inc1|ins1|sea1|eas1|jpe1|jpw1|krc1|aue1|aus1)-(rg|vm|app|func|k8s|cr|st|disk|file|sql|nosql|vnet|nsg|lb|agw|pe|kv|fw|pan|fnt|iam|log|bkp|dl|dw|etl|stream|queue|topic|event|api|wf|sched|waf|cert|bas|sp|id|mon|apm|alert|dns|cdn|nat|vpn|conn|ai|ml|srch|pol|lz|agent|capp|cfg)-[0-9]{3}$
 ```
+
+This strict regex validates the exact enterprise token order, approved environment codes, approved region aliases, approved resource prefixes, and a three-digit instance suffix. If a new region or resource prefix is added to this policy, the validation regex and IaC validation lists must be updated in the same change.
+
+Baseline fallback regex for exploratory audits where the approved region or resource prefix list is not yet loaded:
+
+```regex
+^[a-z0-9]+(-[a-z0-9]+){5}$
+```
+
+The fallback regex is for discovery only. It must not be used as the final enforcement rule for production deployments.
 
 ### 4.5 No-Hyphen Exception Rule
 
@@ -176,7 +185,7 @@ Some services prohibit hyphens or require global uniqueness. For those resources
 | Standard Name | Flattened Exception Name |
 |---|---|
 | `xceed-claims-prod-use1-st-001` | `xceedclaimsproduse1st001` |
-| `xceed-billing-nonprod-euw1-kv-001` | `xceedbillingnonprodeuw1kv001` |
+| `xceed-billing-qa-euw1-kv-001` | `xceedbillingqaeuw1kv001` |
 
 The flattened name must still use lowercase letters and numbers only.
 
@@ -192,47 +201,47 @@ No provider-specific implementation should redefine the enterprise taxonomy. Pro
 
 ### 4.7 Multi-Cloud Region Mapping
 
-| Geographic Region | Azure Region | AWS Region | GCP Region | Standard Short Code |
-|---|---|---|---|---|
-| US East | `eastus` | `us-east-1` | `us-east4` | `use1` |
-| US East 2 | `eastus2` | `us-east-2` | `us-east1` | `use2` |
-| US West | `westus` | `us-west-1` | `us-west2` | `usw1` |
-| US West | `westus2` | `us-west-2` | `us-west1` | `usw2` |
-| US West 3 | `westus3` | `us-west-2` | `us-west3` | `usw3` |
-| US Central | `centralus` | `us-east-2` or approved central equivalent | `us-central1` | `usc1` |
-| Canada Central | `canadacentral` | `ca-central-1` | `northamerica-northeast1` | `cac1` |
-| Brazil South | `brazilsouth` | `sa-east-1` | `southamerica-east1` | `brs1` |
-| Europe West | `westeurope` | `eu-west-1` | `europe-west1` | `euw1` |
-| Europe North | `northeurope` | `eu-north-1` | `europe-north1` | `eun1` |
-| UK South | `uksouth` | `eu-west-2` | `europe-west2` | `uks1` |
-| France Central | `francecentral` | `eu-west-3` | `europe-west9` | `frc1` |
-| Germany West Central | `germanywestcentral` | `eu-central-1` | `europe-west3` | `dew1` |
-| Switzerland North | `switzerlandnorth` | `eu-central-2` | `europe-west6` | `chn1` |
-| Norway East | `norwayeast` | `eu-north-1` | `europe-north1` | `noe1` |
-| Sweden Central | `swedencentral` | `eu-north-1` | `europe-north1` | `sec1` |
-| Italy North | `italynorth` | `eu-south-1` | `europe-west8` | `itn1` |
-| Spain Central | `spaincentral` | `eu-south-2` | `europe-southwest1` | `esc1` |
-| UAE North | `uaenorth` | `me-central-1` | `me-central2` | `uae1` |
-| Qatar Central | `qatarcentral` | `me-south-1` | `me-central1` | `qac1` |
-| Israel Central | `israelcentral` | `il-central-1` | `me-west1` | `ilc1` |
-| South Africa North | `southafricanorth` | `af-south-1` | `africa-south1` | `zan1` |
-| India Central / South Asia | `centralindia` | `ap-south-1` | `asia-south1` | `inc1` |
-| India South | `southindia` | `ap-south-2` | `asia-south2` | `ins1` |
-| Southeast Asia | `southeastasia` | `ap-southeast-1` | `asia-southeast1` | `sea1` |
-| East Asia | `eastasia` | `ap-east-1` | `asia-east2` | `eas1` |
-| Japan East | `japaneast` | `ap-northeast-1` | `asia-northeast1` | `jpe1` |
-| Japan West | `japanwest` | `ap-northeast-3` | `asia-northeast2` | `jpw1` |
-| Korea Central | `koreacentral` | `ap-northeast-2` | `asia-northeast3` | `krc1` |
-| Australia East | `australiaeast` | `ap-southeast-2` | `australia-southeast1` | `aue1` |
-| Australia Southeast | `australiasoutheast` | `ap-southeast-4` | `australia-southeast2` | `aus1` |
+| Geographic Region | Azure Region | AWS Region | GCP Region | Standard Short Code | Mapping Status |
+|---|---|---|---|---|---|
+| US East | `eastus` | `us-east-1` | `us-east4` | `use1` | Nearest Approved |
+| US East 2 | `eastus2` | `us-east-2` | `us-east1` | `use2` | Nearest Approved |
+| US West | `westus` | `us-west-1` | `us-west2` | `usw1` | Nearest Approved |
+| US West | `westus2` | `us-west-2` | `us-west1` | `usw2` | Nearest Approved |
+| US West 3 | `westus3` | `us-west-2` | `us-west3` | `usw3` | Provider-Specific |
+| US Central | `centralus` | `us-east-2` or approved central equivalent | `us-central1` | `usc1` | Nearest Approved |
+| Canada Central | `canadacentral` | `ca-central-1` | `northamerica-northeast1` | `cac1` | Exact |
+| Brazil South | `brazilsouth` | `sa-east-1` | `southamerica-east1` | `brs1` | Exact |
+| Europe West | `westeurope` | `eu-west-1` | `europe-west1` | `euw1` | Nearest Approved |
+| Europe North | `northeurope` | `eu-north-1` | `europe-north1` | `eun1` | Nearest Approved |
+| UK South | `uksouth` | `eu-west-2` | `europe-west2` | `uks1` | Exact |
+| France Central | `francecentral` | `eu-west-3` | `europe-west9` | `frc1` | Exact |
+| Germany West Central | `germanywestcentral` | `eu-central-1` | `europe-west3` | `dew1` | Exact |
+| Switzerland North | `switzerlandnorth` | `eu-central-2` | `europe-west6` | `chn1` | Exact |
+| Norway East | `norwayeast` | `eu-north-1` | `europe-north1` | `noe1` | Nearest Approved |
+| Sweden Central | `swedencentral` | `eu-north-1` | `europe-north1` | `sec1` | Nearest Approved |
+| Italy North | `italynorth` | `eu-south-1` | `europe-west8` | `itn1` | Exact |
+| Spain Central | `spaincentral` | `eu-south-2` | `europe-southwest1` | `esc1` | Exact |
+| UAE North | `uaenorth` | `me-central-1` | `me-central2` | `uae1` | Nearest Approved |
+| Qatar Central | `qatarcentral` | `me-south-1` | `me-central1` | `qac1` | Nearest Approved |
+| Israel Central | `israelcentral` | `il-central-1` | `me-west1` | `ilc1` | Nearest Approved |
+| South Africa North | `southafricanorth` | `af-south-1` | `africa-south1` | `zan1` | Exact |
+| India Central / South Asia | `centralindia` | `ap-south-1` | `asia-south1` | `inc1` | Exact |
+| India South | `southindia` | `ap-south-2` | `asia-south2` | `ins1` | Exact |
+| Southeast Asia | `southeastasia` | `ap-southeast-1` | `asia-southeast1` | `sea1` | Exact |
+| East Asia | `eastasia` | `ap-east-1` | `asia-east2` | `eas1` | Nearest Approved |
+| Japan East | `japaneast` | `ap-northeast-1` | `asia-northeast1` | `jpe1` | Exact |
+| Japan West | `japanwest` | `ap-northeast-3` | `asia-northeast2` | `jpw1` | Exact |
+| Korea Central | `koreacentral` | `ap-northeast-2` | `asia-northeast3` | `krc1` | Exact |
+| Australia East | `australiaeast` | `ap-southeast-2` | `australia-southeast1` | `aue1` | Exact |
+| Australia Southeast | `australiasoutheast` | `ap-southeast-4` | `australia-southeast2` | `aus1` | Nearest Approved |
 
-Region codes are enterprise aliases, not cloud-provider region names. If a provider does not offer an exact geographic equivalent, Cloud Governance must approve the nearest compliant region and record the mapping in the taxonomy registry before workloads are deployed.
+Region codes are enterprise aliases, not cloud-provider region names. `Exact` means the providers have an aligned regional presence for the business intent. `Nearest Approved` means the providers do not map perfectly but Cloud Governance has approved the closest compliant region. `Provider-Specific` means one or more providers require a special mapping decision before workload deployment. If a provider does not offer an exact geographic equivalent, Cloud Governance must approve the nearest compliant region and record the mapping in the taxonomy registry before workloads are deployed.
 
 ### 4.8 Resource Type Prefix Matrix
 
 | Category | Resource Component Type | Standard Prefix | Azure Example | AWS Example | GCP Example | Constraint Notes |
 |---|---|---|---|---|---|---|
-| Management | Resource grouping boundary | `grp` | Resource Group | Account / OU / resource group tag context | Project / folder | Naming support varies; use provider-native grouping names and apply mandatory metadata at the grouping boundary. |
+| Management | Resource grouping boundary | `rg` | Resource Group | Account / OU / resource group tag context | Project / folder | Use `rg` as the enterprise grouping prefix. Naming support varies; apply mandatory metadata at the grouping boundary. |
 | Compute | Virtual machine / instance | `vm` | Virtual Machine | EC2 Instance | Compute Engine VM | Windows host names may require shortened values. |
 | Compute | Web app / app runtime | `app` | App Service | Elastic Beanstalk / App Runner | Cloud Run | Global names may require uniqueness. |
 | Compute | Function / serverless | `func` | Function App | Lambda | Cloud Functions | Keep names short and workload specific. |
@@ -323,7 +332,7 @@ Region codes are enterprise aliases, not cloud-provider region names. If a provi
 | Tag | Approved Values / Format |
 |---|---|
 | `cost-center` | Approved corporate ledger code, such as `fin-401`, `eng-102`, `ops-210`. |
-| `environment` | `production`, `non-production`, `development`, `test`, `qa`, `uat`, `shared`, `sandbox`. |
+| `environment` | `production`, `development`, `test`, `qa`, `uat`, `shared`, `sandbox`. |
 | `owner` | Team distribution list or approved service ownership email, such as `cloud-ops@xceedance.com`. |
 | `project` | Lowercase kebab-case workload name, such as `customer-portal`, `claims-engine`. |
 | `business-criticality` | `mission-critical`, `high`, `medium`, `low`. |
@@ -381,6 +390,28 @@ Teams adopt the policy through approved modules and pipelines. Manual naming or 
 | Modify | Adds or inherits missing metadata automatically. | Low-risk resources where tag inheritance is safe. |
 | Deny | Blocks non-compliant deployment. | Greenfield resources after audit rules are validated. |
 | Manual review | Creates ticket or alert for owner review. | High-risk resources, identity, networking, databases, DNS. |
+
+### 6.3 Portal, Console, and Direct CLI Deployment Controls
+
+Manual deployments through cloud portals, provider consoles, or unrestricted CLI credentials create bypass risk because they may avoid approved IaC modules and CI/CD validation. These deployment paths must be controlled, monitored, and treated as exceptions rather than the default delivery model.
+
+| Control Area | Requirement |
+|---|---|
+| Access model | Direct contributor, administrator, owner, or project editor permissions must be limited to platform break-glass, operations, and approved support scenarios. |
+| Preferred deployment path | Standard changes must be deployed through approved CI/CD pipelines using golden IaC modules. |
+| Break-glass access | Emergency portal/console access must be time-bound, logged, approved, and reviewed after use. |
+| CLI usage | CLI deployments must use approved wrappers, service principals, roles, or identities that apply mandatory tags and naming validation. |
+| Detection | Activity logs, CloudTrail, and Cloud Audit Logs must generate alerts for direct create/update/delete actions outside approved pipelines. |
+| Remediation | Resources created manually must be audited within 24 hours and either brought into compliance, linked to an approved exception, or removed. |
+| Accountability | Manual deployment alerts must route to the resource owner, platform team, and Cloud Governance queue. |
+
+Provider-specific monitoring sources:
+
+| Provider | Monitoring Source | Example Signal |
+|---|---|---|
+| Azure | Azure Activity Log, Azure Policy compliance, Resource Graph | Resource write operation not initiated by approved deployment identity. |
+| AWS | CloudTrail, EventBridge, AWS Config | Create or tag operation not initiated by approved CI/CD role. |
+| GCP | Cloud Audit Logs, Cloud Asset Inventory, Policy Controller | Resource create/update operation by user identity instead of approved deployment service account. |
 
 ---
 
@@ -583,7 +614,6 @@ AWS Organizations tag policies should standardize allowed values and casing.
       "tag_value": {
         "@@assign": [
           "production",
-          "non-production",
           "development",
           "test",
           "qa",
@@ -626,6 +656,101 @@ gcloud asset search-all-resources \
 
 Where GCP Organization Policy does not provide a direct mandatory-label control for a specific service, enforce labels through Terraform modules, CI/CD checks, and Config Validator policies.
 
+#### 7.3.4 GCP Policy Controller / Gatekeeper Required Labels Example
+
+Use Policy Controller or Gatekeeper-style constraints to validate required labels on Kubernetes-managed cloud resources where Config Connector or similar resource controllers are used.
+
+```yaml
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: xceedrequiredlabels
+spec:
+  crd:
+    spec:
+      names:
+        kind: XceedRequiredLabels
+      validation:
+        openAPIV3Schema:
+          type: object
+          properties:
+            labels:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package xceedrequiredlabels
+
+        violation[{"msg": msg}] {
+          required := input.parameters.labels[_]
+          not input.review.object.metadata.labels[required]
+          msg := sprintf("Missing required Xceedance label: %v", [required])
+        }
+```
+
+```yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: XceedRequiredLabels
+metadata:
+  name: require-xceedance-governance-labels
+spec:
+  match:
+    kinds:
+      - apiGroups: ["*"]
+        kinds: ["*"]
+  parameters:
+    labels:
+      - xceed-cost-center
+      - xceed-environment
+      - xceed-owner
+      - xceed-project
+      - xceed-business-criticality
+```
+
+This example is suitable for Kubernetes admission control and Config Connector resources. For non-Kubernetes GCP resources, use Cloud Asset Inventory scans, Terraform validation, and CI/CD policy checks.
+
+#### 7.3.5 GCP Terraform Required Labels Validation
+
+Terraform modules for GCP must require translated Xceedance label keys and validate allowed values.
+
+```hcl
+variable "labels" {
+  type = map(string)
+
+  validation {
+    condition = alltrue([
+      contains(keys(var.labels), "xceed-cost-center"),
+      contains(keys(var.labels), "xceed-environment"),
+      contains(keys(var.labels), "xceed-owner"),
+      contains(keys(var.labels), "xceed-project"),
+      contains(keys(var.labels), "xceed-business-criticality")
+    ])
+    error_message = "GCP resources must include all required Xceedance labels."
+  }
+
+  validation {
+    condition = contains([
+      "production",
+      "development",
+      "test",
+      "qa",
+      "uat",
+      "shared",
+      "sandbox"
+    ], var.labels["xceed-environment"])
+    error_message = "xceed-environment must use an approved environment value."
+  }
+}
+
+resource "google_storage_bucket" "example" {
+  name     = "xceedcustportaldevuse1st001"
+  location = "US"
+  labels   = var.labels
+}
+```
+
 ---
 
 ## 8. Infrastructure as Code Implementation
@@ -636,8 +761,8 @@ Where GCP Organization Policy does not provide a direct mandatory-label control 
 variable "company" {
   type = string
   validation {
-    condition     = can(regex("^[a-z0-9]+$", var.company))
-    error_message = "company must contain lowercase letters and numbers only."
+    condition     = var.company == "xceed"
+    error_message = "company must be xceed."
   }
 }
 
@@ -652,24 +777,24 @@ variable "project" {
 variable "environment" {
   type = string
   validation {
-    condition     = contains(["prod", "nonprod", "dev", "test", "qa", "uat", "shrd", "sbx"], var.environment)
-    error_message = "environment must be one of prod, nonprod, dev, test, qa, uat, shrd, sbx."
+    condition     = contains(["prod", "dev", "test", "qa", "uat", "shrd", "sbx"], var.environment)
+    error_message = "environment must be one of prod, dev, test, qa, uat, shrd, sbx."
   }
 }
 
 variable "region_code" {
   type = string
   validation {
-    condition     = can(regex("^[a-z]{2,3}[0-9]$", var.region_code))
-    error_message = "region_code must use the approved short-code format, such as use1 or euw1."
+    condition     = contains(["use1", "use2", "usw1", "usw2", "usw3", "usc1", "cac1", "brs1", "euw1", "eun1", "uks1", "frc1", "dew1", "chn1", "noe1", "sec1", "itn1", "esc1", "uae1", "qac1", "ilc1", "zan1", "inc1", "ins1", "sea1", "eas1", "jpe1", "jpw1", "krc1", "aue1", "aus1"], var.region_code)
+    error_message = "region_code must be an approved enterprise region short code."
   }
 }
 
 variable "resource_type" {
   type = string
   validation {
-    condition     = can(regex("^[a-z0-9]+$", var.resource_type))
-    error_message = "resource_type must be lowercase alphanumeric."
+    condition     = contains(["rg", "vm", "app", "func", "k8s", "cr", "st", "disk", "file", "sql", "nosql", "vnet", "nsg", "lb", "agw", "pe", "kv", "fw", "pan", "fnt", "iam", "log", "bkp", "dl", "dw", "etl", "stream", "queue", "topic", "event", "api", "wf", "sched", "waf", "cert", "bas", "sp", "id", "mon", "apm", "alert", "dns", "cdn", "nat", "vpn", "conn", "ai", "ml", "srch", "pol", "lz", "agent", "capp", "cfg"], var.resource_type)
+    error_message = "resource_type must be an approved enterprise resource prefix."
   }
 }
 
@@ -684,6 +809,9 @@ variable "instance" {
 locals {
   resource_name = "${var.company}-${var.project}-${var.environment}-${var.region_code}-${var.resource_type}-${var.instance}"
   flattened_name = replace(local.resource_name, "-", "")
+  resource_name_pattern = "^xceed-[a-z0-9]+(-[a-z0-9]+)*-(prod|dev|test|qa|uat|shrd|sbx)-(use1|use2|usw1|usw2|usw3|usc1|cac1|brs1|euw1|eun1|uks1|frc1|dew1|chn1|noe1|sec1|itn1|esc1|uae1|qac1|ilc1|zan1|inc1|ins1|sea1|eas1|jpe1|jpw1|krc1|aue1|aus1)-(rg|vm|app|func|k8s|cr|st|disk|file|sql|nosql|vnet|nsg|lb|agw|pe|kv|fw|pan|fnt|iam|log|bkp|dl|dw|etl|stream|queue|topic|event|api|wf|sched|waf|cert|bas|sp|id|mon|apm|alert|dns|cdn|nat|vpn|conn|ai|ml|srch|pol|lz|agent|capp|cfg)-[0-9]{3}$"
+
+  resource_name_valid = can(regex(local.resource_name_pattern, local.resource_name))
 
   mandatory_tags = {
     "xceed:cost-center"          = var.cost_center
@@ -691,6 +819,13 @@ locals {
     "xceed:owner"                = var.owner
     "xceed:project"              = var.project
     "xceed:business-criticality" = var.business_criticality
+  }
+}
+
+check "resource_name_compliance" {
+  assert {
+    condition     = local.resource_name_valid
+    error_message = "Generated resource name does not comply with the Xceedance enterprise naming standard."
   }
 }
 ```
@@ -777,7 +912,100 @@ resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
 }
 ```
 
-### 8.4 Pulumi CrossGuard - Python
+### 8.4 AWS CloudFormation Baseline
+
+CloudFormation templates must define mandatory Xceedance tags on every taggable resource. Stack-level tags should also be applied during deployment, but resource-level tags remain required because support for inherited stack tags varies by service.
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Xceedance compliant EC2 instance example with mandatory governance tags.
+
+Parameters:
+  Project:
+    Type: String
+    Default: custportal
+  Environment:
+    Type: String
+    AllowedValues:
+      - prod
+      - dev
+      - test
+      - qa
+      - uat
+      - shrd
+      - sbx
+  CostCenter:
+    Type: String
+    Default: eng-102
+  Owner:
+    Type: String
+    Default: cloud-ops@xceedance.com
+  BusinessCriticality:
+    Type: String
+    AllowedValues:
+      - mission-critical
+      - high
+      - medium
+      - low
+    Default: high
+
+Resources:
+  AppInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0123456789abcdef0
+      InstanceType: t3.micro
+      Tags:
+        - Key: Name
+          Value: !Sub xceed-${Project}-${Environment}-use1-vm-001
+        - Key: xceed:cost-center
+          Value: !Ref CostCenter
+        - Key: xceed:environment
+          Value: !Ref Environment
+        - Key: xceed:owner
+          Value: !Ref Owner
+        - Key: xceed:project
+          Value: !Ref Project
+        - Key: xceed:business-criticality
+          Value: !Ref BusinessCriticality
+```
+
+### 8.5 AWS CDK Baseline - TypeScript
+
+CDK stacks must apply mandatory tags at the stack or construct scope and ensure resource names are generated from the approved enterprise token model.
+
+```typescript
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+
+export class XceedanceGovernedStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    const project = 'custportal';
+    const environment = 'dev';
+    const regionCode = 'use1';
+    const instance = '001';
+    const name = `xceed-${project}-${environment}-${regionCode}-vm-${instance}`;
+
+    cdk.Tags.of(this).add('xceed:cost-center', 'eng-102');
+    cdk.Tags.of(this).add('xceed:environment', environment);
+    cdk.Tags.of(this).add('xceed:owner', 'cloud-ops@xceedance.com');
+    cdk.Tags.of(this).add('xceed:project', project);
+    cdk.Tags.of(this).add('xceed:business-criticality', 'high');
+
+    new ec2.Instance(this, 'AppInstance', {
+      instanceName: name,
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO),
+      machineImage: ec2.MachineImage.latestAmazonLinux2023(),
+      vpc: ec2.Vpc.fromLookup(this, 'Vpc', { isDefault: true }),
+    });
+  }
+}
+```
+
+### 8.6 Pulumi CrossGuard - Python
 
 ```python
 from pulumi_policy import PolicyPack, ResourceValidationArgs, ResourceValidationPolicy
@@ -808,7 +1036,7 @@ PolicyPack(
 )
 ```
 
-### 8.5 Pulumi CrossGuard - C#
+### 8.7 Pulumi CrossGuard - C#
 
 ```csharp
 using Pulumi.Policy;
@@ -856,7 +1084,7 @@ class GovernancePolicy
 }
 ```
 
-### 8.6 Docker Compose Labels
+### 8.8 Docker Compose Labels
 
 ```yaml
 services:
@@ -1017,7 +1245,23 @@ Low-risk resources may be remediated automatically when the source of truth is c
 | Managed disks attached to tagged VM | Yes | Parent VM or resource group. |
 | Storage accounts / S3 buckets | Conditional | Application owner confirmation or account baseline. |
 
-### 11.2 High-Risk Flag-and-Report
+### 11.2 Mutable vs Immutable Remediation Rule
+
+Tag and label violations are usually mutable and may often be remediated in place. Resource name violations are usually immutable or operationally risky because many cloud services do not support renaming after creation, and renaming may require recreation, DNS changes, endpoint changes, identity changes, data migration, or application reconfiguration.
+
+Brownfield naming violations must follow this rule:
+
+| Violation Type | Default Remediation | Notes |
+|---|---|---|
+| Missing or incorrect mandatory tags / labels | Remediate in place where safe. | Use policy modify, automation, IaC update, or approved scripts. |
+| Incorrect owner, environment, cost-center, or project metadata | Remediate in place after owner validation. | Production and regulated workloads require owner confirmation. |
+| Non-compliant resource name on existing brownfield resource | Document, alias, or fix during planned replacement. | Do not recreate solely for naming compliance without approved migration plan. |
+| Non-compliant name on disposable sandbox resource | Recreate with compliant name or delete by expiry date. | Sandbox resources should not receive long-lived naming exceptions. |
+| Non-compliant name on high-risk stateful resource | Create exception and remediate during lifecycle event. | Examples: database migration, platform upgrade, disaster recovery rebuild, major release. |
+
+For existing brownfield resources, naming violations must be tracked as compliance debt. They may be accepted temporarily if the resource has correct mandatory metadata, a documented owner, and an approved exception or planned retirement path.
+
+### 11.3 High-Risk Flag-and-Report
 
 High-risk resources must not be auto-remediated without manual review.
 
@@ -1029,17 +1273,52 @@ High-risk resources must not be auto-remediated without manual review.
 | Key vaults, KMS keys, secrets services | Incorrect classification may affect access control and audit scope. |
 | PCI or PHI workloads | Regulatory classification must be validated by security and compliance teams. |
 
-### 11.3 Exception Process
+### 11.4 Exception Process
 
 When a resource cannot comply due to provider limitations, vendor constraints, or legacy application dependencies, the owner must follow this process:
 
 1. Submit a governance exception request in the enterprise tracking system.
-2. Provide resource ID, business owner, technical owner, reason, risk, expiry date, and compensating controls.
+2. Provide all required exception fields listed below.
 3. Cloud Architecture reviews the technical constraint.
 4. Security reviews the risk.
 5. FinOps reviews cost allocation impact.
 6. Approved exceptions must receive the governance-exception metadata key and an expiry date.
 7. Expired exceptions are treated as non-compliant.
+
+Required exception fields:
+
+| Field | Required | Description |
+|---|---:|---|
+| `exception-id` | Yes | Unique exception tracking ID from the enterprise tracking system. |
+| `resource-id` | Yes | Full cloud resource ID, ARN, GCP resource name, or IaC resource address. |
+| `owner` | Yes | Accountable workload owner or team distribution list. |
+| `reason` | Yes | Clear explanation of why the resource cannot comply. |
+| `risk` | Yes | Risk rating and impact statement for approving the exception. |
+| `expiry-date` | Yes | Date when the exception expires and must be remediated or renewed. |
+| `approver` | Yes | Named approver from Cloud Governance, Security, or delegated authority. |
+| `compensating-control` | Yes | Control that reduces risk while the exception remains active. |
+| `status` | Yes | Current exception lifecycle state. |
+
+Approved exception statuses:
+
+| Status | Meaning |
+|---|---|
+| `requested` | Exception has been submitted but not reviewed. |
+| `under-review` | Cloud Architecture, Security, or FinOps review is in progress. |
+| `approved` | Exception is approved until the defined expiry date. |
+| `rejected` | Exception is not approved and the resource must be remediated. |
+| `expired` | Exception has passed its expiry date and is non-compliant. |
+| `remediated` | Exception is closed because the resource now complies. |
+
+Exception SLA requirements:
+
+| Severity / Context | Review SLA | Renewal Rule |
+|---|---|---|
+| Production, PCI, PHI, or identity resource | Review within 5 business days. | Renewal requires Security approval. |
+| Non-production high-risk resource | Review within 10 business days. | Renewal requires Cloud Governance approval. |
+| Low-risk sandbox or temporary resource | Review within 15 business days. | Renewal allowed once, then remediation is required. |
+
+Exception records must be included in monthly governance reporting and reviewed during each quarterly policy review.
 
 ---
 
@@ -1161,6 +1440,12 @@ Platform Engineering must provide:
 | AC-008 | High-risk resources create manual review tickets instead of automated changes. |
 | AC-009 | Monthly billing reports show less than 1 percent unallocated cloud spend. |
 | AC-010 | Compliance dashboards show production compliance at or above 95 percent. |
+| AC-011 | The enterprise taxonomy registry is approved and published before deny-mode enforcement begins. |
+| AC-012 | Golden IaC modules are published for the approved deployment stacks before application teams are required to comply. |
+| AC-013 | Executive, FinOps, Security, and Platform Engineering dashboards are live before enforcement metrics are reported to leadership. |
+| AC-014 | The governance exception process is operational with required fields, statuses, SLAs, and expiry reporting. |
+| AC-015 | All deny-mode policies are tested in audit mode and reviewed for false positives before being enabled in production or shared-service scopes. |
+| AC-016 | Direct portal, console, and unrestricted CLI create/update/delete actions are monitored and generate alerts when they bypass approved deployment pipelines. |
 
 ---
 
