@@ -142,6 +142,8 @@ The `resource` definition in `metric-sample.schema.json#/$defs/resource` is the 
 
 The diagram below renders the entities and relationships from Sections 3 and 4 in their formal cardinality. It is the canonical reference for the correlation model in [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics).
 
+<img src="assets/diagrams/20-er-diagram.jpg" alt="Entity relationship diagram for observability data model showing services, instances, dependencies, user sessions, transactions, incidents, deployments, and scaling events with their relationships." width="900">
+
 ```mermaid
 erDiagram
     SERVICE ||--o{ INSTANCE       : "runs as"

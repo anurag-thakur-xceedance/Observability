@@ -24,6 +24,8 @@ How a telemetry anomaly becomes a diagnosed, communicated, remediated incident. 
 
 ### 13.2.1 Lifecycle Flow (Mermaid Flowchart)
 
+<img src="assets/diagrams/13-End-to-End-Incident-Sequence.jpg" alt="End-to-end incident sequence flow from telemetry emission through detection, triage, diagnosis, remediation, communication, PIR, and feedback loop." width="900">
+
 ```mermaid
 flowchart TD
     A["1\. Telemetry Emission<br/>metrics / logs / traces<br/><i>Ch 2</i>"] --> B["2\. Pipeline & Storage<br/>OTel Collector → Prom/Loki/Tempo<br/><i>Ch 2</i>"]
@@ -48,6 +50,8 @@ flowchart TD
 ```
 
 ### 13.2.2 Actor Sequence (Mermaid Sequence Diagram)
+
+<img src="assets/diagrams/13-Actror-Sequence.jpg" alt="Incident actor sequence diagram showing interactions between instrumented service, observability pipeline, detection, on-call engineers, incident commander, service owner, stakeholders, and knowledge base." width="900">
 
 ```mermaid
 sequenceDiagram
@@ -76,7 +80,7 @@ sequenceDiagram
     OnCall->>Comms: resolution announcement
     OnCall->>KB: open PIR draft within 24h
     KB->>KB: structured RCA record (Ch 8 retention)
-    KB-->>IC: PIR reviewed; corrective actions assigned
+    KB-->>IC: PIR reviewed, corrective actions assigned
     IC-->>SO: track never-repeat items (Ch 16 ADR if systemic)
 ```
 
