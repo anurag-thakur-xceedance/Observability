@@ -1,7 +1,7 @@
 ---
 title: AIOps Guardrails and Implementation Playbook
 chapter: 7
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,11 +10,16 @@ status: Draft
 
 # 7. AIOps Guardrails and Implementation Playbook
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](06-grafana-platform-standard-and-visualisation-playbook.md) | [Next Page](08-iac-for-observability-standard.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 7.1 Strategic Intent & Guardrails
@@ -67,7 +72,7 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4 Domain
 - Selection criteria: explainability, retraining cost, false-positive control.
 
 ### 7.5.3 Visualisation
-- Predicted-vs-actual curves overlaid in Grafana (see [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)).
+- Predicted-vs-actual curves overlaid in Grafana (see [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)).
 - Anomaly deviation percentages and model confidence values shown on dashboards.
 
 ### 7.5.4 Success Criteria
@@ -78,7 +83,7 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4 Domain
 
 ## 7.6 Feedback Loop & Continuous Improvement
 - Operator validation outcomes feed retraining queues and model promotion decisions.
-- AI accuracy is tracked month-over-month against operator feedback (see [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) Phase 3 targets).
+- AI accuracy is tracked month-over-month against operator feedback (see [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) Phase 3 targets).
 - Pre-approved auto-remediation actions are reviewed quarterly; any increase in alert noise or MTTR beyond agreed bands triggers rollback to manual-only operation.
 
 ### 7.6.1 AIOps Value Metrics and Rollback Thresholds
@@ -89,7 +94,7 @@ To justify continued use of an AIOps model or auto-remediation, the following va
 - **Alert noise:** ratio of AI-driven alerts acknowledged as useful vs dismissed. If useful alerts fall below 70% for 4 consecutive weeks, the model's alerting is downgraded (e.g. to Warning-only) or disabled.
 - **Root-cause identification:** operator feedback on whether AI hypotheses contributed to correct RCA. A drop below 60% positive feedback triggers retraining or decommissioning.
 
-Rollback decisions and their rationale are captured as ADRs in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+Rollback decisions and their rationale are captured as ADRs in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 ## 7.7 MLOps Lifecycle for AIOps Models
 
@@ -105,7 +110,7 @@ Every AIOps model — anomaly detector, correlator, classifier, forecaster — f
 | **4. Evaluation** | Hold-out + cross-validation against precision ≥ 90% / recall ≥ 85% / FP < 5% | Evaluation report; confusion matrix; bias review | AIOps Lead |
 | **5. Model card** | Human-readable summary of intent, training data, evaluation, limits | Published model card (template Section 8.3) | AIOps Lead |
 | **6. Shadow mode** | Run alongside existing detection without firing alerts | ≥ 14 days of shadow metrics; operator-comparison log | SRE + AIOps Lead |
-| **7. ARB approval** | Governance ratification | ADR entry in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) | ARB |
+| **7. ARB approval** | Governance ratification | ADR entry in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md) | ARB |
 | **8. Production deployment** | Promote to live alerting, with kill-switch | Deployment record; kill-switch verified | Platform Ops |
 | **9. Monitoring** | Continuous tracking of precision, recall, FP rate, drift | Monthly model-health report | AIOps Lead |
 | **10. Retraining** | Triggered by drift, feedback, or seasonal change | Retraining run record; before/after comparison | AIOps Lead |
@@ -194,7 +199,7 @@ LLMs introduced into the observability platform (assistant chatbots, RCA copilot
 |---|---|---|---|
 | **Prompt injection** | Telemetry content (e.g. log line) crafted to manipulate LLM behaviour | Strict separation of system / user / context channels; treat all telemetry as untrusted; reject system-prompt overrides in retrieved content | AIOps Lead + Security |
 | **Data leakage to model provider** | Sensitive telemetry sent to a hosted LLM is logged/retained by the provider | Use a provider with **zero data retention** contract OR self-hosted model; PII redaction **before** the prompt; allow-list of fields permitted in prompts | Data Governance + AIOps Lead |
-| **Cross-tenant leakage** | LLM context window contains tenant A's data when serving tenant B | Per-tenant isolation of retrieval index; tenant ID enforced in retrieval filter; never share embeddings across tenants ([27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) | Platform Ops |
+| **Cross-tenant leakage** | LLM context window contains tenant A's data when serving tenant B | Per-tenant isolation of retrieval index; tenant ID enforced in retrieval filter; never share embeddings across tenants ([Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) | Platform Ops |
 | **Hallucination of incident facts** | LLM invents service names, error counts, or timeline events | RAG only — no free-form generation about facts; every factual claim must cite a telemetry source; uncertainty marker on unsupported claims | AIOps Lead |
 | **Sensitive command execution** | LLM agent triggers actions (queries, runbooks) | Allow-list of commands; rate limits; full audit log; no `DELETE` / `DROP` / destructive runbook in scope | Platform Ops + Security |
 | **Training-data contamination** | Production telemetry inadvertently used to train a public model | Contractual prohibition with provider; outbound data-loss prevention scan on prompt egress | Data Governance |
@@ -203,17 +208,17 @@ LLMs introduced into the observability platform (assistant chatbots, RCA copilot
 
 ### 7.8.4 PII and Confidentiality in Prompts
 
-Telemetry sent to **any** LLM (hosted or self-hosted) must pass through the same redaction pipeline that governs telemetry storage ([24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)). Specifically:
+Telemetry sent to **any** LLM (hosted or self-hosted) must pass through the same redaction pipeline that governs telemetry storage ([Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)). Specifically:
 
 1. **Allow-list, not block-list.** Only fields explicitly approved for LLM context are included in prompts. The default is **exclude**.
 2. **Redaction before prompt assembly.** PII patterns (email, phone, government IDs, account numbers, customer names) are stripped or tokenised at the **prompt-builder** layer, not at the model layer.
 3. **Trace IDs, not user IDs.** Operators interact with trace IDs and service identifiers; no end-user PII is ever in scope.
 4. **Egress monitoring.** All outbound traffic to LLM providers is monitored; payload-size anomalies trigger investigation.
-5. **Audit log of all prompts.** Every prompt and response is logged with the operator's identity, retained per [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), and subject to the same RBAC as other telemetry.
+5. **Audit log of all prompts.** Every prompt and response is logged with the operator's identity, retained per [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), and subject to the same RBAC as other telemetry.
 
 ### 7.8.5 AI Safety KPIs
 
-Reported on the scorecard in [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) and reviewed monthly by the AIOps Lead with the governance body.
+Reported on the scorecard in [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) and reviewed monthly by the AIOps Lead with the governance body.
 
 | KPI | Target | Source |
 |---|---|---|
@@ -724,17 +729,17 @@ The following KPIs apply to the LLM stack and are reported on the scorecard in C
 These KPIs are also referenced by NFR-PRV-01 (PII redaction verification), NFR-SEC-03 (cross-tenant boundary enforcement), and the AI safety KPIs in Section 9.5.
 
 ## 7.10 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
-- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
-- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana visualisation of AI overlays.
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention rules for prompt audit logs.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
+- [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
+- [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana visualisation of AI overlays.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention rules for prompt audit logs.
 - [Chapter 11. Compliance and Audit Control Matrix -> Section 11.5 Control Matrix (Initial)](11-compliance-and-audit-control-matrix.md#115-control-matrix-initial) — OBS-C-14 audits the lifecycle in Section 8.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — Phase 3 KPI targets (MTTD < 1 min, automated tickets > 90%); AI safety KPIs from Section 9.5.
-- [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident playbook integration with AI-generated tickets.
-- [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADR-016 governs LLM use; lifecycle gate Stage 7.
-- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — redaction pipeline applied to LLM prompts.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant isolation for LLM retrieval.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — Phase 3 KPI targets (MTTD < 1 min, automated tickets > 90%); AI safety KPIs from Section 9.5.
+- [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident playbook integration with AI-generated tickets.
+- [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADR-016 governs LLM use; lifecycle gate Stage 7.
+- [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — redaction pipeline applied to LLM prompts.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant isolation for LLM retrieval.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](06-grafana-platform-standard-and-visualisation-playbook.md) | [Next Page](08-iac-for-observability-standard.md)

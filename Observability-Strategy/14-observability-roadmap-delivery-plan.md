@@ -10,11 +10,16 @@ status: Draft
 
 # 14. Observability Roadmap Delivery Plan
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](13-incident-response-playbook.md) | [Next Page](15-observability-capability-assessment-framework.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 14.1 Purpose
@@ -33,7 +38,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Define Baseline Metrics | Establish what "normal" looks like for key KPIs | Documented baselines: CPU, memory, latency, error rate |
 | Team Onboarding | Train ops + dev teams on dashboards | All relevant team members can navigate Grafana |
 
-### 14.2.1 Phase 1 Targets (from [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
+### 14.2.1 Phase 1 Targets (from [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
 - MTTD < 15 min, MTTR <= 4 h, services instrumented 20%, alert noise > 35% non-actionable, manual RCA 100%, automated tickets 0%.
 
 ## 14.3 Phase 2 — Correlation & Alerting (Months 4–6)
@@ -50,7 +55,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Distributed Tracing Rollout | Extend Tempo tracing to all production services | Full request-path visibility across microservices |
 | Cross-Team Dashboards | Shared views breaking down silos | Single pane of glass accessible to all stakeholders |
 
-### 14.3.1 Phase 2 Targets (from [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
+### 14.3.1 Phase 2 Targets (from [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
 - MTTD < 5 min, MTTR <= 30 min, services instrumented 70%, alert noise <= 20% non-actionable, manual RCA 50%, automated tickets 50%.
 
 ## 14.4 Phase 3 — AI-Driven Intelligence (Months 7–12)
@@ -68,26 +73,26 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Feedback Loop Integration | Humans validate AI decisions, improving model accuracy | AI accuracy improves month-over-month |
 | Business Impact Correlation | Link technical incidents to business KPIs (revenue, CX scores) | Executives receive business-context summaries |
 
-### 14.4.1 Phase 3 Targets (from [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
+### 14.4.1 Phase 3 Targets (from [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
 - MTTD < 1 min, MTTR <= 15 min, services instrumented 100%, alert noise <= 10% non-actionable, manual RCA < 20%, automated tickets > 90%.
 
 ## 14.5 Dependencies (Cross-Phase)
-- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.
-- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — required to instrument services consistently across phases.
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — required before significant telemetry volume in Phase 2.
-- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — pre-condition for Phase 3 automation.
-- [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — change control for each phase gate.
+- [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.
+- [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — required to instrument services consistently across phases.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — required before significant telemetry volume in Phase 2.
+- [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — pre-condition for Phase 3 automation.
+- [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — change control for each phase gate.
 
 ## 14.6 Risks (Initial)
 - Tool consolidation may surface migration debt.
-- AI false-positive rate may exceed 5% during Phase 3 ramp-up; mitigated by feedback-loop discipline ([7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
-- Cardinality / cost overruns mid-Phase 2 if [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)/[10. Observability FinOps Standard](10-observability-finops-standard.md) controls are not yet operational.
+- AI false-positive rate may exceed 5% during Phase 3 ramp-up; mitigated by feedback-loop discipline ([Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
+- Cardinality / cost overruns mid-Phase 2 if [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)/[Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) controls are not yet operational.
 
 ## 14.7 Cross-References
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard with phase targets.
-- [15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) — capability assessment framework.
-- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) / [18. Application Telemetry Standard](18-application-telemetry-standard.md) / [8. IaC for Observability Standard](08-iac-for-observability-standard.md) / [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — dependent standards / policies.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard with phase targets.
+- [Chapter 15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) — capability assessment framework.
+- [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) / [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) / [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) / [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — dependent standards / policies.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](13-incident-response-playbook.md) | [Next Page](15-observability-capability-assessment-framework.md)

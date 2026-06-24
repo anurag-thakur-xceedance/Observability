@@ -10,11 +10,16 @@ status: Draft
 
 # 3. Observability Reference Architecture
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](02-enterprise-observability-standards-catalog.md) | [Next Page](04-domain-observability-runbooks-pack.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 3.1 Architectural Principles
@@ -91,7 +96,7 @@ flowchart LR
     class APP,SDK,INFRA,NET,DB,K8S,COL,PROM,LOKI,TEMPO,GRAF,DASH,ALERT,AI,RCA,TICKET,INC box
 ```
 
-The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is deployed as a **containerized observability stack**. Exact deployment tooling is environment-specific and may use Kubernetes, Docker Compose, or equivalent orchestration and automation patterns. See [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
+The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is deployed as a **containerized observability stack**. Exact deployment tooling is environment-specific and may use Kubernetes, Docker Compose, or equivalent orchestration and automation patterns. See [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 
 ## 3.3 Core Concepts
 
@@ -133,12 +138,12 @@ The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is
 | Secrets | HashiCorp Vault / Azure Key Vault | Component credentials and bearer tokens |
 | Schema Registry | OpenTelemetry semantic conventions + internal extension registry | Naming/labelling conformance |
 
-All components are open-source or vendor-neutral; commercial choices (paging, IdP, Vault) are pluggable per [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md).
+All components are open-source or vendor-neutral; commercial choices (paging, IdP, Vault) are pluggable per [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md).
 
 ### 3.4.1 eBPF for Legacy and Non-Intrusive Instrumentation
 For legacy services, vendor-supplied components, or any workload where code-level instrumentation is impractical, eBPF-based auto-instrumentation (e.g., Grafana **Beyla**, or Cilium Tetragon for security signals) provides language-agnostic visibility into HTTP, gRPC, and SQL traffic at the kernel level.
 
-**Decision:** Beyla is recommended as a complementary layer beside the OpenTelemetry SDK kits in [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) — formalised in **ADR-012** in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+**Decision:** Beyla is recommended as a complementary layer beside the OpenTelemetry SDK kits in [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) — formalised in **ADR-012** in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 **Use cases:**
 - Vendor-supplied components without source-code access.
@@ -169,11 +174,11 @@ The standard remains Azure-first for pricing, examples, and operating procedures
 Telemetry is captured across four major layers:
 
 1. **Infrastructure (Host + Container).** Host-level metrics via Node Exporter; container-level metrics via cAdvisor. Logs collected by the OpenTelemetry Collector or a log-shipping agent (e.g. Promtail).
-2. **Application.** Pre-login (auth/MFA/API gateway) and post-login (transactions, dependencies, journeys). OpenTelemetry SDK in each service exports OTLP to the Collector. See [18. Application Telemetry Standard](18-application-telemetry-standard.md) for application telemetry standards.
+2. **Application.** Pre-login (auth/MFA/API gateway) and post-login (transactions, dependencies, journeys). OpenTelemetry SDK in each service exports OTLP to the Collector. See [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) for application telemetry standards.
 3. **Database.** Query, lock, connection, and replication telemetry via dedicated exporters as Compose services.
 4. **Network & Latency.** Host-level network counters (packet drops, retransmits) plus active probes (Blackbox Exporter) for cross-service latency, DNS, and reachability.
 
-A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md).
+A fifth, emerging layer — **Profiles** (Pyroscope-style stack-trace profiling) — is a near-term extension. See [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md).
 
 ### 3.5.1 Sampling Strategy
 
@@ -195,7 +200,7 @@ The observability stack runs as containerised services in every environment (dev
 - **Cross-host incident visibility.** Incidents that span hosts / sites remain visible in a single context.
 - **Operational flexibility.** Teams can use the container orchestration layer that fits their environment while preserving the same observability standards and telemetry contracts.
 
-**Design constraints (see [8. IaC for Observability Standard](08-iac-for-observability-standard.md) for KPIs):**
+**Design constraints (see [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) for KPIs):**
 - **Cross-environment config parity ≥ 95%** between deployments of the same tier.
 - **Image / deployment-version alignment 100%** within a tier.
 - **Health-check pass rate 100%** post-deployment.
@@ -247,7 +252,7 @@ The observability stack runs as containerised services in every environment (dev
 - **User ↔ Grafana:** OIDC SSO + MFA.
 - **Platform ↔ Egress:** allow-list to known third parties; redaction enforced.
 
-Detailed control catalogue in [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md).
+Detailed control catalogue in [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md).
 
 ## 3.7 Pipeline Processing
 
@@ -268,16 +273,16 @@ Detailed control catalogue in [24. Observability Platform Security Architecture]
 - Recording rules in Prometheus / Mimir track per-service active-series count.
 
 ## 3.8 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
-- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana platform standards and dashboard playbook.
-- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment and automation standard.
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data lifecycle and retention applied to backends.
-- [20. Observability Data Model Specification](20-observability-data-model-specification.md) — formal data model for entities/relationships across pillars.
-- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — HA topology overlaid on this architecture.
-- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — sizing and scale-out triggers.
-- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth, encryption, redaction, supply-chain.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — multi-tenant and customer-site topologies.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
+- [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana platform standards and dashboard playbook.
+- [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment and automation standard.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data lifecycle and retention applied to backends.
+- [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md) — formal data model for entities/relationships across pillars.
+- [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — HA topology overlaid on this architecture.
+- [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) — sizing and scale-out triggers.
+- [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth, encryption, redaction, supply-chain.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — multi-tenant and customer-site topologies.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](02-enterprise-observability-standards-catalog.md) | [Next Page](04-domain-observability-runbooks-pack.md)

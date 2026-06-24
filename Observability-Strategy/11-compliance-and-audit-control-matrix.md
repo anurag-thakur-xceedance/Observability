@@ -10,11 +10,16 @@ status: Draft
 
 # 11. Compliance and Audit Control Matrix
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](10-observability-finops-standard.md) | [Next Page](12-observability-kpi-scorecard.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 11.1 Purpose
@@ -28,7 +33,7 @@ Observability data is governed to meet regulatory and internal compliance. This 
 ## 11.3 Regulatory Alignment
 - Retention durations and storage locations aligned with corporate policies and relevant regulations (e.g. financial services, data-protection rules).
 - **Periodic audits verify that telemetry does not contain prohibited data types** (such as unmasked PII).
-- Where applicable, GDPR-aligned deletion timelines are enforced via automated retention rules in storage backends (see [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), [10. Observability FinOps Standard](10-observability-finops-standard.md)).
+- Where applicable, GDPR-aligned deletion timelines are enforced via automated retention rules in storage backends (see [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md)).
 
 ## 11.4 Reporting
 Compliance and governance reports are generated on a regular schedule and shared with appropriate stakeholders. Examples:
@@ -49,13 +54,13 @@ Compliance and governance reports are generated on a regular schedule and shared
 | OBS-C-06 | Periodic audit verifies no prohibited data types | GDPR | Audit findings and remediation log | Data Governance |
 | OBS-C-07 | Compliance reports issued on schedule | Internal | Report distribution list and timestamps | Governance Body |
 | OBS-C-08 | Deletion / compaction jobs monitored for compliance | GDPR | Job success metrics, alert evidence | Platform Ops |
-| OBS-C-09 | Service telemetry conformance ≥ 90% (PRR gate, [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) | Internal | PRR scorecard, conformance dashboard | Service Owner |
+| OBS-C-09 | Service telemetry conformance ≥ 90% (PRR gate, [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) | Internal | PRR scorecard, conformance dashboard | Service Owner |
 | OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
-| OBS-C-11 | mTLS between collectors and backends ([24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | SOC2 / ISO | Cert inventory; expiry alerts | Platform Ops |
-| OBS-C-12 | Tenant isolation verified for multi-tenant deployments ([27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) | Internal / customer contract | Tenant-label policy report; cross-tenant query test | Platform Ops |
-| OBS-C-13 | DR drill executed at planned cadence ([22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)) | SOC2 (Availability) | Drill report, RTO/RPO measurements | SRE |
-| OBS-C-14 | AIOps model approval and shadow-mode evidence before production ([7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) | Internal / model risk | Model card; shadow-mode metrics | AIOps Lead |
-| OBS-C-15 | SBOM produced and signed for platform components ([24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | Supply chain | SBOM artefacts; cosign attestations | Platform Ops |
+| OBS-C-11 | mTLS between collectors and backends ([Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | SOC2 / ISO | Cert inventory; expiry alerts | Platform Ops |
+| OBS-C-12 | Tenant isolation verified for multi-tenant deployments ([Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) | Internal / customer contract | Tenant-label policy report; cross-tenant query test | Platform Ops |
+| OBS-C-13 | DR drill executed at planned cadence ([Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)) | SOC2 (Availability) | Drill report, RTO/RPO measurements | SRE |
+| OBS-C-14 | AIOps model approval and shadow-mode evidence before production ([Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) | Internal / model risk | Model card; shadow-mode metrics | AIOps Lead |
+| OBS-C-15 | SBOM produced and signed for platform components ([Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | Supply chain | SBOM artefacts; cosign attestations | Platform Ops |
 | OBS-C-16 | Container images scanned and signed before deployment | Supply chain / SOC2 | Scan reports; admission-controller logs | Platform Ops |
 | OBS-C-17 | Backup integrity verified for stateful telemetry stores | SOC2 (Availability) | Restore-test reports | Platform Ops |
 
@@ -118,10 +123,10 @@ The frameworks above (SOC 2, ISO/IEC 27001, GDPR, NIST CSF) cover general-purpos
 
 **Jurisdictional applicability.**
 - **EU DORA** applies to in-scope EU financial entities and their critical ICT third-party providers from 17 January 2025; observability evidence supports Articles 5–14 (ICT risk management framework) and 17–23 (incident reporting and resilience testing).
-- **NAIC Model Bulletin #674** applies in US states that adopt it (adoption is state-by-state). Where adopted, every AIOps capability in [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) that influences underwriting, claims, or consumer-facing decisions is in scope and OBS-C-14 is the primary control.
+- **NAIC Model Bulletin #674** applies in US states that adopt it (adoption is state-by-state). Where adopted, every AIOps capability in [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) that influences underwriting, claims, or consumer-facing decisions is in scope and OBS-C-14 is the primary control.
 - **APRA CPS 234** applies to APRA-regulated entities (banks, insurers, superannuation funds in Australia) and their related parties; observability evidence supports the information-security capability, incident notification, and third-party assurance requirements.
 
-**Limitation.** This mapping is synthesis-grade and reflects the published text of each framework. It has **not** been validated by external counsel or the entity's compliance function. Before relying on it for a regulatory submission, the governance body (Section 9) must commission an SME review per [30. Observability Programme Risk Register](30-observability-programme-risk-register.md) risk R-09.
+**Limitation.** This mapping is synthesis-grade and reflects the published text of each framework. It has **not** been validated by external counsel or the entity's compliance function. Before relying on it for a regulatory submission, the governance body (Section 9) must commission an SME review per [Chapter 30. Observability Programme Risk Register](30-observability-programme-risk-register.md) risk R-09.
 
 ## 11.7 Audit-Evidence Catalogue
 
@@ -163,13 +168,13 @@ This catalogue is the bridge between Section 6 controls and the systems that pro
 The **next-section number reservation** for sub-controls (e.g. OBS-C-01.1) is documented per audit cycle in the evidence repository.
 
 ## 11.9 Cross-References
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention rules audited here.
-- [10. Observability FinOps Standard](10-observability-finops-standard.md) — deletion / compaction mechanics evidenced here.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention rules audited here.
+- [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) — deletion / compaction mechanics evidenced here.
 - [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.4.3 Framework Selection and Mapping](16-observability-governance-charter-and-arb-pack.md#1643-framework-selection-and-mapping) — selects the frameworks mapped in Section 7.
-- [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADRs documenting compliance-driven decisions.
-- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — technical controls behind OBS-C-11, -15, -16.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant isolation evidenced under OBS-C-12.
+- [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADRs documenting compliance-driven decisions.
+- [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — technical controls behind OBS-C-11, -15, -16.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant isolation evidenced under OBS-C-12.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](10-observability-finops-standard.md) | [Next Page](12-observability-kpi-scorecard.md)

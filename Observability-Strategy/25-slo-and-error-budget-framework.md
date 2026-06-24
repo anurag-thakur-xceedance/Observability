@@ -1,7 +1,7 @@
 ---
 title: SLO and Error-Budget Framework
 chapter: 25
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,12 +10,15 @@ status: Draft
 
 # 25. SLO and Error-Budget Framework
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](24-observability-platform-security-architecture.md) | [Next Page](26-service-onboarding-and-instrumentation-kits.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
-> **Closes Gaps:** D1, D2 (partial).
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 
 ---
 
@@ -152,7 +155,7 @@ A burn rate of **N** means the budget would be consumed in **(window / N)** time
 - **Beyond 75% budget consumed (within the current window):** for T1 services, the default is to **gate new feature releases** behind additional checks (e.g. error-budget-aware release pipeline) and bring forward reliability work.
 - **At 100% budget consumed (breach):** feature freeze is mandatory until a corrective plan is agreed and implemented; rollbacks, traffic-shaping or dark-launching of risky features are explicitly considered.
 
-Exception process: written waiver from Director SRE + Service Owner with a stated remediation timeline; logged in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+Exception process: written waiver from Director SRE + Service Owner with a stated remediation timeline; logged in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 ## 25.7 SLO Authoring Workflow
 1. Service owner identifies user journeys.
@@ -160,7 +163,7 @@ Exception process: written waiver from Director SRE + Service Owner with a state
 3. Owner observes 30 days of telemetry to baseline current performance.
 4. Proposed SLO = current_performance − 0.5σ (rounded down to a comfortable target).
 5. Reviewed by SRE; approved by Director SRE; recorded in service catalog.
-6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [8. IaC for Observability Standard](08-iac-for-observability-standard.md)).
+6. Burn-rate alerts deployed via Git-managed Prometheus rules (see [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md)).
 7. Quarterly review.
 
 ## 25.8 Tooling Decision
@@ -183,15 +186,15 @@ ADR-008 (proposed): "Adopt Sloth as SLO-rule generator."
 | % alerts whose threshold was changed in last 90d | tracks alert-tuning hygiene |
 | False-positive rate | < 5% |
 
-This rolls up to the alerting KPIs in [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).
+This rolls up to the alerting KPIs in [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).
 
 ## 25.10 Cross-References
-- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity model that burn-rate alerts plug into.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — outcome KPIs derived from SLO posture.
-- [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — what happens when a burn alert fires.
-- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — required SLI labels in app telemetry.
-- [21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) — outcome → SLO traceability.
+- [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity model that burn-rate alerts plug into.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — outcome KPIs derived from SLO posture.
+- [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — what happens when a burn alert fires.
+- [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — required SLI labels in app telemetry.
+- [Chapter 21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) — outcome → SLO traceability.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](24-observability-platform-security-architecture.md) | [Next Page](26-service-onboarding-and-instrumentation-kits.md)

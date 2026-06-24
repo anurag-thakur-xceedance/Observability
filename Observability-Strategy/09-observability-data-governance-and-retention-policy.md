@@ -10,11 +10,16 @@ status: Draft
 
 # 9. Observability Data Governance and Retention Policy
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](08-iac-for-observability-standard.md) | [Next Page](10-observability-finops-standard.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 9.1 Purpose
@@ -72,7 +77,7 @@ A tiered retention model balances cost, performance, and investigatory needs —
 - Classification determines storage location, encryption requirements, and access levels.
 
 ## 9.6 Data Quality and Standards
-- A standard telemetry schema (naming conventions for metrics, labels, log fields, trace attributes) is maintained; see [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) and [20. Observability Data Model Specification](20-observability-data-model-specification.md).
+- A standard telemetry schema (naming conventions for metrics, labels, log fields, trace attributes) is maintained; see [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) and [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md).
 - Data quality checks (missing labels, malformed logs, excessive cardinality) implemented in the telemetry pipeline.
 - Services are required to meet minimum instrumentation standards before production promotion.
 
@@ -101,7 +106,7 @@ A tiered retention model balances cost, performance, and investigatory needs —
 5. **Certification.** Produce a tenant deletion certificate with timestamps, approvers, backend evidence references, and any legal-hold exclusions.
 
 ## 9.8 Lifecycle Mechanics (linked to FinOps)
-Cost-related lifecycle mechanics (hot / warm / cold storage, downsampling) are owned by [10. Observability FinOps Standard](10-observability-finops-standard.md). This policy authorises those mechanics; cost detail lives in [10. Observability FinOps Standard](10-observability-finops-standard.md).
+Cost-related lifecycle mechanics (hot / warm / cold storage, downsampling) are owned by [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md). This policy authorises those mechanics; cost detail lives in [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md).
 
 ## 9.9 Success Criteria
 - **100%** of production services emit telemetry that conforms to the approved schema.
@@ -109,17 +114,17 @@ Cost-related lifecycle mechanics (hot / warm / cold storage, downsampling) are o
 - **No audit failures** attributable to observability data handling.
 - Demonstrable reuse of RCA summaries in post-incident reviews and risk assessments.
 
-(Outcome measurement maintained in [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).)
+(Outcome measurement maintained in [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).)
 
 ### 9.9.1 Day-2 Operations
 
-The retention and governance policy creates a continuous **Day-2 operational** load that is owned by Platform Ops and the Data Governance lead. This section codifies the routine activities, their cadence, owner, and evidence — feeding **OBS-C-04** and **OBS-C-08** in [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
+The retention and governance policy creates a continuous **Day-2 operational** load that is owned by Platform Ops and the Data Governance lead. This section codifies the routine activities, their cadence, owner, and evidence — feeding **OBS-C-04** and **OBS-C-08** in [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
 
 ### 9.9.2 Operational Activity Calendar
 
 | Activity | Cadence | Owner | Evidence |
 |---|---|---|---|
-| Storage capacity review (per backend) | Weekly | Platform Ops | Capacity dashboard ([23. Capacity and Scale Model](23-capacity-and-scale-model.md)) |
+| Storage capacity review (per backend) | Weekly | Platform Ops | Capacity dashboard ([Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md)) |
 | Retention-job success rate review | Weekly | Platform Ops | Job success metric; alert log |
 | Compaction lag check (Loki, Tempo) | Daily | Platform Ops | Compaction lag metric |
 | Cardinality drift review ([Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | Weekly | Platform Ops | Active-series report |
@@ -138,9 +143,9 @@ The retention and governance policy creates a continuous **Day-2 operational** l
 
 **Adding a new log source.** Service team submits parser config + sample lines → Platform Ops verifies parsing in non-prod → runs schema scan → promotes to prod → records ingest baseline.
 
-**Retention change.** Data Governance proposes change → Platform Ops models cost and capacity impact ([23. Capacity and Scale Model](23-capacity-and-scale-model.md)) → governance body approves → Platform Ops applies via IaC ([8. IaC for Observability Standard](08-iac-for-observability-standard.md)) → post-change validation per [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management).
+**Retention change.** Data Governance proposes change → Platform Ops models cost and capacity impact ([Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md)) → governance body approves → Platform Ops applies via IaC ([Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md)) → post-change validation per [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management).
 
-**Tenant offboarding ([27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).** Data Governance issues deletion ticket → Platform Ops runs scoped deletion against each backend (Prometheus tenant labels, Loki tenant streams, Tempo tenant blocks) → object-storage tenant prefix marked for deletion (lifecycle rule honours legal hold) → certificate of deletion produced for the tenant.
+**Tenant offboarding ([Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).** Data Governance issues deletion ticket → Platform Ops runs scoped deletion against each backend (Prometheus tenant labels, Loki tenant streams, Tempo tenant blocks) → object-storage tenant prefix marked for deletion (lifecycle rule honours legal hold) → certificate of deletion produced for the tenant.
 
 ### 9.9.4 Operational Toil Targets
 
@@ -158,21 +163,21 @@ Toil above target is escalated to the CoP for engineering investment.
 ### 9.9.5 Knowledge Continuity
 
 To mitigate **GOV-R-10** (single-point-of-knowledge), every Day-2 procedure has:
-- A runbook in [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) or in the platform's internal runbook library.
+- A runbook in [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) or in the platform's internal runbook library.
 - At least **two named owners** trained and certified (PRR-style internal cert).
 - Quarterly rotation through the procedure during normal operation (not only during incident).
 
 ## 9.10 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) / [20. Observability Data Model Specification](20-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
-- [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks for Section 9.9 Day-2 procedures.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) / [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
+- [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks for Section 9.9 Day-2 procedures.
 - [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management) — change workflow used for Section 9.9 retention changes.
-- [10. Observability FinOps Standard](10-observability-finops-standard.md) — cost-driven lifecycle mechanics.
-- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance and audit control matrix; OBS-C-04, OBS-C-08 sourced from Section 9.9.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard for governance success.
-- [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance charter ownership.
-- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — capacity inputs to Section 9.9.2 weekly review.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant offboarding procedure cross-ref.
+- [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) — cost-driven lifecycle mechanics.
+- [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance and audit control matrix; OBS-C-04, OBS-C-08 sourced from Section 9.9.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard for governance success.
+- [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance charter ownership.
+- [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) — capacity inputs to Section 9.9.2 weekly review.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant offboarding procedure cross-ref.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](08-iac-for-observability-standard.md) | [Next Page](10-observability-finops-standard.md)

@@ -1,7 +1,7 @@
 ---
 title: Service Onboarding and Instrumentation Kits
 chapter: 26
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,12 +10,15 @@ status: Draft
 
 # 26. Service Onboarding and Instrumentation Kits
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](25-slo-and-error-budget-framework.md) | [Next Page](27-multi-tenant-and-customer-site-deployment-model.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
-> **Closes Gaps:** E1, I2.
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 
 ---
 
@@ -45,28 +48,28 @@ A service may not be promoted to production without a PASS on every item below.
 | 4 | Health endpoint (`/health/liveness`, `/health/readiness`) implemented | Dev | Probe test |
 | 5 | Structured JSON logs at INFO level; trace_id and span_id present in every log line | Dev | Log sample |
 | 6 | Trace propagation verified (W3C Trace Context) inbound + outbound | Dev | End-to-end trace |
-| 7 | At least 1 SLI defined per [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) | Service Owner | SLO YAML |
+| 7 | At least 1 SLI defined per [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) | Service Owner | SLO YAML |
 | 8 | At least 3 starter dashboard panels | Dev | Dashboard PR |
 | 9 | At least 1 burn-rate alert wired to on-call routing | Service Owner | Alert YAML |
 | 10 | Runbook document linked from every alert | Service Owner | Runbook URL |
 | 11 | PII redaction validated for any user-impacting fields | Dev + Security | Synthetic-PII canary results |
 | 12 | Cardinality budget per [Chapter 23. Capacity and Scale Model -> Section 23.8 Cardinality Budget](23-capacity-and-scale-model.md#238-cardinality-budget) respected | Platform Engineering | Cardinality report |
-| 13 | Tenant labels present where multi-tenant per [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | Dev | Sample telemetry |
-| 14 | Capacity sizing reviewed against [23. Capacity and Scale Model](23-capacity-and-scale-model.md) reference deployment | Platform Engineering | Sizing note |
+| 13 | Tenant labels present where multi-tenant per [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | Dev | Sample telemetry |
+| 14 | Capacity sizing reviewed against [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) reference deployment | Platform Engineering | Sizing note |
 
 ### 26.2.1 "Minimum Observability" CI Check
 
 Each onboarding kit includes a reference CI job (for example, `ci/minimum-observability-check.yml`) that enforces a **minimum observability** bar before deployment:
 
 - The CI job validates that the repository contains:
-  - SLO definition file (for example, `observability/slo.yaml`) per [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
+  - SLO definition file (for example, `observability/slo.yaml`) per [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
   - Alert rule file (for example, `observability/alerts.yaml`) with at least one SLO burn-rate alert.
   - Dashboard definition file (for example, `observability/dashboard.jsonnet` or `dashboard.json`).
   - Runbook link for Critical alerts.
 - The job runs on every main-branch build and **must pass** before promotion to staging or production.
 - For new services, the job can scaffold starter files from the selected kit and fail with actionable guidance until the owner fills in service-specific details.
 
-Any exception to the minimum set requires ARB approval and an entry in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+Any exception to the minimum set requires ARB approval and an entry in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 ## 26.3 Instrumentation Kits
 
@@ -167,13 +170,13 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 | % PRRs passing first review | ≥ 70% |
 
 ## 26.7 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
-- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — pre/post-login standards.
-- [19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) — adoption governance.
-- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — cardinality budget.
-- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — PII redaction enforcement.
-- [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — SLO authoring.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
+- [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — pre/post-login standards.
+- [Chapter 19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) — adoption governance.
+- [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) — cardinality budget.
+- [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — PII redaction enforcement.
+- [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — SLO authoring.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](25-slo-and-error-budget-framework.md) | [Next Page](27-multi-tenant-and-customer-site-deployment-model.md)

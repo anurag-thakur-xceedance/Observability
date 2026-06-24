@@ -10,15 +10,20 @@ status: Draft
 
 # 4. Domain Observability Runbooks Pack
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](03-observability-reference-architecture.md) | [Next Page](05-alerting-and-incident-severity-policy.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 4.1 Purpose
-Operational runbooks that translate the standards in [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). The deployment platform is described in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
+Operational runbooks that translate the standards in [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). The deployment platform is described in [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 
 ---
 
@@ -42,7 +47,7 @@ Stacked-area charts and heat maps for trend visibility. Combine gauges (current 
 
 ## 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)
 
-> Standards and field definitions live in [18. Application Telemetry Standard](18-application-telemetry-standard.md). This runbook covers operational execution.
+> Standards and field definitions live in [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md). This runbook covers operational execution.
 
 ### 4.3.1 Pre-Login Operational Checks
 - **Authentication latency** rising → inspect upstream IdP, API gateway, certificate refresh events.
@@ -284,12 +289,12 @@ flowchart LR
 After a few weeks of production data, narrow each range so **Warning ≈ 95th percentile of normal** and **Critical ≈ approaching SLA breach**.
 
 ## 4.9 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalogue.
-- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
-- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana dashboard structure.
-- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment standard.
-- [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident response playbook for end-to-end resolution.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalogue.
+- [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
+- [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana dashboard structure.
+- [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment standard.
+- [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident response playbook for end-to-end resolution.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](03-observability-reference-architecture.md) | [Next Page](05-alerting-and-incident-severity-policy.md)

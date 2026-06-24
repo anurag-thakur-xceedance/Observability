@@ -10,12 +10,15 @@ status: Draft
 
 # 24. Observability Platform Security Architecture
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](23-capacity-and-scale-model.md) | [Next Page](25-slo-and-error-budget-framework.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
-> **Closes Gaps:** C1, C2, C3, C4.
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 
 ---
 
@@ -60,7 +63,7 @@ status: Draft
 ### 24.2.3 Per-Tenant Isolation
 - Grafana org per customer where required by contract.
 - Loki and Mimir/Prometheus tenancy via `X-Scope-OrgID` header injected by gateway based on authenticated identity.
-- See [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md).
+- See [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md).
 
 ## 24.3 Encryption
 
@@ -189,13 +192,13 @@ Deployment definitions reference secrets through approved runtime or automation 
 - **Host baseline.** Minimal base OS, automated patching, host-based IDS.
 
 ## 24.10 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline detail.
-- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment hardening configs.
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data classification.
-- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — SOC 2 / ISO 27001 mapping.
-- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — what services must (not) emit.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — per-tenant boundaries.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline detail.
+- [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment hardening configs.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data classification.
+- [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — SOC 2 / ISO 27001 mapping.
+- [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — what services must (not) emit.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — per-tenant boundaries.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](23-capacity-and-scale-model.md) | [Next Page](25-slo-and-error-budget-framework.md)

@@ -10,11 +10,16 @@ status: Draft
 
 # 1. Xceedance Observability Strategy
 
-[↑ Back to TOC](toc.md)
+[Next Page](02-enterprise-observability-standards-catalog.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ## 1.1 Executive Summary
 The observability strategy transitions operations from reactive monitoring to proactive intelligence. A single-pane-of-glass view across logs, metrics, and traces gives the visibility needed across the estate, and supports deployment at customer sites, application observability, client-ecosystem integration, and Xceedance PaaS / SaaS hosting.
 
@@ -52,7 +57,7 @@ The following principles are the test against which every architectural choice a
 9. **Configuration lives in Git.** No hand-edits in production; every change is reviewed and audited.
 10. **Tools follow the model.** Compose + PowerShell where it fits; distributed backends when they are needed; never the other way round.
 
-These principles are formalised as **ADR-000: Strategy Principles** in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+These principles are formalised as **ADR-000: Strategy Principles** in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 ## 1.3 Business Objectives & KPIs (Narrative)
 The strategy works backward from business needs. Each initiative is driven by business outcomes — reliability, performance, cost optimisation, customer experience. Application-stack tooling has been pre-selected and the infrastructure stack is broadly guided by Azure-native capabilities; within those constraints, initiatives are prioritised and integration / configuration decisions made on business outcomes so that observability operates as a strategic enabler rather than a technical overhead.
@@ -65,7 +70,7 @@ The strategy works backward from business needs. Each initiative is driven by bu
 | Resilience | RPO / RTO for disaster-recovery effectiveness |
 | Coverage / Quality | Scalability, alert quality, RCA efficiency, telemetry completeness, compliance |
 
-> **Detailed KPI definitions, targets, and scorecard mechanics → see [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).**
+> **Detailed KPI definitions, targets, and scorecard mechanics → see [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).**
 
 ## 1.4 High-Level Architecture (One-Page View)
 
@@ -88,4 +93,6 @@ The strategy works backward from business needs. Each initiative is driven by bu
 [ Agentic AI ]  ← anomaly detection, RCA, enriched ticketing
 ```
 
-> **Detailed architecture, host-portable deployment design, collection layers, stack components → see [3. Observability Reference Architecture](03-observability-reference-architecture.md).**
+> **Detailed architecture, host-portable deployment design, collection layers, stack components → see [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md).**
+
+[Next Page](02-enterprise-observability-standards-catalog.md)

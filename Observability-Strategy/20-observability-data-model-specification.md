@@ -1,7 +1,7 @@
 ---
 title: Observability Data Model Specification
 chapter: 20
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,11 +10,16 @@ status: Draft
 
 # 20. Observability Data Model Specification
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](19-observability-operating-model-and-adoption-plan.md) | [Next Page](21-business-capability-and-value-stream-mapping.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 20.1 Purpose
@@ -69,7 +74,7 @@ Together these form **full-stack observability**.
 - **Breaking changes** (removing fields, changing type or meaning) require a new **major** schema version and a migration plan:
   - Producers MAY emit either version for a minimum **90-day overlap window**.
   - Consumers must be tolerant of both versions during overlap.
-  - Breaking changes must be justified in an ADR and approved per [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md).
+  - Breaking changes must be justified in an ADR and approved per [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md).
 - **Non-breaking changes** (adding optional fields, extending enums) are allowed within the same major version but MUST be backwards-compatible for all consumers.
 - Deprecation of fields is documented in the schema file and PIRs/ADRs reference the deprecation where relevant.
 
@@ -95,7 +100,7 @@ The following heuristics are implemented as recording rules and alerts:
 - **Trace coverage:**
   - Expected trace coverage SLI (e.g. percentage of HTTP requests with a trace) falls below agreed threshold per tier.
 
-These heuristics feed into a **Telemetry Health** view rather than paging on-call immediately; paging thresholds are defined in [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md).
+These heuristics feed into a **Telemetry Health** view rather than paging on-call immediately; paging thresholds are defined in [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md).
 
 ### 20.8.2 Telemetry Health Dashboard Standard
 
@@ -107,7 +112,7 @@ Every environment has a standardised "Telemetry Health" dashboard with at least 
 - **Timestamp skew:** distribution of ingest- vs event-time deltas.
 - **PII violations:** count of records routed to the `dlq-pii` stream.
 
-The dashboard template lives alongside other platform dashboards in [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) and is generated per environment.
+The dashboard template lives alongside other platform dashboards in [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) and is generated per environment.
 
 ## 20.9 Canonical JSON Schemas, ERD, and OTel Crosswalk
 
@@ -277,15 +282,15 @@ Each dead-letter record is annotated with `xc.dlq.reason`, `xc.dlq.schema_path`,
 - Synthetic conformance payloads (one valid + one negative per schema) live under `reference-implementations/conformance/` (P3 deliverable) and are exercised by CI.
 
 ## 20.10 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — naming and labelling standards.
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline storing this data.
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — governance and classification.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — naming and labelling standards.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline storing this data.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — governance and classification.
 - [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.3 Interpreting the AI-Driven Metrics](07-aiops-guardrails-and-implementation-playbook.md#73-interpreting-the-ai-driven-metrics) — consumer of the ERD in Section 20.9.4.
-- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — application-level field requirements; journey-name source.
+- [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — application-level field requirements; journey-name source.
 - [Chapter 24. Observability Platform Security Architecture -> Section 24.4 PII Redaction (Concrete Mechanisms)](24-observability-platform-security-architecture.md#244-pii-redaction-concrete-mechanisms) — PII patterns feeding the `dlq-pii` stream.
 - [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.3 Decision Rights](16-observability-governance-charter-and-arb-pack.md#163-decision-rights) — schema-version change-control authority.
 - Schema files: `schemas/metric-sample.schema.json`, `schemas/log-record.schema.json`, `schemas/trace-span.schema.json`, `schemas/event-record.schema.json`, `schemas/profile-sample.schema.json`.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](19-observability-operating-model-and-adoption-plan.md) | [Next Page](21-business-capability-and-value-stream-mapping.md)

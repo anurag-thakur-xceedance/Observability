@@ -10,15 +10,20 @@ status: Draft
 
 # 10. Observability FinOps Standard
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](09-observability-data-governance-and-retention-policy.md) | [Next Page](11-compliance-and-audit-control-matrix.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 10.1 Purpose
-Lifecycle policies manage cost and performance of observability platforms. This standard defines the cost-management mechanics that operationalise the retention authorisations in [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md).
+Lifecycle policies manage cost and performance of observability platforms. This standard defines the cost-management mechanics that operationalise the retention authorisations in [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md).
 
 Operational retention settings for logs, metrics, traces, and profiles are a direct FinOps driver and must be reviewed whenever approved retention ranges are widened beyond the baseline defaults.
 
@@ -43,7 +48,7 @@ Operational retention settings for logs, metrics, traces, and profiles are a dir
 - Retention windows per service criticality.
 
 ## 10.5 Cost KPIs
-- **Reduce observability tooling costs by 20–25%** in 12 months (executive target — see [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
+- **Reduce observability tooling costs by 20–25%** in 12 months (executive target — see [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
 - Storage cost **per service over time** trending downward while maintaining required visibility.
 - **Tool coverage rate > 90%** for unified stack despite cost reduction.
 
@@ -86,7 +91,7 @@ C_signal = C_ingest + C_storage_hot + C_storage_warm + C_storage_cold + C_query
 | **$/service/month (T3)** | As above for T3 | Monthly | Service-tier benchmark |
 | **$/service/month (T4)** | As above for T4 | Monthly | Service-tier benchmark |
 | **$/incident** | Total cost ÷ incidents in window | Monthly | Cost-effectiveness |
-| **$/tenant/month** | Per-tenant attributed cost | Monthly | Multi-tenant chargeback ([27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) |
+| **$/tenant/month** | Per-tenant attributed cost | Monthly | Multi-tenant chargeback ([Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) |
 | **$/engineer/month** | Total cost ÷ engineers using the platform | Monthly | Platform productivity metric |
 
 ### 10.6.4 Indicative Unit-Cost Benchmarks
@@ -105,7 +110,7 @@ The figures below are **indicative starting points** for an enterprise stack at 
 
 Every cost is attributable to a `service.name` and `tenant.id`:
 - **Metrics:** active series labelled with `service` map cleanly; recording rules and federation must preserve service label.
-- **Logs:** `service` is a required Loki stream label per [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md).
+- **Logs:** `service` is a required Loki stream label per [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md).
 - **Traces:** `service.name` is mandatory per OTel semantic conventions; tail-sampler preserves it.
 - **Compute:** Collector compute is shared; allocated by ingest volume share per service.
 
@@ -118,7 +123,7 @@ The attribution model is the basis for **chargeback / showback** in Section 7.2.
 | **Showback** | Service teams see their cost; platform pays the bill | Phase 1 / 2 — focuses on awareness; avoids political friction during adoption |
 | **Chargeback** | Service teams bear their cost in their budget | Phase 3 — when the unit-cost model is mature, audit-ready, and disputes are rare |
 
-The decision to move from showback to chargeback is an ARB decision recorded in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
+The decision to move from showback to chargeback is an ARB decision recorded in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 
 ### 10.6.7 Optimisation Playbook
 
@@ -162,11 +167,11 @@ Inputs and outputs of the FinOps planning cycle.
 
 | Input | Source | Update Cadence |
 |---|---|---|
-| Service onboarding pipeline | [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) | Monthly |
+| Service onboarding pipeline | [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) | Monthly |
 | Service tier distribution | [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model) | Quarterly |
 | Cardinality budget headroom | [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) | Monthly |
-| Capacity sizing model | [23. Capacity and Scale Model](23-capacity-and-scale-model.md) | Quarterly |
-| Tenant onboarding pipeline | [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | Monthly |
+| Capacity sizing model | [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) | Quarterly |
+| Tenant onboarding pipeline | [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) | Monthly |
 | Vendor unit-rate changes | Contracts | As-changed |
 
 ### 10.6.13 Budget Envelope
@@ -208,7 +213,7 @@ This worked model takes the **Medium reference deployment** (see [Chapter 23. Ca
 
 | Assumption | Value | Source |
 |---|---|---|
-| Service onboarding rate | +8 services/month avg | [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) pipeline |
+| Service onboarding rate | +8 services/month avg | [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) pipeline |
 | Tier mix of new services | T1: 5%, T2: 20%, T3: 50%, T4: 25% | Historical onboarding ratio |
 | Underlying log-volume growth per service | +5%/quarter | Application chattiness drift |
 | Vendor unit-rate change | +0% (locked reserved-instance contract) | Vendor contract |
@@ -256,7 +261,7 @@ Notation: **growth** = baseline growth without intervention; **intervention** = 
 Observations:
 - **Metrics dominate at 37.5%** despite cardinality reduction; this is normal for a service estate with strong RED-metric coverage. Next lever: shorten hot window from 30 d → 20 d.
 - **Storage outweighs ingest** ($785 vs. $450) — primary FinOps focus should remain tier-window and retention, not ingest throttling.
-- **Egress at 4%** is healthy; would rise if cross-region replication were added (currently single-region per [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
+- **Egress at 4%** is healthy; would rise if cross-region replication were added (currently single-region per [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
 
 ### 10.6.20 Unit Cost Trajectory
 
@@ -297,7 +302,7 @@ The model's largest risk is **deferring the optimisation cadence**: a single ski
 
 | Item | FinOps Month 12 | Capacity Plan ([Chapter 23. Capacity and Scale Model -> Section 23.3 Worked Sizing Examples](23-capacity-and-scale-model.md#233-worked-sizing-examples)) | Comment |
 |---|---|---|---|
-| Services | 246 | 150 (baseline) | Growth absorbed; capacity headroom still adequate per Ch 22 Step 10 |
+| Services | 246 | 150 (baseline) | Growth absorbed; capacity headroom still adequate per Chapter 22, Step 10 |
 | Active series | 2.16M | 1.46M | Approaches Prometheus RAM trigger at ~73% → Mimir migration ADR due M14 |
 | Log volume | 21 GB/day raw | 16 GB/day | Within 58× Loki headroom — no action |
 | Span ingest | 15k/s (unchanged at gateway; intervention reduced storage not ingest) | 15k/s | Still at 1.4× headroom on Tempo — watch |
@@ -305,18 +310,18 @@ The model's largest risk is **deferring the optimisation cadence**: a single ski
 The reconciliation surfaces the **Mimir migration trigger** earlier than calendar-driven planning would, justifying the FinOps + Capacity joint review cadence specified in Section 7.3.1.
 
 ## 10.7 Deletion & Compaction Monitoring
-Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.7 Deletion and Retention Enforcement](09-observability-data-governance-and-retention-policy.md#97-deletion-and-retention-enforcement), [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
+Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.7 Deletion and Retention Enforcement](09-observability-data-governance-and-retention-policy.md#97-deletion-and-retention-enforcement), [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
 
 ## 10.8 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — cardinality budgets and tier model that drive cost (Section 7.1, Section 7.2).
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention policy this standard implements cost-side.
-- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance constraints on what can be deleted / archived.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — cardinality budgets and tier model that drive cost (Section 7.1, Section 7.2).
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention policy this standard implements cost-side.
+- [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance constraints on what can be deleted / archived.
 - [Chapter 12. Observability KPI Scorecard -> Section 12.6.1 Telemetry Data Quality SLIs](12-observability-kpi-scorecard.md#1261-telemetry-data-quality-slis) — quality SLIs that bound cost cuts.
-- [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance approval for tiering and chargeback changes.
-- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — capacity inputs to Section 7.3 forecast.
-- [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) — onboarding pipeline feeding Section 7.3 forecast.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — per-tenant cost attribution (Section 7.1.4, Section 7.1.5).
+- [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance approval for tiering and chargeback changes.
+- [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) — capacity inputs to Section 7.3 forecast.
+- [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) — onboarding pipeline feeding Section 7.3 forecast.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — per-tenant cost attribution (Section 7.1.4, Section 7.1.5).
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](09-observability-data-governance-and-retention-policy.md) | [Next Page](11-compliance-and-audit-control-matrix.md)

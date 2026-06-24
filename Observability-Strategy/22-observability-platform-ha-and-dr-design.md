@@ -10,12 +10,15 @@ status: Draft
 
 # 22. Observability Platform HA and DR Design
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](21-business-capability-and-value-stream-mapping.md) | [Next Page](23-capacity-and-scale-model.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
-> **Closes Gaps:** B2.
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 
 ---
 
@@ -92,12 +95,12 @@ The platform itself is **Tier 1**. Recovery objectives:
 
 ### 22.5.2 Pattern B — Cold-Backup
 - Object-storage replication cross-region (Azure GRS / S3 cross-region replication).
-- DR site provisioned on demand from approved IaC automation in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
+- DR site provisioned on demand from approved IaC automation in [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 - **RTO ≤ 4 h, RPO ≤ 1 h.** Acceptable for non-customer-facing observability tiers only.
 
 ### 22.5.3 Pattern C — Customer-Site Local DR
-- Each customer site runs its own observability deployment stack (see [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).
-- DR is local snapshot + remote-write to central Xceedance aggregation (after PII redaction per [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)).
+- Each customer site runs its own observability deployment stack (see [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).
+- DR is local snapshot + remote-write to central Xceedance aggregation (after PII redaction per [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)).
 
 ## 22.6 Failure Modes and Mitigations
 | Failure | Detection | Mitigation | Owner |
@@ -105,7 +108,7 @@ The platform itself is **Tier 1**. Recovery objectives:
 | Single host loss | LB health check; meta-monitor alert | Other Compose host serves traffic; restore failed host from IaC | Platform Engineering |
 | Prometheus crash / OOM | Meta-monitor `up` check on Prometheus; Alertmanager-1 fires | Pair instance continues; restart via Compose `restart: always` | Platform Engineering |
 | Object-storage outage | Loki/Tempo write errors; meta-monitor | Local buffer in OTel Collector + Prometheus remote-write retry; degrade to short-term query only | Platform Engineering |
-| Alert storm (>100 alerts/min) | Alertmanager rate; meta-monitor | Inhibition rules; severity downgrade; emergency silence policy in [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) | On-call |
+| Alert storm (>100 alerts/min) | Alertmanager rate; meta-monitor | Inhibition rules; severity downgrade; emergency silence policy in [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) | On-call |
 | Cardinality explosion | Series-count rule on Prometheus; meta-monitor | Auto-drop labels via `metric_relabel_configs`; emergency block list | Platform Engineering |
 | Grafana DB corruption | Liveness probe failure | Restore from Postgres backup; provision dashboards from Git | Platform Engineering |
 | Region outage | Health-check failure across all primary endpoints | DNS / LB cutover to DR region (Pattern A) | Platform Engineering + Network |
@@ -129,12 +132,12 @@ A separate, deliberately small Prometheus + Alertmanager pair runs on a differen
 | Cold-backup spin-up (Pattern B) | Annually | Stack reachable ≤ 4 h |
 
 ## 22.9 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — base architecture.
-- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment provisioning and automation.
-- [23. Capacity and Scale Model](23-capacity-and-scale-model.md) — when to migrate from Compose to distributed.
-- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth & encryption between HA peers.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — customer-site DR patterns.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — base architecture.
+- [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment provisioning and automation.
+- [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) — when to migrate from Compose to distributed.
+- [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth & encryption between HA peers.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — customer-site DR patterns.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](21-business-capability-and-value-stream-mapping.md) | [Next Page](23-capacity-and-scale-model.md)

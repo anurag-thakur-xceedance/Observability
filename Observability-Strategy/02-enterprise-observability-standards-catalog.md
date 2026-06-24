@@ -1,7 +1,7 @@
 ---
 title: Enterprise Observability Standards Catalogue
 chapter: 2
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,11 +10,16 @@ status: Draft
 
 # 2. Enterprise Observability Standards Catalogue
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](01-xceedance-observability-strategy.md) | [Next Page](03-observability-reference-architecture.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 2.1 Scope and Intent
@@ -103,14 +108,14 @@ Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce t
 Any of the above must be **bucketed** (e.g., path templates instead of paths) or **dropped** before ingestion.
 
 #### 2.3.4.3 Enforcement Mechanisms
-1. **At source:** SDK-side label allow-list per kit (see [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)).
+1. **At source:** SDK-side label allow-list per kit (see [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)).
 2. **At collector:** `metric_relabel_configs` to drop forbidden labels.
 3. **At backend:** `limits.max_label_names_per_series`, `limits.max_series_per_user` configured in Prometheus / Mimir.
 4. **Recording rule:** `count by (__name__)({__name__=~".+"})` to track per-metric cardinality; alert when a service breaches its budget.
 5. **Emergency switch:** A pre-tested `metric_relabel_config` block-list deployed via Git PR within 30 minutes when an incident demands it.
 
 #### 2.3.4.4 Cardinality KPIs
-- Per-service cardinality vs budget — dashboard in [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md).
+- Per-service cardinality vs budget — dashboard in [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md).
 - New high-cardinality metrics introduced per release.
 - Time from cardinality breach to remediation.
 
@@ -154,11 +159,11 @@ The tier of a service determines instrumentation depth, SLO strictness, retentio
 | Trace retention | 7 days | 7 days | 3 days | 1 day |
 | Alert routing | 24×7 paging | Business hours + critical paging | Business hours | Email only |
 | On-call response | ≤ 5 min ack | ≤ 15 min ack | ≤ 1 h | NBD |
-| RTO / RPO | per [21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) | per [21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) | per [21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) | per [21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) |
+| RTO / RPO | per [Chapter 21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) | per [Chapter 21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) | per [Chapter 21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) | per [Chapter 21. Business Capability and Value-Stream Mapping](21-business-capability-and-value-stream-mapping.md) |
 
 #### 2.4.1.3 Tier Assignment
 - Tier is assigned at service registration in the catalogue.
-- Tier changes require ARB approval and an ADR (see [17. Observability ADR Decision Register](17-observability-adr-decision-register.md)).
+- Tier changes require ARB approval and an ADR (see [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md)).
 - The tier label is mandatory on every signal (per Section 4.4).
 
 ## 2.5 Application Telemetry Standards (Pre-Login)
@@ -270,7 +275,7 @@ Synthetic SLOs are **not a substitute** for service SLOs; they provide an early 
   - ≥ 5% failure sustained for 5 minutes in **two or more regions**, or
   - 100% failure from any region for ≥ 3 minutes, or
   - full-path latency > 2× SLO threshold for ≥ 10 minutes across regions.
-  - Action: immediate incident; page on-call. See [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) and [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md).
+  - Action: immediate incident; page on-call. See [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) and [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md).
 
 Synthetic checks for T1 services MUST be integrated into change pipelines so that **pre-deploy and post-deploy** synthetic runs gate production changes.
 
@@ -296,7 +301,7 @@ Front-end observability covers browser and mobile experiences via **Real User Mo
 | CLS | < 0.1 for ≥ 75% | 0.1–0.25 for ≥ 25% | > 0.25 for ≥ 25% |
 | JS Error Rate | < 0.2% of sessions with JS errors | 0.2–1% | > 1% |
 
-Front-end SLOs are attached to the same **service tier** model (Section 2.4.1) and feed into the application SLO framework in [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
+Front-end SLOs are attached to the same **service tier** model (Section 2.4.1) and feed into the application SLO framework in [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
 
 ### 2.14.3 Privacy and Sampling
 - **PII and content:**
@@ -307,11 +312,11 @@ Front-end SLOs are attached to the same **service tier** model (Section 2.4.1) a
   - **Pre-production (uat/staging):** up to 100% sampling permitted; environment must not carry real PII.
   - **Development:** RUM optional; if enabled, 100% sampling allowed for debugging.
 - **Region and tenant awareness:**
-  - RUM data must be labelled by `tenant_id`, `region`, and `deployment.environment` and abide by regional data residency rules from [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md).
+  - RUM data must be labelled by `tenant_id`, `region`, and `deployment.environment` and abide by regional data residency rules from [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md).
 
 ## 2.15 Environment-Specific Sampling and Retention Defaults
 
-Per-environment defaults align SLO visibility with FinOps constraints (see [10. Observability FinOps Standard](10-observability-finops-standard.md)).
+Per-environment defaults align SLO visibility with FinOps constraints (see [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md)).
 
 | Environment | Metrics Scrape Interval | Trace Sampling (Head + Tail) | Log Level / Sampling | RUM Session Sampling | Hot Retention (Metrics / Logs / Traces) |
 |---|---|---|---|---|---|
@@ -322,12 +327,12 @@ Per-environment defaults align SLO visibility with FinOps constraints (see [10. 
 Deviation from these defaults (for example, 100% tracing in prod or extended hot retention) requires ARB review and an ADR entry, as it has direct cost and risk implications.
 
 ## 2.16 Cross-References
-- [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
-- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
-- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md): How standards render in Grafana dashboards.
-- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md): AIOps interpretation of these metrics.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md): Outcome KPI scorecard tied to these measurements.
+- [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
+- [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
+- [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md): How standards render in Grafana dashboards.
+- [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md): AIOps interpretation of these metrics.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md): Outcome KPI scorecard tied to these measurements.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](01-xceedance-observability-strategy.md) | [Next Page](03-observability-reference-architecture.md)

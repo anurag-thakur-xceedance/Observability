@@ -1,7 +1,7 @@
 ---
 title: Application Telemetry Standard
 chapter: 18
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,18 +10,23 @@ status: Draft
 
 # 18. Application Telemetry Standard
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](17-observability-adr-decision-register.md) | [Next Page](19-observability-operating-model-and-adoption-plan.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 18.1 Purpose
 Defines **what** application services must emit, **how** fields are named, and **what thresholds** they must adhere to. Operational triage steps live in [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps).
 
 ## 18.2 Scope
-All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must emit pre-login and post-login telemetry via OpenTelemetry SDKs and pipelines defined in [3. Observability Reference Architecture](03-observability-reference-architecture.md).
+All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must emit pre-login and post-login telemetry via OpenTelemetry SDKs and pipelines defined in [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md).
 
 ## 18.3 Pre-Login Telemetry (Required Fields & Standards)
 
@@ -40,7 +45,7 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 Where Azure ingress is not present, the same requirement applies at the equivalent outermost ingress component in AWS, Google Cloud, or an approved third-party edge service. The cloud-specific product may change; the propagation contract does not.
 
 ### 18.3.2 Required Log Fields
-- `timestamp`, `level`, `service.name`, `auth.outcome`, `error.code`, `correlation.id`. **No PII** (see [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)).
+- `timestamp`, `level`, `service.name`, `auth.outcome`, `error.code`, `correlation.id`. **No PII** (see [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)).
 
 ## 18.4 Post-Login Telemetry (Required Fields & Standards)
 
@@ -95,13 +100,13 @@ Front-end applications (web and mobile) MUST emit RUM telemetry aligned to [Chap
 - Conformance evidence is part of release readiness.
 
 ## 18.9 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline and backend that consume this telemetry.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline and backend that consume this telemetry.
 - [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) — operational runbook applying this telemetry.
-- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana visualisation of these metrics.
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — PII / data governance constraints.
-- [20. Observability Data Model Specification](20-observability-data-model-specification.md) — formal data model for span hierarchy and entities.
+- [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana visualisation of these metrics.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — PII / data governance constraints.
+- [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md) — formal data model for span hierarchy and entities.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](17-observability-adr-decision-register.md) | [Next Page](19-observability-operating-model-and-adoption-plan.md)

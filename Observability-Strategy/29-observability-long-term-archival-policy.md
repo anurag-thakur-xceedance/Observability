@@ -10,24 +10,29 @@ status: Draft
 
 # 29. Observability Long-Term Archival Policy
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](28-observability-non-functional-requirements.md) | [Next Page](30-observability-programme-risk-register.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 29.1 Purpose
 
-This policy governs the **long-term archival** (greater than 1 year) of observability telemetry — distinct from the operational retention tiers (hot / warm / cold) defined in [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md). It defines what is archived, in what form, for how long, where, who can access it, and how it is eventually destroyed.
+This policy governs the **long-term archival** (greater than 1 year) of observability telemetry — distinct from the operational retention tiers (hot / warm / cold) defined in [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md). It defines what is archived, in what form, for how long, where, who can access it, and how it is eventually destroyed.
 
 ## 29.2 Scope
 
 - All telemetry classes (metrics, logs, traces, events, profiles) that have a regulatory, contractual, legal, or forensic retention obligation extending beyond the operational cold tier.
 - Audit logs and security telemetry that must satisfy SOC 2, ISO 27001, GDPR, and sector-specific obligations (HIPAA, PCI DSS, NIS2, DORA, where applicable).
-- AI/ML training data and AI decision logs (per [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
+- AI/ML training data and AI decision logs (per [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
 
-Out-of-scope: short-term operational retention (covered by Chapter 8) and live backup/replication for HA/DR (covered by [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
+Out-of-scope: short-term operational retention (covered by Chapter 8) and live backup/replication for HA/DR (covered by [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
 
 ## 29.3 Archival Categories
 
@@ -138,7 +143,7 @@ Promotion is automated by an archival worker that runs daily:
 | Data Protection Officer | Metadata + erasure request | Yes (for DSR) | Yes (DSR / erasure) | Yes (cryptographic) |
 | Internal audit | Metadata + read after approval | Yes (audit context) | No | No |
 
-Access is governed by [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) and reviewed quarterly.
+Access is governed by [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) and reviewed quarterly.
 
 ## 29.9 Legal Hold
 
@@ -166,7 +171,7 @@ For records tagged Forensic or Legal Hold:
 
 ## 29.12 Cost Model
 
-Archival cost is tracked separately from operational FinOps (see [10. Observability FinOps Standard](10-observability-finops-standard.md)).
+Archival cost is tracked separately from operational FinOps (see [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md)).
 
 | Metric | Target |
 |---|---|
@@ -208,14 +213,14 @@ Full RACI in [Chapter 16. Observability Governance Charter and ARB Pack -> Secti
 
 ## 29.16 Cross-References
 
-- [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — operational retention (precedes archive).
-- [10. Observability FinOps Standard](10-observability-finops-standard.md) — cost-management context.
-- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — control evidence mapping.
+- [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — operational retention (precedes archive).
+- [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) — cost-management context.
+- [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — control evidence mapping.
 - [Chapter 18. Application Telemetry Standard -> Section 18.6 PII & Data Classification](18-application-telemetry-standard.md#186-pii-data-classification) — PII classification used for privacy treatment.
-- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — distinction from backup/DR.
-- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — encryption, access control, audit logging.
-- [28. Observability Non-Functional Requirements Register](28-observability-non-functional-requirements.md) — archival NFRs (NFR-REC-03, NFR-PRV-03, NFR-CMP-03, etc.).
+- [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — distinction from backup/DR.
+- [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — encryption, access control, audit logging.
+- [Chapter 28. Observability Non-Functional Requirements Register](28-observability-non-functional-requirements.md) — archival NFRs (NFR-REC-03, NFR-PRV-03, NFR-CMP-03, etc.).
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](28-observability-non-functional-requirements.md) | [Next Page](30-observability-programme-risk-register.md)

@@ -10,12 +10,15 @@ status: Draft
 
 # 27. Multi-Tenant and Customer-Site Deployment Model
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](26-service-onboarding-and-instrumentation-kits.md) | [Next Page](28-observability-non-functional-requirements.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
-> **Closes Gaps:** J1, J2.
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 
 ---
 
@@ -94,7 +97,7 @@ service.name, service.version, deployment.environment, team, tier, tenant_id, te
 
 ## 27.3 Tenant Labelling Enforcement
 Three layers of defence:
-1. **SDK / kit defaults** ([26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) inject required attributes from environment.
+1. **SDK / kit defaults** ([Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) inject required attributes from environment.
 2. **Edge OTel Collector** rejects telemetry missing required attributes (using `attributes/required` processor pattern).
 3. **Gateway OTel Collector** overrides client-supplied tenant_id with the tenant ID derived from the authenticated bearer token / mTLS cert (defence against client-side tampering).
 
@@ -155,7 +158,7 @@ Rules:
 | **Cross-region within residency** | Regulated tenants requiring HA | ≤ 30 min | ≤ 5 min |
 | **Forward-only to Xceedance central** | Loss-tolerant tenants | ≤ 24 h (rebuild from last forward) | varies |
 
-DR runbook per customer site is templated and parameterised in [8. IaC for Observability Standard](08-iac-for-observability-standard.md).
+DR runbook per customer site is templated and parameterised in [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 
 ## 27.8 Operational Boundaries (Who Operates What)
 | Component | Customer site | Xceedance shared |
@@ -176,17 +179,17 @@ DR runbook per customer site is templated and parameterised in [8. IaC for Obser
 | Per-tenant retention overrides recorded | Data Governance |
 | Per-tenant KMS key provisioned (if required) | Security |
 | Per-tenant runbook escalation contacts captured | SRE |
-| First service onboarded per [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) | Service Owner |
+| First service onboarded per [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) | Service Owner |
 | Tenant-scoped dashboard reviewed with customer | Customer Operations + Customer |
 
 ## 27.10 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — base topology.
-- [18. Application Telemetry Standard](18-application-telemetry-standard.md) — required tenant attributes on telemetry.
-- [20. Observability Data Model Specification](20-observability-data-model-specification.md) — `tenant_class`, `tenant_id` namespace.
-- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — DR patterns, including customer-site DR.
-- [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth, encryption, egress controls.
-- [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) — kit injection of tenant attributes.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — base topology.
+- [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — required tenant attributes on telemetry.
+- [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md) — `tenant_class`, `tenant_id` namespace.
+- [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — DR patterns, including customer-site DR.
+- [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — auth, encryption, egress controls.
+- [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) — kit injection of tenant attributes.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](26-service-onboarding-and-instrumentation-kits.md) | [Next Page](28-observability-non-functional-requirements.md)

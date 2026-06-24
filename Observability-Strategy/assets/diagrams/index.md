@@ -14,7 +14,7 @@ status: Draft
 
 | Version | Owner | Classification | Reviewed Date | Status |
 |---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| 0.1 | CoE - Architecture | Internal |  | Draft |
 ---
 
 ## 1. Purpose

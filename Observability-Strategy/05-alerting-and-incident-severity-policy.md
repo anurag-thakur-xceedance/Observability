@@ -1,7 +1,7 @@
 ---
 title: Alerting and Incident Severity Policy
 chapter: 5
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,11 +10,16 @@ status: Draft
 
 # 5. Alerting and Incident Severity Policy
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](04-domain-observability-runbooks-pack.md) | [Next Page](06-grafana-platform-standard-and-visualisation-playbook.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 5.1 Purpose
@@ -81,10 +86,10 @@ A single, enterprise-wide severity model and action expectation for alerts from 
 - **Critical:** breach or repeated IaC failures within 3 runs → trigger incident or rollback; high chance of telemetry data loss.
 
 ## 5.5 Alert Routing & Escalation
-- Alert rules and dashboards are version-controlled (GitOps). See [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
+- Alert rules and dashboards are version-controlled (GitOps). See [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
 - Severity-based routing is configured in Grafana Alerting / Alertmanager.
-- Each alert is associated with a runbook reference (see [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) and [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
-- Quiet hours, deduplication, and grouping are tuned to maintain signal-to-noise ratio ≥ 80% (see [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
+- Each alert is associated with a runbook reference (see [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) and [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
+- Quiet hours, deduplication, and grouping are tuned to maintain signal-to-noise ratio ≥ 80% (see [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
 
 ## 5.6 Calibration Guidance
 After a few weeks of live data, calibrate thresholds so:
@@ -92,13 +97,13 @@ After a few weeks of live data, calibrate thresholds so:
 - **Critical** ≈ conditions where user impact or SLA breach begins.
 
 ## 5.7 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — threshold definitions feeding alert rules.
-- [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks invoked by alerts.
-- [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana implementation of alerting.
-- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI-specific alerting tuning.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — alert quality KPIs (signal-to-noise ratio).
-- [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident response workflow once alert fires.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — threshold definitions feeding alert rules.
+- [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks invoked by alerts.
+- [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana implementation of alerting.
+- [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI-specific alerting tuning.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — alert quality KPIs (signal-to-noise ratio).
+- [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — incident response workflow once alert fires.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](04-domain-observability-runbooks-pack.md) | [Next Page](06-grafana-platform-standard-and-visualisation-playbook.md)

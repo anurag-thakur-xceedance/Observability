@@ -1,7 +1,7 @@
 ---
 title: Grafana Platform Standard and Visualisation Playbook
 chapter: 6
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,11 +10,16 @@ status: Draft
 
 # 6. Grafana Platform Standard and Visualisation Playbook
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](05-alerting-and-incident-severity-policy.md) | [Next Page](07-aiops-guardrails-and-implementation-playbook.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 6.1 Purpose
@@ -47,12 +52,12 @@ Full thresholds in [Chapter 2. Enterprise Observability Standards Catalogue -> S
 | Business | Checkout Latency (P95) | < 2 s | 2–3 s sustained | > 3 s > 2 min |
 
 ## 6.5 Recommended Alerting Policy (Grafana Implementation)
-Severity model is owned by [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). Grafana implementation specifics:
+Severity model is owned by [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). Grafana implementation specifics:
 
 - Alert rules are defined as code (GitOps) and version-controlled.
 - Severity-based routing via contact points & notification policies.
 - Group, dedupe, and silence rules tuned to preserve signal-to-noise ≥ 80%.
-- Each alert references a runbook URL (linking to [4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) / [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
+- Each alert references a runbook URL (linking to [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) / [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
 
 | Severity | Trigger Definition | Response Expectation |
 |---|---|---|
@@ -65,12 +70,12 @@ Severity model is owned by [5. Alerting and Incident Severity Policy](05-alertin
 - **Percentile-based latency.** Always track **P95 and P99**, never rely solely on averages.
 - **Correlate metrics.** High API latency + elevated error rates typically indicates backend/DB issue. High API latency + healthy DB latency typically indicates app-side or runtime contention.
 - **Use panels.** Combine **gauges** (current state) with **time-series** panels (trend).
-- **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
+- **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
 - **Standardise dashboard library.** Per-domain template dashboards (Infra/App/DB/Network/Scaling/AI) cloned per service rather than hand-built.
 
 ## 6.7 Telemetry Health Dashboard Standard
 
-A **Telemetry Health** dashboard is mandatory per environment. It surfaces the health of the observability data itself and implements the heuristics from [20. Observability Data Model Specification -> Section 20.8 Telemetry Health and Data-Quality Monitoring](20-observability-data-model-specification.md#208-telemetry-health-and-data-quality-monitoring).
+A **Telemetry Health** dashboard is mandatory per environment. It surfaces the health of the observability data itself and implements the heuristics from [Chapter 20. Observability Data Model Specification -> Section 20.8 Telemetry Health and Data-Quality Monitoring](20-observability-data-model-specification.md#208-telemetry-health-and-data-quality-monitoring).
 
 ### 6.7.1 Required Panels
 
@@ -146,7 +151,7 @@ Lifecycle rules:
   - Experimental alerts must carry an `xc.expires_at` annotation; CI fails if expiry is in the past.
 - **Sprawl controls:**
   - Alerts that have **never fired** in the last 180 days AND do not protect an explicit SLO are flagged for removal or consolidation.
-  - Alerts that **fire > N times/week** without incident linkage are reviewed for tuning or removal (N defined per tier in [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md)).
+  - Alerts that **fire > N times/week** without incident linkage are reviewed for tuning or removal (N defined per tier in [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md)).
 
 ### 6.7.3 Quarterly Hygiene Review
 
@@ -154,7 +159,7 @@ Once per quarter, the Observability CoP runs a hygiene review per environment:
 - Remove or archive 0-view dashboards (unless explicitly exempted).
 - Tune or remove "never-firing" alerts and chronic-noise alerts.
 - Verify that all Critical alerts link to an up-to-date runbook.
-- Confirm that new services onboarded in the last quarter have RED dashboards and SLO burn panels (see [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)).
+- Confirm that new services onboarded in the last quarter have RED dashboards and SLO burn panels (see [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)).
 
 ## 6.9 Calibration
 Industry-standard starting ranges. After a few weeks of live data, calibrate: warning ≈ 95th-percentile normal; critical ≈ user impact / SLA breach.
@@ -259,15 +264,15 @@ A scheduled job exports the live Grafana state and `diff`s it against the reposi
 Drift > 7 days is a finding under **OBS-C-02**.
 
 ## 6.10 Cross-References
-- [2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — Grafana's role in the reference architecture.
-- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
-- [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.
-- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — IaC standard the Section 8.1 workflow conforms to.
-- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits the dashboards-as-code controls.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard rendered through Grafana.
-- [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — burn-rate panels embedded in Section 8.1.4 service dashboards.
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — Grafana's role in the reference architecture.
+- [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
+- [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI overlays in Grafana.
+- [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — IaC standard the Section 8.1 workflow conforms to.
+- [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits the dashboards-as-code controls.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard rendered through Grafana.
+- [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — burn-rate panels embedded in Section 8.1.4 service dashboards.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](05-alerting-and-incident-severity-policy.md) | [Next Page](07-aiops-guardrails-and-implementation-playbook.md)

@@ -10,15 +10,20 @@ status: Draft
 
 # 15. Observability Capability Assessment Framework
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](14-observability-roadmap-delivery-plan.md) | [Next Page](16-observability-governance-charter-and-arb-pack.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 15.1 Purpose
-Assesses observability maturity against the phase plan in [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md). Outputs feed the executive scorecard ([12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
+Assesses observability maturity against the phase plan in [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md). Outputs feed the executive scorecard ([Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
 
 ## 15.2 Maturity Phase Scorecard
 
@@ -38,30 +43,30 @@ Assesses observability maturity against the phase plan in [14. Observability Roa
 4. **Remediation** — % automated, MTTR, rollback safety.
 5. **Governance** — schema compliance, retention adherence, audit pass rate.
 6. **Cost Efficiency** — cost per service trend, tool consolidation.
-7. **Cultural Adoption** — cross-team usage, training completion (links to [19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md)).
+7. **Cultural Adoption** — cross-team usage, training completion (links to [Chapter 19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md)).
 
 ## 15.4 Scoring Method
 - Each dimension scored against Phase 1 / 2 / 3 thresholds.
-- Aggregate maturity = weighted blend; weights agreed by governance body ([16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)).
+- Aggregate maturity = weighted blend; weights agreed by governance body ([Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)).
 - Reviewed quarterly; recalibrated against actual production data.
 
 ## 15.5 Inputs
-- KPI scorecard ([12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
-- Incident review records ([13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
-- IaC platform metrics ([8. IaC for Observability Standard](08-iac-for-observability-standard.md)).
-- Compliance / audit reports ([11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
+- KPI scorecard ([Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
+- Incident review records ([Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
+- IaC platform metrics ([Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md)).
+- Compliance / audit reports ([Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
 
 ## 15.6 Outputs
 - Quarterly maturity report.
 - Phase-gate readiness recommendation (proceed / hold / remediate).
-- Inputs to [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) plan adjustments.
+- Inputs to [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) plan adjustments.
 
 ## 15.7 Cross-References
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI source.
-- [14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — phase plan being assessed.
-- [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance body that ratifies phase gates.
-- [19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) — cultural / adoption inputs.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI source.
+- [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — phase plan being assessed.
+- [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance body that ratifies phase gates.
+- [Chapter 19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) — cultural / adoption inputs.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](14-observability-roadmap-delivery-plan.md) | [Next Page](16-observability-governance-charter-and-arb-pack.md)

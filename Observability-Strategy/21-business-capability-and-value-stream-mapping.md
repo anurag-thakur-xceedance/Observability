@@ -10,12 +10,15 @@ status: Draft
 
 # 21. Business Capability and Value-Stream Mapping
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](20-observability-data-model-specification.md) | [Next Page](22-observability-platform-ha-and-dr-design.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
-> **Closes Gaps:** A2, A5, J1 (partial).
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 
 ---
 
@@ -31,7 +34,7 @@ Three artifacts are produced here:
 The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and reinsurers**. The capability axis below uses the LOMA / ACORD-aligned capability taxonomy.
 
 | Business Capability | Tier | Criticality Driver | Data Classification | Target SLO (Availability) | RTO | RPO | Observability Coverage Required |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | Distribution & Quoting (Quote-to-Bind) | T1 | Direct revenue; conversion-sensitive | Confidential (PII) | 99.9% | ≤ 60 min | ≤ 15 min | Full RUM + APM + infra + DB; pre/post-login telemetry; trace from web → quote engine → rate tables |
 | Policy Administration | T1 | System-of-record; regulatory | Confidential (PII) | 99.9% | ≤ 60 min | ≤ 15 min | APM + DB + change tracking; audit trail mandatory |
 | Underwriting (incl. AI / rules) | T1 | Pricing accuracy; loss ratio impact | Confidential (PII + commercial) | 99.5% | ≤ 2 h | ≤ 30 min | APM + model-output telemetry; decision-trace logging |
@@ -81,22 +84,22 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 |---|---|---|---|---|---|---|
 | Quote conversion | Quote-to-Bind % | Quote-engine availability ≥ 99.9% | Successful 200/total ratio over 5-min window | Quote-engine APM + LB metrics | Grafana → Quote-to-Bind board | Burn-rate alert (multi-window) | [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.2 End-to-End Incident Sequence (Logical Flow)](13-incident-response-playbook.md#132-end-to-end-incident-sequence-logical-flow) |
 | FNOL responsiveness | Time-to-FNOL-confirm (P95) | FNOL-API P95 ≤ 800ms | Server-side P95 latency | FNOL-API APM | Grafana → FNOL board | Critical if P95 > 1200ms ≥ 2 min | Domain runbook in [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) |
-| Payment reliability | Payment success % | Payment-gateway availability ≥ 99.95% | Successful auth/total over 1-min | Payment-gateway exporter | Grafana → Payments board | Critical if drop below 98% ≥ 2 min | [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
+| Payment reliability | Payment success % | Payment-gateway availability ≥ 99.95% | Successful auth/total over 1-min | Payment-gateway exporter | Grafana → Payments board | Critical if drop below 98% ≥ 2 min | [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
 | Policy issuance | Time-to-policy-doc (P95) | Doc-pipeline P95 ≤ 60s | Pipeline-stage durations | Workflow-engine custom metrics | Grafana → Policy issuance board | Warning if P95 > 90s | [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) |
-| Claim cycle time | Days from FNOL to Settle | Workflow-engine availability ≥ 99.5% | Stage-transition success rate | Workflow telemetry + DB | Grafana → Claims cycle board | Warning on stage-stall > 1h | [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
+| Claim cycle time | Days from FNOL to Settle | Workflow-engine availability ≥ 99.5% | Stage-transition success rate | Workflow telemetry + DB | Grafana → Claims cycle board | Warning on stage-stall > 1h | [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
 
-The full SLO methodology — including SLI categorisation, error-budget policy, and burn-rate alert formulas — is defined in [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
+The full SLO methodology — including SLI categorisation, error-budget policy, and burn-rate alert formulas — is defined in [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
 
 ## 21.5 Capability-to-Artifact Mapping
 
 | Business Capability | Primary Artifacts |
 |---|---|
-| All T1 capabilities | [18. Application Telemetry Standard](18-application-telemetry-standard.md), [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md), [13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
-| Customer-facing (Quoting, FNOL, Self-Service) | [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — customer-experience layer; [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) for RUM kit |
-| Underwriting / AI | [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) for model telemetry parallels |
-| Claims with payment | [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) for payment-data redaction |
-| Reporting / Regulatory | [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md), [9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
-| Multi-customer site | [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) |
+| All T1 capabilities | [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md), [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md), [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
+| Customer-facing (Quoting, FNOL, Self-Service) | [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — customer-experience layer; [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) for RUM kit |
+| Underwriting / AI | [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) for model telemetry parallels |
+| Claims with payment | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) for payment-data redaction |
+| Reporting / Regulatory | [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md), [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
+| Multi-customer site | [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) |
 
 ## 21.6 Stakeholder Value Statements
 - **Underwriting Director:** "I see model-decision latency, override rates, and rule-engine errors per product line on a single board, with alerts when conversion or loss-ratio leading indicators drift."
@@ -107,10 +110,10 @@ The full SLO methodology — including SLI categorisation, error-budget policy, 
 
 ## 21.7 Cross-References
 - [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4.1 Service Tiering Model](02-enterprise-observability-standards-catalog.md#241-service-tiering-model) — tier definitions consumed by this chapter.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI targets per tier.
-- [25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — SLO methodology.
-- [27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant data isolation.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI targets per tier.
+- [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md) — SLO methodology.
+- [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) — tenant data isolation.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](20-observability-data-model-specification.md) | [Next Page](22-observability-platform-ha-and-dr-design.md)

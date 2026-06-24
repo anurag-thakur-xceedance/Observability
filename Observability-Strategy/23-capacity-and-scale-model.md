@@ -10,12 +10,15 @@ status: Draft
 
 # 23. Capacity and Scale Model
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](22-observability-platform-ha-and-dr-design.md) | [Next Page](24-observability-platform-security-architecture.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
-> **Closes Gaps:** B3, F2.
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 
 ---
 
@@ -51,7 +54,7 @@ For Xceedance reference scale (target end-state):
 | Alertmanager | 0.5 vCPU | 1 GB | minimal | ≤ 1000 alert rules |
 | **Host total** | **~12 vCPU** | **~40 GB** | **~600 GB SSD + object storage** | **Coverage: ≤ 30 monitored hosts; ≤ 50 services** |
 
-### 23.2.2 Medium (3-host HA Compose, per [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md))
+### 23.2.2 Medium (3-host HA Compose, per [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md))
 | Component | Total CPU | Total RAM | Disk | Sustainable Limit |
 |---|---|---|---|---|
 | OTel Collector gw × 2 | 8 vCPU | 16 GB | 200 GB | 30k spans/s, 200MB/s logs |
@@ -132,7 +135,7 @@ GB/day       = 150 × 86400 × 700 B ≈ ~9 GB/day
 ```
 
 **Step 6 — Collector sizing**
-At 1,500 spans/s + 500 MB/day logs + 125k series scrape proxy, a single gateway collector at **2 vCPU / 4 GB RAM** sits at <40% CPU. No replica needed for capacity; a second replica is still recommended for availability (see [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
+At 1,500 spans/s + 500 MB/day logs + 125k series scrape proxy, a single gateway collector at **2 vCPU / 4 GB RAM** sits at <40% CPU. No replica needed for capacity; a second replica is still recommended for availability (see [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
 
 **Step 7 — Final allocation (single host)**
 
@@ -249,7 +252,7 @@ Negligible; bundle pyroscope into the existing Grafana stack at 1 vCPU / 4 GB.
 | Host OS + Docker + headroom (3 hosts) | 4.5 vCPU | 15 GB | 60 GB |
 | **Stack total** | **~37 vCPU** | **~130 GB** | **~2.3 TB SSD + ~580 GB object** |
 
-Spread across **3 × Standard_D16s_v5** (48 vCPU / 192 GB combined): ~77% CPU and ~67% RAM utilisation — within healthy band. Anti-affinity rules per [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md).
+Spread across **3 × Standard_D16s_v5** (48 vCPU / 192 GB combined): ~77% CPU and ~67% RAM utilisation — within healthy band. Anti-affinity rules per [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md).
 
 **Step 9 — Cost (per month, Azure WE, illustrative)**
 - 3 × D16s_v5 reserved 1-yr: ~$840
@@ -409,9 +412,9 @@ Verdict: Large profile fits the customer with headroom on metrics and logs, but 
 | Orchestrator | Compose, single host | Compose, 3 hosts | AKS, 8 nodes |
 | Cost / month (Azure WE) | ~$310 | ~$1,280 | ~$6,440 |
 | Cost per active series (per month) | $0.0025 | $0.00088 | $0.00069 |
-| Cost per span stored (per month, 7–14 d ret) | n/a | n/a | n/a — see [10. Observability FinOps Standard](10-observability-finops-standard.md) |
+| Cost per span stored (per month, 7–14 d ret) | n/a | n/a | n/a — see [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) |
 
-The unit economic of cost-per-active-series falls ~3.6× from Small to Large; this is the primary FinOps argument for consolidating multiple small estates onto a shared Large platform once the operational complexity is justified (see [10. Observability FinOps Standard](10-observability-finops-standard.md)).
+The unit economic of cost-per-active-series falls ~3.6× from Small to Large; this is the primary FinOps argument for consolidating multiple small estates onto a shared Large platform once the operational complexity is justified (see [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md)).
 
 ## 23.4 Scale-Out Triggers
 | Indicator | Threshold | Action |
@@ -465,7 +468,7 @@ GB/day ≈ stored_spans/day × ~700 bytes/span (post-sampling)
 | Medium (3 host HA) | ~$1,200 | ~$300 | ~$150 | ~$1,650 |
 | Large (distributed) | ~$5,000+ | ~$1,500+ | ~$300 | ~$7,000+ |
 
-(Numbers are illustrative; actual figures must be modelled in [10. Observability FinOps Standard](10-observability-finops-standard.md).)
+(Numbers are illustrative; actual figures must be modelled in [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md).)
 
 ## 23.7 Performance SLOs for the Platform Itself
 | Platform SLI | Target |
@@ -489,11 +492,11 @@ Cardinality is a budget. Per-service quotas:
 Enforcement is described in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
 
 ## 23.9 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md)
-- [8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment configurations sized to these reference deployments.
-- [10. Observability FinOps Standard](10-observability-finops-standard.md) — cost modelling and unit economics.
-- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — HA topology overlaid on these sizes.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md)
+- [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment configurations sized to these reference deployments.
+- [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) — cost modelling and unit economics.
+- [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — HA topology overlaid on these sizes.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](22-observability-platform-ha-and-dr-design.md) | [Next Page](24-observability-platform-security-architecture.md)

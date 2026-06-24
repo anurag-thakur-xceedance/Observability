@@ -1,7 +1,7 @@
 ---
 title: IaC for Observability Standard
 chapter: 8
-version: 0.2
+version: 0.1
 owner: TBD
 classification: Internal
 reviewed_date:
@@ -10,11 +10,16 @@ status: Draft
 
 # 8. IaC for Observability Standard
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](07-aiops-guardrails-and-implementation-playbook.md) | [Next Page](09-observability-data-governance-and-retention-policy.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.2 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
+
 ---
 
 ## 8.1 Strategic Policy Position
@@ -125,7 +130,7 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4.7 IaC 
 
 ## 8.6 Implementation & Visualisation
 
-**In Grafana (see also [6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)):**
+**In Grafana (see also [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)):**
 - **Deployment dashboards** → status of each platform service per host or cluster (image tag, uptime, healthcheck state).
 - **Coverage dashboards** → per-host exporter scrape success and OTel service emission coverage.
 - **Performance dashboards** → stack provision time and update time trends, sourced from deployment automation metrics.
@@ -156,7 +161,7 @@ Changes to the observability platform are themselves a **change-managed** activi
 |---|---|---|---|---|
 | **Standard** | Image bump within minor version; config tweak with no schema change; new exporter for an existing target | PR review (2 approvers, one Platform Ops) | Anytime | Documented in PR |
 | **Normal** | New backend (e.g. add Pyroscope); pipeline schema change; SDK upgrade across services | Platform Ops lead + ARB endorsement; ADR optional | Business-hours change window | Tested rollback in non-prod |
-| **Major** | Backend replacement (e.g. swap Prometheus for VictoriaMetrics); cross-cloud migration; new T1 tenant | ARB-ratified ADR ([17. Observability ADR Decision Register](17-observability-adr-decision-register.md)) | Approved release train | Full DR-style rollback rehearsed |
+| **Major** | Backend replacement (e.g. swap Prometheus for VictoriaMetrics); cross-cloud migration; new T1 tenant | ARB-ratified ADR ([Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md)) | Approved release train | Full DR-style rollback rehearsed |
 | **Emergency** | Hot-fix during incident; cardinality emergency; security CVE patch | On-call SRE may apply; post-hoc PR within 24h; review at next CoP | Any time | Best-effort; documented in PIR |
 
 ### 8.7.3 Change Workflow
@@ -203,18 +208,18 @@ Every Normal+ change requires a post-change validation report within 48 hours:
 - Any incidents triggered.
 - Lessons learned, captured in CoP RFC log if relevant.
 
-The post-change report is the auditable evidence under **OBS-C-02** ([11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
+The post-change report is the auditable evidence under **OBS-C-02** ([Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
 
 ## 8.8 Cross-References
-- [3. Observability Reference Architecture](03-observability-reference-architecture.md) — reference architecture deployed by this standard.
-- [5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
+- [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — reference architecture deployed by this standard.
+- [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualisation-playbook.md#671-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.
-- [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits change records produced by Section 8.1.
-- [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — platform KPI roll-up to executive scorecard.
-- [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — change control / ARB approvals for stack changes.
-- [17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADRs for deployment and automation choices.
-- [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — self-monitoring signals gating Section 8.1 wave promotion.
+- [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — OBS-C-02 audits change records produced by Section 8.1.
+- [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — platform KPI roll-up to executive scorecard.
+- [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — change control / ARB approvals for stack changes.
+- [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md) — ADRs for deployment and automation choices.
+- [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) — self-monitoring signals gating Section 8.1 wave promotion.
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](07-aiops-guardrails-and-implementation-playbook.md) | [Next Page](09-observability-data-governance-and-retention-policy.md)

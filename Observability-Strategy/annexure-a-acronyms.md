@@ -10,23 +10,27 @@ status: Draft
 
 # Annexure A — Acronyms & Definitions
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](30-observability-programme-risk-register.md) | [Next Page](annexure-b-concepts-glossary.md)
 
-| Version | Owner | Classification | Reviewed Date | Status |
-|---|---|---|---|---|
-| 0.1 | TBD | Internal |  | Draft |
+| **Document Owner** | CoE-Architecture |
+| --- | --- |
+| **Approved By** | Simon Armstrong (pending wider review) |
+| **Classification** | Internal |
+| **Review Frequency** | Quarterly |
+| **First Review** | 1-Aug-2026 |
+| **Next Review Due** | 1-Nov-2026 |
 > Glossary of acronyms used across the Observability Artifact Pack.
 > Cross-reference: conceptual definitions in [Annexure B. Concepts Glossary](annexure-b-concepts-glossary.md).
 
 | Acronym | Expansion | Definition / Context |
 |---|---|---|
-| ABAC | Attribute-Based Access Control | Access control using attributes (tenant, tier, classification) — see [24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md). |
-| ADR | Architecture Decision Record | Short document capturing one architecture decision, its context, and consequences. Index in [17. Observability ADR Decision Register](17-observability-adr-decision-register.md). |
+| ABAC | Attribute-Based Access Control | Access control using attributes (tenant, tier, classification) — see [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md). |
+| ADR | Architecture Decision Record | Short document capturing one architecture decision, its context, and consequences. Index in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md). |
 | AI | Artificial Intelligence | Used here in the AIOps sense — anomaly detection, RCA suggestion, enriched alerting. |
-| AIOps | AI for IT Operations | Application of AI/ML to observability data for detection, correlation, and remediation. See [7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md). |
+| AIOps | AI for IT Operations | Application of AI/ML to observability data for detection, correlation, and remediation. See [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md). |
 | AKS | Azure Kubernetes Service | Microsoft's managed Kubernetes. Acceptable as an internal deployment target where it fits the environment. |
 | API | Application Programming Interface | Network-callable service interface; instrumented via OpenTelemetry. |
-| ARB | Architecture Review Board | Governance body that reviews architecture decisions and ratifies ADRs. See [16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md). |
+| ARB | Architecture Review Board | Governance body that reviews architecture decisions and ratifies ADRs. See [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md). |
 | CC | Common Criteria | Used here as SOC2 control-category prefix (e.g. "CC ID" = SOC2 control reference). |
 | CD | Continuous Delivery | Automated deployment pipeline downstream of CI. |
 | CI | Continuous Integration | Automated build/test pipeline triggered on commit. |
@@ -37,28 +41,30 @@ status: Draft
 | CX | Customer Experience | User-facing quality metric. |
 | DB | Database | Generic term for data store; see [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards). |
 | DDoS | Distributed Denial of Service | Network-saturation attack; relevant to packet-drop and latency telemetry. |
+| DLQ | Dead-Letter Queue | Storage location for schema-violating or otherwise invalid telemetry records; see [Chapter 20. Observability Data Model Specification -> Section 20.9.6 Dead-Letter Discipline for Schema Violations](20-observability-data-model-specification.md#2096-dead-letter-discipline-for-schema-violations). |
 | DevOps | Development + Operations | Cultural/operational model that observability supports. |
 | DNS | Domain Name System | Name-resolution service; failure rate is a network telemetry signal. |
 | DORA | Digital Operational Resilience Act | EU financial-sector regulation; emerging compliance driver. |
-| DR | Disaster Recovery | Architecture pattern; covered in [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md). |
+| DR | Disaster Recovery | Architecture pattern; covered in [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md). |
 | eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 3. Observability Reference Architecture -> Section 3.4.1 eBPF for Legacy and Non-Intrusive Instrumentation](03-observability-reference-architecture.md#341-ebpf-for-legacy-and-non-intrusive-instrumentation). |
 | EKS | Elastic Kubernetes Service | AWS's managed Kubernetes. One possible managed-cluster deployment target depending on environment needs. |
-| ERD | Entity-Relationship Diagram | Data-model diagram pending in [20. Observability Data Model Specification](20-observability-data-model-specification.md). |
+| ERD | Entity-Relationship Diagram | Data-model diagram pending in [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md). |
 | FaaS | Function as a Service | Serverless runtime; cold-start latency target < 300 ms. |
-| FinOps | Financial Operations | Discipline for managing cloud/observability cost. See [10. Observability FinOps Standard](10-observability-finops-standard.md). |
+| FinOps | Financial Operations | Discipline for managing cloud/observability cost. See [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md). |
 | FP | False Positive | AIOps quality metric; guardrail target < 5%. |
 | GDPR | General Data Protection Regulation | EU data-protection law; drives PII handling and retention rules. |
 | GitOps | Git-based Operations | Operational model where Git is the source of truth for configuration and alert rules. |
 | GKE | Google Kubernetes Engine | Google Cloud's managed Kubernetes. One possible managed-cluster deployment target depending on environment needs. |
-| HA | High Availability | Architecture pattern; covered in [22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md). |
+| HA | High Availability | Architecture pattern; covered in [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md). |
 | HIPAA | Health Insurance Portability and Accountability Act | US healthcare regulation; out of scope today. |
-| IaC | Infrastructure as Code | Code-defined infrastructure provisioning. See [8. IaC for Observability Standard](08-iac-for-observability-standard.md). |
+| IaC | Infrastructure as Code | Code-defined infrastructure provisioning. See [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md). |
 | ID | Identifier | Generic identifier (e.g. trace ID, span ID, control ID). |
 | IdP | Identity Provider | Authentication system used in pre-login telemetry (e.g. Okta, Azure AD). |
 | IO | Input/Output | Disk or network throughput dimension. |
 | ISO | International Organization for Standardization | Standards body; ISO 27001 referenced for compliance mapping. |
+| ITSM | IT Service Management | Process and tooling layer for managing incidents, changes, and problems; integration described in [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.6.1 Integration with ITSM and Change Tooling](13-incident-response-playbook.md#1361-integration-with-itsm-and-change-tooling). |
 | JSON | JavaScript Object Notation | Schema/serialization format used in telemetry export and data-model spec. |
-| KPI | Key Performance Indicator | Measurable success metric. See [12. Observability KPI Scorecard](12-observability-kpi-scorecard.md). |
+| KPI | Key Performance Indicator | Measurable success metric. See [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md). |
 | LLM | Large Language Model | Generative AI model class. AI safety controls in [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.8 AI Safety, Explainability, and LLM Data Leakage](07-aiops-guardrails-and-implementation-playbook.md#78-ai-safety-explainability-and-llm-data-leakage). |
 | MFA | Multi-Factor Authentication | Pre-login telemetry signal — failure rate and latency tracked. |
 | ML | Machine Learning | Underlies AIOps anomaly detection and forecasting. |
@@ -81,7 +87,7 @@ status: Draft
 | PCI DSS | Payment Card Industry Data Security Standard | Card-data protection standard. Conditional scope. |
 | PII | Personally Identifiable Information | Data class subject to PII redaction rules. See [Chapter 18. Application Telemetry Standard -> Section 18.6 PII & Data Classification](18-application-telemetry-standard.md#186-pii-data-classification). |
 | PIR | Post-Incident Review | Structured review after Critical incidents; output retained 1 year. See [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.6 Post-Incident Review (PIR)](13-incident-response-playbook.md#136-post-incident-review-pir). |
-| PRR | Production Readiness Review | Gate that a service must pass before going to production. See [26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md). |
+| PRR | Production Readiness Review | Gate that a service must pass before going to production. See [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md). |
 | RACI | Responsible / Accountable / Consulted / Informed | Decision-rights matrix model. See [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.4.1 RACI Matrix](16-observability-governance-charter-and-arb-pack.md#1641-raci-matrix). |
 | RAG | Retrieval-Augmented Generation | LLM technique citing retrieved sources rather than free generation. |
 | RBAC | Role-Based Access Control | Access control model for telemetry stores and dashboards. |
@@ -103,7 +109,7 @@ status: Draft
 | SLO | Service Level Objective | Internal reliability target (e.g. 99.9% availability). |
 | SME | Subject Matter Expert | Domain specialist consulted during artifact authoring. |
 | SOC | Security Operations Centre | Security team consuming security-relevant telemetry. |
-| SOC2 | Service Organization Control 2 | AICPA security/availability audit framework; mapped in [11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md). |
+| SOC2 | Service Organization Control 2 | AICPA security/availability audit framework; mapped in [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md). |
 | SRE | Site Reliability Engineering | Operational discipline; primary consumer of infra and platform telemetry. |
 | STRIDE | Spoofing, Tampering, Repudiation, Info disclosure, DoS, Elevation of privilege | Threat-modelling taxonomy. |
 | TBD | To Be Determined | Placeholder for content awaiting decision. |
@@ -113,7 +119,9 @@ status: Draft
 | USE | Utilisation, Saturation, Errors | Resource-monitoring method (Brendan Gregg). |
 | UX | User Experience | User-perceived quality dimension. |
 | VM | Virtual Machine | Compute host (replaces "node" in the host-portable model). |
+| DLQ | Dead-Letter Queue | Storage location for schema-violating or otherwise invalid telemetry records; see [Chapter 20. Observability Data Model Specification -> Section 20.9.6 Dead-Letter Discipline for Schema Violations](20-observability-data-model-specification.md#2096-dead-letter-discipline-for-schema-violations). |
+| ITSM | IT Service Management | Process and tooling layer for managing incidents, changes, and problems; integration described in [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.6.1 Integration with ITSM and Change Tooling](13-incident-response-playbook.md#1361-integration-with-itsm-and-change-tooling). |
 
 ---
 
-[↑ Back to TOC](toc.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](30-observability-programme-risk-register.md) | [Next Page](annexure-b-concepts-glossary.md)
