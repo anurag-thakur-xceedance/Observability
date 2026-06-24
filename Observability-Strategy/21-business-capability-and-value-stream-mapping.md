@@ -81,7 +81,7 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 ## 21.4 Outcome → KPI → SLO → SLI → Telemetry Traceability
 
 | Business Outcome | Business KPI | SLO (per service) | SLI | Telemetry Source | Dashboard | Alert | Runbook |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | Quote conversion | Quote-to-Bind % | Quote-engine availability ≥ 99.9% | Successful 200/total ratio over 5-min window | Quote-engine APM + LB metrics | Grafana → Quote-to-Bind board | Burn-rate alert (multi-window) | [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.2 End-to-End Incident Sequence (Logical Flow)](13-incident-response-playbook.md#132-end-to-end-incident-sequence-logical-flow) |
 | FNOL responsiveness | Time-to-FNOL-confirm (P95) | FNOL-API P95 ≤ 800ms | Server-side P95 latency | FNOL-API APM | Grafana → FNOL board | Critical if P95 > 1200ms ≥ 2 min | Domain runbook in [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) |
 | Payment reliability | Payment success % | Payment-gateway availability ≥ 99.95% | Successful auth/total over 1-min | Payment-gateway exporter | Grafana → Payments board | Critical if drop below 98% ≥ 2 min | [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |

@@ -31,7 +31,7 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 ## 18.3 Pre-Login Telemetry (Required Fields & Standards)
 
 | Metric | Unit / Scope | Healthy | Warning | Critical | Notes |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Authentication Latency | ms (auth request → response) | < 300 ms | 500–800 ms ≥ 5 min | > 1000 ms sustained or errors | P95 < 800 ms |
 | Login Failures | % attempts failing | < 1% | 1–3% sustained 5 min | > 3% sustained 5 min or > 5% spike | Indicates credential/backend issue |
 | MFA Failures | % MFA challenges failing | < 0.5% | 0.5–2% sustained | > 2% sustained / MFA outage | Often third-party dependency |
@@ -50,7 +50,7 @@ Where Azure ingress is not present, the same requirement applies at the equivale
 ## 18.4 Post-Login Telemetry (Required Fields & Standards)
 
 | Metric | Unit / Scope | Healthy | Warning | Critical | Notes |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Transaction Latency | ms end-to-end user action | < 500 ms P95 | P95 > 800 ms ≥ 5 min | P95 > 1200 ms sustained | Reflects full user transaction |
 | Service-Call Failures | % calls failing | < 0.2% | 0.5–1% sustained | > 1% sustained or > 3% spike | Includes timeouts, 5xx, retries |
 | Dependency Latency | ms (external/internal dependency response) | < 200 ms | 200–400 ms sustained | > 400 ms sustained or timeouts | DB / cache / API |

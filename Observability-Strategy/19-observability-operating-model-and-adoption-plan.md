@@ -130,7 +130,7 @@ The strategy is regularly reassessed and refined as the technology landscape and
 The headline indicators in Section 8 are operationalised below as **leading** (predict success) and **lagging** (confirm success) KPIs. All are reported on the scorecard in [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).
 
 | KPI | Type | Definition | Target | Owner | Source |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Service onboarding rate | Leading | Services passing PRR per quarter | ≥ 8 / quarter (Phase 2+) | Onboarding lead | [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md) |
 | Conformance score (portfolio) | Leading | % of services scoring ≥ 90% on PRR scorecard | ≥ 90% | Service Owners | PRR dashboard |
 | Champions coverage | Leading | % of onboarded services with a named Champion (Section 5.1) | 100% | CoP chair | CoP register |

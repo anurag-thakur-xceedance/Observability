@@ -229,7 +229,7 @@ This worked model takes the **Medium reference deployment** (see [Chapter 23. Ca
 Notation: **growth** = baseline growth without intervention; **intervention** = month an optimisation lever is applied; **net spend** = actual monthly cost after intervention; **cum.** = year-to-date cumulative.
 
 | Month | Services | Active Series | Logs (GB/day) | Spans Stored (/s) | Driver | Net Spend | Cum. | Monthly Envelope | Variance vs. Envelope |
-|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|---|
 | M1 | 158 | 1.54M | 16.8 | 1.26k | organic growth | $1,335 | $1,335 | $1,500 | -11.0% (under) |
 | M2 | 166 | 1.62M | 17.6 | 1.32k | organic growth | $1,390 | $2,725 | $1,500 | -7.3% (under) |
 | M3 | 174 | 1.70M | 18.5 | 1.39k | organic growth + Q-end log drift | $1,460 | $4,185 | $1,500 | -2.7% (within ±5%) |
@@ -248,7 +248,7 @@ Notation: **growth** = baseline growth without intervention; **intervention** = 
 ### 10.6.19 Cost Decomposition (Month 12)
 
 | Signal | Ingest | Storage Hot | Storage Warm | Storage Cold | Query | Total | Share |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | Metrics | $145 | $290 | $90 | $25 | $60 | $610 | 37.5% |
 | Logs | $180 | $115 | $45 | $20 | $50 | $410 | 25.2% |
 | Traces | $90 | $135 | $30 | $10 | $25 | $290 | 17.8% |
@@ -266,7 +266,7 @@ Observations:
 ### 10.6.20 Unit Cost Trajectory
 
 | Unit | M0 | M4 (post-int. 1) | M7 (post-int. 2) | M10 (post-int. 3) | M12 | Trend |
-|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|
 | $/active series/month | $0.00088 | $0.00088 → $0.00077 | $0.00073 | $0.00069 | $0.00071 | -19% |
 | $/GB ingested logs | $0.55 | $0.55 | $0.55 → $0.49 | $0.49 | $0.50 | -9% |
 | $/M spans ingested | $0.42 | $0.42 | $0.42 | $0.42 → $0.34 | $0.34 | -19% |

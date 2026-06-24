@@ -133,7 +133,7 @@ The frameworks above (SOC 2, ISO/IEC 27001, GDPR, NIST CSF) cover general-purpos
 This catalogue is the bridge between Section 6 controls and the systems that produce their evidence. It tells an auditor exactly **where** each artefact lives, **what format** it takes, and **how long** it is retained — without which "evidence" is a verbal claim. Paths under `audit-evidence/` are S3/Azure Blob prefixes in the WORM evidence bucket established in [Chapter 24. Observability Platform Security Architecture -> Section 24.5 Audit Trail](24-observability-platform-security-architecture.md#245-audit-trail).
 
 | Control | Evidence Artefact | Producing System | Storage Path | Format | Retention |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | OBS-C-01 | Admin-action audit log export | Grafana, Prometheus, Loki, Alertmanager admin APIs | `audit-evidence/admin-actions/{system}/{yyyy}/{mm}/` | NDJSON, signed | 7 years (WORM) |
 | OBS-C-02 | Git commit history + signed-tag manifest for alerts/dashboards/SLOs | GitOps repo (`observability-config`) | Repo itself + monthly snapshot `audit-evidence/gitops-snapshots/` | Git bundle, GPG-signed tags | 7 years |
 | OBS-C-03 | Pipeline redaction config + monthly PII-scan report | OTel Collector config; pii-scan job | `audit-evidence/pii/{yyyy}-{mm}/` | YAML config + scan-report PDF | 3 years (PII-scan); config in Git indefinitely |

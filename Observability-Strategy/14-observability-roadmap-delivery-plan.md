@@ -38,7 +38,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Define Baseline Metrics | Establish what "normal" looks like for key KPIs | Documented baselines: CPU, memory, latency, error rate |
 | Team Onboarding | Train ops + dev teams on dashboards | All relevant team members can navigate Grafana |
 
-### 14.2.1 Phase 1 Targets (from [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
+### 14.2.1 Phase 1 Targets
 - MTTD < 15 min, MTTR <= 4 h, services instrumented 20%, alert noise > 35% non-actionable, manual RCA 100%, automated tickets 0%.
 
 ## 14.3 Phase 2 — Correlation & Alerting (Months 4–6)
@@ -55,7 +55,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Distributed Tracing Rollout | Extend Tempo tracing to all production services | Full request-path visibility across microservices |
 | Cross-Team Dashboards | Shared views breaking down silos | Single pane of glass accessible to all stakeholders |
 
-### 14.3.1 Phase 2 Targets (from [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
+### 14.3.1 Phase 2 Targets
 - MTTD < 5 min, MTTR <= 30 min, services instrumented 70%, alert noise <= 20% non-actionable, manual RCA 50%, automated tickets 50%.
 
 ## 14.4 Phase 3 — AI-Driven Intelligence (Months 7–12)
@@ -73,7 +73,7 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Feedback Loop Integration | Humans validate AI decisions, improving model accuracy | AI accuracy improves month-over-month |
 | Business Impact Correlation | Link technical incidents to business KPIs (revenue, CX scores) | Executives receive business-context summaries |
 
-### 14.4.1 Phase 3 Targets (from [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md))
+### 14.4.1 Phase 3 Targets
 - MTTD < 1 min, MTTR <= 15 min, services instrumented 100%, alert noise <= 10% non-actionable, manual RCA < 20%, automated tickets > 90%.
 
 ## 14.5 Dependencies (Cross-Phase)

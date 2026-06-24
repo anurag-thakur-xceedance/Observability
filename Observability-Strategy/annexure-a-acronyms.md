@@ -77,7 +77,7 @@ status: Draft
 | NIC | Network Interface Card | Host-level network telemetry source. |
 | NIS2 | Network and Information Systems Directive 2 | EU cyber-resilience directive. |
 | NPS | Net Promoter Score | Adoption KPI for engineer satisfaction with the platform. |
-| OCR | Optical Character Recognition | Referenced for un-extracted diagram content in source `.docx`. |
+| OCR | Optical Character Recognition | Technique used to extract text from images or scanned documents. |
 | OOM | Out Of Memory | Container/process failure mode tracked by infra telemetry. |
 | OS | Operating System | Host platform layer. |
 | OTel | OpenTelemetry | Vendor-neutral telemetry standard (metrics, logs, traces). |

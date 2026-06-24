@@ -91,7 +91,7 @@ A burn rate of **N** means the budget would be consumed in **(window / N)** time
 
 ### 25.5.2 Standard Burn-Rate Alert Bundle (per service)
 | Severity | Long Window | Short Window | Burn Rate | Budget Consumed (long window) | Page? |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | **Critical fast burn** | 1 h | 5 min | 14.4 | 2% | Yes — page on-call |
 | **Critical slow burn** | 6 h | 30 min | 6 | 5% | Yes — page on-call |
 | **Warning** | 24 h | 2 h | 3 | 10% | No — ticket |

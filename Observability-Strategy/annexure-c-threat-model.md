@@ -22,11 +22,11 @@ status: Draft
 
 ---
 
-## C.1 Purpose
+## 1 Purpose
 
 This appendix to [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) records a STRIDE-based threat model for the Xceedance Observability Platform. It identifies primary threats per component, the existing mitigations, residual risk, and the NFR / control reference where the mitigation is implemented.
 
-## C.2 Methodology
+## 2 Methodology
 
 - **Framework**: STRIDE — Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege.
 - **Granularity**: per platform component (see Section 4).
@@ -34,7 +34,7 @@ This appendix to [Chapter 24. Observability Platform Security Architecture](24-o
 - **Owner**: Security Architect, ratified by ARB ([Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)).
 - **Inputs**: architecture diagrams ([Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md)), data-flow boundaries ([Chapter 3. Observability Reference Architecture -> Section 3.6.1 Network Topology and Trust Boundaries](03-observability-reference-architecture.md#361-network-topology-and-trust-boundaries)), tenant model ([Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)).
 
-## C.3 In-Scope Components
+## 3 In-Scope Components
 
 | ID | Component | Trust Boundary |
 |---|---|---|
@@ -48,11 +48,11 @@ This appendix to [Chapter 24. Observability Platform Security Architecture](24-o
 | C8 | IaC pipeline (Git → deployment) | Control plane |
 | C9 | Archive store (long-term) | Retention boundary |
 
-## C.4 STRIDE Threat Matrix
+## 4 STRIDE Threat Matrix
 
 Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation.
 
-### 24A.4.1 C1 — Instrumented Service (SDK / Agent)
+### 4.1 C1 — Instrumented Service (SDK / Agent)
 
 | Threat | Description | Primary Mitigation | Mitigation Reference | Residual |
 |---|---|---|---|---|
@@ -63,7 +63,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D**oS | Misbehaving SDK floods collector | Rate-limiting per service; cardinality budget | [Chapter 23. Capacity and Scale Model -> Section 23.8 Cardinality Budget](23-capacity-and-scale-model.md#238-cardinality-budget), NFR-CAP-01 | L |
 | **E**oP | SDK exploited to gain platform credentials | SDKs hold no platform creds; mTLS workload identity only | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 
-### 24A.4.2 C2 — OpenTelemetry Collector (Gateway)
+### 4.2 C2 — OpenTelemetry Collector (Gateway)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
@@ -74,7 +74,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Volumetric DoS at ingress | Network ACL; per-tenant rate-limit; backpressure | [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md), NFR-CAP-02 | M |
 | **E** | Collector exploit → backend write access | Least-privilege per backend; network segmentation | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 
-### 24A.4.3 C3 / C4 / C5 — Backends (Prometheus, Loki, Tempo)
+### 4.3 C3 / C4 / C5 — Backends (Prometheus, Loki, Tempo)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
@@ -85,7 +85,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Query-of-death exhausts backend | Query limits; per-user concurrency caps | NFR-PRF-01 | M |
 | **E** | Backend compromise → lateral move | Backends in segmented subnet; no outbound except whitelisted | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 
-### 24A.4.4 C6 — Grafana (Visualisation and Alerting)
+### 4.4 C6 — Grafana (Visualisation and Alerting)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
@@ -96,7 +96,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Renderer overload via malicious dashboard | Render timeouts; rate-limits per user | NFR-PRF-01 | L |
 | **E** | Editor escalates to Admin via API misuse | Least-privilege roles; admin actions require step-up auth | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 
-### 24A.4.5 C7 — AIOps Layer (Anomaly / RCA / LLM)
+### 4.5 C7 — AIOps Layer (Anomaly / RCA / LLM)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
@@ -107,7 +107,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | AI runaway loop drives cost spike | Inference budget per service; circuit breaker | [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md), [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) | M |
 | **E** | AI tool gains write access beyond ticket creation | Human-out-of-loop disabled by default; explicit approval for write actions | [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) | M |
 
-### 24A.4.6 C8 — IaC Pipeline (Git → Deployment)
+### 4.6 C8 — IaC Pipeline (Git → Deployment)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
@@ -118,7 +118,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Pipeline saturated by junk PRs | Concurrency caps; abuse detection | — | L |
 | **E** | Compromised runner → prod access | Ephemeral runners; OIDC short-lived creds | [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) | M |
 
-### 24A.4.7 C9 — Archive Store (Long-Term)
+### 4.7 C9 — Archive Store (Long-Term)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
 |---|---|---|---|---|
@@ -129,7 +129,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Restore-storm exhausts retrieval quota | Per-tenant restore quotas; tiered retrieval | [Chapter 29. Observability Long-Term Archival Policy -> Section 29.12 Cost Model](29-observability-long-term-archival-policy.md#2912-cost-model) | L |
 | **E** | Erasure abused to destroy evidence | Legal-hold gate blocks erasure; DPO approval required | [Chapter 29. Observability Long-Term Archival Policy -> Section 29.9 Legal Hold](29-observability-long-term-archival-policy.md#299-legal-hold) | L |
 
-## 24A.5 Residual Risk Summary
+## 5 Residual Risk Summary
 
 | Component | Highest residual | Notes |
 |---|---|---|
@@ -143,7 +143,7 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 
 The single **High** residual risk relates to LLM data leakage at the prompt boundary (C7-I) and is tracked in the AIOps risk register ([Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.8 AI Safety, Explainability, and LLM Data Leakage](07-aiops-guardrails-and-implementation-playbook.md#78-ai-safety-explainability-and-llm-data-leakage)).
 
-## 24A.6 Open Threats / Action Register
+## 6 Open Threats / Action Register
 
 | ID | Threat | Action | Owner (TBD) | Target Date |
 |---|---|---|---|---|
@@ -153,7 +153,7 @@ The single **High** residual risk relates to LLM data leakage at the prompt boun
 | THR-004 | Archive egress monitoring (C9-I) | Egress-volume alert thresholds tuned | Security Architect | 2026-Q3 |
 | THR-005 | Compromised CI runner (C8-E) | Migrate all runners to ephemeral + OIDC | Platform Lead | 2026-Q3 |
 
-## 24A.7 Cross-References
+## 7 Cross-References
 
 - [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) — parent chapter.
 - [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) — AI risk register and guardrails.
@@ -164,4 +164,4 @@ The single **High** residual risk relates to LLM data leakage at the prompt boun
 
 ---
 
-[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](23-capacity-and-scale-model.md) | [Next Page](25-slo-and-error-budget-framework.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](annexure-b-concepts-glossary.md)

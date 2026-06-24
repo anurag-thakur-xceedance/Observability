@@ -54,7 +54,7 @@ For Xceedance reference scale (target end-state):
 | Alertmanager | 0.5 vCPU | 1 GB | minimal | ≤ 1000 alert rules |
 | **Host total** | **~12 vCPU** | **~40 GB** | **~600 GB SSD + object storage** | **Coverage: ≤ 30 monitored hosts; ≤ 50 services** |
 
-### 23.2.2 Medium (3-host HA Compose, per [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md))
+### 23.2.2 Medium (3-host HA Compose)
 | Component | Total CPU | Total RAM | Disk | Sustainable Limit |
 |---|---|---|---|---|
 | OTel Collector gw × 2 | 8 vCPU | 16 GB | 200 GB | 30k spans/s, 200MB/s logs |

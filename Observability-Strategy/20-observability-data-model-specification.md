@@ -108,7 +108,7 @@ Every environment has a standardised "Telemetry Health" dashboard with at least 
 
 - **Signal coverage:** per service, proportion of requests with metrics, logs, and traces.
 - **Schema validity:** rate of schema-validation failures per signal type (see Section 20.8.6 dead-letter discipline).
-- **Cardinality vs budget:** active series and label-cardinality versus budgets from [2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
+- **Cardinality vs budget:** active series and label-cardinality versus budgets from [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
 - **Timestamp skew:** distribution of ingest- vs event-time deltas.
 - **PII violations:** count of records routed to the `dlq-pii` stream.
 

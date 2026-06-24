@@ -51,7 +51,7 @@ status: Draft
 
 ### 24.2.2 Authorisation Model (RBAC)
 | Role | Grafana | Prometheus | Loki | Tempo | Alertmanager |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Viewer | Read all (org-scoped) | Read | Read | Read | Read |
 | Editor (per team) | CRUD own folder | — | — | — | Silence own |
 | Admin (per team) | CRUD own folder + datasources | — | — | — | Edit own rules |

@@ -89,7 +89,7 @@ Every signal emitted downstream MUST carry `trace_id` and `span_id` derived from
 ### 2.3.4 Cardinality Governance
 Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce three layers:
 
-#### 2.3.4.1 Per-Service Cardinality Budget (from [Chapter 23. Capacity and Scale Model -> Section 23.8 Cardinality Budget](23-capacity-and-scale-model.md#238-cardinality-budget))
+#### 2.3.4.1 Per-Service Cardinality Budget
 
 | Tier | Max Active Series per Service | Max Distinct Label Combos per Metric |
 |---|---|---|

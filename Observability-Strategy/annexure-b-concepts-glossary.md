@@ -10,7 +10,7 @@ status: Draft
 
 # Annexure B — Concepts Glossary
 
-[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](annexure-a-acronyms.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](annexure-a-acronyms.md) | [Next Page](annexure-c-threat-model.md)
 
 | **Document Owner** | CoE-Architecture |
 | --- | --- |
@@ -57,4 +57,4 @@ status: Draft
 
 ---
 
-[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](annexure-a-acronyms.md)
+[Home Page](01-xceedance-observability-strategy.md) | [Previous Page](annexure-a-acronyms.md) | [Next Page](annexure-c-threat-model.md)

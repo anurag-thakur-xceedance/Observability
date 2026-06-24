@@ -35,13 +35,13 @@ All deployment definitions, automation scripts, exporter configs, dashboards, al
 The following invariants are enforced as **policy-as-code**, evaluated in CI/CD before changes are applied:
 
 - **Correlation propagation:**
-  - Gate: configuration for gateways, API Management, and ingress must demonstrate `traceparent` and `X-Correlation-Id` injection/propagation per [2.3.1 Required Resource Attributes](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal).
+  - Gate: configuration for gateways, API Management, and ingress must demonstrate `traceparent` and `X-Correlation-Id` injection/propagation per [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.1 Required Resource Attributes (every signal)](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal).
   - Policy: rejects merges where new ingress routes lack the required headers.
 - **5xx logging with context:**
   - Gate: services must include structured logs for HTTP 5xx responses containing `service.name`, `deployment.environment`, `trace_id`, `span_id`, and `correlation.id`.
   - Policy: rejects merges when log templates or middleware omit these fields.
 - **Cardinality budget checks:**
-  - Gate: cardinality budget per service and tier remains within limits defined in [2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
+  - Gate: cardinality budget per service and tier remains within limits defined in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
   - Policy: blocks changes that introduce new high-cardinality labels without an explicit ADR.
 
 Policy definitions live alongside IaC and are evaluated using the organisation's chosen policy engine (for example, Open Policy Agent), with CI failure preventing drift from these invariants.
@@ -106,7 +106,7 @@ observability-platform/
 ## 8.4 Platform KPIs (Deployment and Automation)
 
 | Category | Metric | Healthy | Warning | Critical | Notes |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Stack Deployment | Deploy OpenTelemetry Collector | 100% success | < 99% one env | < 95% / repeated failures | Failures imply config drift or automation error. |
 | Stack Deployment | Configure Exporters | ≥ 99% valid | 97–99% sustained | < 97% / repeated misconfig | Misconfigured exporters cause data gaps. |
 | Stack Deployment | Stack Provision Time (cold start) | ≤ 5 min per host | 5–10 min | > 10 min or errors > 1 | Measured from approved deployment invocation to all services `Healthy`. |

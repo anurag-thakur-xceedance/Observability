@@ -60,7 +60,7 @@ The strategy doc retains the high-level governance narrative (review status). De
 The decision-rights table (Section 4) names the **A**ccountable role only. The full RACI for routine activities is below. R = Responsible (does the work), A = Accountable (one per row, owns the outcome), C = Consulted (two-way), I = Informed (one-way).
 
 | Activity | Service Owner | SRE / Platform Ops | Data Governance | AIOps Lead | Identity / Security | Governance Body / ARB | FinOps |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | Define service SLO ([Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md)) | A,R | C | I | I | I | C | I |
 | Approve new telemetry standard ([Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md)) | C | R | C | I | C | A | I |
 | Approve cardinality-budget exception ([Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | R | C | I | I | I | A | C |
@@ -86,7 +86,7 @@ The decision-rights table (Section 4) names the **A**ccountable role only. The f
 Tracked risks to the **governance** function itself (separate from operational platform risks, which live in service-level risk registers). Reviewed at every quarterly cadence.
 
 | Risk ID | Risk | Likelihood | Impact | Owner | Mitigation | Trigger / KRI |
-|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|
 | GOV-R-01 | Standards drift: services bypass `1.` standards under delivery pressure | Med | High | Governance Body | PRR gate ([Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)); compliance scan ([Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) OBS-C-09) | Conformance score < 90% (KPI in [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)) |
 | GOV-R-02 | Cardinality breach destabilises platform | Med | High | Platform Ops | Budget enforcement at gateway ([Chapter 2. Enterprise Observability Standards Catalog -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)); reject-on-breach policy | Active series > 90% of budget |
 | GOV-R-03 | Retention misconfiguration causes GDPR breach | Low | Critical | Data Governance | Automated retention checks (OBS-C-04); quarterly audit | Retention drift detected by job |
