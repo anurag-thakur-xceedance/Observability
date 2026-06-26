@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 20.0 Reader Guide
+Use this chapter when defining or validating telemetry schemas. Platform implementors and schema owners should focus on entities, resource attributes, schema versioning, and dead-letter handling; service teams should use it to understand which attributes their telemetry must populate.
+
 ## 20.1 Purpose
 Define the formal data model for the observability platform: telemetry signal types, the entities they describe, their relationships, and schema conventions enabling cross-pillar correlation.
 

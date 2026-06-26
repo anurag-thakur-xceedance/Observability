@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 19.0 Reader Guide
+Use this chapter to understand the people, roles, training, and adoption practices needed to make the platform useful. Service owners should focus on responsibilities and adoption KPIs; CoP and governance participants should focus on cadence, artefacts, and phase-gate inputs.
+
 ## 19.1 Purpose
 Observability is as much about **people and processes** as tools. This document captures the operating model and adoption plan that turns the platform into a capability.
 

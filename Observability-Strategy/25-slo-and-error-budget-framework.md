@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 25.0 Reader Guide
+Use this chapter to define service reliability promises and the actions that follow when reliability is consumed. Service owners should focus on SLI selection, SLO targets, and runbooks; SREs should focus on error budgets, burn-rate alerts, and policy enforcement.
+
 ## 25.1 Why an SLO Framework
 Without a formal SLO methodology, "reliability targets" are aspirational. With it, every service has:
 1. A handful of SLIs that approximate user happiness.
@@ -38,7 +41,7 @@ Without a formal SLO methodology, "reliability targets" are aspirational. With i
 - **Error budget:** `(1 - 0.999) × 10,000,000 = 10,000` failed login requests allowed in the window
 - **What this means in practice:** if the service burns through those 10,000 failures too quickly, burn-rate alerts page the team and the error-budget policy can freeze feature work until reliability recovers.
 
-> **If you’re a service owner, do these 3 things:**
+> **Service owner action checklist:**
 > 1. Pick **1–3 SLIs** that reflect user happiness (for example availability and latency for a login API).
 > 2. Set an SLO that is ambitious but realistic for the service tier.
 > 3. Make sure burn-rate alerts and a runbook exist before shipping to production.

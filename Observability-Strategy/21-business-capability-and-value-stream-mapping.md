@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 21.0 Reader Guide
+Use this chapter to connect observability work to business outcomes. Business stakeholders should focus on capability and value-stream mappings; architects and service owners should use the traceability table to connect KPIs, SLOs, telemetry, dashboards, alerts, and runbooks.
+
 ## 21.1 Why This Chapter Exists
 The strategy must be defensible at board level. "Reduce MTTR" is operational; what reviewers ask is **"What does observability do for Underwriting? For Claims? For the customer at FNOL?"** This chapter answers that question by mapping observability outcomes to business capabilities and the value streams that monetise them.
 

@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 29.0 Reader Guide
+Use this chapter for telemetry retained beyond operational troubleshooting windows. Governance, compliance, legal, and platform teams should focus on archive categories, retention schedule, storage controls, restore workflow, legal hold, and destruction.
+
 ## 29.1 Purpose
 
 This policy governs the **long-term archival** (greater than 1 year) of observability telemetry — distinct from the operational retention tiers (hot / warm / cold) defined in [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md). It defines what is archived, in what form, for how long, where, who can access it, and how it is eventually destroyed.

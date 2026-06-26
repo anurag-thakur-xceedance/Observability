@@ -9,6 +9,7 @@
 | **Classification** | Internal |
 | **Review Frequency** | Half-Yearly |
 | **Next Review Due** | 2026-12-01 |
+| **Last Review Carried Out** | 8 June 2026 by Simon Armstrong |
 
 ## Purpose
 This page is the landing page for **Phase 03 - Develop** of the SDLC and serves as the governing entry point for all development-phase activities. It defines the scope, objectives, controls, quality expectations, and navigational structure for the Develop phase so that engineering, architecture, security, QA, and platform teams work from a single authoritative reference.
@@ -44,21 +45,27 @@ The intended high-level flow is:
 
 
 ## Process Steps
-| **Step** | **Title** | **Primary Outcome** |
-|---|---|---|
-| **19** | [IaC Jobs Runner](Step-19-IAC-Jobs-Runner.md) | Infrastructure required for the approved delivery scope is provisioned, configured, validated, and documented. |
-| **20** | [Unit Testing](Step-20-Unit-Testing.md) | Code is developed with unit-level quality verification and adequate test coverage. |
-| **21** | [Test Reviewer Additions](Step-21-Test-Reviewer-Additions.md) | Test suites are strengthened through review-driven additions and quality improvements. |
-| **22** | [Comment Aware Reasoning](Step-22-Comment-Aware-Reasoning.md) | Code understanding, maintainability, and intent alignment are improved through structured review of comments and implementation context. |
-| **23** | [Merge PR](Step-23-Merge-PR.md) | A controlled pull request is prepared, submitted, and linked to the relevant engineering work for downstream review and automation. |
-| **24** | [Linting](Step-24-Linting.md) | Static code quality and coding-standard compliance checks are executed automatically. |
-| **25** | [Code Review](Step-25-Code-Review.md) | Human review validates code quality, security, maintainability, and standards conformance. |
-| **26** | [Code Review Continued](Step-26-Code-Review-Continued.md) | Review feedback is addressed, discussions are resolved, and approval readiness is completed. |
-| **27** | [IaC Testing](Step-27-IAC-Testing.md) | Infrastructure changes are validated for correctness, policy alignment, and deployment readiness. |
-| **28** | [Secrets Scan](Step-28-Secrets-Scan.md) | The codebase and configuration set are verified to be free from exposed secrets and sensitive credentials. |
-| **29** | [Development Flow](Step-29-Development-Flow.md) | Build artefacts are generated, versioned, validated, and stored in an approved repository. |
-| **30** | [Development Flow Continued](Step-30-Development-Flow-Continued.md) | Artefacts are deployed to the target validation environment and basic deployment confidence is established. |
-| **31** | [Development Complete](Step-31-Development-Complete.md) | Definition of Done and development-phase completion criteria are confirmed before handoff to the next phase. |
+
+> **Execution Context Legend:**  
+> 🖥️ **Local** - Executed on engineer's machine  
+> ☁️ **Server/Service** - Executed on CI/CD pipeline or remote service  
+> 👤 **Human** - Human review and approval
+
+| **Step** | **Context** | **Title** | **Primary Outcome** |
+|---|---|---|---|
+| **19** | ☁️ | [IaC Jobs Runner](Step-19-IAC-Jobs-Runner.md) | Infrastructure required for the approved delivery scope is provisioned, configured, validated, and documented. |
+| **20** | 🖥️ | [Unit Testing](Step-20-Unit-Testing.md) | Code is developed with unit-level quality verification and adequate test coverage. |
+| **21** | 🖥️ 👤 | [Test Reviewer Additions](Step-21-Test-Reviewer-Additions.md) | Test suites are strengthened through review-driven additions and quality improvements. |
+| **22** | 🖥️ | [Comment Aware Reasoning](Step-22-Comment-Aware-Reasoning.md) | Code understanding, maintainability, and intent alignment are improved through structured review of comments and implementation context. |
+| **23** | 🖥️ | [Merge PR](Step-23-Merge-PR.md) | A controlled pull request is prepared, submitted, and linked to the relevant engineering work for downstream review and automation. |
+| **24** | ☁️ | [Linting](Step-24-Linting.md) | Static code quality and coding-standard compliance checks are executed automatically. |
+| **25** | 👤 | [Code Review](Step-25-Code-Review.md) | Human review validates code quality, security, maintainability, and standards conformance. |
+| **26** | 👤 🖥️ | [Code Review Continued](Step-26-Code-Review-Continued.md) | Review feedback is addressed, discussions are resolved, and approval readiness is completed. |
+| **27** | ☁️ | [IaC Testing](Step-27-IAC-Testing.md) | Infrastructure changes are validated for correctness, policy alignment, and deployment readiness. |
+| **28** | ☁️ | [Secrets Scan](Step-28-Secrets-Scan.md) | The codebase and configuration set are verified to be free from exposed secrets and sensitive credentials. |
+| **29** | ☁️ | [Development Flow](Step-29-Development-Flow.md) | Build artefacts are generated, versioned, validated, and stored in an approved repository. |
+| **30** | ☁️ | [Development Flow Continued](Step-30-Development-Flow-Continued.md) | Artefacts are deployed to the target validation environment and basic deployment confidence is established. |
+| **31** | 👤 | [Development Complete](Step-31-Development-Complete.md) | Definition of Done and development-phase completion criteria are confirmed before handoff to the next phase. |
 
 
 ## Critical Quality Gates
@@ -143,6 +150,20 @@ The critical control intent of this phase is that code must not progress into th
 | **Change failure indicators** | Highlights rework, failed builds, environment failures, or delivery instability during development. |
 
 
+## DORA Metrics for Phase 03
+The Develop phase tracks the following DORA (DevOps Research and Assessment) metrics to measure delivery performance:
+
+| **DORA Metric** | **Definition** | **Measurement Point in Phase 03** | **Target** |
+|---|---|---|---|
+| **D1: Lead Time for Changes** | Time from code commit to code successfully running in production | Measured from first commit in feature branch to merge to main (Step 23) | < 1 day (elite); < 1 week (high) |
+| **D2: Deployment Frequency** | How often code is deployed to production | Tracked via builds per day passing all quality gates (Step 31) | On-demand (elite); Weekly (high) |
+| **D3: Change Failure Rate** | Percentage of deployments causing a failure in production | Tracked via failed builds, rollbacks, hotfixes during development | < 15% (elite); < 30% (high) |
+| **D4: Time to Restore Service** | Time to recover from a production failure | Not directly measured in Phase 03 (measured in Phase 06 - Deploy/Operate) | < 1 hour (elite); < 1 day (high) |
+| **D5: Time From Inception to PR** | Time from work item creation to pull request submission | Measured from backlog item start to PR creation (Entry Point A → Step 23) | < 2 days (elite); < 5 days (high) |
+
+**Note:** DORA metrics D1, D2, D3, and D5 are actively tracked during the Develop phase. These metrics feed into continuous improvement initiatives and engineering effectiveness reviews.
+
+
 ## Modern AI-Assisted Development and Testing
 The Develop phase should deliberately use modern AI-assisted practices to improve speed, consistency, and engineering quality while preserving human accountability.
 
@@ -192,11 +213,13 @@ These visual elements show how engineering execution, quality control, automatio
 - **Exception Management:** Exceptions to standards, controls, or approval requirements must be explicitly documented and approved.
 - **Manual Change Control:** Manual changes to infrastructure, configuration, or deployment state must be avoided unless covered by an approved emergency process and subsequently reconciled into source-controlled automation.
 - **Audit-Ready Outputs:** Outputs from this phase must be complete enough to support security validation, testing, deployment planning, and audit review without requiring undocumented tribal knowledge.
+- **📝 Documentation Updates Required:** Engineers must update Jira tickets and Confluence pages as work progresses through this phase. Work items must reflect current status, completion evidence, and links to artifacts (PRs, builds, test results) to maintain traceability and support handoff to downstream phases.
 
 
 ## Revision History
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
+| **0.1** | 8 June 2026 | Simon Armstrong | Reviewed document and provided comments for improvement |
 
 [Previous: Step 18 - Threat Modeling Architecture Review](../02-Architecture-Design/Step-18-Threat-Modeling-Architecture-Review.md) | [Next: Step 19 - IaC Jobs Runner](Step-19-IAC-Jobs-Runner.md)

@@ -28,7 +28,7 @@ Defines **what** application services must emit, **how** fields are named, and *
 ## 18.2 Scope
 All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must emit pre-login and post-login telemetry via OpenTelemetry SDKs and pipelines defined in [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md).
 
-## 18.2.1 Cheat Sheet: Required Fields & Concepts
+### 18.2.1 Reader Guide
 
 **Core concepts (OpenTelemetry):**
 - **Span:** A timed unit of work (e.g. an HTTP request, DB query). Spans form a tree for each request.

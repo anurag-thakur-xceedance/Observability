@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 5.0 Reader Guide
+Use this chapter to classify alert severity and response expectations. Service owners should use it when defining alert rules; on-call teams should use it to understand when an alert is informational, Warning, or Critical.
+
 ## 5.1 Purpose
 A single, enterprise-wide severity model and action expectation for alerts from observability telemetry. Consolidates per-domain severity tables into one authoritative model.
 

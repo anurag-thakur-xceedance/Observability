@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 4.0 Reader Guide
+Use this chapter during operational triage. Start with the domain matching the alert (infrastructure, application, database, network, or scaling), read the signals, then follow the triage flow before escalating to the incident-response playbook.
+
 ## 4.1 Purpose
 Operational runbooks that translate the standards in [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) into day-to-day actions. Each runbook covers signals to watch, what they mean, immediate diagnostics, and remediation. Severities and escalation are governed by [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). The deployment platform is described in [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md).
 

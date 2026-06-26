@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 13.0 Reader Guide
+Use this chapter when an alert becomes an incident. On-call engineers should follow the flow from detection through mitigation; incident commanders should focus on coordination, communication, PIR, and feedback-loop responsibilities.
+
 ## 13.1 Purpose
 How a telemetry anomaly becomes a diagnosed, communicated, remediated incident. Severities, alert rules, and AI guardrails come from [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) and [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md); runbooks from [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md). This playbook integrates them end-to-end.
 

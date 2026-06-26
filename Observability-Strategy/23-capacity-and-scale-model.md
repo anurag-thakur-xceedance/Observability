@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 23.0 Reader Guide
+Use this chapter when sizing the observability platform or onboarding services with material telemetry volume. Service owners should answer the capacity checklist; platform teams should use the sizing examples, scaling triggers, and cardinality budgets.
+
 ## 23.1 Capacity Drivers
 The four primary drivers of observability load:
 

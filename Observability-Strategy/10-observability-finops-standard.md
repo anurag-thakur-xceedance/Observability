@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 10.0 Reader Guide
+Use this chapter to understand and manage the cost of observability. FinOps and platform teams should focus on unit economics, cost attribution, optimisation levers, and budget variance; service owners should use it to understand how their telemetry volume affects cost.
+
 ## 10.1 Purpose
 Lifecycle policies manage cost and performance of observability platforms. This standard defines the cost-management mechanics that operationalise the retention authorisations in [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md).
 

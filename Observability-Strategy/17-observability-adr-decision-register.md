@@ -25,7 +25,7 @@ status: Draft
 ## 17.1 Purpose
 Formal Architecture Decision Records (ADRs) for significant observability decisions. Each ADR captures context, options considered, decision, and consequences.
 
-## 17.1.1 How to Use This Register
+### 17.1.1 Reader Guide
 - **When to add a new ADR:** whenever you make a decision that constrains future choices (e.g. vendor/tool selection, topology choice, data-residency posture), is costly to reverse, or affects multiple teams.
 - **How to write one:** use the template in Section 17.3. Keep **Context**, **Options**, **Decision**, and **Consequences** concise but explicit; link to relevant chapters and artefacts in **Linked Artifacts** rather than embedding long explanations.
 - **How to link from other chapters:** reference ADRs by ID (e.g. "per ADR-010") and briefly state the impact ("cardinality budgets are enforced at SDK + collector + backend"). Avoid rewriting the ADR content in the referencing chapter.

@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 16.0 Reader Guide
+Use this chapter to understand who has decision rights and how observability standards are governed. Architects should focus on ARB mechanics and ADR escalation; service and platform teams should use the RACI matrix to understand responsibilities.
+
 ## 16.1 Purpose
 Defines who governs observability standards, retention, access, and architecture decisions, and the cadence at which they are reviewed.
 

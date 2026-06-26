@@ -22,7 +22,7 @@ status: Draft
 
 ---
 
-## 11.0 How to Read This if You’re an Engineer
+## 11.0 Reader Guide
 This chapter is written for auditors **and** engineers. If you are an engineer, focus on:
 - **Which controls you own.** Look for rows tagged `[ENG]` in the Owner column; these are implementation responsibilities (e.g. retention config, RBAC, redaction).
 - **Where to find evidence.** The Evidence column tells you which systems and artefacts (dashboards, configs, logs) back each control.

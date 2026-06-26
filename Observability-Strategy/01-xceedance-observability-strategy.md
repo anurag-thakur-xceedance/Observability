@@ -33,13 +33,15 @@ The observability strategy transitions operations from reactive monitoring to pr
 
 This strategy transforms observability from technical overhead into a competitive advantage — operations teams can track, scale, and remediate at production level, while engineering spends less time on level-3 firefighting and more on high-value features.
 
-### 1.1.1 Who should read this
+### 1.1.1 Reader Guide for This Pack
+
+**Audience:**
 - **Technology leaders and architects** who need a coherent reference for how observability is designed and governed.
 - **SRE / Platform / Infrastructure engineers** who build and operate the observability stack.
 - **Application teams** who must onboard services, instrument code, and consume dashboards and alerts.
 - **Risk, compliance, and security stakeholders** who rely on observability data for audit, governance, and investigations.
 
-### 1.1.2 How to use this pack
+**Recommended path through the pack:**
 - **Start with Chapters 1–3** to understand strategy, standards, and reference architecture.
 - Use **Chapters 4–7 and 26** when implementing runbooks, alerting, Grafana, AIOps, and service onboarding.
 - Refer to **Chapters 8–10, 22–24, 28–29** for IaC, FinOps, HA/DR, security, and non-functional requirements.

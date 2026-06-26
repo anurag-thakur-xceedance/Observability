@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 3.0 Reader Guide
+Use this chapter to understand the logical platform shape: how telemetry enters the platform, where each signal is stored, and how Grafana and AIOps consume it. Architects should focus on principles and topology; platform engineers should focus on collection layers, stack components, and deployment implications.
+
 ## 3.1 Architectural Principles
 - **Centralised Data Collection.** All telemetry consolidated in a unified platform to break down silos and enable cross-pillar correlation.
 - **Open Standards.** Vendor-neutral instrumentation (OpenTelemetry) to avoid lock-in and simplify integration.
@@ -34,7 +37,7 @@ status: Draft
 
 ## 3.2 High-Level Architecture (Logical View)
 
-**Architectural TL;DR.** At a glance, this architecture: (1) collects telemetry from applications and infrastructure into a single, standardised pipeline; (2) stores metrics, logs, and traces in dedicated backends optimised for each signal; and (3) presents a unified view in Grafana, with an Agentic AI layer on top that accelerates diagnosis and incident handling.
+**Architectural summary.** At a glance, this architecture: (1) collects telemetry from applications and infrastructure into a single, standardised pipeline; (2) stores metrics, logs, and traces in dedicated backends optimised for each signal; and (3) presents a unified view in Grafana, with an Agentic AI layer on top that accelerates diagnosis and incident handling.
 
 <img src="assets/diagrams/observability-pipeline-architecture.jpg" alt="Observability pipeline architecture showing applications and infrastructure telemetry flowing through the OpenTelemetry SDK and Collector into Prometheus, Loki, and Tempo, then into the Grafana observability layer, alerting, AI observability actions, root cause analysis, and incident management." width="1100">
 

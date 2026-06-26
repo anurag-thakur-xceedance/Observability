@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 14.0 Reader Guide
+Use this chapter to understand the programme sequence from foundation to AI-driven observability. Sponsors and governance bodies should focus on phase outcomes and gates; delivery teams should focus on objectives, dependencies, and phase targets.
+
 ## 14.1 Purpose
 The maturity roadmap traces the journey from reactive monitoring to proactive, AI-driven observability. This plan turns the executive view into milestones, owners, and dependencies.
 

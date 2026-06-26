@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 28.0 Reader Guide
+Use this chapter as the auditable NFR register for the observability platform. Architects, SREs, and auditors should use it to find the target, measurement method, and design reference for availability, performance, security, privacy, resilience, and operability requirements.
+
 ## 28.1 Purpose
 
 This chapter consolidates the **non-functional requirements (NFRs)** for the Xceedance Observability Platform itself — treating the platform as a Tier 1 service with its own SLOs, security posture, and operational standards. NFRs are otherwise scattered across architecture, capacity, HA/DR, security, FinOps, and onboarding chapters; this register provides a single auditable view for ARB, internal audit, and customer-facing assurance.

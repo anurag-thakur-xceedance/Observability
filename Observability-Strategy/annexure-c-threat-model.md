@@ -26,7 +26,7 @@ status: Draft
 
 This appendix to [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) records a STRIDE-based threat model for the Xceedance Observability Platform. It identifies primary threats per component, the existing mitigations, residual risk, and the NFR / control reference where the mitigation is implemented.
 
-## Summary for Non-Security Readers
+## Reader Guide
 
 The most important takeaways are:
 

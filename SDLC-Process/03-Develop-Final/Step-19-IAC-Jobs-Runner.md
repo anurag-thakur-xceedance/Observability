@@ -7,6 +7,9 @@
 | **Classification** | Internal |
 | **Review Frequency** | Half-Yearly |
 | **Next Review Due** | 2026-12-01 |
+| **Last Review Carried Out** | 8 June 2026 by Simon Armstrong |
+
+> **📌 Quick Links:** [Common Failures and Prevention](#1911-common-failure-modes-and-prevention)
 
 ## 19.1 Overview
 | **Attribute** | **Value** |
@@ -148,11 +151,11 @@ Documentation must be updated as part of the same delivery work item so the depl
 
 
 ## 19.5 Outputs
-| **Output** | **Destination** | **Description** |
-|---|---|---|
-| **Environment is ready for downstream engineering use** | Development, QA, Operations, and release stakeholders | A provisioned or updated environment aligned to the approved architecture, delivery scope, and target deployment needs. |
-| **Controlled and traceable infrastructure delivery baseline** | CI/CD platform, audit trail, and state backend | Execution evidence, state data, and traceability records are captured for future runs, support, and auditability. |
-| **Operationally governed infrastructure baseline** | Platform documentation, observability platform, and governance teams | Documentation, monitoring, diagnostics, and policy validation are in place to support secure downstream use. |
+| **Output** | **Target Environment** | **Destination** | **Description** |
+|---|---|---|---|
+| **Environment is ready for downstream engineering use** | Azure subscription, GitHub repository | Development, QA, Operations, and release stakeholders | A provisioned or updated environment aligned to the approved architecture, delivery scope, and target deployment needs. |
+| **Controlled and traceable infrastructure delivery baseline** | Azure DevOps Pipelines, GitHub Actions, Pulumi/Terraform state backend | CI/CD platform, audit trail, and state backend | Execution evidence, state data, and traceability records are captured for future runs, support, and auditability. |
+| **Operationally governed infrastructure baseline** | Confluence, SharePoint, Azure Monitor, Application Insights | Platform documentation, observability platform, and governance teams | Documentation, monitoring, diagnostics, and policy validation are in place to support secure downstream use. |
 
 
 ## 19.6 Key Artifacts
@@ -186,27 +189,27 @@ The step is complete only when the work item acceptance criteria have been met, 
 
 
 ## 19.8 AI and Automation Augmentation
-| **Capability** | **Tool or Service** | **Description** |
-|---|---|---|
-| **Pipeline orchestration** | CI/CD platform | Executes stack validation, preview, provisioning, post-deployment checks, and evidence capture. |
-| **IaC authoring and review assistance** | Approved AI coding assistant | Accelerates template creation, review explanations, and remediation suggestions while remaining subject to human approval. |
-| **Policy-as-code enforcement** | Policy engine | Validates security, compliance, tagging, region, and network guardrails before deployment. |
-| **Automated drift awareness** | IaC platform and cloud control plane | Detects deviations between declared and actual infrastructure state. |
-| **Post-deployment validation** | Automation scripts and health checks | Confirms environment readiness, connectivity, and baseline configuration after provisioning. |
+| **Capability** | **Tool or Service** | **Description** | **Agent/MCP Discovery** |
+|---|---|---|---|
+| **Pipeline orchestration** | CI/CD platform | Executes stack validation, preview, provisioning, post-deployment checks, and evidence capture. | Azure DevOps MCP, GitHub Actions MCP |
+| **IaC authoring and review assistance** | Approved AI coding assistant (GitHub Copilot, Azure AI) | Accelerates template creation, review explanations, and remediation suggestions while remaining subject to human approval. | GitHub Copilot Agent for IaC, Terraform/Pulumi language agents |
+| **Policy-as-code enforcement** | Policy engine (Azure Policy, OPA, Sentinel) | Validates security, compliance, tagging, region, and network guardrails before deployment. | Policy-as-Code MCP, Compliance scanning agents |
+| **Automated drift awareness** | IaC platform and cloud control plane | Detects deviations between declared and actual infrastructure state. | Drift detection agents, Infrastructure state monitors |
+| **Post-deployment validation** | Automation scripts and health checks | Confirms environment readiness, connectivity, and baseline configuration after provisioning. | Health check agents, Environment validation MCP |
 
 AI-assisted outputs must always be reviewed by the responsible engineer before execution in the target environment.
 
 
 ## 19.9 Observability and Metrics
-| **Metric** | **Target** | **How It Is Tracked** | **Description** |
-|---|---|---|---|
-| **Provisioning Success Rate** | >=95% successful IaC runs per reporting period | CI/CD pipeline run status and deployment records | Percentage of IaC runs that complete successfully without rollback or rerun. |
-| **Provisioning Lead Time** | <1 business day from approved handoff to development-environment readiness | Work item timestamps, pipeline timestamps, and release records | Time from approved architecture handoff to environment readiness for development. |
-| **Change Failure Rate for IaC Runs** | <10% of IaC runs require rollback, hotfix, or urgent correction | Rollback records, hotfix records, and incident-linked deployment history | Percentage of infrastructure changes requiring rollback, hotfix, or urgent correction. |
-| **Mean Time to Recover Environment Issues** | <4 hours for development-impacting failures | Incident logs, support records, and environment recovery timestamps | Time required to restore a failed or misconfigured development environment. |
-| **Policy Compliance Rate** | 100% mandatory-policy pass rate | Policy engine results, pipeline checks, and governance reports | Percentage of runs that pass all mandatory policy checks without exception. |
-| **Unresolved Drift Incidents** | 0 unresolved drift incidents before progression | Drift detection reports and platform governance records | Count of manual or out-of-band infrastructure changes detected in managed environments. |
-| **Monitoring Coverage** | 100% of provisioned resources onboarded to required monitoring | Observability platform onboarding evidence and platform health dashboards | Infrastructure and platform monitoring coverage for resources provisioned during this step. |
+| **Metric** | **Target** | **Formula** | **How It Is Tracked** | **Description** |
+|---|---|---|---|---|
+| **Provisioning Success Rate** | >=95% successful IaC runs per reporting period | `(Successful runs / Total runs) × 100` | CI/CD pipeline run status and deployment records | Percentage of IaC runs that complete successfully without rollback or rerun. |
+| **Provisioning Lead Time** | <1 business day from approved handoff to development-environment readiness | `Environment ready timestamp - Architecture approval timestamp` | Work item timestamps, pipeline timestamps, and release records | Time from approved architecture handoff to environment readiness for development. |
+| **Change Failure Rate for IaC Runs** | <10% of IaC runs require rollback, hotfix, or urgent correction | `(Failed runs requiring correction / Total runs) × 100` | Rollback records, hotfix records, and incident-linked deployment history | Percentage of infrastructure changes requiring rollback, hotfix, or urgent correction. |
+| **Mean Time to Recover Environment Issues** | <4 hours for development-impacting failures | `Sum(Recovery time per incident) / Total incidents` | Incident logs, support records, and environment recovery timestamps | Time required to restore a failed or misconfigured development environment. |
+| **Policy Compliance Rate** | 100% mandatory-policy pass rate | `(Runs passing all policies / Total runs) × 100` | Policy engine results, pipeline checks, and governance reports | Percentage of runs that pass all mandatory policy checks without exception. |
+| **Unresolved Drift Incidents** | 0 unresolved drift incidents before progression | `Count(Drift incidents) - Count(Resolved drift incidents)` | Drift detection reports and platform governance records | Count of manual or out-of-band infrastructure changes detected in managed environments. |
+| **Monitoring Coverage** | 100% of provisioned resources onboarded to required monitoring | `(Resources with monitoring / Total provisioned resources) × 100` | Observability platform onboarding evidence and platform health dashboards | Infrastructure and platform monitoring coverage for resources provisioned during this step. |
 
 Expected telemetry for this step includes pipeline logs, cloud activity logs, policy evaluation results, resource health signals, and deployment correlation identifiers.
 
@@ -267,3 +270,4 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
+| **0.1** | 8 June 2026 | Simon Armstrong | Reviewed document and provided comments for improvement |

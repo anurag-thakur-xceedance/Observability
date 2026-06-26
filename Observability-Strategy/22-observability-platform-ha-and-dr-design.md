@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 22.0 Reader Guide
+Use this chapter to understand how the observability platform remains available and recoverable. SRE and platform teams should focus on the HA matrix, backup/restore mechanics, DR patterns, and drill cadence.
+
 ## 22.1 HA / DR Posture
 **Summary story — what happens during a regional platform failure.**
 If the primary observability region fails, service telemetry continues to buffer locally at collectors where possible. Grafana and alerting fail over to the DR stack, dashboards and alert rules are re-provisioned from Git, and Loki/Tempo data is restored from replicated object storage. The target is to restore platform visibility within **30 minutes** and lose no more than **5 minutes** of in-flight telemetry.

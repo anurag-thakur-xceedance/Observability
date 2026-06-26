@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 12.0 Reader Guide
+Use this chapter to understand how observability outcomes are measured. Executives should focus on outcome KPIs and targets; platform and service teams should focus on sources, telemetry quality SLIs, and reporting cadence.
+
 ## 12.1 Purpose
 The canonical place to track outcome KPIs for the observability strategy — rolling up technical, governance, and business metrics into one executive view.
 

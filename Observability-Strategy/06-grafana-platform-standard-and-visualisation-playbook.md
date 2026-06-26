@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 6.0 Reader Guide
+Use this chapter when creating, reviewing, or operating Grafana dashboards and alerts. Platform teams should focus on canonical dashboards and governance; service teams should focus on dashboard structure, alert ownership, and telemetry-health panels.
+
 ## 6.1 Purpose
 Defines how Grafana is operated as the primary visualisation and alerting platform, and how dashboards deliver the strategy's "single pane of glass".
 

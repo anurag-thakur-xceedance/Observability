@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 8.0 Reader Guide
+Use this chapter when deploying or changing the observability platform. Platform engineers should focus on policy-as-code gates, repository structure, automation responsibilities, and change workflow; reviewers should use it to verify that platform changes are reproducible and auditable.
+
 ## 8.1 Strategic Policy Position
 Observability deployment must be **reproducible, version-controlled, containerized, and measurable**. The approved delivery approach is environment-aware rather than bound to a single orchestration tool:
 
@@ -59,7 +62,7 @@ Policy definitions live alongside IaC and are evaluated using the organisation's
 
 ## 8.3 Implementation Patterns
 
-> If you’re **not** implementing or operating the observability platform, you can skim this section on first read and return when you need concrete repository and automation patterns.
+> **Implementation note.** Readers who are not implementing or operating the observability platform can skim this section on first read and return when they need concrete repository and automation patterns.
 
 ### 8.3.1 Repository Layout (Recommended)
 ```

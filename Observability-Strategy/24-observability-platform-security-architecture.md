@@ -22,7 +22,7 @@ status: Draft
 
 ---
 
-## Security Quick Start
+## Reader Guide
 
 The security posture can be summarised as seven plain-language rules:
 

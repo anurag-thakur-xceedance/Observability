@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 27.0 Reader Guide
+Use this chapter when designing customer-site or multi-tenant observability deployments. Architects should focus on topology and tenancy boundaries; platform teams should focus on tenant labelling, data residency, trace continuity, and onboarding controls.
+
 ## 27.1 Deployment Topologies
 
 ### 27.1.1 Topology A — Single-Tenant On-Premise at Customer Site
@@ -80,7 +83,7 @@ status: Draft
 
 ## 27.2 Tenant Identity Model
 
-**TL;DR.** Every telemetry signal must carry a stable tenant identity and supporting context (`tenant_id`, `tenant_class`, `region`, `environment`) so that routing, isolation, access control, and cost attribution all work without relying on human interpretation.
+**Summary.** Every telemetry signal must carry a stable tenant identity and supporting context (`tenant_id`, `tenant_class`, `region`, `environment`) so that routing, isolation, access control, and cost attribution all work without relying on human interpretation.
 
 | Element | Definition | Example |
 |---|---|---|
@@ -127,7 +130,7 @@ processors:
 | Audit | Audit events tagged with tenant_id | Auditable per tenant |
 
 ## 27.5 Data-Residency
-**TL;DR.** Telemetry stays in the tenant's approved region by default. Cross-region movement is allowed only for DR inside the same residency boundary, unless contracts or regulation explicitly allow otherwise.
+**Summary.** Telemetry stays in the tenant's approved region by default. Cross-region movement is allowed only for DR inside the same residency boundary, unless contracts or regulation explicitly allow otherwise.
 
 - Telemetry stores in tenant region by default.
 - Cross-region replication only for DR within the same residency boundary unless contractually allowed.
@@ -140,7 +143,7 @@ processors:
 
 ## 27.6 Trace Continuity Across Customer / Xceedance Boundary
 
-**TL;DR.** Trace IDs are preserved end-to-end across customer and Xceedance systems, but sensitive span attributes are redacted at the customer edge before export. This keeps traces joinable without exporting raw regulated data.
+**Summary.** Trace IDs are preserved end-to-end across customer and Xceedance systems, but sensitive span attributes are redacted at the customer edge before export. This keeps traces joinable without exporting raw regulated data.
 
 W3C Trace Context (`traceparent`, `tracestate`) is propagated across the boundary, but with redaction.
 

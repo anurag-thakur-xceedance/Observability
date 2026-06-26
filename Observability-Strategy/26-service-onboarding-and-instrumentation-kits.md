@@ -36,7 +36,7 @@ status: Draft
 [Day 30]  Service operational with full observability
 ```
 
-## 26.1.1 How to Use This Chapter
+### 26.1.1 Reader Guide
 
 - **If you are a platform or infra engineer:** focus on the PRR gate (Section 26.2), CI enforcement, and cardinality/capacity checks.
 - **If you are an application engineer (.NET, Java, Node.js, Python, Go):** go straight to the instrumentation kit for your language in Section 26.3, then return to the PRR checklist before promotion.

@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 30.0 Reader Guide
+Use this chapter to review programme-level risks that cut across multiple standards. ARB, programme sponsors, and risk owners should focus on the top risks, mitigation summaries, residual ratings, and review cadence.
+
 ## 30.1 Purpose
 
 This register consolidates the portfolio-level risks for the observability programme into a single artefact. Individual chapters surface risk fragments inside their own scope (for example AIOps guardrail risks in [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md), retention and erasure risks in [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), and platform security risks in [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)); this chapter rolls them up so that the ARB and the programme sponsor have one view of the top risks across all chapters.

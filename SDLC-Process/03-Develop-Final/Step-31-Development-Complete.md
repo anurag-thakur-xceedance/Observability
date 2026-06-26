@@ -7,6 +7,7 @@
 | **Classification** | Internal |
 | **Review Frequency** | Half-Yearly |
 | **Next Review Due** | 2026-12-01 |
+| **Last Review Carried Out** | Not yet reviewed |
 
 ## 31.1 Overview
 | **Attribute** | **Value** |

@@ -9,6 +9,7 @@
 | **Classification** | Internal |
 | **Review Frequency** | Half-Yearly |
 | **Next Review Due** | 2026-12-01 |
+| **Last Review Carried Out** | 9 June 2026 by Simon Armstrong |
 
 ## 23.1 Overview
 | **Attribute** | **Value** |
@@ -164,13 +165,13 @@ Submission does not imply immediate merge; it means the change has formally ente
 
 
 ## 23.9 Observability and Metrics
-| **Metric** | **Target** | **How It Is Tracked** | **Description** |
-|---|---|---|---|
-| **PR Size** | <400 lines changed | Pull request diff statistics in the source control platform | Tracks whether pull requests remain focused and reviewable. |
-| **PR Creation Time** | <30 minutes | Pull request creation timestamps and author activity records | Measures the time taken to create and submit the pull request once the change is ready. |
-| **Work Item Linkage** | 100% | Pull request metadata checks and work item linkage validation rules | Percentage of pull requests correctly linked to approved work scope. |
-| **Time to First Review** | <4 hours | Pull request timestamps and first-review activity records | Time from pull request submission to the first human review. |
-| **Time From Inception to PR** | <3 days | Work item start date, branch history, and pull request creation timestamp | Measures development velocity from work start to pull request submission. |
+| **Metric** | **Target** | **Formula** | **How It Is Tracked** | **Where Accessible** | **Description** |
+|---|---|---|---|---|---|
+| **PR Size** | <400 lines changed | `Lines added + Lines deleted` | Pull request diff statistics in the source control platform | GitHub/Azure DevOps PR page, Engineering metrics dashboard | Tracks whether pull requests remain focused and reviewable. |
+| **PR Creation Time** | <30 minutes | `PR creation timestamp - Last commit timestamp` | Pull request creation timestamps and author activity records | GitHub/Azure DevOps activity logs, Engineering metrics dashboard | Measures the time taken to create and submit the pull request once the change is ready. |
+| **Work Item Linkage** | 100% | `(PRs with work item links / Total PRs) × 100` | Pull request metadata checks and work item linkage validation rules | GitHub/Azure DevOps PR validation checks, Governance dashboard | Percentage of pull requests correctly linked to approved work scope. |
+| **Time to First Review** | <4 hours | `First review comment timestamp - PR creation timestamp` | Pull request timestamps and first-review activity records | GitHub/Azure DevOps PR timeline, Engineering metrics dashboard | Time from pull request submission to the first human review. |
+| **Time From Inception to PR** | <3 days | `PR creation timestamp - Work item start timestamp` | Work item start date, branch history, and pull request creation timestamp | Jira/Azure DevOps work item tracking, Engineering metrics dashboard | Measures development velocity from work start to pull request submission. |
 
 
 ## 23.10 Best Practices
@@ -213,3 +214,4 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
+| **0.1** | 9 June 2026 | Simon Armstrong | Reviewed document and provided comments for improvement |

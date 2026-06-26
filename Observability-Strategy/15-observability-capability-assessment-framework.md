@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 15.0 Reader Guide
+Use this chapter to assess maturity by business unit, portfolio, or service group. Governance and programme teams should use the scoring method and example to decide whether a team is ready to progress to the next roadmap phase.
+
 ## 15.1 Purpose
 Assesses observability maturity against the phase plan in [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md). Outputs feed the executive scorecard ([Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
 

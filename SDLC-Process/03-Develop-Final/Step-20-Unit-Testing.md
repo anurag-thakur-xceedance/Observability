@@ -9,6 +9,9 @@
 | **Classification** | Internal |
 | **Review Frequency** | Half-Yearly |
 | **Next Review Due** | 2026-12-01 |
+| **Last Review Carried Out** | 8 June 2026 by Simon Armstrong |
+
+> **📌 Quick Links:** [Common Failures and Prevention](#2011-common-failure-modes-and-prevention)
 
 ## 20.1 Overview
 | **Attribute** | **Value** |
@@ -115,8 +118,14 @@ Coverage targets must be used as a quality indicator, not as a substitute for th
 ### 20.4.5 Execute Unit Tests Continuously
 Unit tests must be run repeatedly during development so failures are detected early and corrected before the code progresses further.
 
+**Execution Context Requirements:**
+- ⚡ **Unit tests MUST be FAST** - Target: < 10 minutes for full suite, < 1 second per test
+- 🖥️ **Unit tests MUST run BEFORE check-in** - Execute on engineer's local machine pre-commit/pre-push
+- ☁️ **Integration tests run OUTSIDE of check-in** - Execute in CI pipeline, not locally
+- 🔄 **Deterministic and repeatable** - No flaky tests, same results every run
+
 Execution points should include:
-- Local execution before commit or push
+- **Local execution before commit or push** (mandatory for unit tests)
 - Pre-push or pre-merge pipeline validation, where configured
 - CI execution on pull requests and relevant branch updates
 - Focused reruns when code or tests are modified during review feedback cycles
@@ -185,25 +194,25 @@ The step is complete only when the code and the corresponding unit tests are com
 
 
 ## 20.8 AI and Automation Augmentation
-| **Capability** | **Tool or Service** | **Description** |
-|---|---|---|
-| **Test case suggestion** | Approved AI assistant | Suggests candidate unit test scenarios based on requirements, code structure, and edge conditions. |
-| **Boilerplate generation** | Approved AI assistant | Accelerates the creation of initial unit test scaffolding while remaining subject to developer review. |
-| **Coverage awareness** | Coverage tooling and CI/CD platform | Highlights untested paths, regressions in coverage, and newly introduced gaps. |
-| **Execution automation** | CI/CD pipeline | Runs unit tests automatically and stores evidence for downstream review. |
+| **Capability** | **Tool or Service** | **Description** | **Agent/MCP Discovery** |
+|---|---|---|---|
+| **Test case suggestion** | GitHub Copilot, Azure AI, OpenAI Codex | Suggests candidate unit test scenarios based on requirements, code structure, and edge conditions. | GitHub Copilot Test Generation Agent, TDD agents, Test scenario generators |
+| **Boilerplate generation** | GitHub Copilot, AI coding assistants | Accelerates the creation of initial unit test scaffolding while remaining subject to developer review. | Unit test scaffolding agents, Test boilerplate MCP |
+| **Coverage awareness** | Coverage tooling (Istanbul, JaCoCo, Coverage.py), CI/CD platform | Highlights untested paths, regressions in coverage, and newly introduced gaps. | Code coverage analyzers, Coverage gap detection agents |
+| **Execution automation** | CI/CD pipeline (Azure Pipelines, GitHub Actions, Jenkins) | Runs unit tests automatically and stores evidence for downstream review. | Test execution MCP, CI/CD automation agents |
 
 AI-generated tests must be reviewed, corrected, and validated by the responsible engineer before they are treated as quality evidence.
 
 
 ## 20.9 Observability and Metrics
-| **Metric** | **Target** | **How It Is Tracked** | **Description** |
-|---|---|---|---|
-| **Line Coverage** | >=80% unless an exception is approved | Coverage tooling in local execution and CI/CD reports | Percentage of executable lines exercised during unit testing. |
-| **Branch Coverage** | >=70% unless an exception is approved | Coverage tooling and branch coverage reports in CI/CD | Percentage of decision branches exercised during unit testing. |
-| **Unit Test Pass Rate** | 100% in the approved execution path | Local runs, pull request checks, and CI test results | Percentage of unit tests passing during local and CI execution. |
-| **Test Execution Time** | <10 minutes for the approved unit test suite | CI pipeline timing, local execution timing, and trend reporting | Time required to complete the approved unit test suite. |
-| **Flaky Test Rate** | 0 known flaky tests in active use | Repeated CI runs, rerun history, and engineering defect records | Frequency of inconsistent outcomes from the same test suite without code changes. |
-| **Defect Escape Indicator** | <5 defects per release attributable to missed unit-test coverage, with a downward trend over time | Defect analysis, QA findings, and retrospective review | Defects later found in review, integration, or testing that should have been caught by unit tests. |
+| **Metric** | **Target** | **Formula** | **How It Is Tracked** | **Where Accessible** | **Description** |
+|---|---|---|---|---|---|
+| **Line Coverage** | >=80% unless an exception is approved | `(Lines executed / Total executable lines) × 100` | Coverage tooling in local execution and CI/CD reports | Local IDE, CI/CD pipeline, Code coverage dashboard | Percentage of executable lines exercised during unit testing. |
+| **Branch Coverage** | >=70% unless an exception is approved | `(Branches executed / Total branches) × 100` | Coverage tooling and branch coverage reports in CI/CD | Local IDE, CI/CD pipeline, Code coverage dashboard | Percentage of decision branches exercised during unit testing. |
+| **Unit Test Pass Rate** | 100% in the approved execution path | `(Passing tests / Total tests) × 100` | Local runs, pull request checks, and CI test results | Local test runner, PR status checks, CI/CD pipeline | Percentage of unit tests passing during local and CI execution. |
+| **Test Execution Time** | <10 minutes for the approved unit test suite | `Sum(Test execution time)` | CI pipeline timing, local execution timing, and trend reporting | Local test runner, CI/CD pipeline logs, Engineering metrics dashboard | Time required to complete the approved unit test suite. |
+| **Flaky Test Rate** | 0 known flaky tests in active use | `(Flaky test occurrences / Total test runs) × 100` | Repeated CI runs, rerun history, and engineering defect records | CI/CD pipeline, Test stability dashboard, Engineering defect tracking | Frequency of inconsistent outcomes from the same test suite without code changes. |
+| **Defect Escape Indicator** | <5 defects per release attributable to missed unit-test coverage, with a downward trend over time | `Count(Defects caught post-unit-test phase) / Total releases` | Defect analysis, QA findings, and retrospective review | QA defect tracking, Retrospective reports, Engineering metrics dashboard | Defects later found in review, integration, or testing that should have been caught by unit tests. |
 
 Expected telemetry includes CI test results, coverage reports, test duration trends, and failure logs linked to the relevant work item and commit.
 
@@ -265,4 +274,5 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
+| **0.1** | 8 June 2026 | Simon Armstrong | Reviewed document and provided comments for improvement |
 

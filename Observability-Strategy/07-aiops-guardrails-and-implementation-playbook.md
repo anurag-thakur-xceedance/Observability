@@ -21,7 +21,7 @@ status: Draft
 | **Next Review Due** | 1-Nov-2026 |
 
 ---
-## 7.0 Summary and Reader Prerequisites
+## 7.0 Reader Guide
 This chapter assumes familiarity with basic observability concepts (metrics, logs, traces) and the alerting policy. You **do not** need to be an ML specialist to apply the guardrails.
 
 - If you are an **on-call engineer or SRE**, focus on Sections **7.1, 7.2, 7.3, and 7.4** — they define what AI-generated alerts mean and when to trust or override them.

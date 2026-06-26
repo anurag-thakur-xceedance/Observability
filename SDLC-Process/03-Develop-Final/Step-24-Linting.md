@@ -9,6 +9,7 @@
 | **Classification** | Internal |
 | **Review Frequency** | Half-Yearly |
 | **Next Review Due** | 2026-12-01 |
+| **Last Review Carried Out** | 9 June 2026 by Simon Armstrong |
 
 ## 24.1 Overview
 | **Attribute** | **Value** |
@@ -160,13 +161,13 @@ The change can proceed only when blocking findings are resolved and the pull req
 
 
 ## 24.9 Observability and Metrics
-| **Metric** | **Target** | **How It Is Tracked** | **Description** |
-|---|---|---|---|
-| **Lint Pass Rate** | >=95% of pull requests pass linting on the first attempt | Pull request check results and CI/CD pipeline trend reports | Percentage of pull requests that pass linting on the first attempt. |
-| **Average Lint Findings per PR** | <5 findings per pull request on average | Lint reports aggregated across pull requests | Typical lint burden introduced per change set. |
-| **Auto-fix Rate** | >=60% of eligible findings corrected automatically | Lint tool auto-fix logs and remediation reports | Percentage of total findings corrected automatically. |
-| **Lint Execution Time** | <3 minutes per pull request validation run | CI/CD pipeline timing records | Time required to run linting against the pull request change set. |
-| **Disabled Rules** | <5 active rule exceptions at repository level | Lint configuration review and repository standards audit | Number of disabled linting rules or equivalent exceptions in active use. |
+| **Metric** | **Target** | **Formula** | **How It Is Tracked** | **Description** |
+|---|---|---|---|---|
+| **Lint Pass Rate** | >=95% of pull requests pass linting on the first attempt | `(PRs passing lint first-time / Total PRs) × 100` | Pull request check results and CI/CD pipeline trend reports | Percentage of pull requests that pass linting on the first attempt. |
+| **Average Lint Findings per PR** | <5 findings per pull request on average | `Sum(Lint findings across all PRs) / Total PRs` | Lint reports aggregated across pull requests | Typical lint burden introduced per change set. |
+| **Auto-fix Rate** | >=60% of eligible findings corrected automatically | `(Auto-fixed findings / Total findings) × 100` | Lint tool auto-fix logs and remediation reports | Percentage of total findings corrected automatically. |
+| **Lint Execution Time** | <3 minutes per pull request validation run | `Lint job end timestamp - Lint job start timestamp` | CI/CD pipeline timing records | Time required to run linting against the pull request change set. |
+| **Disabled Rules** | <5 active rule exceptions at repository level | `Count(Disabled linting rules in config)` | Lint configuration review and repository standards audit | Number of disabled linting rules or equivalent exceptions in active use. |
 
 
 ## 24.10 Best Practices
@@ -213,4 +214,5 @@ Key Outcomes:
 | **Version** | **Date** | **Author** | **Changes** |
 |---|---|---|---|
 | **0.1** | 5 May 2026 | Anurag Thakur | Initial draft for Review |
+| **0.1** | 9 June 2026 | Simon Armstrong | Reviewed document and provided comments for improvement |
 

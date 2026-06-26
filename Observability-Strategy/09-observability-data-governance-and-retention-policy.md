@@ -22,6 +22,9 @@ status: Draft
 
 ---
 
+## 9.0 Reader Guide
+Use this chapter to decide what telemetry is collected, how long it is retained, how sensitive data is handled, and how deletion is verified. Data governance and platform teams should treat it as the operational retention policy for hot, warm, and cold telemetry.
+
 ## 9.1 Purpose
 Defines what telemetry is collected, retention by type, storage location, access, governance, audit, and deletion/archival. Keeps observability data **useful, compliant, and cost-effective** across its lifecycle.
 
