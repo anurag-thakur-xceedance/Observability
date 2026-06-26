@@ -39,6 +39,12 @@ A single, enterprise-wide severity model and action expectation for alerts from 
 | **Warning** | Metric exceeds warning range for ≥ 5 min rolling window | Review during business hours; check for transient congestion, partial outage, dependency lag, or recent config changes. |
 | **Critical** | Metric exceeds critical range for ≥ 2 min (95th percentile) or repeated within 10 min | Immediate incident: page on-call team. Probable user or business impact. |
 
+**Global timing conventions.** Unless explicitly overridden in the domain sections below, all alerts follow these timing rules:
+- **Warning:** condition in warning band for **at least 5 minutes** (rolling window).
+- **Critical:** condition in critical band for **at least 2 minutes** at P95/P99, or repeated breaches within a **10-minute** window.
+
+Domain-specific triggers in Section 5.4 refine *which* signals to watch per domain, but they all **inherit these timing conventions by default**.
+
 ## 5.4 Domain-Specific Triggers (Reference)
 
 ### 5.4.1 Application (Pre-Login & Post-Login)
@@ -79,6 +85,8 @@ A single, enterprise-wide severity model and action expectation for alerts from 
 - **Info / Normal:** deviation < warning OR anomaly confidence < 70% → record event for model training; no alert.
 - **Warning:** deviation crosses warning AND confidence ≥ 80% → human triage; check recent deployments / infra changes.
 - **Critical:** critical threshold crossed AND confidence ≥ 90%, OR correlation > 0.6 sustained → automatic incident creation or rollback trigger.
+
+AI-specific guardrails (confidence thresholds, model precision/recall, rollback rules) are defined in [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.4 Severity Policy for AI-Detected Events](07-aiops-guardrails-and-implementation-playbook.md#74-severity-policy-for-ai-detected-events).
 
 ### 5.4.8 IaC / OpenTelemetry Deployment
 - **Info / Normal:** metrics inside healthy/normal → CI-CD trend analytics only.

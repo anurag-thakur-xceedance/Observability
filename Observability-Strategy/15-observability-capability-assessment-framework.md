@@ -50,6 +50,19 @@ Assesses observability maturity against the phase plan in [Chapter 14. Observabi
 - Aggregate maturity = weighted blend; weights agreed by governance body ([Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)).
 - Reviewed quarterly; recalibrated against actual production data.
 
+**Example (end of Q2).**
+
+- Business unit "Commercial Lines" reports:
+  - Coverage: 60% of services instrumented → between Phase 1 (20%) and Phase 2 (70%) → score as **Phase 1.5 (round to Phase 2)**.
+  - Detection: MTTD ~ 7 min, alert noise ~ 25% non-actionable → between Phase 1 and Phase 2 → **Phase 2**.
+  - Diagnosis: 70% incidents with root cause identified, RCA cycle time acceptable → **Phase 2**.
+  - Remediation: MTTR ~ 45 min, 20% incidents use automated remediation → between Phase 1 and Phase 2 → **Phase 2**.
+  - Governance: retention and schema compliance in place, audit pass rate 100% → **Phase 2**.
+  - Cost Efficiency: cost per service trending down but not yet at Phase 3 benchmarks → **Phase 2**.
+  - Cultural Adoption: training completion at 60%, cross-team usage growing → **Phase 1–2**.
+
+Overall, "Commercial Lines" is assessed as **Phase 2** with a note that Coverage and Cultural Adoption must reach full Phase 2 before gating to Phase 3.
+
 ## 15.5 Inputs
 - KPI scorecard ([Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
 - Incident review records ([Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
@@ -57,9 +70,9 @@ Assesses observability maturity against the phase plan in [Chapter 14. Observabi
 - Compliance / audit reports ([Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
 
 ## 15.6 Outputs
-- Quarterly maturity report.
-- Phase-gate readiness recommendation (proceed / hold / remediate).
-- Inputs to [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) plan adjustments.
+- Quarterly maturity report (one page per business unit or portfolio), plus an aggregate view for the governance body.
+- Phase-gate readiness recommendation (proceed / hold / remediate) for each assessed unit.
+- Inputs to [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) plan adjustments, highlighting which dimensions are blocking progression to the next phase.
 
 ## 15.7 Cross-References
 - [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI source.

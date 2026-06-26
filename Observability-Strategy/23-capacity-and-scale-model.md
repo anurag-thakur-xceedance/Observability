@@ -27,6 +27,17 @@ The four primary drivers of observability load:
 
 Capacity planning must account for the approved operational retention range selected per signal type, environment, service tier, and profiling posture.
 
+**Capacity checklist for service owners.** Before onboarding or materially changing a service, answer these questions:
+- How many service instances or replicas run at peak?
+- How many metrics does the service emit, and what labels can multiply cardinality?
+- What is the expected log volume per day in production?
+- What is the peak span rate, and what sampling rate is required by tier?
+- Are profiles enabled, and if so for which paths or environments?
+- What retention tier applies to the service (T1–T4), and are there contractual or regulatory overrides?
+- Is traffic expected to grow materially in the next 12 months?
+
+These answers feed the reference sizing examples and help separate **capacity** questions (how much load the platform must handle) from **cardinality** questions (how many unique series/labels a service creates).
+
 | Driver | Symbol | Typical Range (per host monitored) |
 |---|---|---|
 | Active metric series | S | 10k–500k per host |
@@ -72,6 +83,17 @@ At this size, Compose is no longer the right primitive. Migrate to:
 - **Tempo distributed** (distributor / ingester / querier / compactor).
 - Container orchestration may revert to a managed service or remain Compose-per-component on dedicated hosts; decision is captured in an ADR at scale-out time.
 - Coverage: ≥ 200 monitored hosts; ≥ 500 services.
+
+### 23.2.4 Scaling Curve (Conceptual)
+
+```mermaid
+flowchart LR
+    A[Small\nSingle Compose host\n≤30 hosts / ≤50 services] -->|series, logs, spans grow| B[Medium\n3-host HA Compose\n≤100 hosts / ≤200 services]
+    B -->|active series >5M\nor ingest near limits| C[Large\nDistributed backends\n≥200 hosts / ≥500 services]
+    C -->|continued growth| D[Dedicated scale architecture\nMimir/Loki/Tempo distributed\nobject storage + autoscaling]
+```
+
+The practical signal is not only service count. Move to the next size when **any** dominant driver approaches its limit: active series, log volume, span ingest, query latency, or retention requirements.
 
 ## 23.3 Worked Sizing Examples
 

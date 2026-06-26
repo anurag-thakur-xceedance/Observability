@@ -52,6 +52,8 @@ Operational retention settings for logs, metrics, traces, and profiles are a dir
 - Storage cost **per service over time** trending downward while maintaining required visibility.
 - **Tool coverage rate > 90%** for unified stack despite cost reduction.
 
+**Tool coverage rate** is the percentage of in-scope services that use the **standard observability stack** (OpenTelemetry + Prometheus + Loki + Tempo + Grafana) rather than legacy or duplicate tools.
+
 ## 10.6 Value Tracking
 - Cost-per-incident-resolved.
 - Cost-per-instrumented-service.
@@ -309,10 +311,51 @@ The model's largest risk is **deferring the optimisation cadence**: a single ski
 
 The reconciliation surfaces the **Mimir migration trigger** earlier than calendar-driven planning would, justifying the FinOps + Capacity joint review cadence specified in Section 7.3.1.
 
-## 10.7 Deletion & Compaction Monitoring
+## 10.7 Worked Example — Service Cost Breakdown
+This example shows how to turn a monthly cloud bill into per-service unit costs.
+
+**Assumptions (Month X):**
+- 1 T1 service (*Service A*) emits **10 million active metric series-months**, **300 GB of logs**, and **50 million spans**.
+- Cloud bill line items for observability in Month X:
+  - Metrics storage and queries: **$900**
+  - Logs ingestion and storage: **$600**
+  - Traces ingestion and storage: **$250**
+  - Synthetic/RUM: **$50**
+  - Shared Collector/observability compute: **$200**
+  - Egress for observability: **$40**
+
+**Step 1 — Map bill lines to signals.**
+- Allocate shared compute and egress to signals based on ingest volume share (for example: metrics 50%, logs 30%, traces 20%).
+- Resulting per-signal monthly costs:
+  - **Metrics (C_metrics)** = $900 + 50% of shared compute ($100) + 50% of egress ($20) = **$1,020**
+  - **Logs (C_logs)** = $600 + 30% of shared compute ($60) + 30% of egress ($12) = **$672**
+  - **Traces (C_traces)** = $250 + 20% of shared compute ($40) + 20% of egress ($8) = **$298**
+
+**Step 2 — Attribute costs to Service A.**
+- Suppose Service A accounts for:
+  - 20% of active metric series,
+  - 25% of log volume,
+  - 15% of spans.
+- Service A's share:
+  - Metrics: 20% × $1,020 = **$204**
+  - Logs: 25% × $672 = **$168**
+  - Traces: 15% × $298 = **$44.70**
+- **Total for Service A** ≈ **$416.70** for Month X.
+
+**Step 3 — Compute unit costs for Service A.**
+- Metrics unit cost:
+  - $/active series/month = $204 ÷ 10,000,000 = **$0.0000204**
+- Logs unit cost (assuming 300 GB for Service A):
+  - $/GB ingested logs = $168 ÷ 300 GB = **$0.56/GB**
+- Traces unit cost (assuming 50M spans for Service A):
+  - $/million spans ingested = $44.70 ÷ 50 = **$0.894**
+
+These values can be compared against the indicative benchmarks in Section 10.6.4 to decide which optimisation levers to apply (e.g., log-volume reduction if $/GB is high, or tail-sampling changes if $/million spans is high).
+
+## 10.8 Deletion & Compaction Monitoring
 Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.7 Deletion and Retention Enforcement](09-observability-data-governance-and-retention-policy.md#97-deletion-and-retention-enforcement), [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
 
-## 10.8 Cross-References
+## 10.9 Cross-References
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — cardinality budgets and tier model that drive cost (Section 7.1, Section 7.2).
 - [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention policy this standard implements cost-side.
 - [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance constraints on what can be deleted / archived.

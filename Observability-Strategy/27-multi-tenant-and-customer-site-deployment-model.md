@@ -80,6 +80,8 @@ status: Draft
 
 ## 27.2 Tenant Identity Model
 
+**TL;DR.** Every telemetry signal must carry a stable tenant identity and supporting context (`tenant_id`, `tenant_class`, `region`, `environment`) so that routing, isolation, access control, and cost attribution all work without relying on human interpretation.
+
 | Element | Definition | Example |
 |---|---|---|
 | **Tenant ID** | Stable customer identifier | `customer-acme` |
@@ -125,12 +127,20 @@ processors:
 | Audit | Audit events tagged with tenant_id | Auditable per tenant |
 
 ## 27.5 Data-Residency
+**TL;DR.** Telemetry stays in the tenant's approved region by default. Cross-region movement is allowed only for DR inside the same residency boundary, unless contracts or regulation explicitly allow otherwise.
+
 - Telemetry stores in tenant region by default.
 - Cross-region replication only for DR within the same residency boundary unless contractually allowed.
 - Customer-site Topology A is the strongest residency posture.
 - Egress allow-list ([Chapter 24. Observability Platform Security Architecture -> Section 24.8 Egress and Data-Residency Controls](24-observability-platform-security-architecture.md#248-egress-and-data-residency-controls)) blocks unauthorised cross-border transfer.
 
+**Worked example — Tenant A in EU, Tenant B in US.**
+- **Tenant A (EU):** telemetry is stored in `eu-west-1`; DR replication is allowed only to another EU-approved region. Xceedance central dashboards can use redacted aggregates, but raw PII-bearing telemetry does not leave the residency boundary.
+- **Tenant B (US):** telemetry is stored in `us-east-1`; DR replication stays inside the US boundary. Shared-stack querying remains tenant-scoped, but there is no cross-EU/US data mixing.
+
 ## 27.6 Trace Continuity Across Customer / Xceedance Boundary
+
+**TL;DR.** Trace IDs are preserved end-to-end across customer and Xceedance systems, but sensitive span attributes are redacted at the customer edge before export. This keeps traces joinable without exporting raw regulated data.
 
 W3C Trace Context (`traceparent`, `tracestate`) is propagated across the boundary, but with redaction.
 
@@ -150,6 +160,11 @@ Rules:
 - Span attributes containing PII are redacted **at customer-site edge collector** before export.
 - `tracestate` carries tenant and residency hints so Xceedance Tempo applies correct routing.
 - Sampling decisions made at customer site are honoured downstream (`parentbased_traceidratio`).
+
+**Worked example — customer-site quote flow.**
+- A customer-site `quote-engine` span includes business context and a raw policy number inside the application.
+- At the edge collector, the policy number is redacted before export; `trace_id`, `tenant_id`, and residency hints are preserved.
+- Xceedance receives a joinable trace for troubleshooting and aggregate analysis, but not the raw regulated field values.
 
 ## 27.7 Per-Customer-Site DR
 | Pattern | Use Case | RTO | RPO |

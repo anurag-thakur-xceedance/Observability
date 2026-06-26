@@ -28,6 +28,27 @@ Defines **what** application services must emit, **how** fields are named, and *
 ## 18.2 Scope
 All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must emit pre-login and post-login telemetry via OpenTelemetry SDKs and pipelines defined in [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md).
 
+## 18.2.1 Cheat Sheet: Required Fields & Concepts
+
+**Core concepts (OpenTelemetry):**
+- **Span:** A timed unit of work (e.g. an HTTP request, DB query). Spans form a tree for each request.
+- **Trace:** A collection of spans that represent a single end-to-end request or user journey.
+- **Span kind:** The role of a span in a trace (server, client, producer, consumer, internal). Helps tools understand call direction.
+- **Exemplar:** A single representative trace span attached to a metric data point, allowing you to jump from a graph point (e.g. latency spike) to a specific trace.
+
+**Mandatory identity fields (per Chapter 2):**
+- `service.name` — the logical service identifier.
+- `service.version` — version of the deployed service.
+- `deployment.environment` — `prod` / `uat` / `dev` / etc.
+- `tenant_id` and `tenant_class` — which customer / tenant the telemetry belongs to.
+- `trace_id`, `span_id`, and `correlation.id` — used to correlate metrics, logs, and traces.
+
+**Pre-login vs post-login:**
+- **Pre-login telemetry** covers authentication flows (latency, failures, MFA, gateway behaviour).
+- **Post-login telemetry** covers business transactions and user journeys (transaction latency, service-call failures, dependency latency, journey success).
+
+The sections that follow define **normative requirements** (MUST / SHOULD / MAY) for these concepts and fields, followed by explanatory notes.
+
 ## 18.3 Pre-Login Telemetry (Required Fields & Standards)
 
 | Metric | Unit / Scope | Healthy | Warning | Critical | Notes |
@@ -38,11 +59,17 @@ All Xceedance applications (PaaS-hosted, SaaS-hosted, customer-deployed) must em
 | API Gateway Response Time | ms (avg + P95) | P95 < 500 ms | P95 > 800 ms ≥ 5 min | P95 > 1200 ms sustained | Includes upstream services |
 
 ### 18.3.1 Required Trace Attributes (Pre-Login)
-- `service.name`, `auth.provider`, `auth.method` (`password` / `mfa` / `sso`), `auth.outcome` (`success` / `failure` / `mfa_required`), `gateway.route`, `client.region`, `correlation.id`.
 
-**Correlation initiation (mandatory).** The W3C Trace Context `traceparent` header MUST be created at the first Azure ingress hop (Azure Front Door, Application Gateway, or API Management — whichever is outermost) and propagated through every downstream service, message, and async hand-off. Application services MUST NOT regenerate `traceparent`; they extract `trace_id` / `span_id` from the inbound header and attach them to every emitted span, log line, and metric exemplar. Pre-login flows that bypass authenticated APIM policies still inherit `traceparent` from Front Door / App Gateway. See [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.1 Required Resource Attributes (every signal)](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal) for the edge-injection contract.
+**Normative requirements (MUST/SHOULD/MAY):**
+- Pre-login spans **MUST** include: `service.name`, `auth.provider`, `auth.method` (`password` / `mfa` / `sso`), `auth.outcome` (`success` / `failure` / `mfa_required`), `gateway.route`, `client.region`, `correlation.id`.
+- The W3C Trace Context `traceparent` header **MUST** be created at the first Azure ingress hop (Azure Front Door, Application Gateway, or API Management — whichever is outermost) and propagated through every downstream service, message, and async hand-off.
+- Application services **MUST NOT** regenerate `traceparent`; they **MUST** extract `trace_id` / `span_id` from the inbound header and attach them to every emitted span, log line, and metric exemplar.
+- Pre-login flows that bypass authenticated APIM policies **MUST** still inherit `traceparent` from Front Door / App Gateway.
+- Where Azure ingress is not present, the same requirements **MUST** apply at the equivalent outermost ingress component in AWS, Google Cloud, or an approved third-party edge service.
 
-Where Azure ingress is not present, the same requirement applies at the equivalent outermost ingress component in AWS, Google Cloud, or an approved third-party edge service. The cloud-specific product may change; the propagation contract does not.
+**Notes (non-normative):**
+- The cloud-specific product may change; the propagation contract does not — there is always a single "outermost ingress" responsible for creating correlation IDs.
+- See [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.1 Required Resource Attributes (every signal)](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal) for the edge-injection contract.
 
 ### 18.3.2 Required Log Fields
 - `timestamp`, `level`, `service.name`, `auth.outcome`, `error.code`, `correlation.id`. **No PII** (see [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)).

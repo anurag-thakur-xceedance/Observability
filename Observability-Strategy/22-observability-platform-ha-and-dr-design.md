@@ -23,6 +23,16 @@ status: Draft
 ---
 
 ## 22.1 HA / DR Posture
+**Summary story — what happens during a regional platform failure.**
+If the primary observability region fails, service telemetry continues to buffer locally at collectors where possible. Grafana and alerting fail over to the DR stack, dashboards and alert rules are re-provisioned from Git, and Loki/Tempo data is restored from replicated object storage. The target is to restore platform visibility within **30 minutes** and lose no more than **5 minutes** of in-flight telemetry.
+
+**HA / DR micro-glossary:**
+- **HA (High Availability):** design that keeps the platform running during component failure.
+- **DR (Disaster Recovery):** process for restoring the platform after a site, region, or major dependency failure.
+- **RTO (Recovery Time Objective):** maximum acceptable time to restore service after failure.
+- **RPO (Recovery Point Objective):** maximum acceptable amount of data loss.
+- **DR drill:** planned test that proves the documented recovery path works.
+
 The platform itself is **Tier 1**. Recovery objectives:
 - **RTO:** ≤ 30 minutes (faster than business Tier 1 RTO of 60 min, so platform is back before business systems need it).
 - **RPO:** ≤ 5 minutes for metrics/traces/logs in flight; ≤ 1 hour for dashboards/alert-rule state (recoverable from Git).

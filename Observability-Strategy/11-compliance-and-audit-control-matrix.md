@@ -22,6 +22,12 @@ status: Draft
 
 ---
 
+## 11.0 How to Read This if You’re an Engineer
+This chapter is written for auditors **and** engineers. If you are an engineer, focus on:
+- **Which controls you own.** Look for rows tagged `[ENG]` in the Owner column; these are implementation responsibilities (e.g. retention config, RBAC, redaction).
+- **Where to find evidence.** The Evidence column tells you which systems and artefacts (dashboards, configs, logs) back each control.
+- **How often this matters.** Use the evidence cadence notes in Section 11.6 to understand when you will be asked for proof.
+
 ## 11.1 Purpose
 Observability data is governed to meet regulatory and internal compliance. This matrix captures controls, evidence, and reporting cadence.
 
@@ -46,23 +52,23 @@ Compliance and governance reports are generated on a regular schedule and shared
 
 | Control ID | Control Description | Source / Driver | Evidence | Owner |
 |---|---|---|---|---|
-| OBS-C-01 | Admin actions on observability platforms are logged | Internal / SOC2 | Audit log export, sample review | Platform Ops |
-| OBS-C-02 | Alert rules, dashboards, and SLOs version-controlled in Git | Internal | Repo history, signed commits | SRE |
-| OBS-C-03 | PII not stored in logs/traces; masking at source/pipeline | GDPR | Pipeline config review, scan results | Data Governance |
-| OBS-C-04 | Retention durations meet policy minimums and maxima | GDPR / internal | Backend retention configs | Platform Ops |
-| OBS-C-05 | RBAC enforced on Grafana / Loki / Prometheus | SOC2 / ISO 27001 | Role assignments, access-review report | Identity |
-| OBS-C-06 | Periodic audit verifies no prohibited data types | GDPR | Audit findings and remediation log | Data Governance |
-| OBS-C-07 | Compliance reports issued on schedule | Internal | Report distribution list and timestamps | Governance Body |
-| OBS-C-08 | Deletion / compaction jobs monitored for compliance | GDPR | Job success metrics, alert evidence | Platform Ops |
-| OBS-C-09 | Service telemetry conformance ≥ 90% (PRR gate, [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) | Internal | PRR scorecard, conformance dashboard | Service Owner |
-| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | Platform Ops |
-| OBS-C-11 | mTLS between collectors and backends ([Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | SOC2 / ISO | Cert inventory; expiry alerts | Platform Ops |
-| OBS-C-12 | Tenant isolation verified for multi-tenant deployments ([Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) | Internal / customer contract | Tenant-label policy report; cross-tenant query test | Platform Ops |
-| OBS-C-13 | DR drill executed at planned cadence ([Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)) | SOC2 (Availability) | Drill report, RTO/RPO measurements | SRE |
-| OBS-C-14 | AIOps model approval and shadow-mode evidence before production ([Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) | Internal / model risk | Model card; shadow-mode metrics | AIOps Lead |
-| OBS-C-15 | SBOM produced and signed for platform components ([Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | Supply chain | SBOM artefacts; cosign attestations | Platform Ops |
-| OBS-C-16 | Container images scanned and signed before deployment | Supply chain / SOC2 | Scan reports; admission-controller logs | Platform Ops |
-| OBS-C-17 | Backup integrity verified for stateful telemetry stores | SOC2 (Availability) | Restore-test reports | Platform Ops |
+| OBS-C-01 | Admin actions on observability platforms are logged | Internal / SOC2 | Audit log export, sample review | [ENG] Platform Ops |
+| OBS-C-02 | Alert rules, dashboards, and SLOs version-controlled in Git | Internal | Repo history, signed commits | [ENG] SRE |
+| OBS-C-03 | PII not stored in logs/traces; masking at source/pipeline | GDPR | Pipeline config review, scan results | [ENG] Data Governance |
+| OBS-C-04 | Retention durations meet policy minimums and maxima | GDPR / internal | Backend retention configs | [ENG] Platform Ops |
+| OBS-C-05 | RBAC enforced on Grafana / Loki / Prometheus | SOC2 / ISO 27001 | Role assignments, access-review report | [ENG] Identity |
+| OBS-C-06 | Periodic audit verifies no prohibited data types | GDPR | Audit findings and remediation log | [GOV] Data Governance |
+| OBS-C-07 | Compliance reports issued on schedule | Internal | Report distribution list and timestamps | [GOV] Governance Body |
+| OBS-C-08 | Deletion / compaction jobs monitored for compliance | GDPR | Job success metrics, alert evidence | [ENG] Platform Ops |
+| OBS-C-09 | Service telemetry conformance ≥ 90% (PRR gate, [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md)) | Internal | PRR scorecard, conformance dashboard | [ENG] Service Owner |
+| OBS-C-10 | Cardinality budget enforced at gateway ([Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance)) | Internal | Gateway processor config; reject-rate metric | [ENG] Platform Ops |
+| OBS-C-11 | mTLS between collectors and backends ([Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | SOC2 / ISO | Cert inventory; expiry alerts | [ENG] Platform Ops |
+| OBS-C-12 | Tenant isolation verified for multi-tenant deployments ([Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md)) | Internal / customer contract | Tenant-label policy report; cross-tenant query test | [ENG] Platform Ops |
+| OBS-C-13 | DR drill executed at planned cadence ([Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)) | SOC2 (Availability) | Drill report, RTO/RPO measurements | [ENG] SRE |
+| OBS-C-14 | AIOps model approval and shadow-mode evidence before production ([Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) | Internal / model risk | Model card; shadow-mode metrics | [ENG] AIOps Lead |
+| OBS-C-15 | SBOM produced and signed for platform components ([Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md)) | Supply chain | SBOM artefacts; cosign attestations | [ENG] Platform Ops |
+| OBS-C-16 | Container images scanned and signed before deployment | Supply chain / SOC2 | Scan reports; admission-controller logs | [ENG] Platform Ops |
+| OBS-C-17 | Backup integrity verified for stateful telemetry stores | SOC2 (Availability) | Restore-test reports | [ENG] Platform Ops |
 
 > Mapping to specific frameworks (SOC2 CC, ISO 27001 Annex A, GDPR Articles) is detailed in Section 7.
 

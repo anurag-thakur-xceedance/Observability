@@ -49,32 +49,48 @@ A tiered retention model balances cost, performance, and investigatory needs —
 - High-resolution metrics retained for **30 days** by default.
 - Down-sampled or longer-horizon metrics retained for up to **90 days** where reporting and trend analysis require it.
 - **Purpose:** SLO breach analysis, capacity planning, seasonal trend analysis, and cost optimisation.
+  
+  **Example.** For a T1 customer-facing service, keep 30 days of 10s-resolution metrics and a further 60 days of down-sampled (1–5 min) metrics for trend and capacity analysis.
 
 ### 9.4.2 Logs (15–90 days operational)
 - Application + infrastructure logs retained for **15–30 days** by default.
 - Selected classes of logs may be retained for up to **90 days** depending on environment, service criticality, and governance need.
 - Security and audit telemetry retention is governed by policy classification, SIEM routing, archival obligations, and legal/compliance controls, not only by operational hot/warm retention settings.
 - **Purpose:** RCA of recent incidents and deployments; short-term and medium-horizon forensic visibility.
+  
+  **Example.** For T1 customer-facing services, keep 30 days of application logs hot for RCA, and archive selected security/audit logs for 12–24 months in an object store or SIEM per regulatory requirements.
 
 ### 9.4.3 Traces (14–15 days)
 - Full-fidelity traces retained for **14 days** by default.
 - Selected services may retain traces for up to **15 days** where justified by investigation and incident patterns.
 - Beyond the operational trace window, only **trace-derived metrics** (span counts, latency percentiles by endpoint) are retained via metrics backends unless separately archived for incident or forensic reasons.
 - **Purpose:** Deep end-to-end debugging over a wider investigation window while still controlling trace storage cost.
+  
+  **Example.** For a high-change API, retain 14 days of full-fidelity traces to debug deployments; beyond that window, rely on span-derived latency and error metrics unless a specific incident requires longer-term trace archival.
 
 ### 9.4.4 Profiles (14–90 days where enabled)
 - Profiles retained for **14 days** by default where profiling is enabled.
 - Selected services or environments may retain profiles for up to **90 days** where justified by performance analysis needs.
 - **Purpose:** Performance diagnostics, regression analysis, and hotspot comparison.
+  
+  **Example.** For a performance-critical pricing engine, keep 14 days of detailed profiles and up to 90 days of aggregated profile summaries to compare pre/post-release behaviour.
 
 ### 9.4.5 RCA Summaries (1 year)
 - For each major incident, structured RCA records (timeline, impact, root cause, corrective actions) stored in a central knowledge base for **12 months or longer**.
 - **Purpose:** Compliance and audit reviews; trend analysis of recurring failure modes; "never-repeat" actions.
+  
+  **Example.** Store major-incident RCAs for at least 12 months so audit and governance reviews can confirm that corrective actions were implemented and remained effective.
 
 ## 9.5 Data Classification
-- Telemetry classified by sensitivity (public / internal / confidential).
-- **PII and sensitive data are prohibited in logs and traces** wherever possible; masking, tokenisation, or redaction enforced **at source or in the OpenTelemetry pipeline**.
-- Classification determines storage location, encryption requirements, and access levels.
+Telemetry is classified by sensitivity (for example, public / internal / confidential). Classification drives where data is stored, how it is protected, and who may access it.
+
+- **PII and sensitive data are prohibited in logs and traces** wherever possible; masking, tokenisation, or redaction are enforced **at source or in the OpenTelemetry pipeline**.
+
+| Class        | Examples                                                       | Allowed in logs/traces?                  | Handling & Storage                                                                 |
+|-------------|----------------------------------------------------------------|------------------------------------------|------------------------------------------------------------------------------------|
+| Public      | Synthetic probe URLs without tenant IDs; generic status pages | Yes, with no tenant/user identifiers     | Standard hot/warm retention; no special controls beyond telemetry best practices. |
+| Internal    | Service performance metrics; non-PII application events       | Yes                                      | Stored in observability backends with RBAC; retention per Sections 9.3–9.4.       |
+| Confidential / PII | Customer names, email addresses, policy numbers, claim IDs, payment tokens | **No** (except in tightly controlled audit streams) | Must be masked or tokenised before leaving the application boundary; any residual PII in audit streams follows stricter retention, encryption, and access controls aligned with GDPR/PCI and corporate policy. |
 
 ## 9.6 Data Quality and Standards
 - A standard telemetry schema (naming conventions for metrics, labels, log fields, trace attributes) is maintained; see [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) and [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md).

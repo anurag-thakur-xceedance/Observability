@@ -36,6 +36,13 @@ Out-of-scope: NFRs of the **observed** services (those are owned by each service
 
 Each NFR has: ID, category, statement, target, measurement source, owner (TBD), and a cross-reference to the artefact where the design is detailed.
 
+**How to read this register by domain:**
+- **Availability / Reliability / Recoverability:** `NFR-AVL-*`, `NFR-REL-*`, `NFR-REC-*` cover uptime, error-budget enforcement, backup, restore, and DR outcomes.
+- **Performance / Scalability / Capacity / Throughput:** `NFR-PRF-*`, `NFR-SCL-*`, `NFR-CAP-*`, `NFR-THR-*` cover query latency, ingest speed, active-series headroom, and scaling limits.
+- **Security / Privacy / Compliance / Auditability:** `NFR-SEC-*`, `NFR-PRV-*`, `NFR-CMP-*`, `NFR-AUD-*` cover encryption, RBAC, PII handling, regulatory evidence, and audit trails.
+- **Maintainability / Operability / Supportability / Deployability:** `NFR-MNT-*`, `NFR-OPR-*`, `NFR-SUP-*`, `NFR-DPL-*`, `NFR-CFG-*` cover upgrades, toil, support model, deployment speed, and configuration hygiene.
+- **Interoperability / Portability / Usability / Internationalisation / Sustainability / Meta-observability:** `NFR-INT-*`, `NFR-PRT-*`, `NFR-USE-*`, `NFR-I18N-*`, `NFR-SUS-*`, `NFR-OBS-*` cover integrations, cross-environment portability, usability, localisation, efficiency, and self-monitoring.
+
 | ID | Category | Requirement | Target / Threshold | Measured Via | Detail Reference |
 |---|---|---|---|---|---|
 | NFR-AVL-01 | Availability | Observability platform availability | 99.9% monthly | Grafana uptime SLO + synthetic probe | [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) |
@@ -54,7 +61,7 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-SEC-02 | Security | All telemetry encrypted at rest | AES-256 (provider-default or CMK) | Storage config audit | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
 | NFR-SEC-03 | Security | RBAC enforced on every dashboard, alert rule, and data source | 100% coverage | Quarterly access review | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
 | NFR-SEC-04 | Security | Critical-vulnerability remediation | ≤ 7 days from disclosure | CVE scanner output | [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) |
-| NFR-SEC-05 | Security | Threat-model coverage | Refreshed annually or on major change | ARB minutes | [Annexure C — Threat Model (STRIDE)](annexure-c-threat-model.md) |
+| NFR-SEC-05 | Security | Threat-model coverage | Refreshed annually or on major change | ARB minutes | [Annexure C — Threat Model (STRIDE threat model)](annexure-c-threat-model.md) |
 | NFR-PRV-01 | Privacy | PII redaction at source | 100% of regulated fields | Pre-flight log linter | [Chapter 18. Application Telemetry Standard -> Section 18.6 PII & Data Classification](18-application-telemetry-standard.md#186-pii-data-classification) |
 | NFR-PRV-02 | Privacy | DPIA performed for any new telemetry containing personal data | Mandatory pre-go-live | DPIA register | [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) |
 | NFR-PRV-03 | Privacy | Right-to-erasure execution time | ≤ 30 days (GDPR Art. 17) | Erasure-request log | [Chapter 29. Observability Long-Term Archival Policy](29-observability-long-term-archival-policy.md) |
@@ -91,7 +98,7 @@ Each NFR has: ID, category, statement, target, measurement source, owner (TBD), 
 | NFR-SUS-01 | Sustainability | Carbon-per-GB-ingested KPI | Tracked, reduced YoY | FinOps + carbon dashboard | [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) |
 | NFR-SUS-02 | Sustainability | Sampling policy applied for sustainability | Tail-sampling enabled where lossless not required | Sampling config audit | [Chapter 3. Observability Reference Architecture -> Section 3.5.1 Sampling Strategy](03-observability-reference-architecture.md#351-sampling-strategy) |
 | NFR-RES-01 | Resilience | Chaos-engineering programme on platform | At least 2 game-days per year | Game-day report | [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md) |
-| NFR-RES-02 | Resilience | FMEA review for the platform | Annual | ARB minutes | [Annexure C — Threat Model (STRIDE)](annexure-c-threat-model.md) |
+| NFR-RES-02 | Resilience | FMEA review for the platform | Annual | ARB minutes | [Annexure C — Threat Model (STRIDE threat model)](annexure-c-threat-model.md) |
 | NFR-THR-01 | Throughput | Ingest throughput per collector | ≥ 50 k spans/s, ≥ 100 k log lines/s baseline | Load-test artefact | [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) |
 | NFR-INT-04 | Integrity | Telemetry tamper-evidence | Audit-trail signing on Sev1–Sev2 evidence | Signing pipeline | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) |
 | NFR-MUL-01 | Multi-tenancy | Tenant data isolation | Enforced at namespace + RBAC + storage prefix | Penetration test | [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md) |

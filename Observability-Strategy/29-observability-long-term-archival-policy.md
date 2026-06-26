@@ -34,7 +34,23 @@ This policy governs the **long-term archival** (greater than 1 year) of observab
 
 Out-of-scope: short-term operational retention (covered by Chapter 8) and live backup/replication for HA/DR (covered by [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md)).
 
+### 29.2.1 Operational vs Archival Retention
+
+| Dimension | Operational Retention | Long-Term Archival Retention |
+|---|---|---|
+| Primary purpose | Recent troubleshooting, dashboards, incident response, short-term analytics | Compliance evidence, legal hold, forensic reconstruction, long-term trend/reference data |
+| Typical window | Days to months | More than 1 year, often 3–7 years or contract-specific |
+| Defined in | [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) | This chapter |
+| Enforced by | Backend retention settings, compaction, hot/warm/cold lifecycle rules | Archive worker, WORM/object-lock, sidecar metadata, destruction workflow |
+| Access pattern | Operational teams query directly through Grafana/backends | Controlled restore; not self-service by default |
+| Main risk | Losing recent diagnostic visibility or overspending on hot storage | Losing audit evidence, violating legal hold, or retaining data past lawful basis |
+
 ## 29.3 Archival Categories
+
+**Policy statements (must):**
+- Telemetry **must** be assigned an archival category before it is promoted beyond operational retention.
+- Legal Hold records **must not** be destroyed until Legal Counsel releases the hold.
+- Forensic and Compliance archives **must** preserve chain-of-custody and tamper-evidence.
 
 | Category | Description | Default Archive Period | Trigger |
 |---|---|---|---|
@@ -61,6 +77,11 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 > Worked example continues from [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.4 Worked Example: Applying Retention Policy](09-observability-data-governance-and-retention-policy.md#94-worked-example-applying-retention-policy).
 
 ## 29.5 Storage Architecture
+
+**Implementation guidance (should):**
+- Archive storage **should** favour open, portable formats and avoid vendor-proprietary encodings.
+- Archive tiers **should** be selected based on restore urgency, audit frequency, and cost.
+- Metadata sidecars **should** carry enough information to interpret archives without relying on live backend state.
 
 ### 29.5.1 Archive Storage Tiers
 
@@ -94,6 +115,16 @@ Out-of-scope: short-term operational retention (covered by Chapter 8) and live b
 - Key rotation: annual; old keys retained for the lifetime of objects encrypted with them (then cryptographically erased — see Section 7.3).
 
 ## 29.6 Data Lifecycle
+
+**Policy statements (must):**
+- Promotion, restore, and destruction actions **must** be recorded in an immutable archive ledger.
+- Restores **must** require a documented business, legal, audit, or incident reason.
+- Destruction **must** be blocked while a legal hold is active.
+
+**Implementation guidance (should):**
+- Promotion to archive **should** be automated and run on a predictable cadence.
+- Restore workflows **should** verify signatures before making data queryable again.
+- Destruction workflows **should** prefer cryptographic erasure where technically possible.
 
 ### 29.6.1 Promotion to Archive
 

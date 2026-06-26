@@ -34,19 +34,19 @@ status: Draft
 | CC | Common Criteria | Used here as SOC2 control-category prefix (e.g. "CC ID" = SOC2 control reference). |
 | CD | Continuous Delivery | Automated deployment pipeline downstream of CI. |
 | CI | Continuous Integration | Automated build/test pipeline triggered on commit. |
-| CoP | Community of Practice | Working-level forum that operationalises observability standards. See [Chapter 19. Observability Operating Model and Adoption Plan -> Section 19.4.4 Community of Practice](19-observability-operating-model-and-adoption-plan.md#1944-community-of-practice). |
+| CoP | Community of Practice | Working-level forum that operationalises observability standards. See [Chapter 19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md). |
 | CPU | Central Processing Unit | Compute capacity metric (utilisation %). |
 | CSAT | Customer Satisfaction | Business KPI used to validate observability outcomes. |
 | CSF | Cybersecurity Framework | NIST framework used to structure governance risk register. |
 | CX | Customer Experience | User-facing quality metric. |
 | DB | Database | Generic term for data store; see [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards). |
 | DDoS | Distributed Denial of Service | Network-saturation attack; relevant to packet-drop and latency telemetry. |
-| DLQ | Dead-Letter Queue | Storage location for schema-violating or otherwise invalid telemetry records; see [Chapter 20. Observability Data Model Specification -> Section 20.9.6 Dead-Letter Discipline for Schema Violations](20-observability-data-model-specification.md#2096-dead-letter-discipline-for-schema-violations). |
+| DLQ | Dead-Letter Queue | Storage location for schema-violating or otherwise invalid telemetry records. See [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md). |
 | DevOps | Development + Operations | Cultural/operational model that observability supports. |
 | DNS | Domain Name System | Name-resolution service; failure rate is a network telemetry signal. |
 | DORA | Digital Operational Resilience Act | EU financial-sector regulation; emerging compliance driver. |
 | DR | Disaster Recovery | Architecture pattern; covered in [Chapter 22. Observability Platform HA and DR Design](22-observability-platform-ha-and-dr-design.md). |
-| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 3. Observability Reference Architecture -> Section 3.4.1 eBPF for Legacy and Non-Intrusive Instrumentation](03-observability-reference-architecture.md#341-ebpf-for-legacy-and-non-intrusive-instrumentation). |
+| eBPF | extended Berkeley Packet Filter | Kernel-level instrumentation enabling auto-instrumentation (Beyla, Pixie). See [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md). |
 | EKS | Elastic Kubernetes Service | AWS's managed Kubernetes. One possible managed-cluster deployment target depending on environment needs. |
 | ERD | Entity-Relationship Diagram | Data-model diagram pending in [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md). |
 | FaaS | Function as a Service | Serverless runtime; cold-start latency target < 300 ms. |
@@ -62,13 +62,13 @@ status: Draft
 | IdP | Identity Provider | Authentication system used in pre-login telemetry (e.g. Okta, Azure AD). |
 | IO | Input/Output | Disk or network throughput dimension. |
 | ISO | International Organization for Standardization | Standards body; ISO 27001 referenced for compliance mapping. |
-| ITSM | IT Service Management | Process and tooling layer for managing incidents, changes, and problems; integration described in [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.6.1 Integration with ITSM and Change Tooling](13-incident-response-playbook.md#1361-integration-with-itsm-and-change-tooling). |
+| ITSM | IT Service Management | Process and tooling layer for managing incidents, changes, and problems. See [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md). |
 | JSON | JavaScript Object Notation | Schema/serialization format used in telemetry export and data-model spec. |
 | KPI | Key Performance Indicator | Measurable success metric. See [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md). |
-| LLM | Large Language Model | Generative AI model class. AI safety controls in [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.8 AI Safety, Explainability, and LLM Data Leakage](07-aiops-guardrails-and-implementation-playbook.md#78-ai-safety-explainability-and-llm-data-leakage). |
+| LLM | Large Language Model | Generative AI model class. AI safety controls are in [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md). |
 | MFA | Multi-Factor Authentication | Pre-login telemetry signal — failure rate and latency tracked. |
 | ML | Machine Learning | Underlies AIOps anomaly detection and forecasting. |
-| MLOps | Machine Learning Operations | Lifecycle for ML models. AIOps lifecycle in [Chapter 7. AIOps Guardrails and Implementation Playbook -> Section 7.7 MLOps Lifecycle for AIOps Models](07-aiops-guardrails-and-implementation-playbook.md#77-mlops-lifecycle-for-aiops-models). |
+| MLOps | Machine Learning Operations | Lifecycle for ML models. See [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md). |
 | MTBF | Mean Time Between Failures | Reliability metric for hosts/services. |
 | mTLS | mutual TLS | Two-way TLS authentication between services. Required between collectors and backends. |
 | MTTD | Mean Time To Detect | KPI: how quickly an incident is detected from telemetry. |
@@ -88,7 +88,7 @@ status: Draft
 | PII | Personally Identifiable Information | Data class subject to PII redaction rules. See [Chapter 18. Application Telemetry Standard -> Section 18.6 PII & Data Classification](18-application-telemetry-standard.md#186-pii-data-classification). |
 | PIR | Post-Incident Review | Structured review after Critical incidents; output retained 1 year. See [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.6 Post-Incident Review (PIR)](13-incident-response-playbook.md#136-post-incident-review-pir). |
 | PRR | Production Readiness Review | Gate that a service must pass before going to production. See [Chapter 26. Service Onboarding and Instrumentation Kits](26-service-onboarding-and-instrumentation-kits.md). |
-| RACI | Responsible / Accountable / Consulted / Informed | Decision-rights matrix model. See [Chapter 16. Observability Governance Charter and ARB Pack -> Section 16.4.1 RACI Matrix](16-observability-governance-charter-and-arb-pack.md#1641-raci-matrix). |
+| RACI | Responsible / Accountable / Consulted / Informed | Decision-rights matrix model. See [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md). |
 | RAG | Retrieval-Augmented Generation | LLM technique citing retrieved sources rather than free generation. |
 | RBAC | Role-Based Access Control | Access control model for telemetry stores and dashboards. |
 | RCA | Root Cause Analysis | Diagnostic activity; AIOps generates RCA suggestions. |
@@ -119,8 +119,6 @@ status: Draft
 | USE | Utilisation, Saturation, Errors | Resource-monitoring method (Brendan Gregg). |
 | UX | User Experience | User-perceived quality dimension. |
 | VM | Virtual Machine | Compute host (replaces "node" in the host-portable model). |
-| DLQ | Dead-Letter Queue | Storage location for schema-violating or otherwise invalid telemetry records; see [Chapter 20. Observability Data Model Specification -> Section 20.9.6 Dead-Letter Discipline for Schema Violations](20-observability-data-model-specification.md#2096-dead-letter-discipline-for-schema-violations). |
-| ITSM | IT Service Management | Process and tooling layer for managing incidents, changes, and problems; integration described in [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.6.1 Integration with ITSM and Change Tooling](13-incident-response-playbook.md#1361-integration-with-itsm-and-change-tooling). |
 
 ---
 

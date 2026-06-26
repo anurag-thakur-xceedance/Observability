@@ -22,6 +22,12 @@ status: Draft
 
 ---
 
+## 2.0 Reader Guide
+This chapter is the **reference catalogue** for telemetry standards. Read it in layers:
+- Start with **Section 2.3 Naming and Labelling Standards** to understand the core schema and mandatory attributes every signal must carry.
+- Then use the **per-domain standards** (Sections 2.4–2.9 and 2.13–2.14) when you need concrete thresholds for infrastructure, application, database, network, scaling, synthetic, and front-end telemetry.
+- Treat the later sections (Grafana, AI-driven standards, sampling and retention defaults) as **look-up tables** during implementation rather than cover-to-cover reading.
+
 ## 2.1 Scope and Intent
 The single source of truth for telemetry standards across Xceedance — what is measured, named, and labelled, and the thresholds for healthy / warning / critical states. All other artefacts (runbooks, alerting policy, dashboards, AIOps) reference this catalogue rather than redefining values locally.
 
@@ -37,13 +43,14 @@ Telemetry is standardised so that systems generate consistent information, enabl
 | Profiles | Stack-trace–based code profiling (emerging "fifth pillar", e.g. Pyroscope) | Code-level performance issues |
 
 ## 2.3 Naming and Labelling Standards
+In practice, this section tells you **which fields must exist on every signal and how to name them**, so that dashboards, queries, and alerts behave consistently across all services.
 - A standard telemetry schema is maintained (naming conventions for metrics, labels, log fields, and trace attributes).
 - Data quality checks (missing labels, malformed logs, excessive cardinality) are implemented in the telemetry pipeline.
 - Services must meet minimum instrumentation standards before production promotion.
 - High-cardinality labels are removed or bucketed after defined retention windows.
 
 ### 2.3.1 Required Resource Attributes (every signal)
-Every metric, log line, and trace span must carry these resource attributes:
+In practice, this means **every metric, log line, and trace span carries a common set of identity fields** (service, version, environment, tenant, tier) so that you can always answer "who emitted this?" and "in which context?" from the data alone.
 
 | Attribute | Source | Example |
 |---|---|---|
@@ -87,6 +94,10 @@ Every signal emitted downstream MUST carry `trace_id` and `span_id` derived from
 - PII fields prohibited at source (see [Chapter 24. Observability Platform Security Architecture -> Section 24.4 PII Redaction (Concrete Mechanisms)](24-observability-platform-security-architecture.md#244-pii-redaction-concrete-mechanisms)).
 
 ### 2.3.4 Cardinality Governance
+In practice, this section defines **how many distinct time series a service is allowed to create** and what to do when that limit is approached.
+
+> **Inline glossary — cardinality.** *Cardinality* is the number of distinct time series a metric produces (for example, one series per `service`, `region`, and `status`). High cardinality increases cost and can destabilise Prometheus and Loki.
+
 Cardinality is the #1 production failure mode for Prometheus and Loki. Enforce three layers:
 
 #### 2.3.4.1 Per-Service Cardinality Budget
@@ -121,6 +132,8 @@ Any of the above must be **bucketed** (e.g., path templates instead of paths) or
 
 ## 2.4 Infrastructure Telemetry Standards
 
+In practice, this section tells SRE / infra teams **what "healthy" looks like for hosts and containers** (CPU, memory, disk, restarts) and when to treat a condition as Warning vs Critical.
+
 | Metric | Unit | Healthy | Acceptable | Concerning | Notes |
 |---|---|---|---|---|---|
 | CPU Usage | % | < 20% (under-utilised) | 40–70% | > 80% sustained > 5 min | Trigger scale-up at sustained > 80% |
@@ -133,7 +146,9 @@ Any of the above must be **bucketed** (e.g., path templates instead of paths) or
 
 ### 2.4.1 Service Tiering Model
 
-The tier of a service determines instrumentation depth, SLO strictness, retention, alerting policy, and on-call coverage.
+In practice, **tiers (T1–T4) let you scale effort and cost**: critical, customer-facing systems get deeper instrumentation, stricter SLOs, and longer retention than low-risk internal tools.
+
+> **Inline glossary — tier.** A *tier* is the criticality class of a service (T1 = most critical, T4 = least). Many standards in this document (sampling rates, retention, alerting) are expressed "per tier" so that you do more for the services that matter most.
 
 #### 2.4.1.1 Tier Definitions
 

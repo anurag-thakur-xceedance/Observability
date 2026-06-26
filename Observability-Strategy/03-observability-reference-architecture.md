@@ -34,6 +34,8 @@ status: Draft
 
 ## 3.2 High-Level Architecture (Logical View)
 
+**Architectural TL;DR.** At a glance, this architecture: (1) collects telemetry from applications and infrastructure into a single, standardised pipeline; (2) stores metrics, logs, and traces in dedicated backends optimised for each signal; and (3) presents a unified view in Grafana, with an Agentic AI layer on top that accelerates diagnosis and incident handling.
+
 <img src="assets/diagrams/observability-pipeline-architecture.jpg" alt="Observability pipeline architecture showing applications and infrastructure telemetry flowing through the OpenTelemetry SDK and Collector into Prometheus, Loki, and Tempo, then into the Grafana observability layer, alerting, AI observability actions, root cause analysis, and incident management." width="1100">
 
 ```mermaid
@@ -102,14 +104,14 @@ The backend platform (Collector, Prometheus, Loki, Tempo, Grafana, exporters) is
 
 | Component | Role |
 |---|---|
-| OpenTelemetry Collector | Universal telemetry gateway: receives metrics/logs/traces from instrumented services and exporters, performs processing/enrichment, forwards to backends. Standardises ingestion and simplifies pipeline management. |
-| Prometheus | Stores and queries metrics for performance, capacity, and health monitoring. |
-| Loki | Stores structured logs; enables efficient querying and correlation with metrics/traces. |
-| Tempo | Stores distributed traces; provides end-to-end visibility into request flows and dependencies. |
-| Grafana | Dashboards, exploration views, and visual analytics across metrics, logs, and traces. |
-| Agentic AI Layer | Consumes telemetry via APIs from Prometheus/Loki/Tempo to perform automated RCA, anomaly detection, and enriched incident-ticket generation. |
-| Container Orchestrator / Runtime | Deployment substrate for the observability stack — Kubernetes, Docker Compose, or equivalent environment-standard runtime. |
-| IaC / Automation Layer | Provisions environments, renders configs, applies deployments, validates health, and emits deployment telemetry. |
+| OpenTelemetry Collector | Universal telemetry gateway: receives metrics/logs/traces from instrumented services and exporters, performs processing/enrichment, forwards to backends. Standardises ingestion and simplifies pipeline management. You care about the Collector when wiring new telemetry sources or enforcing pipeline policies (sampling, labelling, filtering). |
+| Prometheus | Stores and queries metrics for performance, capacity, and health monitoring. You care about Prometheus when setting SLOs, capacity thresholds, and dashboards for resource and service health. |
+| Loki | Stores structured logs; enables efficient querying and correlation with metrics/traces. You care about Loki when investigating errors, exceptions, and detailed event timelines behind metric or trace anomalies. |
+| Tempo | Stores distributed traces; provides end-to-end visibility into request flows and dependencies. You care about Tempo when troubleshooting slow user journeys, cross-service latency, or complex call chains. |
+| Grafana | Dashboards, exploration views, and visual analytics across metrics, logs, and traces. You care about Grafana whenever you need a single place to see system health, drill into issues, and share views with other teams. |
+| Agentic AI Layer | Consumes telemetry via APIs from Prometheus/Loki/Tempo to perform automated RCA, anomaly detection, and enriched incident-ticket generation. You care about this layer when you want faster incident detection, AI-assisted RCA, or auto-populated incident tickets. |
+| Container Orchestrator / Runtime | Deployment substrate for the observability stack — Kubernetes, Docker Compose, or equivalent environment-standard runtime. You care about the orchestrator when planning how and where to run the observability stack and manage its lifecycle. |
+| IaC / Automation Layer | Provisions environments, renders configs, applies deployments, validates health, and emits deployment telemetry. You care about this layer when introducing new environments, automating updates, or ensuring deployments are repeatable and observable. |
 
 ## 3.4 Core Open-Source Stack
 

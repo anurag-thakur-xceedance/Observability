@@ -44,7 +44,13 @@ Defines who governs observability standards, retention, access, and architecture
 
 ## 16.4 Architecture Review Board (ARB) Pack
 
-The strategy doc retains the high-level governance narrative (review status). Detailed ARB mechanics live here:
+The strategy doc retains the high-level governance narrative (review status). Detailed ARB mechanics live here.
+
+**Board definitions (plain language):**
+- **ARB (Architecture Review Board):** senior architects and platform leads who review and approve significant architecture and platform changes.
+- **Exception Panel:** small group (ARB subset plus risk/compliance) that reviews proposed deviations from approved standards.
+- **SDG (Service / Design Governance):** service-design forum (architects + senior engineers) that reviews service-level designs and onboarding to ensure they meet observability and platform requirements.
+- **Change Board:** change-advisory board (SRE, Platform Ops, Incident Management) that approves production changes, especially those affecting reliability or compliance.
 
 | ID | Board | Purpose | Review Type |
 |---|---|---|---|

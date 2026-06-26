@@ -35,14 +35,17 @@ All deployment definitions, automation scripts, exporter configs, dashboards, al
 The following invariants are enforced as **policy-as-code**, evaluated in CI/CD before changes are applied:
 
 - **Correlation propagation:**
-  - Gate: configuration for gateways, API Management, and ingress must demonstrate `traceparent` and `X-Correlation-Id` injection/propagation per [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.1 Required Resource Attributes (every signal)](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal).
-  - Policy: rejects merges where new ingress routes lack the required headers.
+  - What we want: Every external request has a `traceparent` and `X-Correlation-Id` created at the first ingress hop and preserved end-to-end so traces and logs can always be stitched together.
+  - Gate (CI/CD check): Configuration for gateways, API Management, and ingress must demonstrate `traceparent` and `X-Correlation-Id` injection/propagation per [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.1 Required Resource Attributes (every signal)](02-enterprise-observability-standards-catalog.md#231-required-resource-attributes-every-signal).
+  - How enforced: Policy-as-code rejects merges where new ingress routes lack the required headers, or where policies overwrite rather than preserve existing correlation headers.
 - **5xx logging with context:**
-  - Gate: services must include structured logs for HTTP 5xx responses containing `service.name`, `deployment.environment`, `trace_id`, `span_id`, and `correlation.id`.
-  - Policy: rejects merges when log templates or middleware omit these fields.
+  - What we want: Every HTTP 5xx response is accompanied by a structured log that includes enough context to debug the failure quickly.
+  - Gate (CI/CD check): Services must include structured logs for HTTP 5xx responses containing `service.name`, `deployment.environment`, `trace_id`, `span_id`, and `correlation.id`.
+  - How enforced: Policy-as-code inspects log templates or middleware configuration and rejects merges when any of these fields are omitted.
 - **Cardinality budget checks:**
-  - Gate: cardinality budget per service and tier remains within limits defined in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
-  - Policy: blocks changes that introduce new high-cardinality labels without an explicit ADR.
+  - What we want: Each service stays within an agreed cardinality budget so that metrics and logs remain affordable and the platform remains stable.
+  - Gate (CI/CD check): Cardinality budget per service and tier remains within limits defined in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
+  - How enforced: Policy-as-code blocks changes that introduce new high-cardinality labels (for example, user IDs or free-form strings) without an explicit ADR and updated budget.
 
 Policy definitions live alongside IaC and are evaluated using the organisation's chosen policy engine (for example, Open Policy Agent), with CI failure preventing drift from these invariants.
 
@@ -55,6 +58,8 @@ Policy definitions live alongside IaC and are evaluated using the organisation's
 - IaC-driven **provisioning, lifecycle, validation, and reporting**.
 
 ## 8.3 Implementation Patterns
+
+> If you’re **not** implementing or operating the observability platform, you can skim this section on first read and return when you need concrete repository and automation patterns.
 
 ### 8.3.1 Repository Layout (Recommended)
 ```

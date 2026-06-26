@@ -80,6 +80,10 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 
 ## 21.4 Outcome → KPI → SLO → SLI → Telemetry Traceability
 
+This section has two reading modes:
+- **Business view:** read the first three columns (Business Outcome, Business KPI, SLO) to understand what customer or operational result is protected.
+- **Technical mapping:** read the remaining columns to understand which telemetry, dashboard, alert, and runbook enforce that outcome.
+
 | Business Outcome | Business KPI | SLO (per service) | SLI | Telemetry Source | Dashboard | Alert | Runbook |
 |---|---|---|---|---|---|---|---|
 | Quote conversion | Quote-to-Bind % | Quote-engine availability ≥ 99.9% | Successful 200/total ratio over 5-min window | Quote-engine APM + LB metrics | Grafana → Quote-to-Bind board | Burn-rate alert (multi-window) | [Chapter 13. Incident Response Playbook (Telemetry to Resolution) -> Section 13.2 End-to-End Incident Sequence (Logical Flow)](13-incident-response-playbook.md#132-end-to-end-incident-sequence-logical-flow) |
@@ -87,6 +91,11 @@ The Xceedance estate primarily serves **insurance carriers, MGAs, brokers, and r
 | Payment reliability | Payment success % | Payment-gateway availability ≥ 99.95% | Successful auth/total over 1-min | Payment-gateway exporter | Grafana → Payments board | Critical if drop below 98% ≥ 2 min | [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
 | Policy issuance | Time-to-policy-doc (P95) | Doc-pipeline P95 ≤ 60s | Pipeline-stage durations | Workflow-engine custom metrics | Grafana → Policy issuance board | Warning if P95 > 90s | [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) |
 | Claim cycle time | Days from FNOL to Settle | Workflow-engine availability ≥ 99.5% | Stage-transition success rate | Workflow telemetry + DB | Grafana → Claims cycle board | Warning on stage-stall > 1h | [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) |
+
+**Narrative examples:**
+- If Quote-to-Bind success drops while quote-engine availability remains below SLO, the business impact is lost conversion; triage starts with the Quote-to-Bind dashboard and burn-rate alert.
+- If FNOL P95 breaches 1,200 ms for 2 minutes, treat it as a customer-experience incident and follow the application runbook.
+- If Payment success falls below 98% for 2 minutes, treat it as Critical because it blocks revenue completion.
 
 The full SLO methodology — including SLI categorisation, error-budget policy, and burn-rate alert formulas — is defined in [Chapter 25. SLO and Error-Budget Framework](25-slo-and-error-budget-framework.md).
 

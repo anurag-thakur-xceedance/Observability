@@ -22,6 +22,20 @@ status: Draft
 
 ---
 
+## Security Quick Start
+
+The security posture can be summarised as seven plain-language rules:
+
+1. **Authenticate every telemetry producer.** SDKs and collectors use mTLS or signed bearer tokens; anonymous ingest is not allowed.
+2. **Encrypt telemetry in transit and at rest.** TLS protects traffic; storage uses provider encryption or customer-managed keys where required.
+3. **Redact PII before storage.** Sensitive values are removed, masked, or tokenised at source or in the Collector pipeline.
+4. **Keep dashboards tenant-scoped.** Grafana, Loki, Mimir/Prometheus, and Tempo enforce tenant boundaries before query results are returned.
+5. **Treat configuration as code.** Dashboards, alert rules, Collector configs, and access policies are reviewed and provisioned from Git.
+6. **Audit administrative actions.** Changes to dashboards, rules, access, data sources, and retention are logged with actor identity.
+7. **Restrict egress.** Telemetry only leaves approved boundaries after redaction and residency checks.
+
+NFR identifiers such as `NFR-SEC-01` are the audit labels for these controls; the plain-language rules above are the operational intent.
+
 ## 24.1 Threat Model (STRIDE)
 
 | Threat | Asset | Vector | Mitigation |

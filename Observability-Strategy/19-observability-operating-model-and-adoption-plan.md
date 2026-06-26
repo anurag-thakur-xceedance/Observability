@@ -34,13 +34,13 @@ Observability is as much about **people and processes** as tools. This document 
 
 | Role | Primary Focus |
 |---|---|
-| Service / Application Owner | Owns service-specific telemetry conformance ([Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md)) and SLOs |
-| SRE / Platform Ops | Operates the platform ([Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md)), runs runbooks ([Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md)), maintains dashboards ([Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)) |
-| Incident Commander | Coordinates Critical incidents ([Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)) |
-| Data Governance Lead | Owns retention, classification, RBAC ([Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)) |
-| AIOps Lead | Owns AIOps guardrails and model lifecycle ([Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) |
-| Governance Body | Owns standards, retention, policy approvals ([Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)) |
-| Product / Business | Consumes business-impact dashboards; provides outcome KPI input ([Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)) |
+| Service / Application Owner | Owns service-specific telemetry conformance ([Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md)) and SLOs. *Day in the life:* reviews service dashboards and error budgets, decides which telemetry gaps to close before the next release. |
+| SRE / Platform Ops | Operates the platform ([Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md)), runs runbooks ([Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md)), maintains dashboards ([Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)). *Day in the life:* triages alerts, tunes thresholds, and keeps the observability stack healthy and up to date. |
+| Incident Commander | Coordinates Critical incidents ([Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)). *Day in the life:* assembles the right people during a Sev-1, runs comms updates, and ensures a PIR is completed. |
+| Data Governance Lead | Owns retention, classification, RBAC ([Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md), [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)). *Day in the life:* reviews schema changes, validates PII controls, and approves retention adjustments. |
+| AIOps Lead | Owns AIOps guardrails and model lifecycle ([Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)). *Day in the life:* monitors AI model performance, decides when to retrain or rollback, and aligns AI experiments with risk appetite. |
+| Governance Body | Owns standards, retention, policy approvals ([Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md)). *Day in the life:* reviews maturity reports, approves phase gates, and arbitrates trade-offs between cost, risk, and observability coverage. |
+| Product / Business | Consumes business-impact dashboards; provides outcome KPI input ([Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)). *Day in the life:* looks at business KPIs tied to observability (e.g. quote conversion, FNOL latency) and prioritises improvements with engineering. |
 
 ## 19.4 Adoption Plan (Aligned to Roadmap)
 
@@ -121,9 +121,7 @@ The strategy is regularly reassessed and refined as the technology landscape and
 - AIOps interpretation ([Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)) — for senior on-call.
 
 ## 19.7 Success Indicators
-- ≥ 70% engineering time on new feature work (vs. issue rectification) by end of Phase 3 (see [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md)).
-- Cross-team incident resolution rate ≥ 70% within 6 months.
-- Reduced "war-room" sessions; demonstrable cross-functional ownership.
+- Refer to [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) for the full KPI set and targets. This chapter focuses on **how roles and practices drive those KPIs** (e.g. service onboarding, CoP activity, training completion).
 
 ### 19.7.1 Adoption KPIs
 

@@ -30,7 +30,11 @@ Operational runbooks that translate the standards in [Chapter 2. Enterprise Obse
 ## 4.2 Infrastructure Observability Runbook
 
 ### 4.2.1 Signals
-CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time. Metric thresholds: see [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4 Infrastructure Telemetry Standards](02-enterprise-observability-standards-catalog.md#24-infrastructure-telemetry-standards).
+CPU, memory, disk I/O, container restarts, host failures, Compose service restarts, container start time.
+
+**Example.** CPU sustained at 90% for 10 minutes on a T1 host *and* container restarts > 2/hour → treat as **Critical** and follow triage steps 3–5.
+
+**See also:** [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.4 Infrastructure Telemetry Standards](02-enterprise-observability-standards-catalog.md#24-infrastructure-telemetry-standards) (exact thresholds by tier).
 
 ### 4.2.2 Triage Flow
 1. Confirm scope: per host, per Compose service, per container.
@@ -47,7 +51,7 @@ Stacked-area charts and heat maps for trend visibility. Combine gauges (current 
 
 ## 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)
 
-> Standards and field definitions live in [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md). This runbook covers operational execution.
+> This runbook covers operational execution for pre-login and post-login paths.
 
 ### 4.3.1 Pre-Login Operational Checks
 - **Authentication latency** rising → inspect upstream IdP, API gateway, certificate refresh events.
@@ -61,6 +65,10 @@ Stacked-area charts and heat maps for trend visibility. Combine gauges (current 
 - **Dependency latency** > 400 ms → check DB, cache, external API health.
 - **User-journey success** < 98% → drill into specific journey (login, checkout, report-gen) and isolate failing step.
 
+**Example.** Transaction P95 jumps from 300 ms to 1.2 s and user-journey success drops below 98% within 10 minutes → treat as **Critical**, start with post-login checks (Tempo traces, dependency latency), then follow incident-response steps.
+
+**See also:** [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) (field definitions and SLI/SLO standards).
+
 ### 4.3.3 Implementation Tips
 - Always track **P95 / P99**, not just averages.
 - Correlate signals: high API latency + elevated error rates typically indicates backend or DB issue.
@@ -70,7 +78,7 @@ Stacked-area charts and heat maps for trend visibility. Combine gauges (current 
 ## 4.4 Database Observability Runbook
 
 ### 4.4.1 Signals
-Slow queries, lock contention, connection-pool usage, replication lag, query latency. Thresholds: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards).
+Slow queries, lock contention, connection-pool usage, replication lag, query latency.
 
 ### 4.4.2 Triage Flow
 1. **Slow queries > 1%** → review query plan, indexes, recent schema changes.
@@ -83,12 +91,16 @@ Slow queries, lock contention, connection-pool usage, replication lag, query lat
 - Warning crosses → investigate within hours; assess resource saturation or query regressions.
 - Critical crosses → immediate incident; probable user impact or system instability.
 
+**Example.** Slow queries > 5% and replication lag > 30 s on a production DB → treat as **Critical**, follow triage steps 1–4, and engage the application team if user-facing latency is affected.
+
+**See also:** [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.7 Database Telemetry Standards](02-enterprise-observability-standards-catalog.md#27-database-telemetry-standards) (per-tier database thresholds).
+
 ---
 
 ## 4.5 Network & Latency Observability Runbook
 
 ### 4.5.1 Signals
-Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions. Thresholds: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.8 Network & Latency Telemetry Standards](02-enterprise-observability-standards-catalog.md#28-network-latency-telemetry-standards).
+Packet drops, cross-service latency, DNS failures, inter-service errors, TCP retransmissions.
 
 ### 4.5.2 Triage Flow
 1. **Packet drops > 0.5%** sustained → investigate host NIC, route saturation, or link errors.
@@ -105,12 +117,16 @@ Packet drops, cross-service latency, DNS failures, inter-service errors, TCP ret
 - **Scope:** Collect per host, per Compose service, per container, and per network segment.
 - **Visualisation:** Stacked-area charts or heat maps for packet-loss and latency trends.
 
+**Example.** Packet drops > 1% and TCP retransmits > 1% for 5 minutes between two services → treat as **Critical**, follow triage steps 1–3, and engage network/platform teams.
+
+**See also:** [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.8 Network & Latency Telemetry Standards](02-enterprise-observability-standards-catalog.md#28-network-latency-telemetry-standards) (detailed network thresholds).
+
 ---
 
 ## 4.6 Scaling & Performance Runbook
 
 ### 4.6.1 Signals
-Queue length, request latency, error rate, container startup time, cold-start latency. Thresholds: [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.9 Scaling & Performance Telemetry Standards](02-enterprise-observability-standards-catalog.md#29-scaling-performance-telemetry-standards).
+Queue length, request latency, error rate, container startup time, cold-start latency.
 
 ### 4.6.2 Outcome Posture
 Scaling observability validates that capacity changes deliver the user-visible performance the strategy commits to. Posture: scaling must be **predictable, observable, and tied to user impact**, not internal metrics alone.
@@ -127,6 +143,10 @@ Scaling observability validates that capacity changes deliver the user-visible p
 3. **Error rate > 1%** sustained → degraded service; combine with latency to detect cascade.
 4. **Container startup > 30 s** → image-pull or healthcheck issue; check image size, registry latency, and Compose `healthcheck` definition.
 5. **Cold start > 5 s container** → tune image size, pre-pull strategy, or warm-up logic.
+
+**Example.** Queue length climbs above 500 items, P95 latency > 1 s, and error rate > 2% for 10 minutes → treat as **Critical**, apply triage steps 1–3, and coordinate scaling changes with the owning team.
+
+**See also:** [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.9 Scaling & Performance Telemetry Standards](02-enterprise-observability-standards-catalog.md#29-scaling-performance-telemetry-standards) (scaling and latency targets).
 
 ---
 

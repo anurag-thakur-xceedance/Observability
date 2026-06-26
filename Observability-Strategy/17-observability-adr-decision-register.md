@@ -25,6 +25,11 @@ status: Draft
 ## 17.1 Purpose
 Formal Architecture Decision Records (ADRs) for significant observability decisions. Each ADR captures context, options considered, decision, and consequences.
 
+## 17.1.1 How to Use This Register
+- **When to add a new ADR:** whenever you make a decision that constrains future choices (e.g. vendor/tool selection, topology choice, data-residency posture), is costly to reverse, or affects multiple teams.
+- **How to write one:** use the template in Section 17.3. Keep **Context**, **Options**, **Decision**, and **Consequences** concise but explicit; link to relevant chapters and artefacts in **Linked Artifacts** rather than embedding long explanations.
+- **How to link from other chapters:** reference ADRs by ID (e.g. "per ADR-010") and briefly state the impact ("cardinality budgets are enforced at SDK + collector + backend"). Avoid rewriting the ADR content in the referencing chapter.
+
 ## 17.2 ADR Index (Initial)
 
 | ID | Title | Status | Source |
@@ -131,7 +136,10 @@ Selected option and the rationale that distinguishes it.
 - **Supersedes**: —
 - **Related**: [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md), [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md), [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md)
 
-**Context.** Xceedance operates across heterogeneous languages (.NET, Java, Node.js, Python, Go), cloud and on-premise hosts, and multiple customer sites. A common telemetry standard is required to avoid vendor lock-in, fragmentation, and per-stack tooling sprawl.
+**Context.**
+- Xceedance operates across heterogeneous languages (.NET, Java, Node.js, Python, Go).
+- Workloads run on both cloud and on-premise hosts, including multiple customer sites.
+- Without a common telemetry standard, we risk vendor lock-in, fragmented instrumentation, and per-stack tooling sprawl.
 
 **Options Considered.**
 - (A) Vendor agent per backend (Datadog Agent, New Relic Agent, Splunk UF). Pros: turnkey; Cons: vendor lock-in, per-language SDK quality drift, multi-backend cost.

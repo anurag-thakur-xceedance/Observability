@@ -25,6 +25,8 @@ status: Draft
 ## 20.1 Purpose
 Define the formal data model for the observability platform: telemetry signal types, the entities they describe, their relationships, and schema conventions enabling cross-pillar correlation.
 
+**Why this matters.** This chapter is primarily for **platform implementors and schema owners**. It defines the fields and relationships that must exist so that metrics, logs, traces, and events can be joined reliably. Service teams usually only need to know which attributes to populate; platform teams and data-governance owners use this model to validate schemas, enforce consistency, and power higher-level features like Telemetry Health and DLQ handling.
+
 ## 20.2 Telemetry Signal Types
 
 | Signal | Tool | Purpose |
@@ -107,7 +109,7 @@ These heuristics feed into a **Telemetry Health** view rather than paging on-cal
 Every environment has a standardised "Telemetry Health" dashboard with at least the following panels:
 
 - **Signal coverage:** per service, proportion of requests with metrics, logs, and traces.
-- **Schema validity:** rate of schema-validation failures per signal type (see Section 20.8.6 dead-letter discipline).
+- **Schema validity:** rate of schema-validation failures per signal type (see Section 20.9.6 **Dead-Letter Discipline for Schema Violations**).
 - **Cardinality vs budget:** active series and label-cardinality versus budgets from [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
 - **Timestamp skew:** distribution of ingest- vs event-time deltas.
 - **PII violations:** count of records routed to the `dlq-pii` stream.

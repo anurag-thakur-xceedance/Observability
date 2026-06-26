@@ -36,6 +36,12 @@ status: Draft
 [Day 30]  Service operational with full observability
 ```
 
+## 26.1.1 How to Use This Chapter
+
+- **If you are a platform or infra engineer:** focus on the PRR gate (Section 26.2), CI enforcement, and cardinality/capacity checks.
+- **If you are an application engineer (.NET, Java, Node.js, Python, Go):** go straight to the instrumentation kit for your language in Section 26.3, then return to the PRR checklist before promotion.
+- **If you are an onboarding lead or service owner:** use the workflow in Section 26.1, the PRR gate in Section 26.2, and the training/adoption sections (26.4–26.6) to track readiness.
+
 ## 26.2 Production-Readiness Review (PRR) Gate
 
 A service may not be promoted to production without a PASS on every item below.
@@ -84,6 +90,7 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 - Example CI snippet wiring the minimum observability check into the service's pipeline.
 
 ### 26.3.1 Java (Spring Boot) Kit
+- *When to use this kit and what you get:* use for Spring Boot services that need rapid OTel adoption with auto-instrumentation, JSON logs, starter dashboards, and burn-rate alerts out of the box.
 - **OTel:** `opentelemetry-spring-boot-starter` + `opentelemetry-exporter-otlp`.
 - **Auto-instrumentation:** Java agent (`opentelemetry-javaagent.jar`) attached at JVM start.
 - **Metrics:** Micrometer → OTel bridge.
@@ -97,36 +104,43 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
   ```
 
 ### 26.3.2 Node.js / TypeScript Kit
+- *When to use this kit and what you get:* use for Node.js or TypeScript APIs and workers to get auto-instrumented HTTP/gRPC tracing, structured logs, and baseline RED metrics quickly.
 - **OTel:** `@opentelemetry/sdk-node` + auto-instrumentations (`@opentelemetry/auto-instrumentations-node`).
 - **Logs:** Pino with `pino-otel` for trace correlation.
 - **Metrics:** OTel API; histogram for HTTP duration.
 - **Tracing:** Auto for HTTP, gRPC, common DBs.
 
 ### 26.3.3 .NET Kit
+- *When to use this kit and what you get:* use for .NET services to get OTel hosting integration, trace-correlated Serilog output, core metrics, and common middleware coverage.
 - **OTel:** `OpenTelemetry.Extensions.Hosting` + `AutoInstrumentation`.
 - **Logs:** Serilog with OTel sink and trace correlation.
 - **Metrics:** `System.Diagnostics.Metrics`.
 - **Common ASP.NET Core middleware** for HTTP server / client / EF Core.
 
 ### 26.3.4 Python Kit
+- *When to use this kit and what you get:* use for Flask, FastAPI, Django, and Python worker services to get distro-based auto-instrumentation, structured logs, and common framework coverage.
 - **OTel:** `opentelemetry-distro` + `opentelemetry-bootstrap` for auto-instrumentation.
 - **Logs:** Structured JSON via `python-json-logger`; trace context via OTel logging instrumentation.
 - **Frameworks covered:** Flask, FastAPI, Django, requests, urllib3, common DB drivers.
 
 ### 26.3.5 Go Kit
+- *When to use this kit and what you get:* use for Go services when you need a lightweight SDK-first approach with trace-aware logging and explicit manual spans for critical paths.
 - **OTel:** `go.opentelemetry.io/otel` + contrib instrumentations per framework.
 - **Logs:** `slog` with trace-aware handler.
 - **Note:** Go has fewer auto-instrumentation hooks; expect manual span creation around critical functions.
 
 ### 26.3.6 Front-end (Browser) RUM Kit
+- *When to use this kit and what you get:* use for browser-based user journeys to capture Core Web Vitals, front-end errors, and journey spans without collecting raw PII.
 - **OTel:** `@opentelemetry/sdk-trace-web` + browser auto-instrumentations.
 - **RUM signals:** Core Web Vitals (LCP, INP, CLS), custom user-journey spans.
 - **PII guard:** Strip URL params, form values; no DOM scraping.
 
 ### 26.3.7 Mobile RUM (iOS / Android) Kit (deferred)
+- *When to use this kit and what you get:* planned for mobile apps in Phase 3, with parity for RUM signals and privacy controls once the roadmap reaches that stage.
 - Roadmap: Phase 3.
 
 ### 26.3.8 Legacy / Unmodifiable Service (eBPF Kit)
+- *When to use this kit and what you get:* use for vendor-supplied or legacy services where code changes are not possible; you get code-free network and request visibility with limited application semantics.
 - **Beyla** (or equivalent eBPF auto-instrumentation) for HTTP/gRPC visibility without code changes.
 - Useful for vendor-supplied or legacy components where SDK adoption isn't possible.
 - See [Chapter 3. Observability Reference Architecture -> Section 3.4.1 eBPF for Legacy and Non-Intrusive Instrumentation](03-observability-reference-architecture.md#341-ebpf-for-legacy-and-non-intrusive-instrumentation).

@@ -39,7 +39,17 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Team Onboarding | Train ops + dev teams on dashboards | All relevant team members can navigate Grafana |
 
 ### 14.2.1 Phase 1 Targets
-- MTTD < 15 min, MTTR <= 4 h, services instrumented 20%, alert noise > 35% non-actionable, manual RCA 100%, automated tickets 0%.
+
+| Metric | Phase 1 Target |
+|---|---|
+| Mean Time to Detect (MTTD) | < 15 min |
+| Mean Time to Resolution (MTTR) | ≤ 4 h |
+| Services Instrumented | 20% |
+| Alert Noise Ratio | > 35% non-actionable |
+| Manual RCA Required | 100% |
+| Automated Ticket Creation | 0% |
+
+**At the end of Phase 1, a team should be able to:** see when something breaks on core dashboards, inspect basic metrics and logs for critical services, and use a single observability stack for day-to-day operations.
 
 ## 14.3 Phase 2 — Correlation & Alerting (Months 4–6)
 **Theme:** "Connect the Dots — Understand Why It's Happening."
@@ -56,7 +66,17 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Cross-Team Dashboards | Shared views breaking down silos | Single pane of glass accessible to all stakeholders |
 
 ### 14.3.1 Phase 2 Targets
-- MTTD < 5 min, MTTR <= 30 min, services instrumented 70%, alert noise <= 20% non-actionable, manual RCA 50%, automated tickets 50%.
+
+| Metric | Phase 2 Target |
+|---|---|
+| Mean Time to Detect (MTTD) | < 5 min |
+| Mean Time to Resolution (MTTR) | ≤ 30 min |
+| Services Instrumented | 70% |
+| Alert Noise Ratio | ≤ 20% non-actionable |
+| Manual RCA Required | 50% |
+| Automated Ticket Creation | 50% |
+
+**At the end of Phase 2, a team should be able to:** jump from an alert to correlated traces/logs/metrics, understand likely blast radius, and run with smart alerting that mostly surfaces actionable issues.
 
 ## 14.4 Phase 3 — AI-Driven Intelligence (Months 7–12)
 **Theme:** "Predict and Automate — Fix Before Users Notice."
@@ -74,7 +94,17 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 | Business Impact Correlation | Link technical incidents to business KPIs (revenue, CX scores) | Executives receive business-context summaries |
 
 ### 14.4.1 Phase 3 Targets
-- MTTD < 1 min, MTTR <= 15 min, services instrumented 100%, alert noise <= 10% non-actionable, manual RCA < 20%, automated tickets > 90%.
+
+| Metric | Phase 3 Target |
+|---|---|
+| Mean Time to Detect (MTTD) | < 1 min |
+| Mean Time to Resolution (MTTR) | ≤ 15 min |
+| Services Instrumented | 100% |
+| Alert Noise Ratio | ≤ 10% non-actionable |
+| Manual RCA Required | < 20% |
+| Automated Ticket Creation | > 90% |
+
+**At the end of Phase 3, a team should be able to:** rely on AI-assisted detection and RCA for most incidents, have incident tickets pre-populated with rich context, and proactively act on forecasted capacity and reliability risks.
 
 ## 14.5 Dependencies (Cross-Phase)
 - [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — required to deploy stack consistently in Phase 1.

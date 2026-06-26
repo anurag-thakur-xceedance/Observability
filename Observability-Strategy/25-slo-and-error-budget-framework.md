@@ -30,6 +30,19 @@ Without a formal SLO methodology, "reliability targets" are aspirational. With i
 4. Burn-rate alerts that page only when the error budget is being consumed at an unsustainable rate.
 5. A policy that turns budget exhaustion into action (freeze, escalate, prioritise reliability work).
 
+**Worked example (keep this in mind while reading).**
+- **Service:** Login API
+- **SLI:** successful login requests / total valid login requests
+- **SLO:** **99.9% success over 30 days**
+- **Volume assumption:** 10,000,000 valid login requests in 30 days
+- **Error budget:** `(1 - 0.999) × 10,000,000 = 10,000` failed login requests allowed in the window
+- **What this means in practice:** if the service burns through those 10,000 failures too quickly, burn-rate alerts page the team and the error-budget policy can freeze feature work until reliability recovers.
+
+> **If you’re a service owner, do these 3 things:**
+> 1. Pick **1–3 SLIs** that reflect user happiness (for example availability and latency for a login API).
+> 2. Set an SLO that is ambitious but realistic for the service tier.
+> 3. Make sure burn-rate alerts and a runbook exist before shipping to production.
+
 ## 25.2 SLI Categories (Choose 1–3 per Service)
 
 | Category | Definition | Example SLI |

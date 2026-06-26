@@ -52,12 +52,25 @@ Full thresholds in [Chapter 2. Enterprise Observability Standards Catalogue -> S
 | Business | Checkout Latency (P95) | < 2 s | 2–3 s sustained | > 3 s > 2 min |
 
 ## 6.5 Recommended Alerting Policy (Grafana Implementation)
-Severity model is owned by [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md). Grafana implementation specifics:
+The standard severity model is defined in the alerting policy; this section focuses on how Grafana implements it.
 
-- Alert rules are defined as code (GitOps) and version-controlled.
-- Severity-based routing via contact points & notification policies.
-- Group, dedupe, and silence rules tuned to preserve signal-to-noise ≥ 80%.
-- Each alert references a runbook URL (linking to [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) / [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)).
+- **Alert rules as code.**
+  - Rule: Alert rules are defined as code (GitOps) and version-controlled.
+  - Why: Ensures every change is reviewed, auditable, and reproducible across environments.
+- **Severity-based routing.**
+  - Rule: Use contact points and notification policies to route alerts by severity and ownership.
+  - Why: Ensures Critical alerts page the right on-call team while lower-severity signals go to the appropriate channels.
+- **Grouping, deduplication, and silencing.**
+  - Rule: Configure group, dedupe, and silence rules to preserve signal-to-noise ≥ 80%.
+  - Why: Reduces alert fatigue and keeps operators focused on genuinely actionable alerts.
+- **Runbook-linked alerts.**
+  - Rule: Each alert references a runbook URL.
+  - Why: Ensures on-call engineers have step-by-step guidance at the moment an alert fires.
+
+**See also:**
+- [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md)
+- [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md)
+- [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md)
 
 | Severity | Trigger Definition | Response Expectation |
 |---|---|---|
@@ -66,16 +79,28 @@ Severity model is owned by [Chapter 5. Alerting and Incident Severity Policy](05
 | Critical | Above critical threshold for ≥ 2 min or repeated within 10 min | Immediate incident response; probable user or business impact. |
 
 ## 6.6 Implementation & Visualisation Tips
-- **Dashboards structure:** Infra → Application → Business (top-down).
-- **Percentile-based latency.** Always track **P95 and P99**, never rely solely on averages.
-- **Correlate metrics.** High API latency + elevated error rates typically indicates backend/DB issue. High API latency + healthy DB latency typically indicates app-side or runtime contention.
-- **Use panels.** Combine **gauges** (current state) with **time-series** panels (trend).
-- **Anomaly overlays.** Predicted-vs-actual curves and anomaly deviation values rendered alongside live data (see [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md)).
-- **Standardise dashboard library.** Per-domain template dashboards (Infra/App/DB/Network/Scaling/AI) cloned per service rather than hand-built.
+- **Dashboard structure.**
+  - Rule: Structure dashboards Infra → Application → Business (top-down).
+  - Why: Mirrors how incidents are diagnosed in practice: from platform health to service health to business impact.
+- **Percentile-based latency.**
+  - Rule: Always track **P95 and P99**; do not rely solely on averages.
+  - Why: Percentiles reveal tail latency and user impact that averages can hide.
+- **Correlate metrics.**
+  - Rule: Always interpret latency, errors, and saturation together.
+  - Why: High API latency + elevated error rates typically points to backend/DB issues; high API latency with healthy DB latency often indicates app-side or runtime contention.
+- **Use complementary panels.**
+  - Rule: Combine **gauges** (current state) with **time-series** panels (trend).
+  - Why: Gauges show "now" at a glance; time series reveal whether the issue is transient, trending, or recurring.
+- **Anomaly overlays.**
+  - Rule: Overlay predicted vs actual curves and anomaly deviation values on key graphs when using AIOps.
+  - Why: Makes it obvious when AI-detected anomalies align with human-observed behaviour.
+- **Standardise dashboard library.**
+  - Rule: Use per-domain templates (Infra/App/DB/Network/Scaling/AI) cloned per service rather than hand-built one-offs.
+  - Why: Reduces maintenance overhead and ensures new services inherit best-practice visualisations by default.
 
 ## 6.7 Telemetry Health Dashboard Standard
 
-A **Telemetry Health** dashboard is mandatory per environment. It surfaces the health of the observability data itself and implements the heuristics from [Chapter 20. Observability Data Model Specification -> Section 20.8 Telemetry Health and Data-Quality Monitoring](20-observability-data-model-specification.md#208-telemetry-health-and-data-quality-monitoring).
+A **Telemetry Health** dashboard is mandatory per environment. It surfaces the health of the observability data itself and implements standard telemetry-quality heuristics.
 
 ### 6.7.1 Required Panels
 
@@ -86,7 +111,7 @@ A **Telemetry Health** dashboard is mandatory per environment. It surfaces the h
     - Trace coverage: `sum(rate(http_requests_total{service=~"$service", trace_id!=""}[5m])) by (service) / sum(rate(http_requests_total{service=~"$service"}[5m])) by (service)`.
 
 - **Schema validation failures (by signal):**
-  - Purpose: visualise dead-letter volume for schema violations (see Section 20.9.6).
+  - Purpose: visualise dead-letter volume for schema violations (see Section 20.9.6 **Dead-Letter Discipline for Schema Violations**).
   - Example metric (LogQL → Prometheus counter via pipeline): `rate(obs_schemavalidation_failures_total{reason=~"required-field-missing|type-or-format"}[5m])`.
 
 - **Cardinality vs budget:**
@@ -113,9 +138,13 @@ A **Telemetry Health** dashboard is mandatory per environment. It surfaces the h
 
 - The Telemetry Health dashboard is part of the **canonical** dashboard set and is owned by Platform Engineering.
 - It is placed alongside infra/app/business overview dashboards and linked from the on-call runbook for platform issues.
-- Panels use consistent colouring (green/amber/red) aligned with the thresholds in Chapters 2 and 20.
+- Panels use consistent colouring (green/amber/red) aligned with the catalogue thresholds.
 
 Service teams are encouraged to add a compact Telemetry Health row to their service-level dashboards (for example, trace coverage, schema failures, and cardinality vs budget for their service only).
+
+**See also:**
+- [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md)
+- [Chapter 20. Observability Data Model Specification -> Section 20.8 Telemetry Health and Data-Quality Monitoring](20-observability-data-model-specification.md#208-telemetry-health-and-data-quality-monitoring)
 
 ## 6.8 Dashboard and Alert Governance
 

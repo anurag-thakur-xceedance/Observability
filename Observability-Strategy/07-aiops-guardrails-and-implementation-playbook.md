@@ -21,6 +21,12 @@ status: Draft
 | **Next Review Due** | 1-Nov-2026 |
 
 ---
+## 7.0 Summary and Reader Prerequisites
+This chapter assumes familiarity with basic observability concepts (metrics, logs, traces) and the alerting policy. You **do not** need to be an ML specialist to apply the guardrails.
+
+- If you are an **on-call engineer or SRE**, focus on Sections **7.1, 7.2, 7.3, and 7.4** — they define what AI-generated alerts mean and when to trust or override them.
+- If you are an **AIOps / ML engineer**, also use Sections **7.5–7.7** — they define model selection, lifecycle, and audit requirements.
+- If you are a **governance / risk stakeholder**, use Sections **7.1, 7.4, 7.6, and 7.7** — they capture accountability, rollback thresholds, and evidence for approvals.
 
 ## 7.1 Strategic Intent & Guardrails
 The Agentic AI layer turns observability from reactive to proactive — automated RCA, anomaly detection, and enriched ticketing against telemetry from Prometheus, Loki, and Tempo.
@@ -37,10 +43,10 @@ The Agentic AI layer turns observability from reactive to proactive — automate
 
 | Category | Metric | Healthy | Warning | Critical | Notes |
 |---|---|---|---|---|---|
-| Anomaly Detection | Abnormal Latency Spikes | ±10% baseline | 10–25% deviation > 5 min | > 25% deviation > 2 min | Model forecasts expected P95 latency; > 25% implies probable incident or dependency slowdown. FP rate target < 5%. |
-| Anomaly Detection | Unusual Traffic Patterns | ±15% | 15–30% deviation > 5 min | > 30% > 2 min or confidence > 95% | Early DDoS / load-imbalance detection. Precision ≥ 90%, recall ≥ 85%. |
-| Correlation Analysis | Deployment vs Error Spike | r < 0.3 (weak) | 0.3–0.6 (moderate) | r > 0.6 (strong) | Strong positive r → recent deployments contributing to errors. Feed back into deployment practices. |
-| Correlation Analysis | Scaling vs DB Saturation | r < 0.4 | 0.4–0.7 | r > 0.7 | Strong positive r → scaling events associated with DB saturation. Adjust scaling strategy / DB capacity. |
+| Anomaly Detection | Abnormal Latency Spikes | ±10% baseline | 10–25% deviation > 5 min | > 25% deviation > 2 min | Model forecasts expected P95 latency; > 25% implies probable incident or dependency slowdown. FP rate target < 5%. **What to watch:** if Critical conditions occur frequently with low operator agreement, revisit thresholds or disable this signal for specific services. |
+| Anomaly Detection | Unusual Traffic Patterns | ±15% | 15–30% deviation > 5 min | > 30% > 2 min or confidence > 95% | Early DDoS / load-imbalance detection. Precision ≥ 90%, recall ≥ 85%. **What to watch:** sustained Critical flags without confirmed incidents suggests the model is too sensitive and should be recalibrated. |
+| Correlation Analysis | Deployment vs Error Spike | r < 0.3 (weak) | 0.3–0.6 (moderate) | r > 0.6 (strong) | Strong positive r → recent deployments contributing to errors. Feed back into deployment practices. **What to watch:** if r stays > 0.6 for multiple deployments, this is a signal that deployment or testing practices need remediation, not just model tuning. |
+| Correlation Analysis | Scaling vs DB Saturation | r < 0.4 | 0.4–0.7 | r > 0.7 | Strong positive r → scaling events associated with DB saturation. Adjust scaling strategy / DB capacity. **What to watch:** persistent strong correlation suggests autoscaling or DB sizing assumptions are wrong; plan a joint SRE/DB review. |
 
 ## 7.3 Interpreting the AI-Driven Metrics
 
@@ -66,10 +72,10 @@ Owned by [Chapter 5. Alerting and Incident Severity Policy -> Section 5.4 Domain
 - External business event streams (deployments, scaling events, feature flags).
 
 ### 7.5.2 AI Models
-- Moving-average methods.
-- Seasonal-trend decomposition.
-- ML-based outlier detection (e.g. **Prophet**, **Isolation Forest**).
-- Selection criteria: explainability, retraining cost, false-positive control.
+- Moving-average methods — simple statistical baselines (good for quick detection, easier to explain).
+- Seasonal-trend decomposition — separates trend and periodic patterns so models understand weekday/weekend and seasonal effects.
+- ML-based outlier detection (e.g. **Prophet**, **Isolation Forest**) — more powerful but heavier-weight models for complex patterns.
+- Selection criteria: explainability, retraining cost, and false-positive control; prefer simpler models when they achieve required precision/recall.
 
 ### 7.5.3 Visualisation
 - Predicted-vs-actual curves overlaid in Grafana (see [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md)).
@@ -93,6 +99,11 @@ To justify continued use of an AIOps model or auto-remediation, the following va
 - **MTTR impact:** median MTTR and P95 MTTR for incidents where the model contributed vs control. A sustained **increase** in MTTR > 10% over baseline for 2 consecutive months triggers rollback of the model's influence.
 - **Alert noise:** ratio of AI-driven alerts acknowledged as useful vs dismissed. If useful alerts fall below 70% for 4 consecutive weeks, the model's alerting is downgraded (e.g. to Warning-only) or disabled.
 - **Root-cause identification:** operator feedback on whether AI hypotheses contributed to correct RCA. A drop below 60% positive feedback triggers retraining or decommissioning.
+
+**What to watch:**
+- If MTTR impact is consistently negative (MTTR increasing), the model is harming operations; prefer rollback or stricter use.
+- If alert-noise useful rate stays below 70%, treat this as a strong signal to disable alerting or tighten thresholds until usefulness recovers.
+- If root-cause identification agreement is low, consider that the model may not understand the system well enough; prioritise retraining or retiring it.
 
 Rollback decisions and their rationale are captured as ADRs in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md).
 

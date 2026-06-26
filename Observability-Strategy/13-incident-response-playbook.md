@@ -33,17 +33,17 @@ How a telemetry anomaly becomes a diagnosed, communicated, remediated incident. 
 
 ```mermaid
 flowchart TD
-    A["1\. Telemetry Emission<br/>metrics / logs / traces<br/><i>Chapter 2</i>"] --> B["2\. Pipeline & Storage<br/>OTel Collector → Prom/Loki/Tempo<br/><i>Chapter 2</i>"]
+    A["1\. Telemetry Emission"] --> B["2\. Pipeline & Storage"]
     B --> C{"3\. Detection"}
-    C -->|"threshold alert"| D["4\. Triage<br/>severity + on-call routing<br/><i>Chapter 4</i>"]
+    C -->|"threshold alert"| D["4\. Triage"]
     C -->|"AI anomaly"| D
-    D --> E["5\. Diagnosis<br/>runbooks + Grafana + AI RCA<br/><i>Chapter 3 / Chapter 5 / Chapter 6</i>"]
-    E --> F["6\. Mitigation / Remediation<br/>manual or automated runbook"]
-    F --> G["7\. Communication<br/>stakeholder updates<br/><i>Chapter 11</i>"]
+    D --> E["5\. Diagnosis"]
+    E --> F["6\. Mitigation / Remediation"]
+    F --> G["7\. Communication"]
     G --> H{"8\. Resolved?"}
     H -->|"no"| E
-    H -->|"yes"| I["9\. Post-Incident Review (PIR)<br/>RCA record retained ≥12mo<br/><i>Chapter 8</i>"]
-    I --> J["10\. Feedback Loop<br/>ADR / model retrain / roadmap / KPI<br/><i>Chapter 6 / Chapter 13 / Chapter 16</i>"]
+    H -->|"yes"| I["9\. Post-Incident Review (PIR)"]
+    I --> J["10\. Feedback Loop"]
     J -.-> A
 
     classDef detect fill:#fff4cc,stroke:#a07700;
@@ -53,6 +53,14 @@ flowchart TD
     class D,E,F,G act;
     class I,J review;
 ```
+
+**Diagram legend:**
+- **Step 1–2 (Telemetry Emission, Pipeline & Storage):** see Chapter 3 (Observability Reference Architecture).
+- **Step 3–4 (Detection, Triage):** see Chapter 5 (Alerting and Incident Severity Policy) and Chapter 7 (AIOps Guardrails and Implementation Playbook).
+- **Step 5–6 (Diagnosis, Mitigation):** see Chapter 4 (Domain Observability Runbooks Pack) and Chapter 6 (Grafana Platform Standard and Visualisation Playbook).
+- **Step 7 (Communication):** see Chapter 12 (Observability KPI Scorecard) for reporting; Chapter 16 (Governance) for escalation.
+- **Step 9 (PIR):** see Chapter 9 (Observability Data Governance and Retention Policy) for RCA retention.
+- **Step 10 (Feedback Loop):** see Chapter 7 (AIOps), Chapter 14 (Roadmap), and Chapter 17 (ADR Decision Register).
 
 ### 13.2.2 Actor Sequence (Mermaid Sequence Diagram)
 
@@ -76,7 +84,7 @@ sequenceDiagram
     OnCall->>OnCall: acknowledge, open incident
     alt severity = Critical
         OnCall->>IC: engage incident commander
-        IC->>Comms: open comms cadence (Chapter 4, Section 6)
+        IC->>Comms: open comms cadence (see Chapter 13, communication guidance)
     end
     OnCall->>SO: consult runbook + service owner
     SO-->>OnCall: rollback / config / traffic-shift decision

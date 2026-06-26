@@ -26,6 +26,18 @@ status: Draft
 
 This appendix to [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) records a STRIDE-based threat model for the Xceedance Observability Platform. It identifies primary threats per component, the existing mitigations, residual risk, and the NFR / control reference where the mitigation is implemented.
 
+## Summary for Non-Security Readers
+
+The most important takeaways are:
+
+1. **Do not let unknown systems emit telemetry.** Every producer must authenticate before the platform accepts metrics, logs, or traces.
+2. **Do not hand-edit platform configuration.** Dashboards, alert rules, collector configs, and sampling rules must come from reviewed Git changes.
+3. **Do not put PII into telemetry.** Service teams must redact sensitive fields before logs or traces leave the application or customer-site edge.
+4. **Do not mix tenants.** Tenant labels, storage boundaries, and Grafana access must prevent cross-tenant reads.
+5. **Do not let AI act without guardrails.** AIOps recommendations require provenance, human review for high-impact actions, and prompt-boundary redaction.
+6. **Do not trust archives unless they are tamper-evident.** Long-term evidence must be signed, immutable, and restorable with an audit trail.
+7. **Do not skip drills.** DR, restore, access review, and red-team exercises prove that controls work before a real incident.
+
 ## 2 Methodology
 
 - **Framework**: STRIDE — Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege.
@@ -63,6 +75,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D**oS | Misbehaving SDK floods collector | Rate-limiting per service; cardinality budget | [Chapter 23. Capacity and Scale Model -> Section 23.8 Cardinality Budget](23-capacity-and-scale-model.md#238-cardinality-budget), NFR-CAP-01 | L |
 | **E**oP | SDK exploited to gain platform credentials | SDKs hold no platform creds; mTLS workload identity only | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 
+**Net effect:** service teams must use approved SDK/agent configuration, preserve required resource attributes, and validate PII redaction before telemetry leaves the service boundary.
+
 ### 4.2 C2 — OpenTelemetry Collector (Gateway)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
@@ -73,6 +87,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **I** | Tenant-mixing in multi-tenant collector | Tenant attribution processor; isolation testing | [Chapter 27. Multi-Tenant and Customer-Site Deployment Model](27-multi-tenant-and-customer-site-deployment-model.md), NFR-MUL-01 | M |
 | **D** | Volumetric DoS at ingress | Network ACL; per-tenant rate-limit; backpressure | [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md), NFR-CAP-02 | M |
 | **E** | Collector exploit → backend write access | Least-privilege per backend; network segmentation | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
+
+**Net effect:** platform teams must treat Collectors as security boundaries: authenticate inputs, enforce tenant labels, rate-limit traffic, and keep Collector config in Git.
 
 ### 4.3 C3 / C4 / C5 — Backends (Prometheus, Loki, Tempo)
 
@@ -85,6 +101,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Query-of-death exhausts backend | Query limits; per-user concurrency caps | NFR-PRF-01 | M |
 | **E** | Backend compromise → lateral move | Backends in segmented subnet; no outbound except whitelisted | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
 
+**Net effect:** backend operators must enforce mTLS, immutable audit logs, tenant-aware query controls, and query/concurrency limits.
+
 ### 4.4 C6 — Grafana (Visualisation and Alerting)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
@@ -95,6 +113,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **I** | Dashboard exposes PII to wrong audience | Data-source RBAC; dashboard tag-based ACL | NFR-SEC-03 | M |
 | **D** | Renderer overload via malicious dashboard | Render timeouts; rate-limits per user | NFR-PRF-01 | L |
 | **E** | Editor escalates to Admin via API misuse | Least-privilege roles; admin actions require step-up auth | [Chapter 24. Observability Platform Security Architecture](24-observability-platform-security-architecture.md) | L |
+
+**Net effect:** Grafana owners must keep SSO/MFA, least-privilege roles, dashboard ACLs, and Git-provisioned dashboards in place.
 
 ### 4.5 C7 — AIOps Layer (Anomaly / RCA / LLM)
 
@@ -107,6 +127,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | AI runaway loop drives cost spike | Inference budget per service; circuit breaker | [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md), [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) | M |
 | **E** | AI tool gains write access beyond ticket creation | Human-out-of-loop disabled by default; explicit approval for write actions | [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) | M |
 
+**Net effect:** AIOps owners must keep AI advisory by default, redact prompts, record model provenance, and require approval for any write-capable action.
+
 ### 4.6 C8 — IaC Pipeline (Git → Deployment)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
@@ -118,6 +140,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **D** | Pipeline saturated by junk PRs | Concurrency caps; abuse detection | — | L |
 | **E** | Compromised runner → prod access | Ephemeral runners; OIDC short-lived creds | [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) | M |
 
+**Net effect:** platform teams must use signed commits, pinned runner images, short-lived credentials, and immutable deployment logs.
+
 ### 4.7 C9 — Archive Store (Long-Term)
 
 | Threat | Description | Primary Mitigation | Reference | Residual |
@@ -128,6 +152,8 @@ Legend: **L** = Low, **M** = Medium, **H** = High residual risk after mitigation
 | **I** | Archive object exfiltrated | At-rest encryption with CMK; egress alerts | [Chapter 29. Observability Long-Term Archival Policy -> Section 29.5.4 Encryption](29-observability-long-term-archival-policy.md#2954-encryption) | M |
 | **D** | Restore-storm exhausts retrieval quota | Per-tenant restore quotas; tiered retrieval | [Chapter 29. Observability Long-Term Archival Policy -> Section 29.12 Cost Model](29-observability-long-term-archival-policy.md#2912-cost-model) | L |
 | **E** | Erasure abused to destroy evidence | Legal-hold gate blocks erasure; DPO approval required | [Chapter 29. Observability Long-Term Archival Policy -> Section 29.9 Legal Hold](29-observability-long-term-archival-policy.md#299-legal-hold) | L |
+
+**Net effect:** archive owners must ensure only the archive worker writes evidence, every restore is approved and logged, and legal hold blocks destructive actions.
 
 ## 5 Residual Risk Summary
 
