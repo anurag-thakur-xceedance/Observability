@@ -278,6 +278,8 @@ Detailed control catalogue in [Chapter 24. Observability Platform Security Archi
 - Recording rules in Prometheus / Mimir track per-service active-series count.
 
 ## 3.8 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards consumed by this architecture.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana platform standards and dashboard playbook.
 - [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment and automation standard.

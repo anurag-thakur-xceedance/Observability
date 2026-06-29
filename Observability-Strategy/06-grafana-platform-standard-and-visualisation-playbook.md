@@ -296,6 +296,8 @@ A scheduled job exports the live Grafana state and `diff`s it against the reposi
 Drift > 7 days is a finding under **OBS-C-02**.
 
 ## 6.10 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards and thresholds.
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — Grafana's role in the reference architecture.
 - [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.

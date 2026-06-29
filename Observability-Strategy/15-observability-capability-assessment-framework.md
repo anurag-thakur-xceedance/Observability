@@ -30,14 +30,14 @@ Assesses observability maturity against the phase plan in [Chapter 14. Observabi
 
 ## 15.2 Maturity Phase Scorecard
 
-| Metric | Phase 1 Target | Phase 2 Target | Phase 3 Target |
-|---|---|---|---|
-| Mean Time to Detect (MTTD) | < 15 minutes | < 5 minutes | < 1 minute |
-| Mean Time to Resolution (MTTR) | <= 4 hours | <= 30 minutes | <= 15 minutes |
-| Services Instrumented | 20% | 70% | 100% |
-| Alert Noise Ratio | > 35% non-actionable | <= 20% non-actionable | <= 10% non-actionable |
-| Manual RCA Required | 100% | 50% | < 20% |
-| Automated Ticket Creation | 0% | 50% | > 90% |
+| Metric | Phase 1 Target | Phase 2 Target | Phase 3 Target | Owner | Source |
+|---|---|---|---|---|---|
+| Mean Time to Detect (MTTD) | < 15 minutes | < 5 minutes | < 1 minute | SRE / Platform | Incident system + observability dashboards |
+| Mean Time to Resolution (MTTR) | <= 4 hours | <= 30 minutes | <= 15 minutes | SRE / Platform | Incident system + observability dashboards |
+| Services Instrumented | 20% | 70% | 100% | Platform / Service Owners | Service catalogue + telemetry conformance scans |
+| Alert Noise Ratio | > 35% non-actionable | <= 20% non-actionable | <= 10% non-actionable | SRE / On-Call Teams | Alerting system + on-call feedback |
+| Manual RCA Required | 100% | 50% | < 20% | SRE / Service Owners | PIR records |
+| Automated Ticket Creation | 0% | 50% | > 90% | SRE / Ops | Incident system + automation pipeline |
 
 ## 15.3 Assessment Dimensions
 1. **Coverage** — % of services emitting standardised telemetry.
@@ -78,6 +78,8 @@ Overall, "Commercial Lines" is assessed as **Phase 2** with a note that Coverage
 - Inputs to [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) plan adjustments, highlighting which dimensions are blocking progression to the next phase.
 
 ## 15.7 Cross-References
+
+See also:
 - [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI source.
 - [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — phase plan being assessed.
 - [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance body that ratifies phase gates.

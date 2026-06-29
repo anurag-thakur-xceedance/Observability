@@ -201,6 +201,8 @@ DR runbook per customer site is templated and parameterised in [Chapter 8. IaC f
 | Tenant-scoped dashboard reviewed with customer | Customer Operations + Customer |
 
 ## 27.10 Cross-References
+
+See also:
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — base topology.
 - [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — required tenant attributes on telemetry.
 - [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md) — `tenant_class`, `tenant_id` namespace.

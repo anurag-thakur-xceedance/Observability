@@ -127,6 +127,8 @@ Front-end applications (web and mobile) MUST emit RUM telemetry aligned to [Chap
 - Conformance evidence is part of release readiness.
 
 ## 18.9 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — enterprise standards umbrella.
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline and backend that consume this telemetry.
 - [Chapter 4. Domain Observability Runbooks Pack -> Section 4.3 Application Observability Runbook (Pre-Login & Post-Login Execution Steps)](04-domain-observability-runbooks-pack.md#43-application-observability-runbook-pre-login-post-login-execution-steps) — operational runbook applying this telemetry.

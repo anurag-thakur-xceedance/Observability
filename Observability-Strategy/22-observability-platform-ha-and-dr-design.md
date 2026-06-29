@@ -145,6 +145,8 @@ A separate, deliberately small Prometheus + Alertmanager pair runs on a differen
 | Cold-backup spin-up (Pattern B) | Annually | Stack reachable ≤ 4 h |
 
 ## 22.9 Cross-References
+
+See also:
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — base architecture.
 - [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment provisioning and automation.
 - [Chapter 23. Capacity and Scale Model](23-capacity-and-scale-model.md) — when to migrate from Compose to distributed.

@@ -30,32 +30,32 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 
 ## 12.2 Core Outcome KPIs
 
-| Objective | KPI / Metric | Type | Target / Range | Success Criteria | Source |
-|---|---|---|---|---|---|
-| Reduce Downtime | Mean Time to Resolution (MTTR) | Operational | Reduce average MTTR by 50% in 6 months (e.g. 180 → 90 min) | Sustained lower MTTR; > 80% incidents resolved without escalation | Incident system (e.g. Jira/ServiceNow) + Grafana MTTR dashboard |
-| Operational Efficiency | Cross-Team Incident Resolution Rate | Collaboration / Efficiency | ≥ 70% cross-team resolution within 6 months | Seamless team coordination; fewer war-room sessions | Incident system (linked services/teams per incident) |
-| Operational Efficiency | # Tools Consolidated | Efficiency | Reduce tool count 30–40% in 12 months | Lower spend and operational overhead on non-standard tools | CMDB / tooling inventory + FinOps cost reports |
-| Customer Impact / Reliability | System Availability (Uptime) | Service Reliability | Uptime ≥ 99.9% | Reduced user-impact incidents; improved end-user experience | SLO tooling / Grafana SLO dashboards |
-| Customer Impact / Reliability | Performance Incident Lead Time | Service Reliability | Anomalies → incidents in < 5 minutes | Faster detection of user-impacting issues | AIOps detection logs + incident timestamps |
-| Cost Optimisation | Monthly Tooling & Integration Spend | Financial | Reduce tooling cost 20–25% in 12 months | Consolidated systems, lower cost without visibility loss | Cloud billing / vendor invoices + FinOps reports |
-| Cost Optimisation | Tool Coverage Rate | Operational | Coverage > 90% for unified stack | Majority of services on standard stack | CMDB / service catalogue + observability config repo |
-| Application Reliability | Error Rate | Technical Quality | Error rate < 1% per 1,000 requests | Fewer user-visible errors | Application metrics (Prometheus/Grafana) |
-| Application Reliability | Deployment Success Rate | Technical Quality | Deployment success > 95% | Fewer rollbacks; stable production | CI/CD pipeline metrics |
-| Engineering Productivity | Time on Feature vs. Issue Rectification | Productivity / Innovation | ≥ 70% engineering time on new features | Higher value output; sustained reduction in reactive work | Time-tracking / work-item system (e.g. Jira) |
-| Engineering Productivity | Feature Delivery Velocity | Productivity / Innovation | +15–20% delivery velocity in 9 months | Increased feature throughput | Work-item system (completed features per period) |
-| Data Standardization | % systems emitting consistent telemetry | Data Integrity | 100% of critical services on OpenTelemetry | Unified single pane of glass | Schema-conformance scans + service catalogue |
+| Metric | Target / Range | Owner | Source | Objective | Type | Success Criteria |
+|---|---|---|---|---|---|---|
+| Mean Time to Resolution (MTTR) | Reduce average MTTR by 50% in 6 months (e.g. 180 → 90 min) | Platform / SRE | Incident system (e.g. Jira/ServiceNow) + Grafana MTTR dashboard | Reduce Downtime | Operational | Sustained lower MTTR; > 80% incidents resolved without escalation |
+| Cross-Team Incident Resolution Rate | ≥ 70% cross-team resolution within 6 months | SRE / Service Owners | Incident system (linked services/teams per incident) | Operational Efficiency | Collaboration / Efficiency | Seamless team coordination; fewer war-room sessions |
+| Number of Tools Consolidated | Reduce tool count 30–40% in 12 months | FinOps / Platform | CMDB / tooling inventory + FinOps cost reports | Operational Efficiency | Efficiency | Lower spend and operational overhead on non-standard tools |
+| System Availability (Uptime) | Uptime ≥ 99.9% | Service Owners / SRE | SLO tooling / Grafana SLO dashboards | Customer Impact / Reliability | Service Reliability | Reduced user-impact incidents; improved end-user experience |
+| Performance Incident Lead Time | Anomalies → incidents in < 5 minutes | SRE / AIOps Lead | AIOps detection logs + incident timestamps | Customer Impact / Reliability | Service Reliability | Faster detection of user-impacting issues |
+| Monthly Tooling & Integration Spend | Reduce tooling cost 20–25% in 12 months | FinOps | Cloud billing / vendor invoices + FinOps reports | Cost Optimisation | Financial | Consolidated systems, lower cost without visibility loss |
+| Tool Coverage Rate | Coverage > 90% for unified stack | Platform / Service Owners | CMDB / service catalogue + observability config repo | Cost Optimisation | Operational | Majority of services on standard stack |
+| Application Error Rate | Error rate < 1% per 1,000 requests | Service Owners | Application metrics (Prometheus/Grafana) | Application Reliability | Technical Quality | Fewer user-visible errors |
+| Deployment Success Rate | Deployment success > 95% | Service Owners / Release Managers | CI/CD pipeline metrics | Application Reliability | Technical Quality | Fewer rollbacks; stable production |
+| Time on Feature vs Issue Rectification | ≥ 70% engineering time on new features | Engineering Leadership | Time-tracking / work-item system (e.g. Jira) | Engineering Productivity | Productivity / Innovation | Higher value output; sustained reduction in reactive work |
+| Feature Delivery Velocity | +15–20% delivery velocity in 9 months | Engineering Leadership | Work-item system (completed features per period) | Engineering Productivity | Productivity / Innovation | Increased feature throughput |
+| % Systems Emitting Consistent Telemetry | 100% of critical services on OpenTelemetry | Platform / Service Owners | Schema-conformance scans + service catalogue | Data Standardization | Data Integrity | Unified single pane of glass |
 
 ## 12.3 Resilience & Coverage KPIs
 
-| Objective | KPI / Metric | Type | Target | Success Criteria | Source |
-|---|---|---|---|---|---|
-| Business Continuity | Recovery Point Objective (RPO) | Data Protection | ≤ 15 min for critical systems | Minimal data loss during outages | DR drills / backup system reports |
-| Business Continuity | Recovery Time Objective (RTO) | Service Restoration | ≤ 60 min for Tier 1 services | Restoration within SLA | DR drills / incident records |
-| System Scalability | Resource Utilisation (CPU / mem / throughput) | Performance | ≤ 70–75% average utilisation | Stable performance under scaling | Infra metrics (Prometheus/Grafana) |
-| Alert Quality | Signal-to-Noise Ratio | Monitoring Quality | ≥ 80% actionable alerts | Reduced alert fatigue | Alerting system (Grafana Alerting / Alertmanager) + on-call feedback |
-| Root Cause Efficiency | % of Incidents with Root Cause Identified | Incident Mgmt | ≥ 90% | Continuous learning | Incident system PIR records |
-| Data Completeness | Telemetry Coverage % | Observability Accuracy | ≥ 95% services standardised | Full visibility across product/infra | Telemetry health dashboards + conformance scans |
-| Compliance & Auditability | Compliance Audit Pass Rate | Governance | 100% adherence | No audit failures or violations | Internal/external audit reports |
+| Metric | Target | Owner | Source | Objective | Type | Success Criteria |
+|---|---|---|---|---|---|---|
+| Recovery Point Objective (RPO) | ≤ 15 min for critical systems | SRE / DR Owner | DR drills / backup system reports | Business Continuity | Data Protection | Minimal data loss during outages |
+| Recovery Time Objective (RTO) | ≤ 60 min for Tier 1 services | SRE / DR Owner | DR drills / incident records | Business Continuity | Service Restoration | Restoration within SLA |
+| Resource Utilisation (CPU / mem / throughput) | ≤ 70–75% average utilisation | Platform / Infra Owners | Infra metrics (Prometheus/Grafana) | System Scalability | Performance | Stable performance under scaling |
+| Signal-to-Noise Ratio | ≥ 80% actionable alerts | SRE / On-Call Teams | Alerting system (Grafana Alerting / Alertmanager) + on-call feedback | Alert Quality | Monitoring Quality | Reduced alert fatigue |
+| % of Incidents with Root Cause Identified | ≥ 90% | Incident Owners / SRE | Incident system PIR records | Root Cause Efficiency | Incident Mgmt | Continuous learning |
+| Telemetry Coverage % | ≥ 95% services standardised | Platform / Service Owners | Telemetry health dashboards + conformance scans | Data Completeness | Observability Accuracy | Full visibility across product/infra |
+| Compliance Audit Pass Rate | 100% adherence | Compliance / Governance | Internal/external audit reports | Compliance & Auditability | Governance | No audit failures or violations |
 
 ## 12.4 Governance Success KPIs (from Governance & Data Strategy)
 - 100% of production services emit telemetry that conforms to the approved schema.
@@ -74,14 +74,14 @@ The canonical place to track outcome KPIs for the observability strategy — rol
 
 ## 12.6 Maturity Phase Targets (from Capability Assessment / Roadmap)
 
-| Metric | Phase 1 Target | Phase 2 Target | Phase 3 Target |
-|---|---|---|---|
-| Mean Time to Detect (MTTD) | < 15 min | < 5 min | < 1 min |
-| Mean Time to Resolution (MTTR) | <= 4 h | <= 30 min | <= 15 min |
-| Services Instrumented | 20% | 70% | 100% |
-| Alert Noise Ratio | > 35% non-actionable | <= 20% non-actionable | <= 10% non-actionable |
-| Manual RCA Required | 100% | 50% | < 20% |
-| Automated Ticket Creation | 0% | 50% | > 90% |
+| Metric | Phase 1 Target | Phase 2 Target | Phase 3 Target | Owner | Source |
+|---|---|---|---|---|---|
+| Mean Time to Detect (MTTD) | < 15 min | < 5 min | < 1 min | SRE / Platform | Incident system + observability dashboards |
+| Mean Time to Resolution (MTTR) | <= 4 h | <= 30 min | <= 15 min | SRE / Platform | Incident system + observability dashboards |
+| Services Instrumented | 20% | 70% | 100% | Platform / Service Owners | Service catalogue + telemetry conformance scans |
+| Alert Noise Ratio | > 35% non-actionable | <= 20% non-actionable | <= 10% non-actionable | SRE / On-Call Teams | Alerting system + on-call feedback |
+| Manual RCA Required | 100% | 50% | < 20% | SRE / Service Owners | PIR records |
+| Automated Ticket Creation | 0% | 50% | > 90% | SRE / Ops | Incident system + automation pipeline |
 
 ### 12.6.1 Telemetry Data Quality SLIs
 
@@ -144,6 +144,8 @@ Section 7.1 SLIs appear on the **Platform Health** dashboard, viewable to all en
 - Incident-driven adjustments raised through [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md) (ADRs).
 
 ## 12.8 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance) — feeds Section 7.1.2 cardinality SLI.
 - [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — IaC platform KPIs roll-up.
 - [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) / [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) / [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — governance, FinOps, compliance KPIs feeding here.

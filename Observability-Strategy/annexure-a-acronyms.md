@@ -19,8 +19,13 @@ status: Draft
 | **Review Frequency** | Quarterly |
 | **First Review** | 1-Aug-2026 |
 | **Next Review Due** | 1-Nov-2026 |
-> Glossary of acronyms used across the Observability Artifact Pack.
-> Cross-reference: conceptual definitions in [Annexure B. Concepts Glossary](annexure-b-concepts-glossary.md).
+
+## 1.0 Reader Guide
+
+Use this annexure as a **quick lookup** for acronyms that appear across the Observability Artifact Pack.
+
+- For **full conceptual explanations**, see [Annexure B. Concepts Glossary](annexure-b-concepts-glossary.md).
+- For **where an acronym is operationalised**, follow the chapter links in the "Definition / Context" column.
 
 | Acronym | Expansion | Definition / Context |
 |---|---|---|

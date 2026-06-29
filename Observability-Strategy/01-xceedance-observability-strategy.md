@@ -20,20 +20,7 @@ status: Draft
 | **First Review** | 1-Aug-2026 |
 | **Next Review Due** | 1-Nov-2026 |
 
-## 1.1 Executive Summary
-The observability strategy transitions operations from reactive monitoring to proactive intelligence. A single-pane-of-glass view across logs, metrics, and traces gives the visibility needed across the estate, and supports deployment at customer sites, application observability, client-ecosystem integration, and Xceedance PaaS / SaaS hosting.
-
-**Key Objectives:**
-- Establish a single-pane-of-glass view across Xceedance-hosted capabilities.
-- Integrate generative (AI) capabilities within the observability stack.
-- Reduce downtime by improving MTTR through faster root-cause identification.
-- Remove data silos to foster cross-team collaboration and unified decision-making.
-- Detect and resolve performance bottlenecks before user experience is affected.
-- Consolidate fragmented tools into a single, scalable telemetry standard (OpenTelemetry).
-
-This strategy transforms observability from technical overhead into a competitive advantage — operations teams can track, scale, and remediate at production level, while engineering spends less time on level-3 firefighting and more on high-value features.
-
-### 1.1.1 Reader Guide for This Pack
+## 1.0 Reader Guide
 
 **Audience:**
 - **Technology leaders and architects** who need a coherent reference for how observability is designed and governed.
@@ -55,6 +42,19 @@ This strategy transforms observability from technical overhead into a competitiv
 > **Example.** In a customer-site deployment, traces may be collected and stored locally with only aggregated metrics exported back to Xceedance; in a cloud PaaS deployment, full traces and logs can flow into the central platform. In both cases, dashboards and SLOs work in a consistent way.
 >
 > Architectural treatment and detailed patterns are defined in [Chapter 3. Observability Reference Architecture -> Section 3.1 Architectural Principles](03-observability-reference-architecture.md#31-architectural-principles).
+
+## 1.1 Executive Summary
+The observability strategy transitions operations from reactive monitoring to proactive intelligence. A single-pane-of-glass view across logs, metrics, and traces gives the visibility needed across the estate, and supports deployment at customer sites, application observability, client-ecosystem integration, and Xceedance PaaS / SaaS hosting.
+
+**Key Objectives:**
+- Establish a single-pane-of-glass view across Xceedance-hosted capabilities.
+- Integrate generative (AI) capabilities within the observability stack.
+- Reduce downtime by improving MTTR through faster root-cause identification.
+- Remove data silos to foster cross-team collaboration and unified decision-making.
+- Detect and resolve performance bottlenecks before user experience is affected.
+- Consolidate fragmented tools into a single, scalable telemetry standard (OpenTelemetry).
+
+This strategy transforms observability from technical overhead into a competitive advantage — operations teams can track, scale, and remediate at production level, while engineering spends less time on level-3 firefighting and more on high-value features.
 
 ## 1.2 Vision, Mission, and Guiding Principles
 

@@ -108,6 +108,8 @@ After a few weeks of live data, calibrate thresholds so:
 - **Critical** ≈ conditions where user impact or SLA breach begins.
 
 ## 5.7 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — threshold definitions feeding alert rules.
 - [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks invoked by alerts.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana implementation of alerting.

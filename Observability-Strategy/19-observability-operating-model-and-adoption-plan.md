@@ -156,6 +156,8 @@ The headline indicators in Section 8 are operationalised below as **leading** (p
 - Explicit ARB sign-off recorded as an ADR.
 
 ## 19.8 Cross-References
+
+See also:
 - [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — productivity and adoption KPIs (sourced from Section 8.1).
 - [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md) — phase plan this adoption mirrors; phase-gate criteria in Section 8.1 feed roadmap gates.
 - [Chapter 15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) — cultural-adoption inputs to maturity scoring.

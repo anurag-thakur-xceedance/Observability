@@ -219,6 +219,8 @@ Every Normal+ change requires a post-change validation report within 48 hours:
 The post-change report is the auditable evidence under **OBS-C-02** ([Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md)).
 
 ## 8.8 Cross-References
+
+See also:
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — reference architecture deployed by this standard.
 - [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — deployment severity policy entry.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook -> Section 6.7.1 Dashboards-as-Code](06-grafana-platform-standard-and-visualisation-playbook.md#671-dashboards-as-code) — service-level dashboards-as-code workflow conforming to this standard.

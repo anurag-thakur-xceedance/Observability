@@ -145,6 +145,8 @@ The framework selection is reviewed annually. New frameworks may be added by ADR
 Coordinates with [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) for audit evidence and [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) for governance KPIs (retention adherence, audit pass rate).
 
 ## 16.8 Cross-References
+
+See also:
 - [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data governance policy enforced under this charter.
 - [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance evidence; framework mapping (Section 5.3) consumed there.
 - [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — governance success KPIs.

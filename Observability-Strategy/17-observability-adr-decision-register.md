@@ -72,26 +72,26 @@ Reviewers: <ARB / SRE Director / Security / etc.>
 Supersedes: <ADR-XXX or "—">
 Related: <ADR-XXX, Chapter N>
 
-## Context
+### 17.3.1 Context
 What is the problem? What is the current state? What constraints apply?
 What forces (technical, business, regulatory) are at play?
 
-## Options Considered
+### 17.3.2 Options Considered
 - Option A — description; pros; cons
 - Option B — description; pros; cons
 - Option C — description; pros; cons
 
-## Decision
+### 17.3.3 Decision
 Selected option and the rationale that distinguishes it.
 
-## Consequences
+### 17.3.4 Consequences
 - Positive: ...
 - Negative: ...
 - Follow-on actions:
   - <action> — owner — date
   - <action> — owner — date
 
-## Linked Artifacts
+### 17.3.5 Linked Artifacts
 - Chapter N. Title — section impacted
 - Service catalogue entries impacted
 - Runbook updates required
@@ -581,6 +581,8 @@ Selected option and the rationale that distinguishes it.
 ---
 
 ## 17.5 Cross-References
+
+See also:
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) / [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) / [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — architectural decisions implemented.
 - [Chapter 16. Observability Governance Charter and ARB Pack](16-observability-governance-charter-and-arb-pack.md) — governance body that ratifies ADRs.
 

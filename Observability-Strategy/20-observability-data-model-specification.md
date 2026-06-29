@@ -287,6 +287,8 @@ Each dead-letter record is annotated with `xc.dlq.reason`, `xc.dlq.schema_path`,
 - Synthetic conformance payloads (one valid + one negative per schema) live under `reference-implementations/conformance/` (P3 deliverable) and are exercised by CI.
 
 ## 20.10 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — naming and labelling standards.
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline storing this data.
 - [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — governance and classification.

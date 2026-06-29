@@ -312,6 +312,8 @@ flowchart LR
 After a few weeks of production data, narrow each range so **Warning ≈ 95th percentile of normal** and **Critical ≈ approaching SLA breach**.
 
 ## 4.9 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric definitions and threshold catalogue.
 - [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity policy and alert routing.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana dashboard structure.

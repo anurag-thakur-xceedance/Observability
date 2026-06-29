@@ -43,14 +43,14 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 
 ### 14.2.1 Phase 1 Targets
 
-| Metric | Phase 1 Target |
-|---|---|
-| Mean Time to Detect (MTTD) | < 15 min |
-| Mean Time to Resolution (MTTR) | ≤ 4 h |
-| Services Instrumented | 20% |
-| Alert Noise Ratio | > 35% non-actionable |
-| Manual RCA Required | 100% |
-| Automated Ticket Creation | 0% |
+| Metric | Phase 1 Target | Owner | Source |
+|---|---|---|---|
+| Mean Time to Detect (MTTD) | < 15 min | SRE / Platform | Incident system + observability dashboards |
+| Mean Time to Resolution (MTTR) | ≤ 4 h | SRE / Platform | Incident system + observability dashboards |
+| Services Instrumented | 20% | Platform / Service Owners | Service catalogue + telemetry conformance scans |
+| Alert Noise Ratio | > 35% non-actionable | SRE / On-Call Teams | Alerting system + on-call feedback |
+| Manual RCA Required | 100% | SRE / Service Owners | PIR records |
+| Automated Ticket Creation | 0% | SRE / Ops | Incident system + automation pipeline |
 
 **At the end of Phase 1, a team should be able to:** see when something breaks on core dashboards, inspect basic metrics and logs for critical services, and use a single observability stack for day-to-day operations.
 
@@ -70,14 +70,14 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 
 ### 14.3.1 Phase 2 Targets
 
-| Metric | Phase 2 Target |
-|---|---|
-| Mean Time to Detect (MTTD) | < 5 min |
-| Mean Time to Resolution (MTTR) | ≤ 30 min |
-| Services Instrumented | 70% |
-| Alert Noise Ratio | ≤ 20% non-actionable |
-| Manual RCA Required | 50% |
-| Automated Ticket Creation | 50% |
+| Metric | Phase 2 Target | Owner | Source |
+|---|---|---|---|
+| Mean Time to Detect (MTTD) | < 5 min | SRE / Platform | Incident system + observability dashboards |
+| Mean Time to Resolution (MTTR) | ≤ 30 min | SRE / Platform | Incident system + observability dashboards |
+| Services Instrumented | 70% | Platform / Service Owners | Service catalogue + telemetry conformance scans |
+| Alert Noise Ratio | ≤ 20% non-actionable | SRE / On-Call Teams | Alerting system + on-call feedback |
+| Manual RCA Required | 50% | SRE / Service Owners | PIR records |
+| Automated Ticket Creation | 50% | SRE / Ops | Incident system + automation pipeline |
 
 **At the end of Phase 2, a team should be able to:** jump from an alert to correlated traces/logs/metrics, understand likely blast radius, and run with smart alerting that mostly surfaces actionable issues.
 
@@ -98,14 +98,14 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 
 ### 14.4.1 Phase 3 Targets
 
-| Metric | Phase 3 Target |
-|---|---|
-| Mean Time to Detect (MTTD) | < 1 min |
-| Mean Time to Resolution (MTTR) | ≤ 15 min |
-| Services Instrumented | 100% |
-| Alert Noise Ratio | ≤ 10% non-actionable |
-| Manual RCA Required | < 20% |
-| Automated Ticket Creation | > 90% |
+| Metric | Phase 3 Target | Owner | Source |
+|---|---|---|---|
+| Mean Time to Detect (MTTD) | < 1 min | SRE / Platform | Incident system + observability dashboards |
+| Mean Time to Resolution (MTTR) | ≤ 15 min | SRE / Platform | Incident system + observability dashboards |
+| Services Instrumented | 100% | Platform / Service Owners | Service catalogue + telemetry conformance scans |
+| Alert Noise Ratio | ≤ 10% non-actionable | SRE / On-Call Teams | Alerting system + on-call feedback |
+| Manual RCA Required | < 20% | SRE / Service Owners | PIR records |
+| Automated Ticket Creation | > 90% | SRE / Ops | Incident system + automation pipeline |
 
 **At the end of Phase 3, a team should be able to:** rely on AI-assisted detection and RCA for most incidents, have incident tickets pre-populated with rich context, and proactively act on forecasted capacity and reliability risks.
 
@@ -122,6 +122,8 @@ The maturity roadmap traces the journey from reactive monitoring to proactive, A
 - Cardinality / cost overruns mid-Phase 2 if [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md)/[Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) controls are not yet operational.
 
 ## 14.7 Cross-References
+
+See also:
 - [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — KPI scorecard with phase targets.
 - [Chapter 15. Observability Capability Assessment Framework](15-observability-capability-assessment-framework.md) — capability assessment framework.
 - [Chapter 7. AIOps Guardrails and Implementation Playbook](07-aiops-guardrails-and-implementation-playbook.md) / [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) / [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) / [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — dependent standards / policies.

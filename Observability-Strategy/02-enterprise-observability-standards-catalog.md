@@ -31,6 +31,15 @@ This chapter is the **reference catalogue** for telemetry standards. Read it in 
 ## 2.1 Scope and Intent
 The single source of truth for telemetry standards across Xceedance — what is measured, named, and labelled, and the thresholds for healthy / warning / critical states. All other artefacts (runbooks, alerting policy, dashboards, AIOps) reference this catalogue rather than redefining values locally.
 
+### 2.1.1 Normative Language
+
+Throughout this pack, **normative requirements** use the RFC 2119-style keywords **MUST**, **SHOULD**, and **MAY**:
+- **MUST** / **MUST NOT** — required for conformance; deviation requires an ADR and governance approval.
+- **SHOULD** / **SHOULD NOT** — strongly recommended; deviation only when justified and documented.
+- **MAY** — optional behaviour.
+
+Plain-language "must" in narrative text is descriptive; when a statement is intended to be binding it is written with **MUST**/**MUST NOT**.
+
 ## 2.2 The Five Pillars of Telemetry
 Telemetry is standardised so that systems generate consistent information, enabling a holistic view of the stack.
 
@@ -342,6 +351,8 @@ Per-environment defaults align SLO visibility with FinOps constraints (see [Chap
 Deviation from these defaults (for example, 100% tracing in prod or extended hot retention) requires ARB review and an ADR entry, as it has direct cost and risk implications.
 
 ## 2.16 Cross-References
+
+See also:
 - [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md): How these standards are operationally applied (runbooks).
 - [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md): How thresholds map to severities and actions.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md): How standards render in Grafana dashboards.

@@ -187,6 +187,8 @@ To mitigate **GOV-R-10** (single-point-of-knowledge), every Day-2 procedure has:
 - Quarterly rotation through the procedure during normal operation (not only during incident).
 
 ## 9.10 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) / [Chapter 20. Observability Data Model Specification](20-observability-data-model-specification.md) — telemetry standards and data model the policy enforces.
 - [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — runbooks for Section 9.9 Day-2 procedures.
 - [Chapter 8. IaC for Observability Standard -> Section 8.7.1 Change Management](08-iac-for-observability-standard.md#871-change-management) — change workflow used for Section 9.9 retention changes.

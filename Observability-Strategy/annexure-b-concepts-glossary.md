@@ -19,7 +19,13 @@ status: Draft
 | **Review Frequency** | Quarterly |
 | **First Review** | 1-Aug-2026 |
 | **Next Review Due** | 1-Nov-2026 |
-> Conceptual glossary (as opposed to acronym expansions in [Annexure A](annexure-a-acronyms.md)). Defines the terms and mental models used across the Observability Artifact Pack.
+
+## 1.0 Reader Guide
+
+Use this annexure to understand the **concepts and mental models** that recur across the Observability Artifact Pack.
+
+- Use [Annexure A. Acronyms & Definitions](annexure-a-acronyms.md) when you only need acronym expansion.
+- Use the "Where it is used" column to jump to chapters that apply each concept.
 
 | Term | Definition | Where it is used |
 |---|---|---|

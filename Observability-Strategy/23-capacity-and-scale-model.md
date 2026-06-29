@@ -517,6 +517,8 @@ Cardinality is a budget. Per-service quotas:
 Enforcement is described in [Chapter 2. Enterprise Observability Standards Catalogue -> Section 2.3.4 Cardinality Governance](02-enterprise-observability-standards-catalog.md#234-cardinality-governance).
 
 ## 23.9 Cross-References
+
+See also:
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md)
 - [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment configurations sized to these reference deployments.
 - [Chapter 10. Observability FinOps Standard](10-observability-finops-standard.md) — cost modelling and unit economics.

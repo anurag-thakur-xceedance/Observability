@@ -33,6 +33,8 @@ Without a formal SLO methodology, "reliability targets" are aspirational. With i
 4. Burn-rate alerts that page only when the error budget is being consumed at an unsustainable rate.
 5. A policy that turns budget exhaustion into action (freeze, escalate, prioritise reliability work).
 
+### 25.1.1 Worked Example — Login API
+
 **Worked example (keep this in mind while reading).**
 - **Service:** Login API
 - **SLI:** successful login requests / total valid login requests
@@ -92,7 +94,8 @@ Additional SLIs (e.g. durability, coverage) may be added where they materially a
 Error Budget = (1 - SLO) × total_events_in_window
 ```
 
-Examples:
+### 25.4.1 Examples
+
 - T1 service, 10M requests / 30d, SLO 99.9% → budget = 10,000 errors per window.
 - T1 service latency SLO 99% under 800 ms → at 10M requests, 100,000 slow requests is the budget.
 
@@ -192,19 +195,22 @@ Exception process: written waiver from Director SRE + Service Owner with a state
 ADR-008 (proposed): "Adopt Sloth as SLO-rule generator."
 
 ## 25.9 Alert Quality Scorecard (per service)
-| Metric | Target |
-|---|---|
-| Pages per week | ≤ 5 |
-| Alert acknowledged ≤ 5 min | ≥ 90% |
-| Alerts auto-resolved without action | < 10% |
-| Mean time-to-silence | ≤ 2 min |
-| % alerts mapped to runbook | 100% |
-| % alerts whose threshold was changed in last 90d | tracks alert-tuning hygiene |
-| False-positive rate | < 5% |
+
+| Metric | Target | Owner | Source |
+|---|---|---|---|
+| Pages per week | ≤ 5 | SRE / On-Call Teams | Paging/incident system |
+| Alert acknowledged ≤ 5 min | ≥ 90% | SRE / On-Call Teams | Alerting system + on-call feedback |
+| Alerts auto-resolved without action | < 10% | SRE / Service Owners | Alerting system |
+| Mean time-to-silence | ≤ 2 min | SRE / On-Call Teams | Alerting system |
+| % alerts mapped to runbook | 100% | SRE / Service Owners | Runbook catalogue + alert config |
+| % alerts whose threshold was changed in last 90d | tracks alert-tuning hygiene | SRE / Service Owners | Alert config history |
+| False-positive rate | < 5% | SRE / On-Call Teams | On-call feedback + incident correlation |
 
 This rolls up to the alerting KPIs in [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md).
 
 ## 25.10 Cross-References
+
+See also:
 - [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity model that burn-rate alerts plug into.
 - [Chapter 12. Observability KPI Scorecard](12-observability-kpi-scorecard.md) — outcome KPIs derived from SLO posture.
 - [Chapter 13. Incident Response Playbook (Telemetry to Resolution)](13-incident-response-playbook.md) — what happens when a burn alert fires.

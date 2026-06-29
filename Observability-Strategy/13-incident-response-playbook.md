@@ -174,6 +174,8 @@ Each PIR explicitly identifies whether updates are required to any of the follow
 Where the corrective action is systemic (affects multiple services or platform-wide behaviour), the PIR nominates an ADR in [Chapter 17. Observability ADR Decision Register](17-observability-adr-decision-register.md) and, if needed, a roadmap item in [Chapter 14. Observability Roadmap Delivery Plan](14-observability-roadmap-delivery-plan.md).
 
 ## 13.8 Cross-References
+
+See also:
 - [Chapter 4. Domain Observability Runbooks Pack](04-domain-observability-runbooks-pack.md) — domain runbooks.
 - [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — severity policy & routing.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana correlation tooling.

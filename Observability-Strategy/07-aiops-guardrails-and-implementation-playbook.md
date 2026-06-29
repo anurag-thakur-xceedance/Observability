@@ -144,37 +144,37 @@ Every model in production has a model card stored alongside its IaC. Minimum sec
 ```markdown
 # Model Card: <model-name>
 
-## Intent
+### 7.7.3.1 Intent
 - Decision the model supports.
 - SLI / KPI it influences.
 - Cost of false positive / false negative (qualitative + quantitative if known).
 
-## Data
+### 7.7.3.2 Data
 - Training window (start, end, total volume).
 - Feature list with provenance and PII status.
 - Data exclusions (e.g. incident days excluded from baseline).
 
-## Training
+### 7.7.3.3 Training
 - Algorithm and library version.
 - Hyperparameters.
 - Reproducibility hash (training data + code + config).
 
-## Evaluation
+### 7.7.3.4 Evaluation
 - Holdout precision, recall, F1, FP rate.
 - Confusion matrix.
 - Bias / fairness review summary (if model affects routing or prioritisation).
 - Known failure modes.
 
-## Operating Range
+### 7.7.3.5 Operating Range
 - Input ranges where the model is valid.
 - Conditions under which the model must NOT be used (e.g. cold-start < 24h).
 
-## Monitoring
+### 7.7.3.6 Monitoring
 - Live precision/recall measurement method.
 - Drift triggers and thresholds.
 - Kill-switch mechanism and owner.
 
-## Approvals
+### 7.7.3.7 Approvals
 - ADR ID.
 - ARB approval date.
 - Reviewers.
@@ -252,7 +252,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
 ```markdown
 # Model Card: latency-anomaly-detector-v1
 
-## Intent
+### 7.9.1.1 Intent
 - Decision the model supports: flag a service's P95 HTTP latency as anomalous so
   on-call can investigate before SLO burn-rate alerts fire.
 - SLI / KPI it influences: contributes to MTTD (Mean Time To Detect) on the
@@ -261,7 +261,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
 - Cost of false negative: SLO burn-rate alert still fires; we lose the ~5-minute
   head-start but do not miss the incident. Acceptable, bounded.
 
-## Data
+### 7.9.1.2 Data
 - Training window: 2025-08-01 to 2025-10-31 (90 days), rolling 7-day re-baseline.
 - Total volume: ~2.1 billion HTTP request samples (15-second scrape interval,
   150 services, ~10 endpoints/service avg).
@@ -280,7 +280,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
   - 2025-09-20 to 2025-09-22 (Black-Friday load test in non-prod, contaminates baseline)
   - Synthetic-probe traffic excluded by label `synthetic="true"`.
 
-## Training
+### 7.9.1.3 Training
 - Algorithm: Seasonal-Trend decomposition using Loess (STL) for baseline + 
   Z-score residual for anomaly score.
 - Library: statsmodels 0.14.1; Python 3.11.7.
@@ -295,7 +295,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
   - config: sha256:f1e2d3c4...9a8b
 - Training compute: 4 vCPU / 16 GB RAM / 25 minutes on commodity VM.
 
-## Evaluation
+### 7.9.1.4 Evaluation
 - Holdout window: 2025-11-01 to 2025-11-30 (30 days, unseen during training).
 - Ground truth: operator-confirmed incidents from the Jira incident log,
   augmented with synthetic-injected latency anomalies (1,200 injections).
@@ -319,7 +319,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
     from 500ms to 800ms target) triggers a multi-hour false-positive run until
     re-baseline. Mitigated by operator-initiated baseline reset on planned change.
 
-## Operating Range
+### 7.9.1.5 Operating Range
 - Valid for: HTTP services with >= 100 requests/min sustained.
 - Must NOT be used for:
   - Services with < 24 hours of telemetry (cold start)
@@ -328,7 +328,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
   - Services with deliberately bimodal latency (e.g. fast-path vs slow-path
     by design) — separate model required.
 
-## Monitoring
+### 7.9.1.6 Monitoring
 - Live precision/recall measurement: operator feedback collected via the
   alert-acknowledge UI ("was this a real anomaly? yes/no"). Computed weekly.
 - Drift triggers and thresholds:
@@ -339,7 +339,7 @@ The reference anomaly detector for HTTP request latency. Used as the canonical e
   config repo; toggling off stops the detector from firing within 60 seconds.
   Owner: Platform Ops. Tested 2025-11-12.
 
-## Approvals
+### 7.9.1.7 Approvals
 - ADR ID: ADR-009 (in Chapter 16)
 - ARB approval date: 2025-12-08
 - Reviewers: AIOps Lead, SRE Lead, Platform Lead, Security Architect
@@ -740,6 +740,8 @@ The following KPIs apply to the LLM stack and are reported on the scorecard in C
 These KPIs are also referenced by NFR-PRV-01 (PII redaction verification), NFR-SEC-03 (cross-tenant boundary enforcement), and the AI safety KPIs in Section 9.5.
 
 ## 7.10 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — metric standards aligned with AI baseline calculations.
 - [Chapter 5. Alerting and Incident Severity Policy](05-alerting-and-incident-severity-policy.md) — enterprise severity policy.
 - [Chapter 6. Grafana Platform Standard and Visualisation Playbook](06-grafana-platform-standard-and-visualisation-playbook.md) — Grafana visualisation of AI overlays.

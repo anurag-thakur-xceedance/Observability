@@ -315,6 +315,9 @@ The model's largest risk is **deferring the optimisation cadence**: a single ski
 The reconciliation surfaces the **Mimir migration trigger** earlier than calendar-driven planning would, justifying the FinOps + Capacity joint review cadence specified in Section 7.3.1.
 
 ## 10.7 Worked Example — Service Cost Breakdown
+
+### 10.7.1 Scenario
+
 This example shows how to turn a monthly cloud bill into per-service unit costs.
 
 **Assumptions (Month X):**
@@ -327,14 +330,14 @@ This example shows how to turn a monthly cloud bill into per-service unit costs.
   - Shared Collector/observability compute: **$200**
   - Egress for observability: **$40**
 
-**Step 1 — Map bill lines to signals.**
+### 10.7.2 Step 1 — Map Bill Lines to Signals
 - Allocate shared compute and egress to signals based on ingest volume share (for example: metrics 50%, logs 30%, traces 20%).
 - Resulting per-signal monthly costs:
   - **Metrics (C_metrics)** = $900 + 50% of shared compute ($100) + 50% of egress ($20) = **$1,020**
   - **Logs (C_logs)** = $600 + 30% of shared compute ($60) + 30% of egress ($12) = **$672**
   - **Traces (C_traces)** = $250 + 20% of shared compute ($40) + 20% of egress ($8) = **$298**
 
-**Step 2 — Attribute costs to Service A.**
+### 10.7.3 Step 2 — Attribute Costs to Service A
 - Suppose Service A accounts for:
   - 20% of active metric series,
   - 25% of log volume,
@@ -345,7 +348,7 @@ This example shows how to turn a monthly cloud bill into per-service unit costs.
   - Traces: 15% × $298 = **$44.70**
 - **Total for Service A** ≈ **$416.70** for Month X.
 
-**Step 3 — Compute unit costs for Service A.**
+### 10.7.4 Step 3 — Compute Unit Costs for Service A
 - Metrics unit cost:
   - $/active series/month = $204 ÷ 10,000,000 = **$0.0000204**
 - Logs unit cost (assuming 300 GB for Service A):
@@ -359,6 +362,8 @@ These values can be compared against the indicative benchmarks in Section 10.6.4
 Retention rules are configured in storage backends (Prometheus, Loki, Tempo, object storage). Deletion and compaction jobs are monitored to enforce policy and regulations (e.g. GDPR-aligned deletion timelines). See [Chapter 9. Observability Data Governance and Retention Policy -> Section 9.7 Deletion and Retention Enforcement](09-observability-data-governance-and-retention-policy.md#97-deletion-and-retention-enforcement), [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md).
 
 ## 10.9 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — cardinality budgets and tier model that drive cost (Section 7.1, Section 7.2).
 - [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — retention policy this standard implements cost-side.
 - [Chapter 11. Compliance and Audit Control Matrix](11-compliance-and-audit-control-matrix.md) — compliance constraints on what can be deleted / archived.

@@ -184,6 +184,8 @@ Each kit is a Git template + README in the service-templates monorepo. The kit p
 | % PRRs passing first review | ≥ 70% |
 
 ## 26.7 Cross-References
+
+See also:
 - [Chapter 2. Enterprise Observability Standards Catalogue](02-enterprise-observability-standards-catalog.md) — telemetry standards the kits implement.
 - [Chapter 18. Application Telemetry Standard](18-application-telemetry-standard.md) — pre/post-login standards.
 - [Chapter 19. Observability Operating Model and Adoption Plan](19-observability-operating-model-and-adoption-plan.md) — adoption governance.

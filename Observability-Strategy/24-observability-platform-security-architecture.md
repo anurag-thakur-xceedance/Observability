@@ -22,7 +22,7 @@ status: Draft
 
 ---
 
-## Reader Guide
+## 24.0 Reader Guide
 
 The security posture can be summarised as seven plain-language rules:
 
@@ -206,6 +206,8 @@ Deployment definitions reference secrets through approved runtime or automation 
 - **Host baseline.** Minimal base OS, automated patching, host-based IDS.
 
 ## 24.10 Cross-References
+
+See also:
 - [Chapter 3. Observability Reference Architecture](03-observability-reference-architecture.md) — pipeline detail.
 - [Chapter 8. IaC for Observability Standard](08-iac-for-observability-standard.md) — deployment hardening configs.
 - [Chapter 9. Observability Data Governance and Retention Policy](09-observability-data-governance-and-retention-policy.md) — data classification.
